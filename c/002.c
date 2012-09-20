@@ -1,5 +1,7 @@
 #include <stdio.h>
-#include "stdlib.h"
+#include <stdlib.h>
+
+int fib(int, int *);
 
 int main(int argc, char **argv)
 {
@@ -12,22 +14,29 @@ int main(int argc, char **argv)
 
   int total = 0;
   int i = 0;
-  int fibi = fib(i);
+  int *vector = (int *) malloc(i);
+  int fibi = fib(i, vector);
   while (fibi < max)
   {
     if (!(fibi % 2))
       total += fibi;
     i++;
-    fibi = fib(i);
+    fibi = fib(i, vector);
   }
   printf("MAX is %d and TOTAL is %d\n", max, total);
+  free(vector);
   exit(0);
 }
 
-int fib(int num)
+int fib(int num, int *vector)
 {
-  if (num < 2)
-    return num;
+/* assumes that it is called in a loop with num starting at 0 */
+  vector = realloc(vector, (num + 1) * sizeof(int));
 
-  return (fib(num - 2) + fib(num - 1));
+  if (num < 2)
+    *(vector+num) = num;
+  else
+    *(vector+num) = *(vector+num-2) + *(vector+num-1);
+
+  return *(vector+num);
 }

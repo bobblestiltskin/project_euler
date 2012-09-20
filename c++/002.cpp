@@ -1,7 +1,8 @@
 #include <iostream>
 #include <sstream>
+#include <vector>
 
-int fib(int);
+int fib(int, std::vector<int> &);
 
 int main(int argc, char **argv)
 {
@@ -16,22 +17,26 @@ int main(int argc, char **argv)
 
   int total = 0;
   int i = 0;
-  int fibi = fib(i);
+  std::vector<int> fib_vector; 
+  int fibi = fib(i, fib_vector);
   while (fibi < max)
   {
     if (!(fibi % 2))
       total += fibi;
     i++;
-    fibi = fib(i);
+    fibi = fib(i, fib_vector);
   }
   std::cout << "MAX is " << max <<  " and TOTAL is " << total << std::endl;
   return(0);
 }
 
-int fib(int num)
+int fib(int num, std::vector<int> &fib_vector)
 {
+/* assumes that it is called in a loop with num starting at 0 */
   if (num < 2)
-    return num;
+    fib_vector.push_back(num);
+  else
+    fib_vector.push_back(fib_vector[num - 2] + fib_vector[num - 1]);
 
-  return (fib(num - 2) + fib(num - 1));
+  return fib_vector[num];
 }
