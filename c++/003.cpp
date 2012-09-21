@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <cmath>
 
-int main(int argc, char **argv)
+int main()
 {
   uint64_t number = 600851475143;
 
