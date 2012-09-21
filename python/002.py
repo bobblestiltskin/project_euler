@@ -25,11 +25,11 @@ def main():
 def fib(n, vector):
   """ this computes the fibonacci number of the passed number """
   if n < 2:
-    vector.append(n);
+    vector.append(n)
   else:
-    vector.append(vector[n - 2] + vector[n - 1]);
+    vector.append(vector[n - 2] + vector[n - 1])
 
-  return vector[n];
+  return vector[n]
 
 if __name__ == "__main__":
     main()
