@@ -29,7 +29,7 @@ def main():
       if ((matched_3 == 0) and (divi > max_prime)):
         max_prime = divi
 
-  print "MAX PRIME divisor of ",number," is ",max_prime;
+  print "MAX PRIME divisor of",number,"is",max_prime;
 
   return 0
 
