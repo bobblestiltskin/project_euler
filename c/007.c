@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int primes[10002] = {2, 3};
+int numprimes = 2;
+
+int main(int argc, char **argv)
+{
+  if (argc != 2)
+  {
+    printf("Need 1 arg - the ordinal of the prime to find\n");
+    exit(1);
+  }
+  int primenum = atoi(argv[1]);
+
+  int i ;
+  int test = primes[numprimes - 1] + 2;
+  while (numprimes < primenum)
+  {
+    if (is_prime(test, numprimes, primes))
+      primes[numprimes++] = test;
+    test += 2;
+  }
+  printf("PRIME %d is %d\n", primenum, primes[numprimes-1]);    
+  exit(0);
+}
+
+int is_prime(int test, int numprimes, int *primes)
+{
+  int root = (int) sqrt(test);
+  int i;
+  for (i=0; i<numprimes; i++)
+  {
+    if (primes[i] > root)
+      return 1;
+    if (!(test % primes[i]))
+      return 0;
+  }
+  return 0;
+}
