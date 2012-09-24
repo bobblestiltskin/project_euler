@@ -1,10 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
 
-my $a=1;
-my $b=2;
-my $c=3;
-
 my $stop = 1000;
 for (my $a = 1; $a < $stop; $a++) {
   for (my $b = $a + 1; $b < $stop; $b++) {
