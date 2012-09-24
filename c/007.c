@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-int primes[10002] = {2, 3};
-int numprimes = 2;
-
 int main(int argc, char **argv)
 {
   if (argc != 2)
@@ -14,7 +11,9 @@ int main(int argc, char **argv)
   }
   int primenum = atoi(argv[1]);
 
-  int i ;
+  int primes[10002] = {2, 3};
+  int numprimes = 2;
+
   int test = primes[numprimes - 1] + 2;
   while (numprimes < primenum)
   {
