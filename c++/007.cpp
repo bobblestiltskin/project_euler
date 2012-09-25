@@ -3,7 +3,7 @@
 #include <sstream>
 #include <vector>
 
-int is_prime(int, std::vector<int> &);
+int is_prime(const int, const std::vector<int> &);
 
 int main(int argc, char **argv)
 {
@@ -32,11 +32,11 @@ int main(int argc, char **argv)
   return(0);
 }
 
-int is_prime(int test, std::vector<int> & primes)
+int is_prime(const int test, const std::vector<int> & primes)
 {
-  int root = (int) sqrt(test);
+  int root = static_cast<int>(sqrt(test));
 
-  for (std::vector<int>::iterator it = primes.begin(); it < primes.end(); it++)
+  for (std::vector<int>::const_iterator it = primes.begin(); it < primes.end(); it++)
   {
     if (*it > root)
       return 1;

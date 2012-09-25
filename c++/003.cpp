@@ -4,7 +4,7 @@
 
 int main()
 {
-  uint64_t number = 600851475143;
+  const uint64_t number = 600851475143;
 
   int max_prime = 0;
   int i;
