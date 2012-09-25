@@ -1,52 +1,54 @@
-#include <iostream>
-#include <cstdint>
-#include <sstream>
+// Copyright 2012 Bob Wilkinson <bob@fourtheye.org>
 
-const int MAX3 = 999;
-const int MIN3 = 100;
-const int MAXDIGITS = 6;
+// This is a solution for http://projecteuler.net/problem=4
+
+#include <cstdint>
+#include <cstdio>
+#include <string>
+#include <sstream>
 
 bool is_palindromic(const std::string &);
 
-int main()
-{
-  uint32_t maxp = 0;
+int main() {
+  int maxp = 0;
   std::string digits;
 
-  uint16_t mini = MIN3;
-  uint16_t minj = MIN3;
-  uint16_t i;
-  for (i = MAX3; i >= mini; i--)
-  {
-    uint16_t j;
-    for (j = MAX3; j >= minj; j--)
-    {
-      uint32_t product = i * j;
-      std::stringstream tmp;
+  const int MAX3 = 999;
+  const int MIN3 = 100;
+  const int MAXDIGITS = 6;
+
+  int mini = MIN3;
+  int minj = MIN3;
+  int i;
+  for (i = MAX3; i >= mini; i--) {
+    int j;
+    for (j = MAX3; j >= minj; j--) {
+      int product = i * j;
+      std::ostringstream tmp;
       tmp << product;
       digits = tmp.str();
-      if (is_palindromic(digits))
-      {
-        std::cout << "PALINDROME " << product << " of " << i << " * " << j << std::endl;
-        if (product > maxp)
-        {
+      if (is_palindromic(digits)) {
+        printf("PALINDROME %d of %d * %d\n", product, i, j);
+        if (product > maxp) {
           maxp = product;
           mini = minj = product / 1000; /* optimize */
         }
       }
     }
   }
-  std::cout << "MAXP is " << maxp << std::endl;
-  
+  printf("MAXP is %d\n", maxp);
+
   return 0;
 }
 
-bool is_palindromic(const std::string &digits)
-{
-  uint8_t i;
-  uint8_t len = digits.length();
+bool is_palindromic(const std::string &digits) {
+  int i;
+  int len = digits.length();
 
-  for (i=0;i<len;i++) /* only really need to test half of the string - if even and int(half)+1 if odd  - but more complexity */
+// only really need to test half of the string - if even
+// and int(half)+1 if odd  - but more complexity
+
+  for (i = 0; i < len; ++i)
     if (digits[i] != digits[len-(i+1)])
       return 0;
 
