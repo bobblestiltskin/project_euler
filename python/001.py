@@ -10,7 +10,7 @@ def main():
   print 'UPPER LIMIT is', args.limit
 
   total = 0
-  
+
   for i in range(0, args.limit):
     if (((i % 3) == 0) or ((i % 5) == 0)):
       total += i 
