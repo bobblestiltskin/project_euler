@@ -6,7 +6,7 @@ const int MAX3 = 999;
 const int MIN3 = 100;
 const int MAXDIGITS = 6;
 
-bool is_palindromic(std::string &);
+bool is_palindromic(const std::string &);
 
 int main()
 {
@@ -41,7 +41,7 @@ int main()
   return 0;
 }
 
-bool is_palindromic(std::string &digits)
+bool is_palindromic(const std::string &digits)
 {
   uint8_t i;
   uint8_t len = digits.length();
