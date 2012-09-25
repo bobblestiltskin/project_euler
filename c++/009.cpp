@@ -1,7 +1,10 @@
-#include <iostream>
+// Copyright 2012 Bob Wilkinson <bob@fourtheye.org>
 
-int main()
-{
+// This is a solution for http://projecteuler.net/problem=8
+
+#include <cstdio>
+
+int main() {
   int a, b, c;
   int stop = 1000;
   for (a = 1; a < stop; a++) {
@@ -9,7 +12,7 @@ int main()
       for (c = b + 1; c < stop; c++) {
         if ((a + b +c) == stop) {
           if ((a * a) + (b * b) == (c * c)) {
-            std::cout << "(" << a << ", " << b << ", " << c << ") -> " << a*b*c << std::endl;
+            printf("(%d, %d, %d) -> %d\n", a, b, c, a*b*c);
             return(0);
           }
         }
