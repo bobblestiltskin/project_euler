@@ -6,7 +6,7 @@
 #include <cmath>
 #include <sstream>
 
-int get_num_divisors(int);
+int get_num_divisors(const int);
 
 int main(int argc, char **argv) {
   if (argc != 2) {
@@ -16,14 +16,13 @@ int main(int argc, char **argv) {
   int last;
   std::stringstream ssout(argv[1]);
   ssout >> last;
-  last /= 2; // halve the value passed since we count up to the square root
-             // which will give us half of the divisors
+  last /= 2;  // halve the value passed since we count up to the square root
+              // which will give us half of the divisors
 
   int num = 0;
   int i = 0;
   int j = 1;
-  while (num < last)
-  {
+  while (num < last) {
     i = i + j;
     num = get_num_divisors(i);
     j++;
@@ -33,11 +32,11 @@ int main(int argc, char **argv) {
   return(0);
 }
 
-int get_num_divisors(int num)
-{
+int get_num_divisors(int num) {
   int counter = 0;
   int running = 1;
-  while (running <= sqrt(num)) { /* we get half the divisors before the square root */
+/* we get half the divisors before the square root */
+  while (running <= sqrt(num)) {
     if (!(num % running))
       counter++;
     running++;
