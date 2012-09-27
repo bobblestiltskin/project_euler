@@ -11,7 +11,7 @@ def main():
 
   total = 0
 
-  for i in range(0, args.limit):
+  for i in range(args.limit):
     if (((i % 3) == 0) or ((i % 5) == 0)):
       total += i 
 

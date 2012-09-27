@@ -26,7 +26,7 @@ def main():
 def is_palindromic(digits):
   slen = len(digits)
 
-  for i in range(0, slen):
+  for i in range(slen):
     if (digits[i] != digits[slen-(i+1)]):
       return 0
 

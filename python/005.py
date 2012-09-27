@@ -12,7 +12,7 @@ def main():
 # we initialise the result to the powers of 2 and 3 above 1
 
   result = 2 * 2 * 2 * 3
-  for i in range(0, len(primes)):
+  for i in range(len(primes)):
     result *= primes[i]
 
   print 'RESULT is',result
