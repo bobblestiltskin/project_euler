@@ -114,29 +114,29 @@ int main() {
   uint64_t result_num = 0;
   int j = 0;
   std::string string;
-  while (1)
-  {
+  while (1) {
     int tmp_result = 0;
     int i;
     for (std::vector<std::string>::const_iterator it = nums.begin();
          it < nums.end();
          it++)
-           tmp_result += (*it).at(j); 
+           tmp_result += (*it).at(j);
 // each character offset by 48
     result_num *= 10;
-    result_num += tmp_result - 4800; // 100 character offsets
+    result_num += tmp_result - 4800;  // 100 character offsets
     std::ostringstream tmp;
     tmp << result_num;
-    std::string tmp_string = tmp.str().substr(0,10); 
+    std::string tmp_string = tmp.str().substr(0, 10);
 // truncate number to first 10 characters
-    printf("J is %d and RESULT is %10lu and STRING is %s and TMP_STRING is %s\n", j, result_num, string.c_str(), tmp_string.c_str());
+    printf("J is %d and RES is %10lu and STRING is %s and TMP_STRING is %s\n",
+      j, result_num, string.c_str(), tmp_string.c_str());
     if (string != tmp_string)
       string = tmp_string;
     else
       break;
     j++;
-  } 
-  printf("RESULT is %s\n",string.c_str());
-  
+  }
+  printf("RESULT is %s\n", string.c_str());
+
   return 0;
 }
