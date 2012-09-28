@@ -1,9 +1,15 @@
 #!/usr/bin/perl -w
 use strict;
 
+# there is a pattern ..
+#
+# we can reflect about the diagonal and specify
+# the routes through the grid (all routes)
+#
 # O    
 # 
 # 01 11
+# so 2 routes
 # 
 # OO 
 # OO
@@ -11,6 +17,8 @@ use strict;
 # 01 02 12 22
 # 01 11 12 22
 # 01 11 21 22
+#
+# 6 routes as specified
 # 
 # OOO  
 # OOO 
@@ -27,10 +35,25 @@ use strict;
 # 01 11 21 22 23 33
 # 01 11 21 22 32 33
 # 
-# OOOO
-# OOOO
-# OOOO
-# OOOO
+# 20 routes
+
+# for i in 1 2 3 4 5 6 7 8
+# > do
+# > perl perl/015.pl $i
+# > done
+# COUNTER is 2 or 2*1
+# COUNTER is 6 or 2*3
+# COUNTER is 20 or 2*10
+# COUNTER is 70 or 2*35
+# COUNTER is 252 or 2*126
+# COUNTER is 924 or 2*462
+# COUNTER is 3432 or 2*1716
+# COUNTER is 12870 or 2*6435
+# 
+# and then we find that this is
+# described in 
+# http://en.wikipedia.org/wiki/Central_binomial_coefficient
+# which allows for the solution to be computed ...
 
 use Data::Dumper;
 #use Memoize;
@@ -43,7 +66,7 @@ my $a;
 my $key = "00,00";
 my $counter = 0;
 $a = add_child($a, $key, $max);
-#print Data::Dumper->Dump([$a]);
+print Data::Dumper->Dump([$a]);
 print "COUNTER is $counter or 2*",$counter>>1,"\n";
 
 sub add_child {

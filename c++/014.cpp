@@ -2,8 +2,8 @@
 
 // This is a solution for http://projecteuler.net/problem=14
 
-#include <cstdio>
 #include <cstdint>
+#include <cstdio>
 #include <sstream>
 
 uint64_t next_term(uint64_t);
