@@ -12,8 +12,6 @@ int main(int argc, char **argv)
 
 /* need to compute 2n!/((n!)*(n!)) */
 
-  int max2 = max << 1;
-
   int numerator[max];
   int denominator[max];
   int i;

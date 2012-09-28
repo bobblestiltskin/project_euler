@@ -18,8 +18,6 @@ int main(int argc, char **argv) {
 
 /* need to compute 2n!/((n!)*(n!)) */
 
-  int max2 = max << 1;
-
   std::vector<int> numerator;
   std::vector<int> denominator;
   for (int i = 0; i < max; i++) {
