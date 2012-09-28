@@ -4,7 +4,7 @@ import argparse
 def main():
   """ this computes projecteuler.net problem 014 """
   parser = argparse.ArgumentParser()
-  parser.add_argument("last", type=int, help="Upper limit to which we compute factors of 3 and 5")
+  parser.add_argument("last", type=int, help="Upper limit")
 
   args = parser.parse_args()
   print 'UPPER LIMIT is', args.last
