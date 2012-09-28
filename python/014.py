@@ -9,7 +9,7 @@ def main():
   args = parser.parse_args()
   print 'UPPER LIMIT is', args.last
 
-  max = 0
+  maxv = 0
   maxi = 0
 
   for i in range(args.last >> 1, args.last):
@@ -21,10 +21,10 @@ def main():
     counter += 1
     print 'I is',i,'and COUNTER is',counter
 
-    if (counter > max):
-      max = counter
+    if (counter > maxv):
+      maxv = counter
       maxi = i
-  print 'IMAX is',maxi,'and MAX is',max
+  print 'IMAX is',maxi,'and MAX is',maxv
 
   return 0
   
