@@ -8,6 +8,7 @@ my $y = Math::BigInt->new(1000);
 $x = $x->bpow($y);
 
 my $string = $x->bstr();
+print "STRING is $string\n";
 my $sum = 0;
 for my $offset (0 .. length($string) - 1) {
   $sum += substr($string, $offset, 1)
