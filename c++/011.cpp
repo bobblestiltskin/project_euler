@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-int compute_point(const std::vector<std::vector<int>> &, const int,
+int compute_point(const std::vector< std::vector<int> > &, const int,
                   const int, std::string &);
 
 int main() {
@@ -65,7 +65,7 @@ increment the column counter so then our 1,1 is the lower-left cell
   return 0;
 }
 
-int compute_point(const std::vector<std::vector<int>> & a, const int i,
+int compute_point(const std::vector< std::vector<int> > & a, const int i,
     const int j, std::string & type) {
   int n;
   int max = 0;
