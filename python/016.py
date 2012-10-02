@@ -12,11 +12,11 @@ def main():
   num = 2 ** args.limit
   print 'NUM is',num
 
-  sum = 0
+  ssum = 0
   string = str(num)
   for i in range(0, len(string)):
-    sum += int(string[i])
-  print 'SUM is',sum
+    ssum += int(string[i])
+  print 'SUM is',ssum
 
   return 0
 
