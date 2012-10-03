@@ -66,7 +66,7 @@ int main() {
 
   int max = 0;
   std::vector<int>::size_type sz = n.size();
-  for (int i = 0; i < sz - 4; i++) {
+  for (unsigned int i = 0; i < sz - 4; i++) {
     int sum = n[i] * n[i+1] * n[i+2] * n[i+3] * n[i+4];
     if (sum > max)
       max = sum;
