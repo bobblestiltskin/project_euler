@@ -32,11 +32,5 @@ def main():
 
   return 0
 
-def max(left, right):
-  if (right > left):
-    return right
-  else:
-    return left
-
 if __name__ == "__main__":
     main()
