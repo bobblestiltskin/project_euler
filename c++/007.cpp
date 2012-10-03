@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
     printf("Need 1 arg - the ordinal of the prime to find\n");
     return(1);
   }
-  int primenum;
+  unsigned int primenum;
   std::stringstream ssout(argv[1]);
   ssout >> primenum;
 
@@ -22,7 +22,6 @@ int main(int argc, char **argv) {
   primes.push_back(2);
   primes.push_back(3);
 
-  int i;
   int test = primes[primes.size() - 1] + 2;
   while (primes.size() < primenum) {
     if (is_prime(test, primes))
