@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+int get_num_divisors(int);
+
 int main(int argc, char **argv)
 {
   if (argc != 2)

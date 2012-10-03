@@ -1,6 +1,6 @@
 CC      := /usr/bin/gcc
 
-CCOPTS  := -g
+CCOPTS  := -Wall
 CLIBS   := -lm
 
 %: %.c

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv)
 {
@@ -44,6 +45,6 @@ int main(int argc, char **argv)
     denom *= denominator[i];
   }
 
-  printf("RESULT for %d is %lu (%lu / %lu remainder %d)\n", max, num/denom, num, denom, num % denom);
+  printf("RESULT for %d is %lu (%lu / %lu remainder %lu)\n", max, num/denom, num, denom, num % denom);
   return(0);
 }

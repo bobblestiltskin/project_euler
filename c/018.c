@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <math.h>
 
 #define ROWS 15
+
+int max(int, int);
 
 int main()
 {
