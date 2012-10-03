@@ -15,7 +15,6 @@ int main() {
 
   const int MAX3 = 999;
   const int MIN3 = 100;
-  const int MAXDIGITS = 6;
 
   int mini = MIN3;
   int minj = MIN3;
