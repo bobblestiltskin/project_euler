@@ -116,7 +116,6 @@ int main() {
   std::string string;
   while (1) {
     int tmp_result = 0;
-    int i;
     for (std::vector<std::string>::const_iterator it = nums.begin();
          it < nums.end();
          it++)

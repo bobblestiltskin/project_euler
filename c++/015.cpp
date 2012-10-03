@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
     denom *= denominator.at(i);
   }
 
-  printf("RESULT for %d is %lu (%lu / %lu remainder %d)\n",
+  printf("RESULT for %d is %lu (%lu / %lu remainder %lu)\n",
     max, num/denom, num, denom, num % denom);
   return(0);
 }

@@ -47,8 +47,8 @@ of course the matrix is stored upside down in memory cf with normal
 mathematical representation so we decrement our row counter and
 increment the column counter so then our 1,1 is the lower-left cell
 */
-  for (int i = a.size() - 4; i > 2; --i) {
-    for (int j = 3; j < a.front().size() - 3; ++j) {
+  for (unsigned int i = a.size() - 4; i > 2; --i) {
+    for (unsigned int j = 3; j < a.front().size() - 3; ++j) {
       std::string ttype;
       int point = compute_point(a, i, j, ttype);
       if (point > max) {
