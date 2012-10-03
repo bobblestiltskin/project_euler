@@ -31,7 +31,7 @@ int main(int argc, char **argv) {
     test += 2;
   }
   int64_t sum = 0;
-  for (int i = 0; i < primes.size(); ++i) {
+  for (unsigned int i = 0; i < primes.size(); ++i) {
     sum += primes[i];
   }
   printf("SUM of all primes less than %d is %ld\n", last, sum);
