@@ -19,7 +19,8 @@ int main()
   };
 
   int status = call_mul_digit_string(9, 0, numeric_input, numeric_output);
-  status = call_mul_digit_string(7, 1, numeric_input, numeric_output);
+  if (!status)
+    status = call_mul_digit_string(7, 1, numeric_input, numeric_output);
 
   return(status);
 }
