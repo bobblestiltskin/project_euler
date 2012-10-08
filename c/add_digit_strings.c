@@ -8,9 +8,10 @@ int add_digit_strings(char *in_1_string, char *in_2_string, char *out_string)
 {
   /* generate out_string by adding in_2_string to in_1_string */
 
-printf("ENTERING add_digit_strings\n");
-printf("ILEN1 is %d and IN 1 STRING is %s\n", (int) strlen(in_2_string), in_2_string);
-printf("ILEN2 is %d and IN 2 STRING is %s\n", (int) strlen(in_1_string), in_1_string);
+printf("ENTERING add_digit_strings IN 1 STRING is %s IN 2 STRING is %s\n", in_1_string, in_2_string);
+//printf("ENTERING add_digit_strings\n");
+//printf("ILEN1 is %d and IN 1 STRING is %s\n", (int) strlen(in_2_string), in_2_string);
+//printf("ILEN2 is %d and IN 2 STRING is %s\n", (int) strlen(in_1_string), in_1_string);
 
   int maxlen, minlen;
   if (strlen(in_2_string) < strlen(in_1_string)) 
@@ -44,9 +45,10 @@ printf("ILEN2 is %d and IN 2 STRING is %s\n", (int) strlen(in_1_string), in_1_st
       *(out_string+j) = *(out_string+j-1);
     *out_string = carry + '0';
   }
-printf("END ILEN is %d and IN1 STRING is %s\n", (int) strlen(in_2_string), in_2_string);
-printf("END ILEN is %d and IN1 STRING is %s\n", (int) strlen(in_1_string), in_1_string);
-printf("END OLEN is %d and OUT STRING is %s\n", (int) strlen(out_string), out_string);
+//printf("END ILEN is %d and IN1 STRING is %s\n", (int) strlen(in_2_string), in_2_string);
+//printf("END ILEN is %d and IN1 STRING is %s\n", (int) strlen(in_1_string), in_1_string);
+//printf("END OLEN is %d and OUT STRING is %s\n", (int) strlen(out_string), out_string);
+printf("LEAVING add_digit_strings IN 1 STRING is %s IN 2 STRING is %s and OUT STRING is %s\n", in_1_string, in_2_string, out_string);
 
   return 0;
 }

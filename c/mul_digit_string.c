@@ -7,7 +7,8 @@
 int mul_digit_string(const int digit, const char *in_string, char *out_string)
 {
   /* multiplies the in_string by the digit */
-printf("STRING LEN is %d\n", (int) strlen(in_string));
+printf("entering mul_digit_string digit is %d input is %s output is %s\n", digit, in_string, out_string);
+//printf("STRING LEN is %d\n", (int) strlen(in_string));
   int carry = 0;
   int i;
   for (i = strlen(in_string); i > 0; --i)
@@ -36,6 +37,6 @@ printf("STRING LEN is %d\n", (int) strlen(in_string));
 //  for (i=0; i<strlen(out_string) + 1; ++i)
 //    printf("AFTER CARRY - I is %d and CHAR is %d\n", i, *(out_string+i));
 
-printf("OS is %s\n", out_string);
+printf("leaving mul_digit_string output is %s\n", out_string);
   return 0;
 }
