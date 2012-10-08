@@ -1,3 +1,4 @@
+#! /usr/bin/gforth
 : mod5 ( n -- ismod )
 5 mod 0= ;
 
@@ -18,3 +19,6 @@ dup mod3 if add-number then then drop ;
 
 : answer ( -- )
 0 1000 test-loop cr ." answer is " . cr ;
+
+answer
+bye
