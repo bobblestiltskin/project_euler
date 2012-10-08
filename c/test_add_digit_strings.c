@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* this really needs assetions to guarantee that we are working with numbers in the strings. */
-/* and we should use strnlen rather than strlen etc. yada */
-
 int add_digit_strings(char *, char *, char *);
 int call_add_digit_strings(const int, const char **, const char **, const char **);
 
@@ -23,10 +20,6 @@ int main(int argc, char **argv)
     "75415123591065981965009486792878080189969847218988330183105732861230095327291440105545299230185469260678988704176722012130921964663406552974761438647138281",
     "848420140399492297106364258387510929241068939715700095508460537711534899463420937290489690094351639363163632933902127621942997165742870886768343530118053888"
   };
-
-//printf("BEFORE a is %s and B is %s and C is %s\n", a, b, c);
-//  int status = add_digit_strings(a, b, c);
-//printf("AFTER a is %s and B is %s and C is %s\n", a, b, c);
 
   int status = call_add_digit_strings(0, input1, input2, output);
   if (!status)
