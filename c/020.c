@@ -40,16 +40,18 @@ int factorial(int num, char **factorial_ptr)
 printf("ENTERING factorial BEFORE is %d and FACTORIAL is %s\n", num, *factorial_ptr);
 #endif
 
-  int status = 0;
   int i;
   for (i = 0; i < num;++i)
-    status = mul_int_string(i+1, *factorial_ptr, factorial_ptr);
+  {
+    int mis_ret = mul_int_string(i+1, *factorial_ptr, factorial_ptr);
+    assert(mis_ret == 0);
+  }
 
 #ifdef DEBUG
 printf("LEAVING factorial AFTER num is %d and FACTORIAL is %s\n", num, *factorial_ptr);
 #endif
 
-  return(status);
+  return(0);
 }
 
 int mul_int_string(int alpha, const char *in_string, char **out_string_ptr)
@@ -63,8 +65,10 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
   int in_length = strlen(in_string);
   char *in_copy = calloc(in_length + 1, sizeof(char));
   strncpy(in_copy, in_string, in_length);
-  strncpy(*out_string_ptr, "0", 2);
+  strncpy(*out_string_ptr, "0", 1);
+  *(*out_string_ptr+1) = 0; // terminate output string
 
+  /* we are doing long multiplication here */
   do {
     int modulus = alpha % BASE;
     int in_copy_len = strlen(in_copy);
@@ -74,17 +78,19 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
       {
         char *out_current = (char *) calloc(strlen(*out_string_ptr) + 1, sizeof(char));
         strncpy(out_current, *out_string_ptr, strlen(*out_string_ptr) + 1);
-        add_digit_strings(out_current, in_copy, out_string_ptr);
+        int ads_ret = add_digit_strings(out_current, in_copy, out_string_ptr);
+        assert(ads_ret == 0);
         free(out_current);
       }
       else
       {
         char *row = (char *) calloc(in_copy_len + 2, sizeof(char));
         int mds_ret = mul_digit_string(modulus, in_copy, &row);
-        assert (mds_ret == 0);
+        assert(mds_ret == 0);
         char *out_current = (char *) calloc(strlen(*out_string_ptr) + 1, sizeof(char));
         strncpy(out_current, *out_string_ptr, strlen(*out_string_ptr) + 1);
-        add_digit_strings(out_current, row, out_string_ptr);
+        int ads_ret = add_digit_strings(out_current, row, out_string_ptr);
+        assert(ads_ret == 0);
         free(out_current);
         free(row);
       }
