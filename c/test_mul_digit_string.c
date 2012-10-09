@@ -4,7 +4,7 @@
 #include <string.h>
 
 int call_mul_digit_string(const int, const int *, const char **, const char **);
-int mul_digit_string(const int, const char *, char *);
+int mul_digit_string(const int, const char *, char **);
 
 int main()
 {
@@ -33,9 +33,11 @@ int call_mul_digit_string(const int index, const int *scalars, const char **nume
   strncpy(b, numeric_input[index], strlen(numeric_input[index]));
   char *c = (char *) calloc(strlen(b) + 1, sizeof(char));
 
-  int status = mul_digit_string(a, b, c);
+  int status = mul_digit_string(a, b, &c);
   if (strncmp(c, numeric_output[index], strlen(numeric_output[index])))
     printf("%d * %s is %s and should be %s\n", a, b, c, numeric_output[index]);
 
+  free(c);
+  free(b);
   return status;
 }
