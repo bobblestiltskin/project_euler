@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int add_digit_strings(char *, char *, char *);
+int add_digit_strings(const char *, const char *, char **);
 int call_add_digit_strings(const int, const char **, const char **, const char **);
 
 int main(int argc, char **argv)
@@ -41,10 +41,13 @@ int call_add_digit_strings(const int index, const char **input1, const char **in
   int maxlen = (lena >lenb) ? lena : lenb;
   char *c = (char *) calloc(maxlen + 1, sizeof(char));
 
-  int status = add_digit_strings(a, b, c);
+  int status = add_digit_strings(a, b, &c);
   if (strncmp(c, output[index], strlen(output[index])))
     printf("%s + %s is %s and should be %s\n", a, b, c, output[index]);
 
+  free(c);
+  free(b);
+  free(a);
   return status;
 }
 
