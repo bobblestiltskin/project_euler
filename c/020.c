@@ -9,6 +9,7 @@ int factorial(const int, char **);
 int mul_int_string(const int, const char *, char **);
 int mul_digit_string(const int, const char *, char **);
 int add_digit_strings(const char *, const char *, char **);
+int handle_carry(int, char **);
 
 int main(int argc, char **argv)
 {
@@ -75,7 +76,7 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
     if (modulus)
     {
       if (modulus == 1)
-      {
+      { // no need to multiply - add out current input to the output
         char *out_current = (char *) calloc(strlen(*out_string_ptr) + 1, sizeof(char));
         strncpy(out_current, *out_string_ptr, strlen(*out_string_ptr) + 1);
         int ads_ret = add_digit_strings(out_current, in_copy, out_string_ptr);
@@ -83,7 +84,7 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
         free(out_current);
       }
       else
-      {
+      { // scale the current input by the modulus and add
         char *row = (char *) calloc(in_copy_len + 2, sizeof(char));
         int mds_ret = mul_digit_string(modulus, in_copy, &row);
         assert(mds_ret == 0);
@@ -96,8 +97,8 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
       }
     }
     in_copy = realloc(in_copy, strlen(in_copy) + 2);
-    strncat(in_copy, "0", 1);
-  } while ((alpha = alpha / BASE));
+    strncat(in_copy, "0", 1); // add a '0' to the end of the input number
+  } while ((alpha = alpha / BASE)); // and iterate through the integer
   free(in_copy);
 
 #ifdef DEBUG
@@ -134,16 +135,7 @@ printf("entering mul_digit_string digit is %d input is %s output is %s\n", digit
   }
 
   if (carry)
-  {
-    int out_len = strlen(*out_string_ptr);
-    char *tmp = calloc(out_len + 1, sizeof(char));
-    strncpy(tmp, *out_string_ptr, out_len);
-    *out_string_ptr = realloc(*out_string_ptr, out_len + 2);
-    *(*out_string_ptr) = carry + '0';
-    *(*out_string_ptr+1) = 0;
-    strncat(*out_string_ptr, tmp, strlen(tmp));
-    free(tmp);
-  }
+    handle_carry(carry, out_string_ptr);
 
 #ifdef DEBUG
 printf("leaving mul_digit_string output is %s\n", *out_string_ptr);
@@ -166,7 +158,6 @@ printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is 
   char *max_ptr = NULL;
   int min_len, max_len;
 
-  /* if the second string is shorter than the first, swap them */
   if (strlen(in_2_string) < strlen(in_1_string)) 
   {
     max_len = strlen(in_1_string);
@@ -220,18 +211,9 @@ printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is 
       *(*out_string_ptr+j-1) = tmp % BASE + '0';
       carry = tmp / BASE;
     }
-    /* need to move the string characters */
+
     if (carry)
-    {
-      out_len = strlen(*out_string_ptr);
-      char *tmp = calloc(out_len + 1, sizeof(char));
-      strncpy(tmp, *out_string_ptr, out_len);
-      *out_string_ptr = realloc(*out_string_ptr, out_len + 2);
-      *(*out_string_ptr) = carry + '0';
-      *(*out_string_ptr+1) = 0;
-      strncat(*out_string_ptr, tmp, strlen(tmp));
-      free(tmp);
-    }
+      handle_carry(carry, out_string_ptr);
   }
   else
   {
@@ -245,5 +227,18 @@ printf("LEAVING add_digit_strings IN 2 STRING is %s\n", in_2_string);
 printf("LEAVING add_digit_strings OUT STRING is %s\n", *out_string_ptr);
 #endif
 
+  return 0;
+}
+
+int handle_carry(int carry, char **out_string_ptr)
+{
+  int out_len = strlen(*out_string_ptr);
+  char *tmp = calloc(out_len + 1, sizeof(char));
+  strncpy(tmp, *out_string_ptr, out_len);
+  *out_string_ptr = realloc(*out_string_ptr, out_len + 2);
+  *(*out_string_ptr) = carry + '0';
+  *(*out_string_ptr+1) = 0;
+  strncat(*out_string_ptr, tmp, strlen(tmp));
+  free(tmp);
   return 0;
 }
