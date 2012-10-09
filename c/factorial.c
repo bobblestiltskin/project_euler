@@ -2,32 +2,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* this really needs assertions to guarantee that we are working with numbers in the strings. */
-/* and we should use strnlen rather than strlen etc. yada */
-
 int mul_int_string(const int, const char *, char *);
 
-int main(int argc, char **argv)
+int factorial(int num, char *factorial)
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg\n");
-    return(1);
-  }
-
-  int a = atoi(argv[1]);
-  char *b = (char *) calloc(2, sizeof(char));
-  strncpy(b, "1", 2);
-  char *c = (char *) calloc(2, sizeof(char));
-  strncpy(c, "0", 2);
+printf("ENTERING factorial BEFORE is %d and FACTORIAL is %s\n", num, factorial);
   int i;
   int status = 0;
-  for (i = 1; i < a;++i)
+  char *tmp = calloc(2, sizeof(char));
+  for (i = 1; i < num;++i)
   {
-printf("main BEFORE i is %d and B is %s and C is %s\n", i, b, c);
-    status = mul_int_string(i+1, b, c);
-printf("main AFTER a is %d and B is %s and C is %s and STATUS is %d\n", i, b, c, status);
-    strcpy(b,c);
+printf("factorial BEFORE i is %d and FACTORIAL is %s\n", i, factorial);
+    status = mul_int_string(i+1, factorial, tmp);
+printf("factorial AFTER i is %d and FACTORIAL is %s and TMP is %s\n", i, factorial, tmp);
+//    strncpy(factorial, tmp, strlen(factorial));
+    strcpy(factorial, tmp);
+printf("factorial AFTER i is %d and FACTORIAL is %s\n", i, factorial);
   }
+printf("LEAVING factorial AFTER num is %d and FACTORIAL is %s\n", num, factorial);
   return(status);
 }

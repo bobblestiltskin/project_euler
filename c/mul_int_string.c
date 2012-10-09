@@ -16,7 +16,8 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
 
   /* multiplies the input string in_string by the integer alpha */
 
-  strcpy(out_string, "0");
+  int in_len = strlen(in_string);
+  strncpy(out_string, "0", 2);
   int in_length = strlen(in_string); 
 
   do {
@@ -30,6 +31,8 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
     strncat(in_string, "0", 1);
     free(row);
   } while ((alpha = alpha / BASE));
+  in_string = realloc(in_string, in_len + 1);
+  *(in_string + in_len) = 0;
 
 #ifdef DEBUG
 printf("LEAVING mul_int_string with alpha of %d and in_string of %s and outstring of %s\n", alpha, in_string, out_string);
