@@ -20,7 +20,7 @@ int main(int argc, char **argv)
 
   int maxa = atoi(argv[1]);
   char *b = (char *) calloc(2, sizeof(char));
-  strncpy(b, "1", 2);
+  strncpy(b, "1", 1);
   int status = 0;
   status = factorial(maxa, &b);
   printf("FACTORIAL is %s and STATUS is %d\n", b,  status);
@@ -41,15 +41,9 @@ printf("ENTERING factorial BEFORE is %d and FACTORIAL is %s\n", num, *factorial_
 #endif
 
   int status = 0;
-  char *tmp = calloc(2, sizeof(char));
   int i;
-  for (i = 1; i < num;++i)
-  {
-    status = mul_int_string(i+1, *factorial_ptr, &tmp);
-    *factorial_ptr = realloc(*factorial_ptr, strlen(tmp) + 1);
-    strcpy(*factorial_ptr, tmp);
-  }
-  free (tmp);
+  for (i = 0; i < num;++i)
+    status = mul_int_string(i+1, *factorial_ptr, factorial_ptr);
 
 #ifdef DEBUG
 printf("LEAVING factorial AFTER num is %d and FACTORIAL is %s\n", num, *factorial_ptr);
@@ -62,7 +56,6 @@ int mul_int_string(int alpha, const char *in_string, char **out_string_ptr)
 {
 #ifdef DEBUG
 printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstring of %s\n", alpha, in_string, *out_string_ptr);
-printf("out_string_ptr is %p\n", out_string_ptr);
 #endif
 
   /* multiplies the input string in_string by the integer alpha */
@@ -73,11 +66,11 @@ printf("out_string_ptr is %p\n", out_string_ptr);
   strncpy(*out_string_ptr, "0", 2);
 
   do {
-    int modulo = alpha % BASE;
+    int modulus = alpha % BASE;
     int in_copy_len = strlen(in_copy);
-    if (modulo)
+    if (modulus)
     {
-      if (modulo == 1)
+      if (modulus == 1)
       {
         char *out_current = (char *) calloc(strlen(*out_string_ptr) + 1, sizeof(char));
         strncpy(out_current, *out_string_ptr, strlen(*out_string_ptr) + 1);
@@ -87,7 +80,7 @@ printf("out_string_ptr is %p\n", out_string_ptr);
       else
       {
         char *row = (char *) calloc(in_copy_len + 2, sizeof(char));
-        int mds_ret = mul_digit_string(modulo, in_copy, &row);
+        int mds_ret = mul_digit_string(modulus, in_copy, &row);
         assert (mds_ret == 0);
         char *out_current = (char *) calloc(strlen(*out_string_ptr) + 1, sizeof(char));
         strncpy(out_current, *out_string_ptr, strlen(*out_string_ptr) + 1);
