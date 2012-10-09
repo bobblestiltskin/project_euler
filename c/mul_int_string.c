@@ -27,7 +27,7 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
     char *row = (char *) calloc(in_length + 1, sizeof(char));
     int mds_ret = mul_digit_string(modulo, tmp, row);
     assert (mds_ret == 0);
-    add_digit_strings(row, out_string, out_string);
+    add_digit_strings(out_string, row, out_string);
     tmp = realloc(tmp, strlen(tmp) + 2);
     strncat(tmp, "0", 1);
     free(row);
