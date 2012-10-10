@@ -28,7 +28,10 @@ int main(int argc, char **argv) {
       primes.push_back(test);
     test += 2;
   }
-  printf("PRIME %d is %d\n", primenum, primes[primes.size() - 1]);
+#ifdef DEBUG
+  printf("PRIME %d is ", primenum);
+#endif
+  printf("%d\n", primes[primes.size() - 1]);
   return(0);
 }
 

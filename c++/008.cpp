@@ -62,7 +62,6 @@ int main() {
 
 
   const std::vector<int> n(digits, digits + sizeof(digits) / sizeof(digits[0]));
-//  std::vector<int> n({7, 3, .., 5, 0});
 
   int max = 0;
   std::vector<int>::size_type sz = n.size();
@@ -72,6 +71,9 @@ int main() {
       max = sum;
   }
 
-  printf("MAX is %d\n", max);
+#ifdef DEBUG
+  printf("MAX is ");
+#endif
+  printf("%d\n", max);
   return(0);
 }
