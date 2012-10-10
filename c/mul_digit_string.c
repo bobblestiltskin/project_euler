@@ -16,31 +16,38 @@ printf("entering mul_digit_string digit is %d input is %s output is %s\n", digit
   assert(digit >= 0);
   assert(digit <= 9);
 
-  int carry = 0;
-  int i;
-  for (i = strlen(in_string); i > 0; --i)
+  if (digit == 0)
+    strncpy(*out_string_ptr, "0", 1);
+  else if (digit == 1)
+    strncpy(*out_string_ptr, in_string, strlen(in_string));
+  else
   {
-    int in = *(in_string + i - 1) - '0';
+    int carry = 0;
+    int i;
+    for (i = strlen(in_string); i > 0; --i)
+    {
+      int in = *(in_string + i - 1) - '0';
+    
+      assert(in >= 0);
+      assert(in <= 9);
   
-    assert(in >= 0);
-    assert(in <= 9);
-
-    int product = in * digit + carry;
-    int new = product % BASE;
-    *(*out_string_ptr + i - 1) = new + '0';
-    carry = product / BASE;
-  }
-
-  if (carry)
-  {
-    int out_len = strlen(*out_string_ptr);
-    char *tmp = calloc(out_len + 1, sizeof(char));
-    strncpy(tmp, *out_string_ptr, out_len);
-    *out_string_ptr = realloc(*out_string_ptr, out_len + 2);
-    *(*out_string_ptr) = carry + '0';
-    *(*out_string_ptr+1) = 0;
-    strncat(*out_string_ptr, tmp, strlen(tmp));
-    free(tmp);
+      int product = in * digit + carry;
+      int new = product % BASE;
+      *(*out_string_ptr + i - 1) = new + '0';
+      carry = product / BASE;
+    }
+  
+    if (carry)
+    {
+      int out_len = strlen(*out_string_ptr);
+      char *tmp = calloc(out_len + 1, sizeof(char));
+      strncpy(tmp, *out_string_ptr, out_len);
+      *out_string_ptr = realloc(*out_string_ptr, out_len + 2);
+      *(*out_string_ptr) = carry + '0';
+      *(*out_string_ptr+1) = 0;
+      strncat(*out_string_ptr, tmp, strlen(tmp));
+      free(tmp);
+    }
   }
 
 #ifdef DEBUG

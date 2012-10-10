@@ -120,23 +120,30 @@ printf("entering mul_digit_string digit is %d input is %s output is %s\n", digit
   assert(digit >= 0);
   assert(digit <= 9);
 
-  int carry = 0;
-  int i;
-  for (i = strlen(in_string); i > 0; --i)
+  if (digit == 0)
+    strncpy(*out_string_ptr, "0", 1);
+  else if (digit == 1)
+    strncpy(*out_string_ptr, in_string, strlen(in_string));
+  else
   {
-    int in = *(in_string + i - 1) - '0';
+    int carry = 0;
+    int i;
+    for (i = strlen(in_string); i > 0; --i)
+    {
+      int in = *(in_string + i - 1) - '0';
+    
+      assert(in >= 0);
+      assert(in <= 9);
   
-    assert(in >= 0);
-    assert(in <= 9);
-
-    int product = in * digit + carry;
-    int new = product % BASE;
-    *(*out_string_ptr + i - 1) = new + '0';
-    carry = product / BASE;
+      int product = in * digit + carry;
+      int new = product % BASE;
+      *(*out_string_ptr + i - 1) = new + '0';
+      carry = product / BASE;
+    }
+  
+    if (carry)
+      handle_carry(carry, out_string_ptr);
   }
-
-  if (carry)
-    handle_carry(carry, out_string_ptr);
 
 #ifdef DEBUG
 printf("leaving mul_digit_string output is %s\n", *out_string_ptr);
