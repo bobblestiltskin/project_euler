@@ -19,7 +19,10 @@ maximum power of other primes < 20 is n^1
        it++)
     result *= *it;
 
-  printf("RESULT is %d\n", result);
+#ifdef DEBUG
+  printf("RESULT is ");
+#endif
+  printf("%d\n", result);
 
   return 0;
 }
