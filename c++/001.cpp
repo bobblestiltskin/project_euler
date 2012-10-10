@@ -15,8 +15,7 @@ int main(int argc, char **argv) {
   ssout >> max;
 
   int total = 0;
-  int i;
-  for (i = 0; i < max; ++i) {
+  for (int i = 0; i < max; ++i) {
     if (!(i % 3) || !(i % 5)) {
       total += i;
     }

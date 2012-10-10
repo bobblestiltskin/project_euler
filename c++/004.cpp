@@ -18,10 +18,8 @@ int main() {
 
   int mini = MIN3;
   int minj = MIN3;
-  int i;
-  for (i = MAX3; i >= mini; i--) {
-    int j;
-    for (j = MAX3; j >= minj; j--) {
+  for (int i = MAX3; i >= mini; i--) {
+    for (int j = MAX3; j >= minj; j--) {
       int product = i * j;
       std::ostringstream tmp;
       tmp << product;
@@ -41,13 +39,12 @@ int main() {
 }
 
 bool is_palindromic(const std::string &digits) {
-  int i;
   int len = digits.length();
 
 // only really need to test half of the string - if even
 // and int(half)+1 if odd  - but more complexity
 
-  for (i = 0; i < len; ++i)
+  for (int i = 0; i < len; ++i)
     if (digits[i] != digits[len-(i+1)])
       return 0;
 
