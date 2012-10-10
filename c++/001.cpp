@@ -20,6 +20,9 @@ int main(int argc, char **argv) {
       total += i;
     }
   }
-  printf("MAX is %d and TOTAL is %d\n", max, total);
+#ifdef DEBUG
+  printf("MAX is %d and TOTAL is ", max);
+#endif
+  printf("%d\n", total);
   return(0);
 }

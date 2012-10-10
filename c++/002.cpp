@@ -27,7 +27,10 @@ int main(int argc, char **argv) {
     i++;
     fibi = fib(i, &fib_vector);
   }
-  printf("MAX is %d and TOTAL is %d\n", max, total);
+#ifdef DEBUG
+  printf("MAX is %d and TOTAL is ", max);
+#endif
+  printf("%d\n", total);
   return(0);
 }
 
