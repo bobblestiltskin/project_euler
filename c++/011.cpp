@@ -59,8 +59,15 @@ increment the column counter so then our 1,1 is the lower-left cell
       }
     }
   }
-  printf("MAX is %d and ROW is %d COLUMN is %d TYPE is %s\n",
-         max, imax, jmax, type.c_str());
+#ifdef DEBUG
+  printf("MAX is ");
+#endif
+  printf("%d", max);
+#ifdef DEBUG
+  printf(" and ROW is %d COLUMN is %d TYPE is %s",
+         imax, jmax, type.c_str());
+#endif
+  printf("\n");
 
   return 0;
 }
