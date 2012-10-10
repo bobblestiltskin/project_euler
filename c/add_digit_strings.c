@@ -5,9 +5,12 @@
 
 #define BASE 10
 
+int add_strings_short_to_long(const char *, const char *, char **);
+int handle_carry(int, char **);
+
 int add_digit_strings(const char *in_1_string, const char *in_2_string, char **out_string_ptr)
 {
-  /* generate out_string by adding in_2_string to in_1_string */
+  /* generate out_string by adding in_1_string to in_2_string */
 
 #ifdef DEBUG
 printf("ENTERING add_digit_strings IN 1 STRING is %s IN 2 STRING is %s and OUT STRING is %s\n", in_1_string, in_2_string, *out_string_ptr);
@@ -15,32 +18,41 @@ printf("PTS add_digit_strings IN 1 STRING is %p IN 2 STRING is %p OUT STRING is 
 printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is %d\n", (int) strlen(in_1_string), (int) strlen(in_2_string), (int) strlen(*out_string_ptr));
 #endif
 
-  char *min_ptr = NULL;
-  char *max_ptr = NULL;
-  int min_len, max_len;
-
+  int status;
   /* if the second string is shorter than the first, swap them */
-  if (strlen(in_2_string) < strlen(in_1_string)) 
-  {
-    max_len = strlen(in_1_string);
-    max_ptr = (char *) in_1_string;
-    min_len = strlen(in_2_string);
-    min_ptr = (char *) in_2_string;
-  }
+  if (strlen(in_2_string) < strlen(in_1_string))
+    status = add_strings_short_to_long(in_2_string, in_1_string, out_string_ptr);
   else
-  {
-    max_len = strlen(in_2_string);
-    max_ptr = (char *) in_2_string;
-    min_len = strlen(in_1_string);
-    min_ptr = (char *) in_1_string;
-  }
+    status = add_strings_short_to_long(in_1_string, in_2_string, out_string_ptr);
 
-  if (strncmp(min_ptr, "0", min_len))
+#ifdef DEBUG
+printf("LEAVING add_digit_strings IN 1 STRING is %s\n", in_1_string);
+printf("LEAVING add_digit_strings IN 2 STRING is %s\n", in_2_string);
+printf("LEAVING add_digit_strings OUT STRING is %s\n", *out_string_ptr);
+#endif
+
+  return status;
+}
+
+int add_strings_short_to_long(const char *short_string, const char *long_string, char **out_string_ptr)
+{
+  /* generate out_string by adding in_1_string to in_2_string */
+
+#ifdef DEBUG
+printf("ENTERING add_digit_strings IN 1 STRING is %s IN 2 STRING is %s and OUT STRING is %s\n", in_1_string, in_2_string, *out_string_ptr);
+printf("PTS add_digit_strings IN 1 STRING is %p IN 2 STRING is %p OUT STRING is %p\n", in_1_string, in_2_string, *out_string_ptr);
+printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is %d\n", (int) strlen(in_1_string), (int) strlen(in_2_string), (int) strlen(*out_string_ptr));
+#endif
+
+  int min_len = strlen(short_string);
+  int max_len = strlen(long_string);
+
+  if (strncmp(short_string, "0", min_len))
   {
     int out_len = strlen(*out_string_ptr);
     if (max_len > out_len)
     {
-      *out_string_ptr = realloc(*out_string_ptr, max_len + 1);
+      *out_string_ptr = (char *) realloc(*out_string_ptr, max_len + 1);
       out_len = strlen(*out_string_ptr);
       int j;
       for (j=out_len; j<max_len; j++)
@@ -53,10 +65,10 @@ printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is 
     for (j = min_len; j > 0; --j)
     {
       int index = max_len - min_len + j - 1;
-      int in1 = *(min_ptr+j-1) - '0';
+      int in1 = *(short_string+j-1) - '0';
       assert(in1 >= 0);
       assert(in1 <= 9);
-      int in2 = *(max_ptr+index) - '0';
+      int in2 = *(long_string+index) - '0';
       assert(in2 >= 0);
       assert(in2 <= 9);
       int tmp = in1 + in2 + carry;
@@ -66,30 +78,21 @@ printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is 
     /* then handle any character positions only in longer string */
     for (j = max_len - min_len; j > 0; --j)
     {
-      int in2 = *(max_ptr+j-1) - '0';
+      int in2 = *(long_string+j-1) - '0';
       assert(in2 >= 0);
       assert(in2 <= 9);
       int tmp = in2 + carry;
       *(*out_string_ptr+j-1) = tmp % BASE + '0';
       carry = tmp / BASE;
     }
-    /* need to move the string characters */
+
     if (carry)
-    {
-      out_len = strlen(*out_string_ptr);
-      char *tmp = calloc(out_len + 1, sizeof(char));
-      strncpy(tmp, *out_string_ptr, out_len);
-      *out_string_ptr = realloc(*out_string_ptr, out_len + 2);
-      *(*out_string_ptr) = carry + '0';
-      *(*out_string_ptr+1) = 0;
-      strncat(*out_string_ptr, tmp, strlen(tmp));
-      free(tmp);
-    }
+      handle_carry(carry, out_string_ptr);
   }
   else
   {
-    *out_string_ptr = realloc(*out_string_ptr, max_len + 1);
-    memcpy(*out_string_ptr, max_ptr, max_len + 1);
+    *out_string_ptr = (char *) realloc(*out_string_ptr, max_len + 1);
+    memcpy(*out_string_ptr, long_string, max_len + 1);
   }
 
 #ifdef DEBUG
@@ -100,3 +103,17 @@ printf("LEAVING add_digit_strings OUT STRING is %s\n", *out_string_ptr);
 
   return 0;
 }
+
+int handle_carry(int carry, char **out_string_ptr)
+{
+  int out_len = strlen(*out_string_ptr);
+  char *tmp = (char *) calloc(out_len + 1, sizeof(char));
+  strncpy(tmp, *out_string_ptr, out_len);
+  *out_string_ptr = (char *) realloc(*out_string_ptr, out_len + 2);
+  *(*out_string_ptr) = carry + '0';
+  *(*out_string_ptr+1) = 0;
+  strncat(*out_string_ptr, tmp, strlen(tmp));
+  free(tmp);
+  return 0;
+}
+
