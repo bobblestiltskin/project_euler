@@ -6,8 +6,7 @@
 
 int main() {
   int sumsq = 0;
-  int i;
-  for (i = 0; i < 100; ++i) {
+  for (int i = 0; i < 100; ++i) {
     sumsq += (i+1) * (i+1);
   }
   printf("SUMSQ is %d\n", sumsq);

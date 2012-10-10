@@ -25,8 +25,7 @@ printf("entering mul_digit_string digit is %d input is %s\n", digit, in_string.c
   {
     out_string.resize(in_string.length());
     int carry = 0;
-    int i;
-    for (i = in_string.length(); i > 0; --i)
+    for (int i = in_string.length(); i > 0; --i)
     {
       int in = in_string.at(i - 1) - '0';
     

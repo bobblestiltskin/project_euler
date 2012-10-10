@@ -20,8 +20,7 @@ int main(int argc, char **argv) {
   int max = 0;
   int maxi = 0;
 
-  int i;
-  for (i = (last>>1); i < last; ++i) {
+  for (int i = (last>>1); i < last; ++i) {
     int counter = 0;
     uint64_t j = i;
     while (j != 1) {
