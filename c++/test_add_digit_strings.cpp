@@ -3,7 +3,7 @@
 #include <vector>
 
 std::string add_digit_strings(std::string, std::string);
-int call_add_digit_strings(const int, std::vector< std::string >, std::vector< std::string >, const std::vector< std::string >);
+int call_add_digit_strings(const int, const std::vector< std::string >, const std::vector< std::string >, const std::vector< std::string >);
 
 int main()
 {
@@ -26,7 +26,7 @@ int main()
   return(0);
 }
 
-int call_add_digit_strings(const int index, std::vector< std::string > input1, std::vector< std::string > input2, const std::vector< std::string > output)
+int call_add_digit_strings(const int index, const std::vector< std::string > input1, const std::vector< std::string > input2, const std::vector< std::string > output)
 {
   std::string a = input1.at(index);
   std::string b = input2.at(index);
