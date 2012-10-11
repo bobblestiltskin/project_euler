@@ -1,14 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char **argv)
+int main()
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg\n");
-    exit(1);
-  }
-  int max = atoi(argv[1]);
+  int max = 1000;
 
   int total = 0;
   int i;
@@ -19,6 +14,6 @@ int main(int argc, char **argv)
       total += i;
     }
   }
-  printf("MAX is %d and TOTAL is %d\n", max, total);
+  printf("%d\n", total);
   exit(0);
 }
