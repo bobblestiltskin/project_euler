@@ -10,7 +10,7 @@ my $total;
 while (my ($key, $value) = each %$map) {
   $total += $key if ((defined $map->{$value}) && ($key != $value) && ($map->{$value} == $key));
 }
-print "TOTAL is $total\n";
+print "$total\n";
 
 sub sum_factors {
   my $number = shift;
