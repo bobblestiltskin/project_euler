@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-int factorial(const int, char *);
+int factorial(const int, char **);
 
 int main(int argc, char **argv)
 {
@@ -13,16 +13,17 @@ int main(int argc, char **argv)
   }
 
   int maxa = atoi(argv[1]);
-  int i = maxa;
-//  int i;
-//  for (i=0; i < maxa; i++)
-//  {
-    char *b = (char *) calloc(2, sizeof(char));
-    strncpy(b, "1", 2);
-    int status = 0;
-printf("main BEFORE i is %d and B is %s\n", i, b);
-    status = factorial(i, b);
-printf("main AFTER i is %d and FACTORIAL is %s and STATUS is %d\n", i, b,  status);
-//  }
+  char *b = (char *) calloc(2, sizeof(char));
+  strncpy(b, "1", 2);
+  int status = 0;
+  status = factorial(maxa, &b);
+  printf("main AFTER maxa is %d and FACTORIAL is %s and STATUS is %d\n", maxa, b,  status);
+  int sum = 0;
+  int i;
+  for(i=0; i<strlen(b); ++i)
+    sum += *(b+i) - '0';
+  printf("SUM is %d\n", sum);
+
+  free(b);
   return(0);
 }
