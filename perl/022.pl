@@ -2,7 +2,7 @@
 use strict;
 use IO::File;
 
-my $fh = IO::File->new("names.txt") or die "Can't open names, $!";
+my $fh = IO::File->new("../names.txt") or die "Can't open names, $!";
 my $names = <$fh>;
 $names =~ s/^"//;
 $names =~ s/"$//;
@@ -18,4 +18,4 @@ foreach my $i (1 .. @names) {
   }
   $total += ($sum * $i);
 }
-print "TOTAL is ",$total,"\n";
+print $total,"\n";
