@@ -10,14 +10,8 @@
 
 int is_prime(const int, const std::vector<int> &);
 
-int main(int argc, char **argv) {
-  if (argc != 2) {
-    printf("Need 1 arg - the ordinal of the prime to find\n");
-    exit(1);
-  }
-  int last;
-  std::stringstream ssout(argv[1]);
-  ssout >> last;
+int main() {
+  int last = 2000000;
 
   std::vector<int> primes;
   primes.push_back(2);

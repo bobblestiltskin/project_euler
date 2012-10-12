@@ -71,9 +71,6 @@ int main() {
       max = sum;
   }
 
-#ifdef DEBUG
-  printf("MAX is ");
-#endif
   printf("%d\n", max);
   return(0);
 }

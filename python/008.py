@@ -10,7 +10,7 @@ def main():
     if (ssum > smax):
       smax = ssum
 
-  print "MAX is",smax
+  print smax
 
 if __name__ == "__main__":
     main()

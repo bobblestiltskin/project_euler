@@ -12,7 +12,6 @@ foreach my $start (0 .. 995) {
                 substr($big, $start + 4, 1);
   if ($product > $max_product) {
     $max_product = $product;
-    print "START is $start and PRODUCT of ",substr($big, $start, 5)," is $product\n";
   }
 }
-print "\nMAX PRODUCT is ",$max_product,"\n";
+print $max_product,"\n";

@@ -4,14 +4,9 @@
 
 int is_prime(int, int, int *);
 
-int main(int argc, char **argv)
+int main()
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg - the ordinal of the prime to find\n");
-    exit(1);
-  }
-  int last = atoi(argv[1]);
+  int last = 2000000;
 
   int *primes = (int *) calloc(2, sizeof(int));
   *primes = 2;
@@ -34,7 +29,7 @@ int main(int argc, char **argv)
   {
     sum += primes[i];
   }
-  printf("SUM of all primes less than %d is %ld\n", last, sum);    
+  printf("%ld\n", sum);    
   free(primes);
   exit(0);
 }

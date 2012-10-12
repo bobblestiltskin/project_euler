@@ -1,25 +1,22 @@
 #!/usr/bin/perl -w
 use strict;
 
-(@ARGV == 1) or die "Need an integer which specifies the maximum prime to find, $!";
-my $last = shift;
+my $last = 2000000;
 my @primes = qw(2 3);
 
 my $test = $primes[-1] + 2;
 while ($test < $last) {
-#print "TEST is $test\n";
   if (is_prime($test, \@primes)) {
     push @primes, $test;
   }
   $test += 2;
 }
-#print "P are ",join(" ", @primes),"\n";
+
 my $sum = 0;
 foreach my $prime (@primes) {
   $sum += $prime;
 }
-print "SUM of all primes less than $last is $sum\n";
-
+print $sum,"\n";
 
 sub is_prime {
   my $test = shift;

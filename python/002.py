@@ -1,19 +1,14 @@
 #!/usr/bin/env python
-import argparse
 
 def main():
   """ this computes projecteuler.net problem 002 """
-  parser = argparse.ArgumentParser()
-  parser.add_argument("limit", type=int, help="Upper limit to which we sum even fibonacci numbers")
 
-  args = parser.parse_args()
-  print 'UPPER LIMIT is', args.limit
-
+  limit = 4000000
   total = 0
   i = 0
   vector = []
   fibi = fib(i, vector)
-  while (fibi < args.limit):
+  while (fibi < limit):
     if ((fibi % 2) == 0):
       total += fibi 
     i += 1

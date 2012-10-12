@@ -12,9 +12,6 @@ int main() {
       for (c = b + 1; c < stop; c++) {
         if ((a + b +c) == stop) {
           if ((a * a) + (b * b) == (c * c)) {
-#ifdef DEBUG
-            printf("(%d, %d, %d) -> ", a, b, c);
-#endif
             printf("%d\n", a*b*c);
             return(0);
           }

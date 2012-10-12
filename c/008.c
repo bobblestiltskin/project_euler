@@ -12,7 +12,7 @@ int main()
     if (sum > max)
       max = sum;
   }
-  printf("MAX is %d\n", max);
+  printf("%d\n", max);
   return(0);
 }
 
