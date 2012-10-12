@@ -95,17 +95,3 @@ cmpstringp(const void *p1, const void *p2)
 
   return strcmp(* (char * const *) p1, * (char * const *) p2);
 }
-
-/*
-my $total = 0;
-foreach my $i (1 .. @names) {
-  my $string = $names[$i - 1];
-  my $sum = 0;
-  foreach my $j (0 .. length($string) - 1) {
-    my $letter = substr($string, $j, 1);
-    $sum += ord($letter) - 64;
-  }
-  $total += ($sum * $i);
-}
-print $total,"\n";
-*/
