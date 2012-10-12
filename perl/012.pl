@@ -1,8 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-(@ARGV == 1) or die "Need a number to count to, $!";
-my $last = $ARGV[0] >> 1; # halve the count
+my $last = 500 >> 1;
 
 my $num = 0;
 my $i = 0;
@@ -11,9 +10,8 @@ while ($num < $last) {
   $i = $i + $j;
   $num = get_num_divisors($i);
   $j++;
-  print "I is $i and J is ",$j," and NUM is $num\n";
 }
-print "I is $i and J is ",--$j," and NUM is $num\n";
+print $i,"\n";
 
 sub get_num_divisors {
   my $num = shift;

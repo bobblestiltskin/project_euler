@@ -1,27 +1,20 @@
 #!/usr/bin/env python
-import argparse
 from math import sqrt
 
 def main():
-  """ this computes projecteuler.net problem 01 """
-  parser = argparse.ArgumentParser()
-  parser.add_argument("last", type=int, help="number of divisors")
+  """ this computes projecteuler.net problem 12 """
 
-  args = parser.parse_args()
-  args.last = args.last >> 1;
-  print 'LIMIT is', args.last
-
+  last = 500 / 2
   num = 0
   i = 0
   j = 1
 
-  while (num < args.last):
+  while (num < last):
     i = i + j
     num = get_num_divisors(i)
     j += 1
-    print "I is",i,"and J is ",j,"and NUM is ",num
 
-  print "I is",i,"and J is ",j-1,"and NUM is ",num
+  print i
   return 0
 
 def get_num_divisors(num):

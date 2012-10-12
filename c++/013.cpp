@@ -127,15 +127,13 @@ int main() {
     tmp << result_num;
     std::string tmp_string = tmp.str().substr(0, 10);
 // truncate number to first 10 characters
-    printf("J is %d and RES is %10lu and STRING is %s and TMP_STRING is %s\n",
-      j, result_num, string.c_str(), tmp_string.c_str());
     if (string != tmp_string)
       string = tmp_string;
     else
       break;
     j++;
   }
-  printf("RESULT is %s\n", string.c_str());
+  printf("%s\n", string.c_str());
 
   return 0;
 }

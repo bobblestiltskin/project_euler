@@ -117,7 +117,6 @@ def main():
 # update global count with the sum of this column
     result_num *= 10
     result_num += tmp_result
-#    print "t is ",tmp_result,"R is",result_num
     tmp_string = str(result_num)
 # compare first ten characters of this number to that last computed
     if ((len(tmp_string) < 10) or (string[0:10] != tmp_string[0:10])):
@@ -128,7 +127,7 @@ def main():
 # add another column
     j += 1
 
-  print 'RESULT is',result_num,'string is',string[0:10]
+  print string[0:10]
 
   return 0
 

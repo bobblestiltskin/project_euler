@@ -61,7 +61,8 @@ for (my $i=22; $i > 2; $i--) {
     }
   }
 }
-print "MAX is $max and ROW is $imax COLUMN is $jmax TYPE is $type and list is ",join(", ", @list),"\n";
+#print "MAX is $max and ROW is $imax COLUMN is $jmax TYPE is $type and list is ",join(", ", @list),"\n";
+print $max,"\n";
 
 sub compute_point {
   my ($a, $i, $j) = @_;

@@ -1,19 +1,16 @@
 #!/usr/bin/env python
-import argparse
 
 def main():
   """ this computes projecteuler.net problem 015 """
-  parser = argparse.ArgumentParser()
-  parser.add_argument("limit", type=int, help="problem size")
-  args = parser.parse_args()
 
 # need to compute 2n!/((n!)*(n!))
 
+  limit = 20
   numerator = []
   denominator = []
-  for i in range(args.limit):
+  for i in range(limit):
     denominator.append(i+1)
-    numerator.append(i+args.limit+1)
+    numerator.append(i+limit+1)
 
 #  walk through lists and cast away multiples to reduce size of numbers from
 #  factorials - this is incomplete factoring but sufficient for this problem
@@ -27,11 +24,11 @@ def main():
 
   num = 1
   denom = 1
-  for i in range(args.limit):
+  for i in range(limit):
     num *= numerator[i]
     denom *= denominator[i]
       
-  print 'RESULT for ',args.limit,'is',num/denom,'(',num,'/',denom,'remainder',num % denom,')'
+  print num/denom
   return 0
 
 if __name__ == "__main__":

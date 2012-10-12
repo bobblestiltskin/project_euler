@@ -40,7 +40,6 @@ int main() {
   });  //  c++11
 
   int max = 0;
-  int imax, jmax;
   std::string type;
 /*
 of course the matrix is stored upside down in memory cf with normal
@@ -53,21 +52,11 @@ increment the column counter so then our 1,1 is the lower-left cell
       int point = compute_point(a, i, j, ttype);
       if (point > max) {
         max = point;
-        imax = 23 - i;
-        jmax = j - 2;
         type = ttype;
       }
     }
   }
-#ifdef DEBUG
-  printf("MAX is ");
-#endif
-  printf("%d", max);
-#ifdef DEBUG
-  printf(" and ROW is %d COLUMN is %d TYPE is %s",
-         imax, jmax, type.c_str());
-#endif
-  printf("\n");
+  printf("%d\n", max);
 
   return 0;
 }

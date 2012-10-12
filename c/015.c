@@ -2,14 +2,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-int main(int argc, char **argv)
+int main()
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg\n");
-    return(1);
-  }
-  int max = atoi(argv[1]);
+  const int max = 20;
 
 /* need to compute 2n!/((n!)*(n!)) */
 
@@ -45,6 +40,6 @@ int main(int argc, char **argv)
     denom *= denominator[i];
   }
 
-  printf("RESULT for %d is %lu (%lu / %lu remainder %lu)\n", max, num/denom, num, denom, num % denom);
+  printf("%lu\n", num/denom);
   return(0);
 }

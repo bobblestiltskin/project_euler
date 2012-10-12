@@ -47,7 +47,7 @@ def main():
         jmax = j - 2
         direction = tdirection
 
-  print "MAX is",amax,"and ROW is",imax,"COLUMN is",jmax,"DIRECTION is",direction
+  print amax
 
   return 0
 

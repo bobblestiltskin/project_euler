@@ -109,6 +109,5 @@ my $sum = Math::BigInt->new;
 my $index = 1;
 foreach my $element (@$list) {
   $sum += Math::BigInt->new("$element");
-  print "INDEX ",$index++," SUM is ",$sum,"\n";
 }
-print "SUM is $sum starts with ",substr($sum, 0, 10),"\n";
+print substr($sum, 0, 10),"\n";

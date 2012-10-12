@@ -122,14 +122,13 @@ int main()
     result_num += tmp_result - 4800; // 100 character offsets
     char tmp_string[11];
     sprintf(tmp_string, "%10lu", result_num);
-/*    printf("J is %d and RESULT is %10lu and STRING is %s and TMP_STRING is %s\n", j, result_num, string, tmp_string); */
     if (strncmp(string, tmp_string, 10))
       strncpy(string, tmp_string, 10);
     else
       break;
     j++;
   } 
-  printf("RESULT is %s\n",string);
+  printf("%s\n", string);
   
   return 0;
 }

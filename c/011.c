@@ -39,7 +39,6 @@ int main()
   }
 
   int max = 0;
-  int imax, jmax;
   char type[TSIZE];
 /*
 of course the matrix is stored upside down in memory cf with normal mathematical representation
@@ -51,13 +50,11 @@ so we decrement our row counter and increment the column counter so then our 1,1
       int point = compute_point(a, i, j, ttype);
       if (point > max) {
         max = point;
-        imax = 23 - i;
-        jmax = j - 2;
         strncpy(type, ttype, TSIZE);
       }
     }
   }
-  printf("MAX is %d and ROW is %d COLUMN is %d TYPE is %s\n", max, imax, jmax, type);
+  printf("%d\n", max);
 
   return(0);
 }
