@@ -25,7 +25,6 @@ int main()
       snprintf(digits,MAXDIGITS+1,"%d",product);
       if (is_palindromic(digits))
       {
-        printf("PALINDROME %d of %d * %d\n", product, i, j);
         if (product > maxp)
         {
           maxp = product;
@@ -34,7 +33,7 @@ int main()
       }
     }
   }
-  printf("MAXP is %d\n",maxp);
+  printf("%d\n",maxp);
   
   return 0;
 }

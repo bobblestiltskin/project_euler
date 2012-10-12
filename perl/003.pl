@@ -10,16 +10,13 @@ for my $i (2 .. sqrt($number)) {
   my $divi = 0;
   unless ($number % $i) {
     $divi = $number/$i;
-    print "FACTOR of $number is  ($i * $divi)\n";
     for my $j (2 .. sqrt($i)) {
       unless ($i % $j) {
-        print "2 FACTOR of $i is ($j * ",$i/$j,")\n";
         $matched_2 = 1;
       }
     }
     for my $k (2 .. sqrt($divi)) {
       unless ($divi % $k) {
-        print "3 FACTOR of $divi is ($k * ",$divi/$k,")\n";
         $matched_3 = 1;
       }
     }
@@ -29,4 +26,4 @@ for my $i (2 .. sqrt($number)) {
     $max_prime = $divi if (!$matched_3 && ($divi > $max_prime));
   }
 }
-print "MAX PRIME divisor of $number is $max_prime\n";
+print "$max_prime\n";

@@ -8,11 +8,9 @@ int main()
   {
     sumsq += (i+1) * (i+1);
   }
-  printf("SUMSQ is %d\n", sumsq);
 
   int sqsum = (101 * 50) * (101 * 50);
-  printf("SQSUM is %d\n", sumsq);
-  printf("DIFFERENCE is %d\n", sqsum - sumsq);
+  printf("%d\n", sqsum - sumsq);
   
   return 0;
 }

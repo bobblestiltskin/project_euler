@@ -13,13 +13,12 @@ def main():
     for j in range(MAX3, minj, -1):
       product = i * j
       if is_palindromic(str(product)):
-        print 'PALINDROME',product,'of',i,'*',j 
         if product > maxp:
           maxp = product
 #          minj = product / 1000 ## hmm how to get range to honour these resets
 #          mini = product / 1000 ## It is not safe to modify the sequence being iterated over in the loop - from tutorial!
 
-  print 'MAXP is',maxp
+  print maxp
 
   return 0
 

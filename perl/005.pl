@@ -13,4 +13,4 @@ foreach my $prime (@primes) {
 }
 # and then multiply by each of the primes
 
-print "RESULT is $result\n";
+print "$result\n";

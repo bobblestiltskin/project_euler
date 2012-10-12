@@ -6,18 +6,16 @@ memoize('fib');
 
 my $total = 0;
 
-(@ARGV == 1) or die "Need MAX as argument, $!";
-my $max = $ARGV[0];
+my $max = 4000000;
 
 my $i = 0;
 my $fib = fib($i);
 while ($fib < $max) {
-print "I is $i and  FIB is $fib\n";
   $total += $fib if (!($fib  % 2));
   $i++;
   $fib = fib($i);
 }
-print "TOTAL is $total\n";
+print "$total\n";
 
 sub fib {
   my $i = shift;

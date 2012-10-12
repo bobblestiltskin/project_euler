@@ -3,14 +3,9 @@
 
 int fib(int, int *);
 
-int main(int argc, char **argv)
+int main()
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg\n");
-    exit(1);
-  }
-  int max = atoi(argv[1]);
+  int max = 4000000;
 
   int total = 0;
   int i = 0;
@@ -23,7 +18,7 @@ int main(int argc, char **argv)
     i++;
     fibi = fib(i, vector);
   }
-  printf("MAX is %d and TOTAL is %d\n", max, total);
+  printf("%d\n", total);
   free(vector);
   exit(0);
 }

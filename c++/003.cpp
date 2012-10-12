@@ -17,26 +17,15 @@ int main() {
     uint64_t divi = 0;
     if (!(number % i)) {
       divi = number/i;
-#ifdef DEBUG
-      printf("FACTOR of %lu is (%lu * %lu)\n", number, i, divi);
-#endif
       uint64_t j;
       for (j = 2; j < sqrt(i); j++) {
-        if (!(i % j)) {
-#ifdef DEBUG
-          printf("2 FACTOR of %lu is (%lu * %lu)\n", i, j, i/j);
-#endif
+        if (!(i % j))
           matched_2 = 1;
-        }
       }
       uint64_t k;
       for (k = 2; k < sqrt(divi); k++) {
-        if (!(divi % k)) {
-#ifdef DEBUG
-          printf("3 FACTOR of %lu is (%lu * %lu)\n", divi, k, divi/k);
-#endif
+        if (!(divi % k))
           matched_3 = 1;
-        }
       }
     }
     if (divi) {
@@ -46,9 +35,6 @@ int main() {
         max_prime = divi;
     }
   }
-#ifdef DEBUG
-  printf("MAX PRIME DIVISOR of %lu is ", number);
-#endif
   printf("%lu\n", max_prime);
   return(0);
 }

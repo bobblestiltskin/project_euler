@@ -25,9 +25,6 @@ int main() {
       tmp << product;
       digits = tmp.str();
       if (is_palindromic(digits)) {
-#ifdef DEBUG
-        printf("PALINDROME %d of %d * %d\n", product, i, j);
-#endif
         if (product > maxp) {
           maxp = product;
           mini = minj = product / 1000; /* optimize */
@@ -35,9 +32,6 @@ int main() {
       }
     }
   }
-#ifdef DEBUG
-  printf("MAXP is ");
-#endif
   printf("%d\n", maxp);
 
   return 0;

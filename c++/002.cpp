@@ -8,14 +8,8 @@
 
 int fib(const int, std::vector<int> *);
 
-int main(int argc, char **argv) {
-  if (argc != 2) {
-    printf("Need 1 arg\n");
-    return(1);
-  }
-  int max;
-  std::stringstream ssout(argv[1]);
-  ssout >> max;
+int main() {
+  const int max = 4000000;
 
   int total = 0;
   int i = 0;
@@ -27,9 +21,6 @@ int main(int argc, char **argv) {
     i++;
     fibi = fib(i, &fib_vector);
   }
-#ifdef DEBUG
-  printf("MAX is %d and TOTAL is ", max);
-#endif
   printf("%d\n", total);
   return(0);
 }

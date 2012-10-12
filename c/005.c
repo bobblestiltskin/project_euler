@@ -14,7 +14,7 @@ maximum power of other primes < 20 is n^1
   for (i=0; i<8; i++)
     result *= primes[i];
 
-  printf("RESULT is %d\n",result);
+  printf("%d\n",result);
   
   return 0;
 }

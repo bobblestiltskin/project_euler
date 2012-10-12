@@ -11,7 +11,6 @@ for (my $i = $MAX3; $i >= $mini; $i--) {
   for (my $j = $MAX3; $j >= $minj; $j--) {
     my $product = $i * $j;
     if ($product eq reverse $product) {
-      print "PALINDROME $product of ",$i,' * ',$j,"\n"; 
       if ($product > $maxp) {
         $maxp = $product;
         $mini = $minj = $product / 1000; # optimize
@@ -19,4 +18,4 @@ for (my $i = $MAX3; $i >= $mini; $i--) {
     }
   }
 }
-print "MAXP is $maxp\n";
+print "$maxp\n";

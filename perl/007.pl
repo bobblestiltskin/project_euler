@@ -1,20 +1,17 @@
 #!/usr/bin/perl -w
 use strict;
 
-(@ARGV == 1) or die "Need an integer which specifies which prime to find, $!";
-my $last = shift;
+my $last = 10001;
 my @primes = qw(2 3);
 
 my $test = $primes[-1] + 2;
 while (@primes < $last) {
-#print "TEST is $test\n";
   if (is_prime($test, \@primes)) {
     push @primes, $test;
   }
   $test += 2;
 }
-#print "P are ",join(" ", @primes),"\n";
-print "PRIME ",$last," is ", $primes[-1],"\n";
+print $primes[-1],"\n";
 
 sub is_prime {
   my $test = shift;

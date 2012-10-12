@@ -4,19 +4,12 @@
 
 #include <cstdio>
 #include <cmath>
-#include <sstream>
 #include <vector>
 
 int is_prime(const int, const std::vector<int> &);
 
-int main(int argc, char **argv) {
-  if (argc != 2) {
-    printf("Need 1 arg - the ordinal of the prime to find\n");
-    return(1);
-  }
-  unsigned int primenum;
-  std::stringstream ssout(argv[1]);
-  ssout >> primenum;
+int main() {
+  const unsigned int primenum = 10001;
 
   std::vector<int> primes;
   primes.push_back(2);
@@ -28,9 +21,6 @@ int main(int argc, char **argv) {
       primes.push_back(test);
     test += 2;
   }
-#ifdef DEBUG
-  printf("PRIME %d is ", primenum);
-#endif
   printf("%d\n", primes[primes.size() - 1]);
   return(0);
 }

@@ -15,7 +15,7 @@ def main():
   for i in range(len(primes)):
     result *= primes[i]
 
-  print 'RESULT is',result
+  print result
 
   return 0
 

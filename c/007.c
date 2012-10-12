@@ -6,12 +6,7 @@ int is_prime(int, int, int *);
 
 int main(int argc, char **argv)
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg - the ordinal of the prime to find\n");
-    exit(1);
-  }
-  int primenum = atoi(argv[1]);
+  int primenum = 10001;
 
   int primes[10002] = {2, 3};
   int numprimes = 2;
@@ -23,7 +18,7 @@ int main(int argc, char **argv)
       primes[numprimes++] = test;
     test += 2;
   }
-  printf("PRIME %d is %d\n", primenum, primes[numprimes-1]);    
+  printf("%d\n", primes[numprimes-1]);    
   exit(0);
 }
 

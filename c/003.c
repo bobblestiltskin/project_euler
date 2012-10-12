@@ -17,24 +17,17 @@ int main()
     if (!(number % i))
     {
       divi = number/i;
-      printf("FACTOR of %lu is (%d * %lu)\n", number, i, divi);
       int j;
       for (j=2; j < sqrt(i); j++)
       {
         if (!(i % j))
-        {
-          printf("2 FACTOR of %d is (%d * %d)\n",i, j, i/j);
           matched_2 = 1;
-        }
       }
       int k;
       for (k=2; k < sqrt(divi); k++)
       {
         if (!(divi % k))
-        {
-          printf("3 FACTOR of %lu is (%d * %lu)\n",divi, k, divi/k);
           matched_3 = 1;
-        }
       }
     }
     if (divi) {
@@ -44,6 +37,6 @@ int main()
         max_prime = divi;
     }
   }
-  printf("MAX PRIME DIVISOR of %lu is %d\n", number, max_prime);
+  printf("%d\n", max_prime);
   exit(0);
 }
