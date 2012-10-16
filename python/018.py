@@ -28,7 +28,7 @@ def main():
     for j in range(i-1):
       data[i-2][j] += max(data[i-1][j], data[i-1][j+1]);
 
-  print 'SUM is',data[0][0]
+  print data[0][0]
 
   return 0
 

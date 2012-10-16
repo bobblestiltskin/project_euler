@@ -43,9 +43,6 @@ def main():
     
       if (point > amax):
         amax = point
-        imax = 23 - i
-        jmax = j - 2
-        direction = tdirection
 
   print amax
 

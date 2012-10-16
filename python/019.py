@@ -29,7 +29,7 @@ def main():
         if (dow == 0):
           count += 1
         dow = (dow + cycle[j]) % 7
-  print 'COUNT is', count
+  print count
 
   return 0
 

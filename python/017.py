@@ -53,7 +53,7 @@ def main():
       count += len(units[i]) + handcount + len(tens[j])
 
   count += len(onek) - 1 # contains a space
-  print 'COUNT is', count
+  print count
 
   return 0
 

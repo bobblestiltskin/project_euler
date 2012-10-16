@@ -4,7 +4,7 @@ from math import sqrt
 def main():
   """ this computes projecteuler.net problem 12 """
 
-  last = 500 / 2
+  last = 250
   num = 0
   i = 0
   j = 1

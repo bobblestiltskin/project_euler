@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 
-import argparse
 from math import sqrt
 
 def main():
   """ this computes projecteuler.net problem 020 """
-  parser = argparse.ArgumentParser()
-  parser.add_argument("last", type=int, help="factorial to compute and sum digits of")
-
-  args = parser.parse_args()
   
+  last = 100
   factorial = 1
-  for i in range(args.last):
+  for i in range(last):
     factorial *= i+1
 
   fstring = str(factorial)
@@ -21,7 +17,7 @@ def main():
   for i in range(flen): 
     fsum += int(fstring[i])
 
-  print "SUM is",fsum
+  print fsum
 
 if __name__ == "__main__":
     main()
