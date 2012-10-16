@@ -15,14 +15,8 @@ std::string mul_digit_string(const int, const std::string);
 std::string add_digit_strings(const std::string, const std::string);
 std::string add_strings_short_to_long(const std::string, const std::string);
 
-int main(int argc, char **argv) {
-  if (argc != 2) {
-    printf("Need 1 arg\n");
-    return(1);
-  }
-  int maxa;
-  std::stringstream ssout(argv[1]);
-  ssout >> maxa;
+int main() {
+  const int maxa = 100;
 
   std::string fac_string = factorial(maxa);
   int sum = 0;
@@ -34,28 +28,14 @@ int main(int argc, char **argv) {
 }
 
 std::string factorial(int num) {
-#ifdef DEBUG
-printf("ENTERING factorial BEFORE is %d\n", num);
-#endif
-
   std::string fac_string = "1";
   for (int i = 0; i < num; ++i)
     fac_string = mul_int_string(i+1, fac_string);
-
-#ifdef DEBUG
-printf("LEAVING factorial AFTER num is %d and FACTORIAL is %s\n",
-num, fac_string.c_str());
-#endif
 
   return(fac_string);
 }
 
 std::string mul_int_string(int alpha, const std::string in_string) {
-#ifdef DEBUG
-printf("ENTERING mul_int_string with alpha of %d and in_string of %s\n",
-alpha, in_string.c_str());
-#endif
-
   /* multiplies the input string in_string by the integer alpha */
 
   std::string in_copy = in_string;
@@ -76,21 +56,11 @@ alpha, in_string.c_str());
     in_copy = in_copy + "0";  // multiply by 10
   } while ((alpha = alpha / BASE));
 
-#ifdef DEBUG
-printf("LEAVING mul_int_string with alpha of %d and in of %s and out of %s\n",
-alpha, in_string.c_str(), out_string.c_str());
-#endif
-
   return out_string;
 }
 
 std::string mul_digit_string(const int digit, const std::string in_string) {
   /* multiplies the in_string by a single digit */
-
-#ifdef DEBUG
-printf("entering mul_digit_string digit is %d input is %s\n",
-digit, in_string.c_str());
-#endif
 
   assert(digit >= 0);
   assert(digit <= 9);
@@ -124,21 +94,12 @@ digit, in_string.c_str());
     }
   }
 
-#ifdef DEBUG
-printf("leaving mul_digit_string output is %s\n", out_string.c_str());
-#endif
-
   return out_string;
 }
 
 std::string add_digit_strings(const std::string in_1_string,
                               const std::string in_2_string) {
   /* generate out_string by adding in_2_string to in_1_string */
-
-#ifdef DEBUG
-printf("ENTERING add_digit_strings IN 1 STRING is %s IN 2 STRING is %s\n",
-in_1_string.c_str(), in_2_string.c_str());
-#endif
 
   std::string out_string;
 
@@ -148,23 +109,12 @@ in_1_string.c_str(), in_2_string.c_str());
   else
     out_string = add_strings_short_to_long(in_1_string, in_2_string);
 
-#ifdef DEBUG
-printf("LEAVING add_digit_strings IN 1 STRING is %s\n", in_1_string.c_str());
-printf("LEAVING add_digit_strings IN 2 STRING is %s\n", in_2_string.c_str());
-printf("LEAVING add_digit_strings OUT STRING is %s\n", out_string.c_str());
-#endif
-
   return out_string;
 }
 
 std::string add_strings_short_to_long(const std::string short_string,
                                       const std::string long_string) {
   /* generate out_string by adding short_string to long_string */
-
-#ifdef DEBUG
-printf("ENTERING add_digit_strings SHORT STRING is %s LONG STRING is %s\n",
-short_string.c_str(), long_string.c_str());
-#endif
 
   std::string out_string;
 
@@ -207,12 +157,6 @@ short_string.c_str(), long_string.c_str());
   } else {
     out_string = long_string;
   }
-
-#ifdef DEBUG
-printf("LEAVING add_digit_strings IN 1 STRING is %s\n", short_string.c_str());
-printf("LEAVING add_digit_strings IN 2 STRING is %s\n", long_string.c_str());
-printf("LEAVING add_digit_strings OUT STRING is %s\n", out_string.c_str());
-#endif
 
   return out_string;
 }

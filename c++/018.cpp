@@ -35,7 +35,7 @@ int main() {
     for (int j = 0; j < (i - 1); ++j)
       data[i-2][j] += std::max(data[i-1][j], data[i-1][j+1]);
 
-  printf("SUM is %d\n", data[0][0]);
+  printf("%d\n", data[0][0]);
 
   return 0;
 }
