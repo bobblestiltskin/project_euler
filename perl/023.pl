@@ -3,12 +3,8 @@ use strict;
 
 my $MAX = 28123;
 
-#my @deficient;
-#my @perfect;
 my @abundant;
 foreach (1 .. $MAX) {
-#  push @perfect, $_ if ($_ == sum_factors($_));
-#  push @deficient, $_ if ($_ > sum_factors($_));
   push @abundant, $_ if ($_ < sum_factors($_));
 }
 
@@ -25,11 +21,10 @@ foreach my $i (1 .. $MAX) {
     last if (grep {/^$diff$/} @abundant);
   }
   if ($addi) {
-    print "ADDING $i\n";
     $sum += $i;
   }
 }
-print "SUM is $sum\n";
+print "$sum\n";
 
 sub sum_factors {
   my $number = shift;
