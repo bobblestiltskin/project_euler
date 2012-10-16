@@ -6,33 +6,26 @@
 
 void double_string(char *);
 
-int main(int argc, char **argv)
+int main()
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg\n");
-    exit(1);
-  }
-  int max = atoi(argv[1]);
+  int max = 1000;
 
 // initialise a string to 2 - we store ASCII because it is easier to print
 // we could store the raw numbers for a little better performance
+
   char *in_string = (char *) malloc(2);
   *in_string = 1 + ASCII; 
   *(in_string+1) = 0;
 
   int i;
   for (i=0; i < max; ++i)
-  {
     double_string(in_string);
-  }
-  printf("STRING is %s\n", in_string);
+
   int sum = 0;
   for (i=0; i < strlen(in_string); ++i)
-  {
     sum += *(in_string+i) - ASCII;
-  }
-  printf("SUM of digits in string is %d\n", sum);
+
+  printf("%d\n", sum);
 
   return(0);
 }
@@ -48,13 +41,13 @@ void double_string(char *in)
   int ra = 0;
   if ((first == 5) || (first == 6) || (first == 7) || (first == 8) || (first == 9))
   {
-/*  extend string by a character */
+    /* extend string by a character */
     in = realloc(in, strlen(in) + 2);
     ra = 1;
     *(in+strlen(in)) = *(in+strlen(in)+1) = 0; // initialise to null
   }
 
-/* walk backwards through the string doubling as we go */
+  /* walk backwards through the string doubling as we go */
   int carry = 0;
   int j;
   for (j = strlen(in); j > 0; --j)

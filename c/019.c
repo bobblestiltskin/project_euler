@@ -35,6 +35,6 @@ int main()
       dow = (dow + cycle[j]) % 7;
     }
   }
-  printf("COUNT is %d\n", count);
+  printf("%d\n", count);
   return 0;
 }

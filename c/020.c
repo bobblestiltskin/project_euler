@@ -12,25 +12,18 @@ int add_digit_strings(const char *, const char *, char **);
 int add_strings_short_to_long(const char *, const char *, char **);
 int handle_carry(int, char **);
 
-int main(int argc, char **argv)
+int main()
 {
-  if (argc != 2)
-  {
-    printf("Need 1 arg\n");
-    return(1);
-  }
-
-  int maxa = atoi(argv[1]);
+  int maxa = 100;
   char *b = (char *) calloc(2, sizeof(char));
   strncpy(b, "1", 1);
   int status = 0;
   status = factorial(maxa, &b);
-  printf("FACTORIAL is %s and STATUS is %d\n", b,  status);
   int sum = 0;
   int i;
   for(i=0; i<strlen(b); ++i)
     sum += *(b+i) - '0';
-  printf("SUM is %d\n", sum);
+  printf("%d\n", sum);
 
   free(b);
   return(0);
@@ -38,10 +31,6 @@ int main(int argc, char **argv)
 
 int factorial(int num, char **factorial_ptr)
 {
-#ifdef DEBUG
-printf("ENTERING factorial BEFORE is %d and FACTORIAL is %s\n", num, *factorial_ptr);
-#endif
-
   int i;
   for (i = 0; i < num;++i)
   {
@@ -49,19 +38,11 @@ printf("ENTERING factorial BEFORE is %d and FACTORIAL is %s\n", num, *factorial_
     assert(mis_ret == 0);
   }
 
-#ifdef DEBUG
-printf("LEAVING factorial AFTER num is %d and FACTORIAL is %s\n", num, *factorial_ptr);
-#endif
-
   return(0);
 }
 
 int mul_int_string(int alpha, const char *in_string, char **out_string_ptr)
 {
-#ifdef DEBUG
-printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstring of %s\n", alpha, in_string, *out_string_ptr);
-#endif
-
   /* multiplies the input string in_string by the integer alpha */
 
   int in_length = strlen(in_string);
@@ -102,20 +83,12 @@ printf("ENTERING mul_int_string with alpha of %d and in_string of %s and outstri
   } while ((alpha = alpha / BASE)); // and iterate through the integer
   free(in_copy);
 
-#ifdef DEBUG
-printf("LEAVING mul_int_string with alpha of %d and in_string of %s and outstring of %s\n", alpha, in_string, *out_string_ptr);
-#endif
-  
   return 0;
 }
 
 int mul_digit_string(const int digit, const char *in_string, char **out_string_ptr)
 {
   /* multiplies the in_string by a single digit */
-
-#ifdef DEBUG
-printf("entering mul_digit_string digit is %d input is %s output is %s\n", digit, in_string, *out_string_ptr);
-#endif
 
   assert(digit >= 0);
   assert(digit <= 9);
@@ -145,22 +118,12 @@ printf("entering mul_digit_string digit is %d input is %s output is %s\n", digit
       handle_carry(carry, out_string_ptr);
   }
 
-#ifdef DEBUG
-printf("leaving mul_digit_string output is %s\n", *out_string_ptr);
-#endif
-
   return 0;
 }
 
 int add_digit_strings(const char *in_1_string, const char *in_2_string, char **out_string_ptr)
 {
   /* generate out_string by adding in_1_string to in_2_string */
-
-#ifdef DEBUG
-printf("ENTERING add_digit_strings IN 1 STRING is %s IN 2 STRING is %s and OUT STRING is %s\n", in_1_string, in_2_string, *out_string_ptr);
-printf("PTS add_digit_strings IN 1 STRING is %p IN 2 STRING is %p OUT STRING is %p\n", in_1_string, in_2_string, *out_string_ptr);
-printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is %d\n", (int) strlen(in_1_string), (int) strlen(in_2_string), (int) strlen(*out_string_ptr));
-#endif
 
   int status;
   /* if the second string is shorter than the first, swap them */
@@ -169,24 +132,12 @@ printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is 
   else
     status = add_strings_short_to_long(in_1_string, in_2_string, out_string_ptr);
 
-#ifdef DEBUG
-printf("LEAVING add_digit_strings IN 1 STRING is %s\n", in_1_string);
-printf("LEAVING add_digit_strings IN 2 STRING is %s\n", in_2_string);
-printf("LEAVING add_digit_strings OUT STRING is %s\n", *out_string_ptr);
-#endif
-
   return status;
 }
 
 int add_strings_short_to_long(const char *short_string, const char *long_string, char **out_string_ptr)
 {
   /* generate out_string by adding in_1_string to in_2_string */
-
-#ifdef DEBUG
-printf("ENTERING add_digit_strings IN 1 STRING is %s IN 2 STRING is %s and OUT STRING is %s\n", in_1_string, in_2_string, *out_string_ptr);
-printf("PTS add_digit_strings IN 1 STRING is %p IN 2 STRING is %p OUT STRING is %p\n", in_1_string, in_2_string, *out_string_ptr);
-printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is %d\n", (int) strlen(in_1_string), (int) strlen(in_2_string), (int) strlen(*out_string_ptr));
-#endif
 
   int min_len = strlen(short_string);
   int max_len = strlen(long_string);
@@ -238,12 +189,6 @@ printf("LEN add_digit_strings IN 1 STRING is %d IN 2 STRING is %d OUT STRING is 
     *out_string_ptr = (char *) realloc(*out_string_ptr, max_len + 1);
     memcpy(*out_string_ptr, long_string, max_len + 1);
   }
-
-#ifdef DEBUG
-printf("LEAVING add_digit_strings IN 1 STRING is %s\n", in_1_string);
-printf("LEAVING add_digit_strings IN 2 STRING is %s\n", in_2_string);
-printf("LEAVING add_digit_strings OUT STRING is %s\n", *out_string_ptr);
-#endif
 
   return 0;
 }

@@ -45,6 +45,6 @@ NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-
       count += strlen(units[i]) + handcount + strlen(tens[j]);
   }
   count += strlen(onek) - 1; /* contains a space */
-  printf("COUNT is %d\n", count);
+  printf("%d\n", count);
   return(0);
 }

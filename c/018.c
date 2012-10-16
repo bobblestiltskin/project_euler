@@ -33,7 +33,7 @@ values and add these maxima to the previous row and iterate */
     for (j=0; j < (i - 1); ++j)
       data[i-2][j] += max(data[i-1][j], data[i-1][j+1]);
   }
-  printf("SUM is %d\n",data[0][0]);
+  printf("%d\n",data[0][0]);
   
   return 0;
 }
