@@ -12,4 +12,4 @@ for (0 .. length($string) - 1) {
   my $digit = substr($string, $_, 1);
   $sum += $digit;
 }
-print "SUM is $sum\n";
+print $sum,"\n";

@@ -9,9 +9,8 @@ foreach (1 .. $MAX) {
 }
 
 my $sum=0;
-my $addi;
 foreach my $i (1 .. $MAX) {
-  $addi = 0;
+  my $addi = 0;
   foreach my $j (@abundant) {
     if ($i < $j) {
       $addi = 1;
@@ -24,7 +23,7 @@ foreach my $i (1 .. $MAX) {
     $sum += $i;
   }
 }
-print "$sum\n";
+print $sum,"\n";
 
 sub sum_factors {
   my $number = shift;

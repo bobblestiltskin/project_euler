@@ -23,12 +23,10 @@ my $count = 0;
 my $dow = 2; # start on tuesday 1901.1.1
 foreach (0 .. 24) { # 2000 is a leap year too!
   for my $year (@$cycle) {
-#    print join(", ", @$year),"\n";
     foreach my $mdays (@$year) {
-#      print "MDAYS - $mdays, DOW is $dow\n";
       $count++ if not $dow;
       $dow = ($dow + $mdays) % 7;
     }
   }
 }
-print "COUNT is $count\n";
+print $count,"\n";

@@ -45,4 +45,4 @@ foreach my $unit (@$units) {
 }
 my $onek = "one thousand";
 $count += length($onek) - 1; # contains a space
-print "COUNT is $count\n";
+print $count,"\n";

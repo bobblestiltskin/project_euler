@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-use Data::Dumper;
 
 my $data = [
 [ qw(75) ],
@@ -20,10 +19,6 @@ my $data = [
 [ qw(04 62 98 27 23 09 70 98 73 93 38 53 60 04 23) ],
 ];
 
-#print "DATA is ",Data::Dumper->Dump($data);
-
-my $sum = 0;
-
 for (my $row_index = (@$data - 1); $row_index > 0; $row_index--) {
   my $row = $data->[$row_index];
 # we process the data from the bottom of the triangle and compute the maximum of adjacent 
@@ -32,7 +27,7 @@ for (my $row_index = (@$data - 1); $row_index > 0; $row_index--) {
     $data->[$row_index - 1]->[$column_index] += max($row->[$column_index], $row->[$column_index+1]);
   }
 }
-print "SUM IS ",$data->[0]->[0],"\n";
+print $data->[0]->[0],"\n";
 
 sub max {
   my $left = shift;
