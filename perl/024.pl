@@ -5,8 +5,9 @@ my $start = 123456789;
 my $end = 9876543210;
 
 my $count = 0;
+my $num;
 for ($start .. $end) {
-  my $num = sprintf("%010d", $_);
+  $num = sprintf("%010d", $_);
   next unless ($num =~ /0/);
   next unless ($num =~ /1/);
   next unless ($num =~ /2/);
@@ -18,7 +19,6 @@ for ($start .. $end) {
   next unless ($num =~ /8/);
   next unless ($num =~ /9/);
   $count++;
-print "FOUND $_\n";
   last if ($count == 1000000);
 }
-print "COUNT is $count\n";
+print $num,"\n";

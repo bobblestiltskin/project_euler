@@ -9,12 +9,12 @@ int main()
   uint64_t start = 123456789;
   uint64_t end = 9876543210;
 
-  int count = 0;
-  int i;
+  uint64_t count = 0;
+  uint64_t i;
   for (i = start; i <= end; ++i)
   {
     char string[11];
-    sprintf(string, "%010d", i);
+    sprintf(string, "%010lu", i);
 
     if (strchr(string, OFFSET + 0) == NULL)
       continue;
@@ -38,10 +38,9 @@ int main()
       continue;
     
     count++;
-printf("FOUND %d\n", i);
     if (count == 1000000)
       break;
   }
-  printf("%d\n", count);
+  printf("%lu\n", i);
   return(0);
 }
