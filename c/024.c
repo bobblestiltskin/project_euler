@@ -14,7 +14,7 @@ int main()
   for (i = start; i <= end; ++i)
   {
     char string[11];
-    sprintf(string, "%010lu", i);
+    sprintf(string, "%010llu", i);
 
     if (strchr(string, OFFSET + 0) == NULL)
       continue;
@@ -41,6 +41,6 @@ int main()
     if (count == 1000000)
       break;
   }
-  printf("%lu\n", i);
+  printf("%llu\n", i);
   return(0);
 }
