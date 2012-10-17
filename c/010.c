@@ -29,7 +29,7 @@ int main()
   {
     sum += primes[i];
   }
-  printf("%ld\n", sum);    
+  printf("%llu\n", sum);    
   free(primes);
   exit(0);
 }

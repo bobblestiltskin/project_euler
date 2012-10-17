@@ -115,13 +115,12 @@ int main()
     int tmp_result = 0;
     int i;
     for (i=0; i<100; i++)
-    {
       tmp_result += nums[i][j];
-    }
+
     result_num *= 10;
     result_num += tmp_result - 4800; // 100 character offsets
     char tmp_string[11];
-    sprintf(tmp_string, "%10lu", result_num);
+    sprintf(tmp_string, "%10llu", result_num);
     if (strncmp(string, tmp_string, 10))
       strncpy(string, tmp_string, 10);
     else

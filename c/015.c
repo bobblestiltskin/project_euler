@@ -40,6 +40,6 @@ int main()
     denom *= denominator[i];
   }
 
-  printf("%lu\n", num/denom);
+  printf("%llu\n", num/denom);
   return(0);
 }
