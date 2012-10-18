@@ -14,7 +14,7 @@ def main():
     i += 1
     fibi = fib(i, vector)
 
-  print 'total is', total
+  print total
   return 0
 
 def fib(n, vector):

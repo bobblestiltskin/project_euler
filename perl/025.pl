@@ -8,11 +8,10 @@ memoize('fib');
 my $i = 0;
 my $x = Math::BigInt->new;
 while ($x->length() < 1000) {
-  print "i is $i and  FIB is $x\n";
   $i++;
   $x = Math::BigInt->new(fib($i));
 }
-print "I is $i and  FIB is $x\n";
+print $i,"\n";
 
 sub fib {
   my $i = shift;
