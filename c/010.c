@@ -23,7 +23,7 @@ int main()
     }
     test += 2;
   }
-  int64_t sum = 0;
+  unsigned long long sum = 0;
   int i;
   for (i=0; i < numprimes; ++i)
   {

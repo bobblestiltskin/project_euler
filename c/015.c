@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <stdlib.h>
 
 int main()
@@ -32,8 +31,8 @@ int main()
       }
     }
   }
-  uint64_t num = 1;
-  uint64_t denom = 1;
+  unsigned long long num = 1;
+  unsigned long long denom = 1;
   for (i=0; i < max; i++)
   {
     num *= numerator[i];

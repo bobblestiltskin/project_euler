@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <string.h>
 
 int main()
@@ -107,7 +106,7 @@ int main()
     "53503534226472524250874054075591789781264330331690",
   };
 
-  uint64_t result_num = 0;
+  unsigned long long result_num = 0;
   int j = 0;
   char string[11];
   while (1)

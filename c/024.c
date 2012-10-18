@@ -1,16 +1,15 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <string.h>
 
 #define OFFSET 48
 
 int main()
 {
-  uint64_t start = 123456789;
-  uint64_t end = 9876543210;
+  unsigned long long start = 123456789;
+  unsigned long long end = 9876543210;
 
-  uint64_t count = 0;
-  uint64_t i;
+  unsigned long long count = 0;
+  unsigned long long i;
   for (i = start; i <= end; ++i)
   {
     char string[11];
