@@ -18,7 +18,7 @@ dup mod3 if add-number then then drop ;
 0 do i test-number loop ;
 
 : answer ( -- )
-0 1000 test-loop cr ." answer is " . cr ;
+0 1000 test-loop . cr ;
 
 answer
 bye
