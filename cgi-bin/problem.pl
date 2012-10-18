@@ -42,8 +42,7 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
           if ($file eq join(".", $number, $extensions->{$subdir})) {
             print $query->h3($subdir);
 #            print $query->start_pre(-class => "example");
-            $file = join('/', $dir, $subdir, $file);
-            display_file($file);
+            display_file(join('/', $dir, $subdir), $file);
             last;
           }
         }
@@ -60,7 +59,7 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
                 my @dependencies = split(/ /);
                 foreach my $file (@dependencies) {
 #print "<p>DEPENDENCY is $file</p>\n";
-                  display_file(join('/', $dir, $subdir, $file));
+                  display_file(join('/', $dir, $subdir), $file);
                 }
               }
             }
@@ -77,10 +76,12 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
 print $query->end_html;
 
 sub display_file {
+  my $dir = shift;
   my $file = shift;
 
-  chomp($file);
   print '<pre class="example">' . "\n";
+  print "<p><b>$file</b></p>\n";
+  chomp($file = join('/', $dir, $file));
   open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
   while (<$fh>) {
     s/\&/&amp;/g;
