@@ -2,7 +2,8 @@
 
 // This is a solution for http://projecteuler.net/problem=3
 
-#include <cstdint>
+#define __STDC_FORMAT_MACROS
+#include <inttypes.h>
 #include <cstdio>
 #include <cmath>
 
@@ -35,6 +36,6 @@ int main() {
         max_prime = divi;
     }
   }
-  printf("%lu\n", max_prime);
+  printf("%" PRIu64 "\n", max_prime);
   return(0);
 }

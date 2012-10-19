@@ -21,10 +21,12 @@ How many Sundays fell on the first of the month during the twentieth century (1 
 #include <vector>
 
 int main() {
-  const std::vector<int> cycle({31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
-                         31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
-                         31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
-                         31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31});
+  const int carray[48] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+                          31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+                          31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+                          31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  const std::vector<int> cycle(carray,
+                               carray + sizeof(carray) / sizeof(carray[0]));
 
   int count = 0;
   int dow = 2;  // start on tuesday 1901.1.1

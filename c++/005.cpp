@@ -6,7 +6,9 @@
 #include <vector>
 
 int main() {
-  const std::vector<int> primes({2, 3, 5, 7, 11, 13, 17, 19});  // c++11
+  const int iprimes[8] = {2, 3, 5, 7, 11, 13, 17, 19};
+  const std::vector<int> primes(iprimes,
+                                iprimes + sizeof(iprimes) / sizeof(iprimes[0]));
 /*
 maximum power of 2 in 1..20 is 16 or 2^4
 maximum power of 3 in 1..20 is 9 or 3^2

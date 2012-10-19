@@ -2,7 +2,6 @@
 
 // This is a solution for http://projecteuler.net/problem=4
 
-#include <cstdint>
 #include <cstdio>
 #include <string>
 #include <sstream>

@@ -11,7 +11,7 @@
 
 int main() {
   std::string filename = "../names.txt";
-  std::ifstream names_file(filename);
+  std::ifstream names_file(filename.c_str());
   if (names_file.bad()) {
     printf("ERROR: Cannot open %s\n", filename.c_str());
     return 1;

@@ -2,7 +2,8 @@
 
 // This is a solution for http://projecteuler.net/problem=24
 
-#include <cstdint>
+#define __STDC_FORMAT_MACROS
+#include <inttypes.h>
 #include <cstdio>
 #include <iomanip>
 #include <string>
@@ -45,6 +46,6 @@ int main() {
     if (count == 1000000)
       break;
   }
-  printf("%lu\n", i);
+  printf("%" PRIu64 "\n", i);
   return(0);
 }

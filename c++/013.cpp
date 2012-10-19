@@ -2,13 +2,14 @@
 
 // This is a solution for http://projecteuler.net/problem=13
 
+#include <inttypes.h>
 #include <cstdio>
 #include <sstream>
 #include <string>
 #include <vector>
 
 int main() {
-  const std::vector<std::string> nums({
+  const std::string num_strings[100] = {
     "37107287533902102798797998220837590246510135740250",
     "46376937677490009712648124896970078050417018260538",
     "74324986199524741059474233309513058123726617309629",
@@ -109,7 +110,10 @@ int main() {
     "72107838435069186155435662884062257473692284509516",
     "20849603980134001723930671666823555245252804609722",
     "53503534226472524250874054075591789781264330331690",
-  });
+  };
+
+  const std::vector<std::string> nums(num_strings,
+    num_strings + sizeof(num_strings) / sizeof(num_strings[0]));
 
   uint64_t result_num = 0;
   int j = 0;

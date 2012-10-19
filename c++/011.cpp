@@ -10,7 +10,9 @@ int compute_point(const std::vector< std::vector<int> > &, const int,
                   const int, std::string &);
 
 int main() {
-  const std::vector<std::vector<int>> a({
+  const int ASIZE = 26;  // allow 3 around each edge
+
+  const int array[ASIZE][ASIZE] = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // NOLINT
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // NOLINT
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // NOLINT
@@ -37,7 +39,11 @@ int main() {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // NOLINT
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // NOLINT
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // NOLINT
-  });  //  c++11
+  };
+
+  std::vector< std::vector<int> > a(ASIZE, std::vector<int>(ASIZE));
+  for (int i = 0; i < ASIZE; ++i)
+    a[i].assign(array[i], array[i] + ASIZE);
 
   int max = 0;
   std::string type;

@@ -2,7 +2,8 @@
 
 // This is a solution for http://projecteuler.net/problem=15
 
-#include <cstdint>
+#define __STDC_FORMAT_MACROS
+#include <inttypes.h>
 #include <cstdio>
 #include <vector>
 
@@ -41,6 +42,6 @@ int main() {
     denom *= denominator.at(i);
   }
 
-  printf("%lu\n", num/denom);
+  printf("%" PRIu64 "\n", num/denom);
   return(0);
 }

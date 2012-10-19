@@ -2,7 +2,7 @@
 
 // This is a solution for http://projecteuler.net/problem=14
 
-#include <cstdint>
+#include <inttypes.h>
 #include <cstdio>
 
 uint64_t next_term(uint64_t);

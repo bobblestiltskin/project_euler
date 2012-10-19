@@ -19,9 +19,13 @@ NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-
   const std::string onek = "one thousand";
   const int hcount = 7; /* "hundred" */
   const int handcount = 10; /* "hundred and " */
-  const std::vector< std::string > units({"one", "two", "three", "four",
-  "five", "six", "seven", "eight", "nine"});
-  const std::vector< std::string > tens({"ten", "eleven", "twelve", "thirteen",
+
+  const std::string units_array[9] = {"one", "two", "three", "four",
+  "five", "six", "seven", "eight", "nine"};
+  const std::vector< std::string > units(units_array,
+    units_array + sizeof(units_array) / sizeof(units_array[0]));
+
+  const std::string tens_array[90] = {"ten", "eleven", "twelve", "thirteen",
   "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
   "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour",
   "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine",
@@ -38,7 +42,9 @@ NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-
   "eighty", "eightyone", "eightytwo", "eightythree", "eightyfour",
   "eightyfive", "eightysix", "eightyseven", "eightyeight", "eightynine",
   "ninety", "ninetyone", "ninetytwo", "ninetythree", "ninetyfour",
-  "ninetyfive", "ninetysix", "ninetyseven", "ninetyeight", "ninetynine"});
+  "ninetyfive", "ninetysix", "ninetyseven", "ninetyeight", "ninetynine"};
+  const std::vector< std::string > tens(tens_array,
+    tens_array + sizeof(tens_array) / sizeof(tens_array[0]));
 
   int count = 0;
 
