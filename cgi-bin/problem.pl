@@ -2,8 +2,11 @@
 
 # to display solutions for any problem in all written languages
 use strict;
+use Carp qw(carp croak confess);
 use CGI;
 use DirHandle;
+use LWP::UserAgent;
+use XML::LibXML;
 
 my $extensions = {
   asm    => 's',
@@ -29,6 +32,14 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
   print '<link rel="stylesheet" href="/new.css" type="text/css">' . "\n";
   my $dirh = DirHandle->new($dir);
   print '<a href="http://projecteuler.net/problem=', $number, '">Description of problem</a>',"\n";
+
+  my $wanted = decode_web_page(get_web_page("http://projecteuler.net/problem=$number"));
+#  $wanted =~ s/\&#13;//g;
+#  print '<pre class="system">' . "\n";
+  my $string = $wanted->toString;
+  $string =~ s/\&#13;//g;
+  print $string,"\n";
+#  print $query->end_pre;
   if (defined $dirh) {
     while (defined (my $subdir = $dirh->read)) {
       next if (($subdir eq '.') or ($subdir eq '..'));
@@ -91,4 +102,28 @@ sub display_file {
   }
   close $fh;
   print $query->end_pre;
+}
+
+sub get_web_page {
+  my $url = shift;
+
+  my $ua = LWP::UserAgent->new;
+  $ua->agent('bob@fourtheye.org::problem_text_grabber');
+
+  my $req = HTTP::Request->new('GET', $url);
+  my $res = $ua->request($req);
+
+  if ($res->is_error()) {
+    carp "Error getting $url: ", $res->status_line, "\n";
+    return undef;
+  } else {
+    $res->content;
+  }
+}
+
+sub decode_web_page {
+  my $html = shift;
+
+  my $xp = XML::LibXML->load_html(string => $html);
+  return ($xp->findnodes('//*[@role="problem"]'))[0];
 }
