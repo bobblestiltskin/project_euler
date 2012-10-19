@@ -38,6 +38,7 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
 #  print '<pre class="system">' . "\n";
   my $string = $wanted->toString;
   $string =~ s/\&#13;//g;
+  $string =~ s|href="|href="http://projecteuler.net/|g;
   print $string,"\n";
 #  print $query->end_pre;
   if (defined $dirh) {
