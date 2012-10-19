@@ -20,6 +20,7 @@ string:
 	.global	main
 	.type	main, %function
 main:
+	stmfd	sp!, {r4, r5, r6, r7, r8, lr}
 	ldr	max5,   =max5start
 	ldr	max3,   =max3start
 	ldr	number, =max3start    @ start at 1000 - 1 - numbers < 1000
@@ -48,8 +49,11 @@ last:
 	mov	matched, #0
 	bne	loop
 
-	ldr	r0, =string	@ store address of start of string to r0
 	mov	r1, sum		
+	ldr	r0, =string	@ store address of start of string to r0
 	bl	printf
+	mov	r0, #0
+
+	ldmfd	sp!, {r4, r5, r6, r7, r8, pc}
 	mov	r7, #1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux
