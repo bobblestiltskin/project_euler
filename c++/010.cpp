@@ -2,6 +2,8 @@
 
 // This is a solution for http://projecteuler.net/problem=10
 
+#define __STDC_FORMAT_MACROS
+#include <inttypes.h>
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
@@ -24,14 +26,11 @@ int main() {
     }
     test += 2;
   }
-  int64_t sum = 0;
+  uint64_t sum = 0;
   for (unsigned int i = 0; i < primes.size(); ++i) {
     sum += primes[i];
   }
-#ifdef DEBUG
-  printf("SUM of all primes less than %d is ", last);
-#endif
-  printf("%ld\n", sum);
+  printf("%" PRIu64 "\n", sum);
   exit(0);
 }
 
