@@ -23,7 +23,7 @@ main:
 	stmfd	sp!, {r4, r5, r6, r7, r8, lr}
 	ldr	max5,   =max5start
 	ldr	max3,   =max3start
-	ldr	number, =max3start    @ start at 1000 - 1 - numbers < 1000
+	ldr	number, =max3start    @ start at 1000 - 1 ; numbers < 1000
 	mov	matched, #0
 	mov	sum, #0
 loop:
@@ -39,12 +39,14 @@ test5:
 	cmp	number, max5
 	bne	last
 
+# matched a multiple of 5 - decrement max5, add to sum and set matched to 1
 	subs	max5, max5, #5
-	cmp	matched, #1
-	beq	last
-	add	sum, sum, number
+	cmp	matched, #1 ; have we already added it?
+	beq	last ; if so jump 
+	add	sum, sum, number ; else add it to the total
 
 last:
+# decrement number and reset matched and loop
 	subs	number, number, #1
 	mov	matched, #0
 	bne	loop
