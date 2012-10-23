@@ -34,7 +34,7 @@ void fib(int num, char ***vector)
   if (num < 2)
   {
     char *nextfib = (char *) calloc(2, sizeof(char));
-    sprintf(nextfib, "%d", num);
+    snprintf(nextfib, 2, "%d", num);
     *(nextfib+1) = 0;
     *(*vector+num) = nextfib;
   }

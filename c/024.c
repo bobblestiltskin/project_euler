@@ -13,7 +13,7 @@ int main()
   for (i = start; i <= end; ++i)
   {
     char string[11];
-    sprintf(string, "%010llu", i);
+    snprintf(string, 11, "%010llu", i);
 
     if (strchr(string, OFFSET + 0) == NULL)
       continue;
