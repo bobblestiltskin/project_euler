@@ -12,7 +12,7 @@ max5	.req r8
 .section .rodata
 	.align	2
 string:
-	.asciz "Sum of numbers %d\n"
+	.asciz "%d\n"
 .text
 	.align	2
 	.global	main
