@@ -6,7 +6,7 @@ ASOPTS  := -gstabs
 CCOPTS  := -g
 #CLIBS   := -lm
 
-all: 001
+all: 001 002
 
 %: %.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
