@@ -1,0 +1,11 @@
+This is a home for my implementations of the problems at http://projecteuler.net.
+
+I first coded the problems in Perl. Later I wrote them in C, C++ and Python. I am
+currently implementing them in Forth and ARM assembly language (I have a fignition
+and a Raspberry Pi).
+
+I intend to write them in Haskell because I want to learn, Then maybe Erlang, Lua...
+
+I put them here because they may help others. However, I would urge anyone to write
+the problems themselves - there is little karma to be gained by just running my code
+and using the answers generated at http://projecteuler.net!
