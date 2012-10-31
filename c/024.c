@@ -5,10 +5,10 @@
 
 int main()
 {
-  unsigned long long start = 123456789;
-  unsigned long long end = 9876543210;
+  unsigned long long start = 2000000000;
+  unsigned long long end =   9876543210;
 
-  unsigned long long count = 0;
+  unsigned long long count = 362880 << 1;
   unsigned long long i;
   for (i = start; i <= end; ++i)
   {
