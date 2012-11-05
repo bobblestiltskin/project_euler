@@ -42,7 +42,7 @@ int call_add_digit_strings(const int index,
   numstring a = input1.at(index);
   numstring b = input2.at(index);
 
-  a.add_digit_strings(b);
+  a += b;
   if (a.get() != output.at(index).get())
     printf("%s + %s is %s and should be %s\n",
            input1.at(index).get().c_str(),
