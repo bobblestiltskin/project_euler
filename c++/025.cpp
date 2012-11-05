@@ -34,8 +34,6 @@ void fib(const int num, std::vector< numstring > *fib_vector) {
 
     fib_vector->push_back(digits);
   } else {
-    numstring tmp(fib_vector->at(num - 2));
-    tmp.add_digit_strings(fib_vector->at(num - 1));
-    fib_vector->push_back(tmp);
+    fib_vector->push_back(fib_vector->at(num - 2) + fib_vector->at(num - 1));
   }
 }
