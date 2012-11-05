@@ -1,9 +1,9 @@
 #include <cstdio>
 #include <cstring>
-#include <string>
-#include <iostream>
-#include <sstream>
 #include <cassert>
+
+#include <sstream>
+#include <string>
 
 const int BASE = 10;
 
@@ -12,7 +12,6 @@ class numstring : public std::string {
   // and can be used for arbitrarily wide integers e.g. factorials of large numbers
   private:
     std::string nstring;
-//    std::string add_strings_short_to_long(const numstring& shortstring, const numstring& longstring);
     std::string add_strings_short_to_long(const numstring& shortstring, const numstring& longstring);
   public:
     numstring() {nstring = "0";};
@@ -21,14 +20,30 @@ class numstring : public std::string {
     numstring(const numstring&);
     numstring& operator = (const numstring&);
     ~numstring() {};
-// copy and assignment??? xxx
-//    numstring operator + (const numstring& in1, const numstring& in2);
+    numstring& operator += (const numstring& rhs) 
+    {
+      this->add_digit_strings(rhs);
+      return *this;
+    }
+    numstring& operator *= (const int& alpha) 
+    {
+      this->mul_int_string(alpha);
+      return *this;
+    }
     void add_digit_strings(const numstring& in1);
     void mul_digit_string(const int);
-    void mul_int_string(int alpha);
+    void mul_int_string(const int alpha);
     std::string get() const;
 };
 
-//inline numstring operator + (const numstring& in_1_string, const numstring& in_2_string) {
-//  return numstring::add_digit_strings(in_1_string, in_2_string);
-//}
+inline numstring operator + (numstring lhs, const numstring& rhs)
+{
+  lhs += rhs;
+  return lhs;
+}
+
+inline numstring operator * (numstring lhs, const int& alpha)
+{
+  lhs *= alpha;
+  return lhs;
+}
