@@ -8,7 +8,6 @@
 
 
 int main() {
-
   const std::string onek = "one thousand";
   const int hcount = 7; /* "hundred" */
   const int handcount = 10; /* "hundred and " */
