@@ -12,7 +12,10 @@ class numstring : public std::string {
   // and can be used for arbitrarily wide integers e.g. factorials of large numbers
   private:
     std::string nstring;
-    std::string add_strings_short_to_long(const numstring& shortstring, const numstring& longstring);
+    std::string add_strings_short_to_long(const numstring&, const numstring&);
+    void add_digit_strings(const numstring&);
+    void mul_digit_string(const int);
+    void mul_int_string(const int);
   public:
     numstring() {nstring = "0";};
     numstring(const char *);
@@ -30,9 +33,6 @@ class numstring : public std::string {
       this->mul_int_string(alpha);
       return *this;
     }
-    void add_digit_strings(const numstring& in1);
-    void mul_digit_string(const int);
-    void mul_int_string(const int alpha);
     std::string get() const;
 };
 
