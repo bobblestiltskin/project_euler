@@ -126,11 +126,6 @@ out_string.c_str());
   nstring = out_string;
 }
 
-// numstring operator + (const numstring& in_1_string,
-//                       const numstring& in_2_string) {
-//  return numstring::add_digit_strings(in_1_string, in_2_string);
-// }
-
 void numstring::mul_digit_string(const int digit) {
   /* multiplies the in_string by a single digit */
 
@@ -142,7 +137,7 @@ printf("AND NUMSTRING is now %s\n", nstring.c_str());
   assert(digit >= 0);
   assert(digit <= 9);
 
-  std::string out_string;
+  std::string out_string;  // NOLINT
   if (digit == 0)
     return;
   else
@@ -192,15 +187,14 @@ printf("ENTERING mul_int_string with alpha of %d\n", alpha);
     int modulo = alpha % BASE;
     if (modulo) {
       if (modulo == 1) {
-        out_string.add_digit_strings(in_copy);
+        out_string += in_copy;
       } else {
         numstring row(in_copy);
         row.mul_digit_string(modulo);
-        out_string.add_digit_strings(row);
+        out_string += row;
       }
     }
-    std::string tmp = in_copy.get() + "0";  // NOLINT
-    in_copy = tmp;  // multiply by 10
+    in_copy = in_copy.get() + "0";  // multiply by 10
   } while ((alpha = alpha / BASE));
 
 #ifdef DEBUG
