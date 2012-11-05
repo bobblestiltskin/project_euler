@@ -3,13 +3,13 @@ CPPOPTS  := -g -Wall -Werror
 
 all: $(patsubst %.cpp,%,$(wildcard 0*.cpp))
 
-020: factorial.cpp mul_int_string.cpp mul_digit_string.cpp add_digit_strings.cpp
-025: add_digit_strings.cpp
+020: factorial.cpp numstring.cpp
+025: numstring.cpp
 
-test_factorial: test_factorial.cpp factorial.cpp mul_int_string.cpp mul_digit_string.cpp add_digit_strings.cpp 
-test_mul_int_string: test_mul_int_string.cpp mul_int_string.cpp mul_digit_string.cpp add_digit_strings.cpp
-test_add_digit_strings: test_add_digit_strings.cpp add_digit_strings.cpp 
-test_mul_digit_string: test_mul_digit_string.cpp mul_digit_string.cpp
+test_factorial: test_factorial.cpp factorial.cpp numstring.cpp
+test_add_digit_strings: test_add_digit_strings.cpp numstring.cpp
+test_mul_int_string: test_mul_int_string.cpp numstring.cpp
+test_mul_digit_string: test_mul_digit_string.cpp numstring.cpp
 
 %: %.cpp
 	$(CC) $(CPPOPTS) -o $@ $^
