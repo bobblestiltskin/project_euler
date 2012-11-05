@@ -40,7 +40,7 @@ void call_mul_digit_string(const int index,
   int a = scalars.at(index);
   numstring b = numeric_input.at(index);
 
-  b.mul_digit_string(a);
+  b *= a;
   if (b.get() != numeric_output.at(index).get())
     printf("%d * %s is %s and should be %s\n",
             a, numeric_input.at(index).get().c_str(),
