@@ -11,7 +11,7 @@ printf("ENTERING factorial BEFORE is %d\n", num);
 
   numstring fac_string("1");
   for (int i = 0; i < num; ++i)
-    fac_string.mul_int_string(i+1);
+    fac_string *= (i+1);
 
 #ifdef DEBUG
 printf("LEAVING factorial AFTER num is %d and FACTORIAL is %s\n",
