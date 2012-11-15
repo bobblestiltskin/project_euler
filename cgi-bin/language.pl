@@ -3,11 +3,8 @@
 # to display solutions for all problem in one languages
 
 use strict;
-use Carp qw(carp croak confess);
 use CGI;
 use DirHandle;
-use LWP::UserAgent;
-use XML::LibXML;
 use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string);
 
 my $extensions = {
