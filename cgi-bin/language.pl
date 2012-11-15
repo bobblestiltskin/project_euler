@@ -39,6 +39,10 @@ if ((defined $language) and (grep {/^$language$/} keys %$extensions)) {
         }
         display_file($dir, $file);
       }
+      if (($extensions->{$language} =~ /^c/) && ($file =~ /\.h$/)) {
+# print header files for c and c++
+        display_file($dir, $file);
+      }
     }
   }
 } else {
