@@ -71,6 +71,14 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
                 my @dependencies = split(/ /);
                 foreach my $file (@dependencies) {
 #print "<p>DEPENDENCY is $file</p>\n";
+                  if ($file =~ /\.c\w*$/) {
+                    (my $header = $file) =~ s/\.\w+$/.h/;
+                    chomp(my $full_header = join('/', $dir, $subdir, $header));
+#print "<p>HEADER is $header or $full_header</p>\n";
+                   if (-e "$full_header") {
+                      display_file(join('/', $dir, $subdir), $header);
+                    }
+                  }
                   display_file(join('/', $dir, $subdir), $file);
                 }
               }
