@@ -16,8 +16,8 @@ int main() {
 
   numstring fac_string = factorial(maxa);
   int sum = 0;
-  for (unsigned int i = 0; i < fac_string.get().length(); ++i)
-    sum += fac_string.get().at(i) - '0';
+  for (unsigned int i = 0; i < fac_string().length(); ++i)
+    sum += fac_string().at(i) - '0';
   printf("%d\n", sum);
 
   return(0);

@@ -42,14 +42,14 @@ std::string numstring::add_strings_short_to_long(const numstring& short_string,
 
 #ifdef DEBUG
 printf("ENTERING add_strings_short_to_long SHORT STRING is %s ",
-short_string.get().c_str());
-printf("LONG STRING is %s\n", long_string.get().c_str());
+short_string().c_str());
+printf("LONG STRING is %s\n", long_string().c_str());
 #endif
 
   std::string out_string;
 
-  int min_len = short_string.get().length();
-  int max_len = long_string.get().length();
+  int min_len = short_string().length();
+  int max_len = long_string().length();
   assert(min_len <= max_len);
   out_string.resize(max_len);
 
@@ -58,10 +58,10 @@ printf("LONG STRING is %s\n", long_string.get().c_str());
     /* walk backwards along the shorter string and add elements */
     for (int j = min_len; j > 0; --j) {
       int index = max_len - min_len + j - 1;
-      int in1 = short_string.get().at(j-1) - '0';
+      int in1 = short_string().at(j-1) - '0';
       assert(in1 >= 0);
       assert(in1 <= 9);
-      int in2 = long_string.get().at(index) - '0';
+      int in2 = long_string().at(index) - '0';
       assert(in2 >= 0);
       assert(in2 <= 9);
       int tmp = in1 + in2 + carry;
@@ -70,7 +70,7 @@ printf("LONG STRING is %s\n", long_string.get().c_str());
     }
     /* then handle any character positions only in longer string */
     for (int j = max_len - min_len; j > 0; --j) {
-      int in2 = long_string.get().at(j-1) - '0';
+      int in2 = long_string().at(j-1) - '0';
       assert(in2 >= 0);
       assert(in2 <= 9);
       int tmp = in2 + carry;
@@ -90,9 +90,9 @@ printf("LONG STRING is %s\n", long_string.get().c_str());
 
 #ifdef DEBUG
 printf("LEAVING add_strings_short_to_long IN 1 STRING is %s\n",
-short_string.get().c_str());
+short_string().c_str());
 printf("LEAVING add_strings_short_to_long IN 2 STRING is %s\n",
-long_string.get().c_str());
+long_string().c_str());
 printf("LEAVING add_strings_short_to_long OUT STRING is %s\n",
 out_string.c_str());
 #endif
@@ -105,20 +105,20 @@ void numstring::add_digit_strings(const numstring& in_1_string) {
 
 #ifdef DEBUG
 printf("ENTERING add_digit_strings IN 1 STRING is %s\n",
-in_1_string.get().c_str());
+in_1_string().c_str());
 #endif
 
   std::string out_string;
 
   /* if the second string is shorter than the first, swap them */
-  if (nstring.length() < in_1_string.get().length())
+  if (nstring.length() < in_1_string().length())
     out_string = add_strings_short_to_long(*this, in_1_string);
   else
     out_string = add_strings_short_to_long(in_1_string, *this);
 
 #ifdef DEBUG
 printf("LEAVING add_digit_strings IN 1 STRING is %s\n",
-in_1_string.get().c_str());
+in_1_string().c_str());
 printf("LEAVING add_digit_strings OUT STRING is %s\n",
 out_string.c_str());
 #endif
@@ -194,12 +194,12 @@ printf("ENTERING mul_int_string with alpha of %d\n", alpha);
         out_string += row;
       }
     }
-    in_copy = in_copy.get() + "0";  // multiply by 10
+    in_copy = in_copy() + "0";  // multiply by 10
   } while ((alpha = alpha / BASE));
 
 #ifdef DEBUG
 printf("LEAVING mul_int_string with alpha of %d", alpha);
-printf(" and outstring of %s\n", out_string.get().c_str());
+printf(" and outstring of %s\n", out_string().c_str());
 #endif
 
   nstring = out_string.nstring;

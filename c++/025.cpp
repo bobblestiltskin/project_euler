@@ -17,7 +17,7 @@ int main() {
   int i = 0;
   std::vector< numstring > fib_vector;
   fib(i, &fib_vector);
-  while (fib_vector.at(i).get().length() < maxlen)
+  while (fib_vector.at(i)().length() < maxlen)
     fib(++i, &fib_vector);
 
   printf("%d\n", i);

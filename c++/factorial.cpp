@@ -15,7 +15,7 @@ printf("ENTERING factorial BEFORE is %d\n", num);
 
 #ifdef DEBUG
 printf("LEAVING factorial AFTER num is %d and FACTORIAL is %s\n",
-num, fac_string.get().c_str());
+num, fac_string().c_str());
 #endif
 
   return(fac_string);
