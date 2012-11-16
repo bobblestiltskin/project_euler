@@ -43,12 +43,12 @@ int call_add_digit_strings(const int index,
   numstring b = input2.at(index);
 
   a += b;
-  if (a.get() != output.at(index).get())
+  if (a() != output.at(index)())
     printf("%s + %s is %s and should be %s\n",
-           input1.at(index).get().c_str(),
-           input2.at(index).get().c_str(),
-           a.get().c_str(),
-           output.at(index).get().c_str());
+           input1.at(index)().c_str(),
+           input2.at(index)().c_str(),
+           a().c_str(),
+           output.at(index)().c_str());
   else
     printf("%d - ALL OK\n", index);
 

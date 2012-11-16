@@ -41,10 +41,10 @@ void call_mul_digit_string(const int index,
   numstring b = numeric_input.at(index);
 
   b *= a;
-  if (b.get() != numeric_output.at(index).get())
+  if (b() != numeric_output.at(index)())
     printf("%d * %s is %s and should be %s\n",
-            a, numeric_input.at(index).get().c_str(),
-            b.get().c_str(), numeric_output.at(index).get().c_str());
+            a, numeric_input.at(index)().c_str(),
+            b().c_str(), numeric_output.at(index)().c_str());
   else
     printf("INDEX %d ALL OK\n", index);
 }
