@@ -17,7 +17,7 @@ class numstring : public std::string {
     void mul_digit_string(const int);
     void mul_int_string(const int);
   public:
-    numstring() {nstring = "0";};
+    numstring(): nstring(0) {};
     numstring(const char *);
     numstring(const std::string);
     numstring(const numstring&);
@@ -34,6 +34,7 @@ class numstring : public std::string {
       return *this;
     }
     std::string get() const;
+    std::string operator () () const {return nstring;}
 };
 
 inline numstring operator + (numstring lhs, const numstring& rhs)
