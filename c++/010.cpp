@@ -31,6 +31,8 @@ int main() {
     sum += primes[i];
   }
   printf("%" PRIu64 "\n", sum);
+//  primes.clear();
+  std::vector<int>().swap(primes); // leaks memory with clear ??
   exit(0);
 }
 
