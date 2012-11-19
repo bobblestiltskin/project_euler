@@ -23,17 +23,17 @@ int main() {
   }
 
   int sum = 0;
-  for (int i = 1; i < MAX; ++i) {
-    int addi = 0;
+  for (int i = 1; i < abundant.at(0); ++i)
+    sum += i;
+  for (int i = abundant.at(0); i < MAX; ++i) {
+    int addi = 1;
     for (std::vector<int>::iterator jt = abundant.begin();
-         jt < abundant.end();
+         *jt < i;
          jt++) {
-      if (i < *jt) {
-        addi = 1;
+      if (amap[i - *jt]) {
+        addi = 0;
         break;
       }
-      if (amap[i - *jt])
-        break;
     }
     if (addi)
       sum += i;
