@@ -5,16 +5,22 @@
 #include <cstdio>
 #include <cmath>
 #include <vector>
+#include <map>
 
 int sum_factors(int number);
 
 int main() {
   const int MAX = 28123;
   std::vector<int> abundant;
+  std::map<int,int> amap;
 
-  for (int i = 1; i < MAX; ++i)
-    if (i < sum_factors(i))
+  for (int i = 1; i < MAX; ++i) {
+    int fsum = sum_factors(i);
+    if (i < fsum) {
       abundant.push_back(i);
+      amap[i] = fsum;
+    }
+  }
 
   int sum = 0;
   for (int i = 1; i < MAX; ++i) {
@@ -26,17 +32,7 @@ int main() {
         addi = 1;
         break;
       }
-      int diff = i - *jt;
-      int klast = 0;
-      for (std::vector<int>::iterator kt = abundant.begin();
-           kt < abundant.end();
-           kt++) {
-        if (*kt == diff) {
-          klast = 1;
-          break;
-        }
-      }
-      if (klast)
+      if (amap[i - *jt])
         break;
     }
     if (addi)
