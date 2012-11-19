@@ -4,20 +4,27 @@ use strict;
 my $MAX = 28123;
 
 my @abundant;
+my %abundant;
 foreach (1 .. $MAX) {
-  push @abundant, $_ if ($_ < sum_factors($_));
+  my $sf = sum_factors($_);
+  if ($_ < $sf) {
+    push @abundant, $_;
+    $abundant{$_} = $sf;
+  }
 }
 
 my $sum=0;
-foreach my $i (1 .. $MAX) {
-  my $addi = 0;
+foreach my $i (1 .. $abundant[0] - 1) {
+  $sum += $i;
+}
+foreach my $i ($abundant[0] .. $MAX) {
+  my $addi = 1;
   foreach my $j (@abundant) {
-    if ($i < $j) {
-      $addi = 1;
+    last if ($j >= $i);
+    if ($abundant{$i - $j}) {
+      $addi = 0;
       last;
     }
-    my $diff = $i - $j;
-    last if (grep {/^$diff$/} @abundant);
   }
   if ($addi) {
     $sum += $i;
