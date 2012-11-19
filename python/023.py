@@ -7,19 +7,24 @@ def main():
 
   MAX = 28123
   abundant = []
+  adictionary = {}
   for i in range(1, MAX):
-    if (i < sum_factors(i)):
+    fsum = sum_factors(i)
+    if (i < fsum):
       abundant.append(i)
+      adictionary[i] = fsum
 
   asum = 0
-  for i in range(1, MAX):
-    addi = 0
+  for i in range(1, abundant[0]):
+    asum += i
+  for i in range(abundant[0], MAX):
+    addi = 1
     for j in abundant:
-      if (i < j):
-        addi = 1
+      if (j >= i):
         break
       diff = i - j
-      if (abundant.count(diff)):
+      if (adictionary.has_key(diff)):
+        addi = 0
         break
     if (addi):
       asum += i
