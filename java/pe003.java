@@ -6,15 +6,15 @@ public class pe003 {
   private static int maxp( BigInteger imax, int max_prime ) {
     int inner_counter = 2;
     BigInteger ics = BigInteger.valueOf(inner_counter).pow(2);
-    boolean matched = false;
-    while ((matched == false) && (ics.compareTo(imax) < 0)) {
+    boolean isPrime = true;
+    while (isPrime && (ics.compareTo(imax) < 0)) {
       if (imax.mod(BigInteger.valueOf(inner_counter)).intValue() == 0) {
-        matched = true;
+        isPrime = false;
       }
       inner_counter++;
       ics = BigInteger.valueOf(inner_counter).pow(2);
     }
-    if ((matched == false) && (imax.intValue() > max_prime)) {
+    if (isPrime && (imax.intValue() > max_prime)) {
       max_prime = imax.intValue();
     }
     return max_prime;
@@ -23,17 +23,16 @@ public class pe003 {
   public static void main( String[] args ) {
     final BigInteger big_number = new BigInteger("600851475143");
     int max_prime = 0;
-    BigInteger counter = new BigInteger("2"); // our counter only needs to be long??
-    BigInteger counter_squared = counter.pow(2);
+    int counter = 2;
+    BigInteger counter_squared = BigInteger.valueOf(counter).pow(2);
     while (counter_squared.compareTo(big_number) < 0) {
-      BigInteger divi = BigInteger.ZERO;
-      if (big_number.mod(counter).intValue() == 0) {
-        divi = big_number.divide(counter);
-        max_prime = maxp(counter, max_prime);
+      if (big_number.mod(BigInteger.valueOf(counter)).intValue() == 0) {
+        BigInteger divi = big_number.divide(BigInteger.valueOf(counter));
+        max_prime = maxp(BigInteger.valueOf(counter), max_prime);
         max_prime = maxp(divi, max_prime);
       }
-      counter = counter.add(BigInteger.ONE); // counter++
-      counter_squared = counter.pow(2);
+      counter++;
+      counter_squared = BigInteger.valueOf(counter).pow(2);
     }
     System.out.println(max_prime);
   }
