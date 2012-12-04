@@ -12,8 +12,13 @@ my $extensions = {
   c      => 'c',
   'c++'  => 'cpp',
   forth  => 'fth',
+  java   => 'java',
   perl   => 'pl',
   python => 'py',
+};
+
+my $prefix = {
+  java => 'pe',
 };
 
 my $dir = '../project_euler/';
@@ -32,6 +37,8 @@ if ((defined $language) and (grep {/^$language$/} keys %$extensions)) {
       next if ($file =~ /^\.\.?$/);
       if ($file =~ /$extensions->{$language}$/) {
         (my $stem = $file) =~ s/\.$extensions->{$language}$//;
+        my $prefix = $prefix->{$language};
+        $stem =~ s/^$prefix// if ($prefix);
         if ($stem =~ /^\d+$/) {
           print get_problem_as_string($stem);
         }

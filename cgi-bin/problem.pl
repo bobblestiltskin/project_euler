@@ -10,9 +10,14 @@ my $extensions = {
   asm    => 's',
   c      => 'c',
   'c++'  => 'cpp',
+  java   => 'java',
   forth  => 'fth',
   perl   => 'pl',
   python => 'py',
+};
+
+my $prefix = {
+  java => 'pe',
 };
 
 my $dir = '../project_euler/';
@@ -32,7 +37,7 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
       my $subdirh = DirHandle->new($dir . $subdir);
       if (defined $subdirh) {
         while (defined (my $file = $subdirh->read)) {
-          if ($file eq join(".", $number, $extensions->{$subdir})) {
+          if ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir}))) {
             print $query->h3($subdir);
             display_file($query, join('/', $dir, $subdir), $file);
             last;
