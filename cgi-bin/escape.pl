@@ -9,7 +9,7 @@ print $query->header;
 print $query->start_html;
 
 my $file = $query->param('file');
-if ((defined $file) and ($file =~ m!^(?:perl|asm|forth|c|c\+\+|python)/\d+\.(?:pl|s|fth|c|cpp|py)$!)) {
+if ((defined $file) and ($file =~ m!^(?:perl|asm|forth|c|c\+\+|python|java)/(?:pe)?\d+\.(?:pl|s|fth|c|cpp|py|java)$!)) {
   print $query->start_pre;
   $file = $dir . $file;
   open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
