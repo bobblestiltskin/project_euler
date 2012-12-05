@@ -1,5 +1,5 @@
 JAVAC := javac
-JAVAOPTS := -Werror
+JAVAOPTS := -Werror -Xlint:unchecked
 
 all: $(patsubst %.java,%.class,$(wildcard pe0*.java))
 
