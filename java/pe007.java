@@ -19,7 +19,7 @@ public class pe007 {
   public static void main( String[] args ) {
     final int primenum = 10001;
 
-    ArrayList primes = new ArrayList();
+    ArrayList<Integer> primes = new ArrayList<Integer>();
     primes.add(2);
     primes.add(3);
 
