@@ -1,5 +1,5 @@
 JAVAC := javac
-JAVAOPTS := -Werror -Xlint:unchecked
+JAVAOPTS := -Werror -Xlint:unchecked -Xlint:deprecation
 
 all: $(patsubst %.java,%.class,$(wildcard pe0*.java))
 
