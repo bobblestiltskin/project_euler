@@ -21,9 +21,10 @@ int main() {
   if (names_file.is_open())
     names_file >> name_string;
 
+  name_string = name_string.substr(1, name_string.length() - 2);
   std::vector< std::string > names;
-  int start = 1;
-  for (unsigned int i = 1; i < name_string.length(); ++i) {
+  int start = 0;
+  for (unsigned int i = 0; i < name_string.length(); ++i) {
     if (name_string[i] == '"' && name_string[i+1] == ','
         && name_string[i+2] == '"') {
       names.push_back(name_string.substr(start, i - start));
@@ -35,11 +36,12 @@ int main() {
   std::sort(names.begin(), names.end());
 
   int result = 0;
-  for (unsigned int i = 0; i < names.size(); ++i) {
+  for (unsigned int i = 0; i < names.size(); i++) {
     int letters = 0;
-    for (unsigned int j = 0; j < names.at(i).length(); ++j)
+    for (unsigned int j = 0; j < names.at(i).length(); j++)
       letters += names.at(i).at(j) - 64;
     result += letters * (i+1);
+//printf("COUNT is %d and NAME is %s and RESULT is %d\n", i, names.at(i).c_str(), result);
   }
 
   printf("%d\n", result);
