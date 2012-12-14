@@ -2,6 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+
+c.f. 
+
+long int fib(unsigned long int n) {
+   return lround((pow(0.5 + 0.5 * sqrt(5.0), n) - 
+                  pow(0.5 - 0.5 * sqrt(5.0), n)) / 
+                 sqrt(5.0));
+}
+
+http://www.evanmiller.org/mathematical-hacker.html
+
+*/
+
 void fib(int, char ***);
 int add_strings_short_to_long(const char *, const char *, char **);
 

@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+
+c.f.
+
+long int fac(unsigned long int n) {
+    return lround(exp(lgamma(n+1)));
+}
+
+http://www.evanmiller.org/mathematical-hacker.html
+
+*/
+
 int mul_int_string(const int, const char *, char **);
 
 int factorial(int num, char **factorial_ptr)
