@@ -1,1 +1,2 @@
-./time1 forth 001 "" .fth
+./time1 forth ./ 001 "" .fth
+./time1 forth ./ 002 "" .fth
