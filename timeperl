@@ -1,25 +1,25 @@
-./time1 perl 001 perl .pl
-./time1 perl 002 perl .pl
-./time1 perl 003 perl .pl
-./time1 perl 004 perl .pl
-./time1 perl 005 perl .pl
-./time1 perl 006 perl .pl
-./time1 perl 007 perl .pl
-./time1 perl 008 perl .pl
-./time1 perl 009 perl .pl
-./time1 perl 010 perl .pl
-./time1 perl 011 perl .pl
-./time1 perl 012 perl .pl
-./time1 perl 013 perl .pl
-./time1 perl 014 perl .pl
-./time1 perl 015 perl .pl
-./time1 perl 016 perl .pl
-./time1 perl 017 perl .pl
-./time1 perl 018 perl .pl
-./time1 perl 019 perl .pl
-./time1 perl 020 perl .pl
-./time1 perl 021 perl .pl
-./time1 perl 022 perl .pl
-./time1 perl 023 perl .pl
-./time1 perl 024 perl .pl
-./time1 perl 025 perl .pl
+./time1 perl ./ 001 perl .pl
+./time1 perl ./ 002 perl .pl
+./time1 perl ./ 003 perl .pl
+./time1 perl ./ 004 perl .pl
+./time1 perl ./ 005 perl .pl
+./time1 perl ./ 006 perl .pl
+./time1 perl ./ 007 perl .pl
+./time1 perl ./ 008 perl .pl
+./time1 perl ./ 009 perl .pl
+./time1 perl ./ 010 perl .pl
+./time1 perl ./ 011 perl .pl
+./time1 perl ./ 012 perl .pl
+./time1 perl ./ 013 perl .pl
+./time1 perl ./ 014 perl .pl
+./time1 perl ./ 015 perl .pl
+./time1 perl ./ 016 perl .pl
+./time1 perl ./ 017 perl .pl
+./time1 perl ./ 018 perl .pl
+./time1 perl ./ 019 perl .pl
+./time1 perl ./ 020 perl .pl
+./time1 perl ./ 021 perl .pl
+./time1 perl ./ 022 perl .pl
+./time1 perl ./ 023 perl .pl
+./time1 perl ./ 024 perl .pl
+./time1 perl ./ 025 perl .pl
