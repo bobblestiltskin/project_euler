@@ -1,0 +1,7 @@
+#!/bin/bash
+LANG=$1
+rm -f $LANG.output
+for file in data.$LANG.0*
+do
+  sed -ne '2p' $file >> $LANG.output
+done
