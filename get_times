@@ -1,0 +1,7 @@
+#!/bin/bash
+LANG=$1
+rm -f $LANG.times
+for file in data.$LANG.*
+do
+  sed -ne '3p' $file | sed -e 's/user.*//' >> $LANG.times
+done
