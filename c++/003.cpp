@@ -8,8 +8,8 @@
 
 void set_max_prime(const uint64_t big, int* max_prime_ptr)
 {
-  int is_prime = 1;
-  int count = 3;
+  bool is_prime = 1;
+  unsigned int count = 3;
   while (is_prime && ((count*count) < big)) {
     if (!(big % count))
       is_prime = 0;
