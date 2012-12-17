@@ -6,7 +6,7 @@ public class pe014 {
   private static BigInteger next_term(final BigInteger num) {
     BigInteger retval = BigInteger.ZERO;
     BigInteger two = BigInteger.valueOf(2);
-    if (num.mod(two) == BigInteger.ONE)
+    if (num.mod(two).intValue() == 1)
       retval = num.add(num.add(num.add(BigInteger.ONE)));
     else
       retval = num.divide(two);
@@ -20,12 +20,10 @@ public class pe014 {
     int maxi = 0;
 
     for (int i = last >> 1; i < last; i++) {
-    System.out.println("i is " + i);
       int counter = 0;
       BigInteger j = BigInteger.valueOf(i);
       while (j.compareTo(BigInteger.ONE) != 0) {
         j = next_term(j);
-//    System.out.println("j is " + j);
         counter++;
       }
 
