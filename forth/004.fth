@@ -5,6 +5,8 @@ variable forward 5 cells allot
 999 constant MAX3
 100 constant MIN3
 variable maxv
+variable min3i
+variable min3j
 
 : num_digits_2 ( num -- numdigits)
 9 > if 2 else 1 then ;
@@ -55,25 +57,32 @@ forward index @ + c!
 ;
 
 : testloop ( -- max_palindrome )
-( this will be slower than if we short-circuit the loop 
-  by setting the min point to maxv / 1000 if we set maxv 
-  however we really do want to use a do loop which requires
-  static min and max points? )
-MAX3 MIN3 do 
-  MAX3 MIN3 do 
-    i j * dup is_palindromic
-    if
+
+MIN3 min3j !
+MIN3 min3i !
+
+MAX3 begin
+  MAX3 begin
+    2dup * dup is_palindromic
+    if ( set maxv and drop termination points to maxv/1000 )
       dup maxv @ > 
       if
-        maxv !
+        dup maxv !
+        1000 / dup min3j ! min3i !
       else
         drop
       then
     else
       drop
     then
-  loop
-loop
+  dup min3j @ > 
+  while
+    1 -
+  repeat
+  drop dup min3i @ >
+while
+  1 -
+repeat
 maxv @
 ;
 
