@@ -7,8 +7,9 @@ my $maxp = 0;
 
 my $mini = $MIN3;
 my $minj = $MIN3;
+my $maxj = $MAX3;
 for (my $i = $MAX3; $i >= $mini; $i--) {
-  for (my $j = $MAX3; $j >= $minj; $j--) {
+  for (my $j = $maxj; $j >= $minj; $j--) {
     my $product = $i * $j;
     if ($product eq reverse $product) {
       if ($product > $maxp) {
@@ -17,5 +18,6 @@ for (my $i = $MAX3; $i >= $mini; $i--) {
       }
     }
   }
+  $maxj = $i;
 }
 print "$maxp\n";

@@ -61,8 +61,8 @@ forward index @ + c!
 MIN3 min3j !
 MIN3 min3i !
 
-MAX3 begin
-  MAX3 begin
+MAX3 MAX3 begin
+  begin
     2dup * dup is_palindromic
     if ( set maxv and drop termination points to maxv/1000 )
       dup maxv @ > 
@@ -82,6 +82,7 @@ MAX3 begin
   drop dup min3i @ >
 while
   1 -
+  dup
 repeat
 maxv @
 ;

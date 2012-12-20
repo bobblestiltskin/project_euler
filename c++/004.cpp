@@ -17,8 +17,9 @@ int main() {
 
   int mini = MIN3;
   int minj = MIN3;
+  int maxj = MAX3;
   for (int i = MAX3; i >= mini; i--) {
-    for (int j = MAX3; j >= minj; j--) {
+    for (int j = maxj; j >= minj; j--) {
       int product = i * j;
       std::ostringstream tmp;
       tmp << product;
@@ -30,6 +31,7 @@ int main() {
         }
       }
     }
+    maxj = i;
   }
   printf("%d\n", maxp);
 

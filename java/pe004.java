@@ -17,8 +17,9 @@ public class pe004 {
     int maxp = 0;
     int mini = MIN3;
     int minj = MIN3;
+    int maxj = MIN3;
     for (int i = MAX3; i >= mini; i--) {
-      for (int j = MAX3; j >= minj; j--) {
+      for (int j = maxj; j >= minj; j--) {
         int product = i * j;
         if (is_palindromic(Integer.toString(product))) {
           if (product > maxp) {
@@ -27,6 +28,7 @@ public class pe004 {
           }
         }
       }
+      maxj = i;
     }
     System.out.println(maxp);
   }

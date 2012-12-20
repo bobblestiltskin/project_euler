@@ -9,14 +9,16 @@ def main():
 
   mini = MIN3
   minj = MIN3
+  maxj = MAX3
   for i in range(MAX3, mini, -1):
-    for j in range(MAX3, minj, -1):
+    for j in range(maxj, minj, -1):
       product = i * j
       if is_palindromic(str(product)):
         if product > maxp:
           maxp = product
-#          minj = product / 1000 ## hmm how to get range to honour these resets
-#          mini = product / 1000 ## It is not safe to modify the sequence being iterated over in the loop - from tutorial!
+          minj = product / 1000 
+          mini = product / 1000
+    maxj = i
 
   print maxp
 

@@ -15,11 +15,12 @@ int main()
 
   uint16_t mini = MIN3;
   uint16_t minj = MIN3;
+  uint16_t maxj = MAX3;
   uint16_t i;
   for (i = MAX3; i >= mini; i--)
   {
     uint16_t j;
-    for (j = MAX3; j >= minj; j--)
+    for (j = maxj; j >= minj; j--)
     {
       uint32_t product = i * j;
       snprintf(digits,MAXDIGITS+1,"%d",product);
@@ -32,6 +33,7 @@ int main()
         }
       }
     }
+    maxj = i;
   }
   printf("%d\n",maxp);
   
