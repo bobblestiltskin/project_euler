@@ -8,37 +8,35 @@ variable maxv
 variable min3i
 variable min3j
 
-: num_digits_2 ( num -- numdigits)
-9 > if 2 else 1 then ;
-
-: num_digits_3 ( num -- numdigits)
-dup 99 > if drop 3 else num_digits_2 then ;
-
-: num_digits_4 ( num -- numdigits)
-dup 999 > if drop 4 else num_digits_3 then ;
-
-: num_digits_5 ( num -- numdigits)
-dup 9999 > if drop 5 else num_digits_4 then ;
-
-: num_digits_6 ( num -- numdigits)
-dup 99999 > if drop 6 else num_digits_5 then ;
+: num_digits ( num -- numdigits)
+( handles all 32-bit numbers )
+dup 999999999 > if 10 else 
+dup  99999999 > if 9 else 
+dup   9999999 > if 8 else 
+dup    999999 > if 7 else 
+dup     99999 > if 6 else 
+dup      9999 > if 5 else 
+dup       999 > if 4 else 
+dup        99 > if 3 else 
+dup         9 > if 2 else 
+1 then then then then then then then then then nip ;
 
 : stringify ( num -- )
 ( store the number - maximum 999999 - to the array forward )
-dup num_digits_6 1 - index !
-forward 6 cells erase
-begin
-  10 /mod dup 
-while
-  swap forward index @ + c! -1 index +!
-repeat
-drop
-forward index @ + c!
+  dup num_digits 1 - index !
+  forward 6 cells erase
+  begin
+    10 /mod dup 
+  while
+    swap forward index @ + c! -1 index +!
+  repeat
+  drop
+  forward index @ + c!
 ;
 
 : is_palindromic ( num -- is_palindromic )
 ( returns 1 if the number passed is palindromic )
-  dup num_digits_6 swap stringify
+  dup num_digits swap stringify
   dup 2 / 0 
   do
     forward i + c@
