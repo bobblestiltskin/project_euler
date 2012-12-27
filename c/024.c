@@ -28,7 +28,7 @@ int main()
   start                   += 700000000;
   start                   += 80000000;
 
-  unsigned long long end   = 9876543210;
+  unsigned long long end   = 9876543210ull;
 
   unsigned long long count = 725760 + 241920 + 30240;
   unsigned long long i;
