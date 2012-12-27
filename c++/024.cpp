@@ -29,7 +29,7 @@
 int main() {
   uint64_t start = 2000000000;
   start += 780000000;
-  const uint64_t end   = 9876543210;
+  const uint64_t end   = 9876543210ull;
 
   uint64_t count = 725760 + 241920 + 30240;
   uint64_t i;

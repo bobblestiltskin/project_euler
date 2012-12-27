@@ -20,7 +20,7 @@ void set_max_prime(const uint64_t big, int* max_prime_ptr)
 }
 
 int main() {
-  const uint64_t number = 600851475143;
+  const uint64_t number = 600851475143ull;
 
   int max_prime = 0;
   for (int i = 2; i < sqrt(number); ++i) {
