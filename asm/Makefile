@@ -9,6 +9,8 @@ CCOPTS  := -g
 #all: 001 002 003
 all: $(patsubst %.s,%,$(wildcard 0*.s))
 
+003: 003.s isprime.s
+
 %: %.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
