@@ -6,7 +6,6 @@ ASOPTS  := -gstabs
 CCOPTS  := -g
 #CLIBS   := -lm
 
-#all: 001 002 003
 all: $(patsubst %.s,%,$(wildcard 0*.s))
 
 003: 003.s isprime.s
@@ -15,4 +14,4 @@ all: $(patsubst %.s,%,$(wildcard 0*.s))
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	/bin/rm -f 0[012]?
+	/bin/rm -f 0[012]? *.o test_isprime
