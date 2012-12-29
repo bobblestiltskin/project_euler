@@ -52,14 +52,14 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
               if (s/^$number: //) {
                 my @dependencies = split(/ /);
                 foreach my $file (@dependencies) {
-                  if ($file =~ /\.c\w*$/) {
+                  if ($file =~ /\.(s|c\w*)$/) {
                     (my $header = $file) =~ s/\.\w+$/.h/;
                     chomp(my $full_header = join('/', $dir, $subdir, $header));
                     if (-e "$full_header") {
                       display_file($query, join('/', $dir, $subdir), $header);
                     }
                   }
-                  display_file($query, join('/', $dir, $subdir), $file);
+                  display_file($query, join('/', $dir, $subdir), $file) unless ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir})));
                 }
               }
             }
