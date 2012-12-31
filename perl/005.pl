@@ -1,16 +1,51 @@
 #!/usr/bin/perl -w
 use strict;
 
-my @primes = qw(2 3 5 7 11 13 17 19);
-
-# maximum power of 2 in 1..20 is 16 or 2^4
-# maximum power of 3 in 1..20 is 9 or 3^2
-# maximum power of other primes < 20 is n^1
-my $result = 2 * 2 * 2 * 3;
-# we initialise the result to the powers of 2 and 3 above 1
-foreach my $prime (@primes) {
-  $result *= $prime;
+my $i = 2;
+my $max = 20;
+my $try_prod = 1;
+my $total = 1;
+while ($i <= $max) {
+  if (isprime($i)) {
+    if ($try_prod) {
+      my $tmp = 1;
+      if (($i * $i) > $max) {
+        $try_prod = 0;
+        $total *= $i;
+#        print "I is $i and TOTAL is $total\n";
+      } else {
+        my $last;
+        while ($tmp <= $max) {
+          $last = $tmp;
+          $tmp *= $i;
+        }
+        $total *= $last;
+#        print "I is $i and LAST is $last and TOTAL is $total\n";
+      }
+    } else {
+      $total *= $i;
+#      print "I is $i and TOTAL is $total\n";
+    }
+  }
+#  print "i is ",$i," and isprime is ",isprime($i),"\n";
+  $i++;
 }
-# and then multiply by each of the primes
+print "$total\n";
 
-print "$result\n";
+sub isprime {
+  my $num = shift;
+  if ($num % 2) {
+    if ($num < 8) {
+      return $num == 1 ? 0 : 1; # 1 is the only odd number < 8 not prime
+    } else {
+      my $divisor = 3;
+      while (($divisor * $divisor) <= $num) {
+        return 0 unless ($num % $divisor);
+        $divisor += 2;
+      }
+      return 1;
+    }
+  } else {
+    return $num == 2 ? 1 : 0; # 2 is only even prime
+  }
+}
