@@ -3,31 +3,25 @@ use strict;
 
 my $i = 2;
 my $max = 20;
-my $try_prod = 1;
+my $try_product = 1;
 my $total = 1;
 while ($i <= $max) {
   if (isprime($i)) {
-    if ($try_prod) {
-      my $tmp = 1;
+    if ($try_product) {
       if (($i * $i) > $max) {
-        $try_prod = 0;
-        $total *= $i;
-#        print "I is $i and TOTAL is $total\n";
+        $try_product = 0;
       } else {
-        my $last;
+        my $tmp = $i;
+        my $last = $tmp;
         while ($tmp <= $max) {
           $last = $tmp;
           $tmp *= $i;
         }
         $total *= $last;
-#        print "I is $i and LAST is $last and TOTAL is $total\n";
       }
-    } else {
-      $total *= $i;
-#      print "I is $i and TOTAL is $total\n";
-    }
+    } 
+    $total *= $i if (!$try_product);
   }
-#  print "i is ",$i," and isprime is ",isprime($i),"\n";
   $i++;
 }
 print "$total\n";
