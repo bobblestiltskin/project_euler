@@ -1,19 +1,48 @@
 //file: pe005.java
 
 public class pe005 {
-  public static void main( String[] args ) {
-    final int[] primes = {2, 3, 5, 7, 11, 13, 17, 19};
-    /*
-    maximum power of 2 in 1..20 is 16 or 2^4
-    maximum power of 3 in 1..20 is 9 or 3^2
-    maximum power of other primes < 20 is n^1
-    */
-    int result = 2 * 2 * 2 * 3;
-    /* we initialise the result to the powers of 2 and 3 above 1 */
-    for (int i = 0; i < primes.length; i++) {
-      result *= primes[i];
+  public static boolean isprime(int num) {
+    if ((num % 2) == 1) {
+      if (num < 8) {
+        return !(num == 1);
+      } else {
+        int divisor = 3;
+        while ((divisor * divisor) <= num) {
+          if ((num % divisor) == 0)
+            return false;
+          divisor += 2;
+        }
+        return true;
+      }
+    } else {
+      return num == 2;
     }
-
-    System.out.println(result);
+  }
+  public static void main( String[] args ) {
+    final int MAX=20;
+    int i = 2;
+    boolean try_product = true;
+    int total = 1;
+    while (i <= MAX) {
+      if (isprime(i)) {
+        if (try_product) {
+          if ((i * i) > MAX) {
+            try_product = false;
+          } else {
+            int tmp = i;
+            int last = tmp;
+            while (tmp <= MAX) {
+              last = tmp;
+              tmp *= i;
+            }
+            total *= last;
+          }
+        }
+        if (!(try_product))
+          total *= i;
+      }
+      i++;
+    }
+    System.out.println(total);
   }
 }
