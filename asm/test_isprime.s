@@ -2,9 +2,6 @@
 
 number		.req r4
 primeflag	.req r5
-tmp		.req r6
-divisor		.req r7
-running		.req r8
 
 .macro num_is_prime a
 	mov	number, \a
@@ -20,8 +17,6 @@ running		.req r8
 
 .section .rodata
 	.align	2
-resstring:
-	.asciz "%d\n"
 primestring:
 	.asciz "num %d primality is %d\n"
 
