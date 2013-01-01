@@ -1,21 +1,45 @@
 #!/usr/bin/env python
 
+def isprime(num):
+  if (num % 2):
+    if (num < 8):
+      if (num == 1):
+        return 0
+      else:
+        return 1
+    else:
+      divisor = 3;
+      while ((divisor * divisor) <= num):
+        if ((num % divisor) == 0):
+          return 0
+        divisor += 2
+      return 1
+  else:
+    return (num == 2)
+
 def main():
   """ this computes projecteuler.net problem 005 """
 
-  primes = [2, 3, 5, 7, 11, 13, 17, 19]
-
-# maximum power of 2 in 1..20 is 16 or 2^4
-# maximum power of 3 in 1..20 is 9 or 3^2
-# maximum power of other primes < 20 is n^1
-
-# we initialise the result to the powers of 2 and 3 above 1
-
-  result = 2 * 2 * 2 * 3
-  for i in range(len(primes)):
-    result *= primes[i]
-
-  print result
+  MAX=20
+  i = 2
+  try_product = 1
+  total = 1
+  while (i <= MAX):
+    if (isprime(i)):
+      if (try_product):
+        if ((i * i) > MAX):
+          try_product = 0
+        else:
+          tmp = i
+          last = tmp
+          while (tmp <= MAX):
+            last = tmp
+            tmp *= i
+          total *= last
+      if (try_product == 0):
+        total *= i
+    i += 1
+  print total
 
   return 0
 
