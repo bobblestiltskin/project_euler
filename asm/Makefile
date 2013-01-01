@@ -12,6 +12,7 @@ test_isprime: test_isprime.s isprime.s
 test_last_digit: test_last_digit.s last_digit.s
 test_ispalindromic: test_ispalindromic.s ispalindromic.s last_digit.s
 
+005: 005.s isprime.s
 004: 004.s ispalindromic.s last_digit.s
 003: 003.s isprime.s
 
