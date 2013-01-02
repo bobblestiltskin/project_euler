@@ -2,7 +2,15 @@
 
 # this subroutine divides the passed number by 10
 # derived from looking at the output of gcc -S
-# and a little (but incomplete) understanding
+# 
+# The const -0x33333333 is 0xccccccd (2s complement)
+# 0xcccccccc is 12/15th (0.8) of 0xffffffff and we use this as
+# a multiplier, then shift right by 3 bits (divide by 8) to 
+# effect a multiplication by 0.1
+#
+# We multiply this number by 10 (multiply by 4, add 1 then multiply by 2)
+# and subtract from the original number to give the remainder on division
+# by 10.
 #
 # inputs
 #   r0 - integer to divide
