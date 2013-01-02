@@ -47,9 +47,9 @@ jloop:
 	ble	next
 	mov	maxp, product
 	mov	r0, product
-	bl	get_last_digit @ divides r0 by 10 
-	bl	get_last_digit @ so 3 consecutive calls
-	bl	get_last_digit @ will divide by 1000
+	bl	divide_by_10 @ divides r0 by 10 
+	bl	divide_by_10 @ so 3 consecutive calls
+	bl	divide_by_10 @ will divide by 1000
 	mov	minj, r0
 	mov	minj, r0
 
