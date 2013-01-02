@@ -1,19 +1,69 @@
 #! /usr/bin/gforth
 
-create primes 2 c, 3 c, 5 c, 7 c, 11 c, 13 c, 17 c, 19 c,
+variable try_product
 
-: myloop
-( maximum power of 2 in 1..20 is 16 or 2^4 )
-( maximum power of 3 in 1..20 is 9 or 3^2 )
-( maximum power of other primes < 20 is n^1 )
-( we initialise the result to the powers of 2 and 3 above 1 )
-2 2 * 2 * 3 *
-( and then multiply by each of the primes )
-8 0 do 
-  i primes + c@ * 
-loop
+: isprime ( n -- isprime )
+dup 2 mod ( check for even)
+if 
+  dup 8 < ( check for < 8 - all odd are prime apart from 1)
+  if 
+    dup 1 = 1+ ( check for == 1)
+  else
+    3 ( start with divisor of 3) 
+    begin
+      2dup mod ( check for n mod k)
+      if
+        2dup dup * > ( check for k*k > n)
+        if 
+          2 + 0  ( bump k and restart loop)
+        else 
+          1 1 ( set isprime and terminate loop)
+        then
+      else
+        0 1 ( clear isprime and terminate loop)
+      then
+    until
+    swap drop 
+  then
+else 
+  dup 2 = 0= 1+ ( check for == 2 )
+then
+swap drop ( drop all but isprime)
 ;
 
-myloop . cr
+: lcm ( n -- lcm )
+( returns the lcm for all numbers up to n )
+1 try_product !
+1+ 1 swap dup 2
+do
+  i dup isprime 
+  if 
+    try_product @
+    if
+      swap dup i dup * dup rot swap
+      <
+      if
+        0 try_product !
+        drop rot rot * swap
+      else
+        begin
+          2dup  
+          >
+          while 
+            rot drop dup rot rot i *
+        repeat
+        drop swap rot * swap
+      then
+    else
+      rot * swap
+    then
+  else
+    drop
+  then
+loop
+drop
+;
+
+20 lcm . cr
 
 bye
