@@ -6,7 +6,10 @@ ASOPTS  := -gstabs
 CCOPTS  := -g
 #CLIBS   := -lm
 
-all: $(patsubst %.s,%,$(wildcard 0*.s))
+all: pe test
+
+pe: $(patsubst %.s,%,$(wildcard 0*.s))
+test: $(patsubst %.s,%,$(wildcard test*.s))
 
 test_isprime: test_isprime.s isprime.s
 test_divide_by_10: test_divide_by_10.s divide_by_10.s
