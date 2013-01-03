@@ -1,0 +1,397 @@
+<html>
+<head>
+<link rel="stylesheet" href="./new.css" type="text/css">
+<title>Code for some of the problems from projecteuler.net</title>
+</head>
+<body>
+<p>The problems are listed at <a href="http://projecteuler.net/problems">http://projecteuler.net/problems</a> - these are my solutions.</p><p>You may want to write them yourself.</p>
+<!-- <p>N.B. some of the C code requires -lm to link. (make LDFLAGS+="-lm" problem_number)</p> -->
+<p>The code is available from <i>git@github.com:bobblestiltskin/project_euler.git</i></p>
+<p>The more interesting links below are the column headers and the left-hand column</p>
+<table border="1">
+<tr><th>Problem</th>
+<th><a href="/cgi-bin/language.pl?language=perl">Perl</a></th>
+<th><a href="/cgi-bin/language.pl?language=c">C</a></th>
+<th><a href="/cgi-bin/language.pl?language=c%2B%2B">C++</a></th>
+<th><a href="/cgi-bin/language.pl?language=python">Python</a></th>
+<th><a href="/cgi-bin/language.pl?language=java">Java</a></th>
+<th><a href="/cgi-bin/language.pl?language=forth">Forth</a></th>
+<th><a href="/cgi-bin/language.pl?language=asm">ARM asm</a></th>
+</tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=001">1</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/001.pl">001</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/001.c">001</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/001.cpp">001</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/001.py">001</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe001.java">001</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=forth/001.fth">001</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=asm/001.s">001</a>
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=002">2</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/002.pl">002</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/002.c">002</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/002.cpp">002</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/002.py">002</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe002.java">002</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=forth/002.fth">002</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=asm/002.s">002</a>
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=003">3</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/003.pl">003</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/003.c">003</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/003.cpp">003</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/003.py">003</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe003.java">003</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=forth/003.fth">003</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=asm/003.s">003</a>
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=004">4</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/004.pl">004</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/004.c">004</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/004.cpp">004</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/004.py">004</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe004.java">004</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=forth/004.fth">004</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=asm/004.s">004</a>
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=005">5</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/005.pl">005</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/005.c">005</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/005.cpp">005</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/005.py">005</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe005.java">005</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=forth/005.fth">005</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=asm/005.s">005</a>
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=006">6</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/006.pl">006</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/006.c">006</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/006.cpp">006</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/006.py">006</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe006.java">006</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=forth/006.fth">006</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/006.s">006</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=007">7</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/007.pl">007</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/007.c">007</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/007.cpp">007</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/007.py">007</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe007.java">007</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=forth/007.fth">007</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/007.s">007</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=008">8</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/008.pl">008</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/008.c">008</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/008.cpp">008</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/008.py">008</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe008.java">008</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/008.fth">008</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/008.s">008</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=009">9</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/009.pl">009</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/009.c">009</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/009.cpp">009</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/009.py">009</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe009.java">009</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/009.fth">009</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/009.s">009</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=010">10</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/010.pl">010</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/010.c">010</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/010.cpp">010</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/010.py">010</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe010.java">010</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/010.fth">010</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/010.s">010</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=011">11</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/011.pl">011</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/011.c">011</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/011.cpp">011</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/011.py">011</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe011.java">011</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/011.fth">011</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/011.s">011</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=012">12</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/012.pl">012</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/012.c">012</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/012.cpp">012</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/012.py">012</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe012.java">012</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/012.fth">012</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/012.s">012</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=013">13</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/013.pl">013</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/013.c">013</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/013.cpp">013</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/013.py">013</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe013.java">013</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/013.fth">013</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/013.s">013</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=014">14</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/014.pl">014</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/014.c">014</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/014.cpp">014</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/014.py">014</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe014.java">014</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/014.fth">014</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/014.s">014</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=015">15</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/015.pl">015</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/015.c">015</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/015.cpp">015</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/015.py">015</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe015.java">015</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/015.fth">015</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/015.s">015</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=016">16</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/016.pl">016</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/016.c">016</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/016.cpp">016</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/016.py">016</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe016.java">016</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/016.fth">016</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/016.s">016</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=017">17</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/017.pl">017</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/017.c">017</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/017.cpp">017</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/017.py">017</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe017.java">017</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/017.fth">017</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/017.s">017</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=018">18</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/018.pl">018</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/018.c">018</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/018.cpp">018</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/018.py">018</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe018.java">018</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/018.fth">018</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/018.s">018</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=019">19</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/019.pl">019</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/019.c">019</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/019.cpp">019</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/019.py">019</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe019.java">019</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/019.fth">019</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/019.s">019</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=020">20</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/020.pl">020</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/020.c">020</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/020.cpp">020</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/020.py">020</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe020.java">020</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/020.fth">020</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/020.s">020</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=021">21</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/021.pl">021</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/021.c">021</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/021.cpp">021</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/021.py">021</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe021.java">021</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/021.fth">021</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/021.s">021</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=022">22</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/022.pl">022</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/022.c">022</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/022.cpp">022</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/022.py">022</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe022.java">022</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/022.fth">022</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/022.s">022</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=023">23</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/023.pl">023</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/023.c">023</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/023.cpp">023</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/023.py">023</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe023.java">023</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/023.fth">023</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/023.s">023</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=024">24</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/024.pl">024</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/024.c">024</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/024.cpp">024</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/024.py">024</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe024.java">024</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/024.fth">024</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/024.s">024</a> -->
+</td></tr>
+<tr><td align="center"><a href="/cgi-bin/problem.pl?number=025">25</a></td><td align="center">
+<a href="/cgi-bin/escape.pl?file=perl/025.pl">025</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c/025.c">025</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=c%2b%2b/025.cpp">025</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=python/025.py">025</a>
+</td><td align="center">
+<a href="/cgi-bin/escape.pl?file=java/pe025.java">025</a>
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=forth/025.fth">025</a> -->
+</td><td align="center">
+<!-- <a href="/cgi-bin/escape.pl?file=asm/025.s">025</a> -->
+</td></tr>
+</table>
+</body>
