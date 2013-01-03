@@ -58,7 +58,7 @@ get_digits:
 	ldr	buffer_address, =buffer
 gd_loop:
 	subs	running, running, 1
-	bl	divide_by_10
+	bl	divide_by_10_remainder
 	strb	r1, [buffer_address], #datum_size
 	bgt	gd_loop
 

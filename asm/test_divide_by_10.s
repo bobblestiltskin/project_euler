@@ -11,7 +11,7 @@
 	bl	printf
 
 	ldr	r0, =\num
-	bl	divide_by_10
+	bl	divide_by_10_remainder
 	mov	r2, r0
 	ldr	r0, =laststring
 	bl	printf
