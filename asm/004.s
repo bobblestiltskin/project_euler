@@ -14,8 +14,6 @@ maxj	.req r10
 
 .section .rodata
 	.align	2
-#product_string:
-#	.asciz "product of %d and %d is %d\n"
 sumstring:
 	.asciz "%d\n"
 
@@ -33,11 +31,6 @@ iloop:
 	mov	j, maxj
 jloop:
 	mul	product, i, j
-#	mov	r3, product
-#	mov	r2, j
-#	mov	r1, i
-#	ldr	r0, =product_string
-#	bl	printf
 
 	mov	r0, product
 	bl	is_palindromic
