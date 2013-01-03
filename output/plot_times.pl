@@ -1,17 +1,19 @@
 #!/usr/bin/perl -w
 use strict;
 use Chart::Gnuplot;
+use Sys::Hostname;
 use DataHash qw(dump_column_to_files);
 
-my $output_dir = "./output";
+my $output_dir = "../output";
 dump_column_to_files($output_dir, "times", "user");
 
 # Data
 my @x = (1 .. 25);
 
+my $hostname = hostname;
 # Create chart object and specify the properties of the chart
 my $chart = Chart::Gnuplot->new(
-  output => "project_euler.ps",
+  output => "project_euler.$hostname.ps",
   title  => "Project Euler timings",
   xlabel => "Problem Number",
   ylabel => "Time in seconds",
