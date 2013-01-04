@@ -3,6 +3,7 @@ package DataHash;
 use strict;
 use warnings;
 
+use DirHandle;
 use List::Util qw(max);
 use List::MoreUtils qw{uniq};
 
@@ -10,8 +11,6 @@ use Exporter;
 our (@ISA, @EXPORT_OK);
 @ISA =qw(Exporter);
 @EXPORT_OK = qw(get_data_hash dump_column_to_files);
-
-use DirHandle;
 
 sub get_data_hash {
   my $output_dir = shift;
@@ -42,14 +41,24 @@ sub get_data_hash {
     }
     undef $d;
   }
+  check_results($hash);
+  return $hash;
+}
+
+sub check_results {
+  my $hash = shift;
+
+# find the language with the highest number of solutions
+
   my @lang_nums;
   foreach my $language (keys %$hash) {
     push @lang_nums, {$language => scalar keys %{$hash->{$language}}};
   }
   my $max_pair = max values @lang_nums;
-#  my $lang = (keys %$max_pair)[0];
   
-#  foreach my $number (sort {$a <=> $b} keys $hash->{$lang}) {
+# check the unique number of results per problem -
+# if it is > 1 then we have found an anomaly
+
   foreach my $number (sort {$a <=> $b} keys $hash->{(keys %$max_pair)[0]}) {
     my @results;
     foreach my $language (sort keys $hash) {
@@ -65,7 +74,6 @@ sub get_data_hash {
       }
     }
   }
-  return $hash;
 }
 
 sub dump_column_to_files {
