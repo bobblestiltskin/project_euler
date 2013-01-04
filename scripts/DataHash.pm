@@ -3,6 +3,9 @@ package DataHash;
 use strict;
 use warnings;
 
+use List::Util qw(max);
+use List::MoreUtils qw{uniq};
+
 use Exporter;
 our (@ISA, @EXPORT_OK);
 @ISA =qw(Exporter);
@@ -39,14 +42,26 @@ sub get_data_hash {
     }
     undef $d;
   }
-  my $language = 'perl';
-  foreach my $number (sort {$a <=> $b} keys $hash->{$language}) {
-    my $perl_result = $hash->{perl}->{$number}->{result};
+  my @lang_nums;
+  foreach my $language (keys %$hash) {
+    push @lang_nums, {$language => scalar keys %{$hash->{$language}}};
+  }
+  my $max_pair = max values @lang_nums;
+#  my $lang = (keys %$max_pair)[0];
+  
+#  foreach my $number (sort {$a <=> $b} keys $hash->{$lang}) {
+  foreach my $number (sort {$a <=> $b} keys $hash->{(keys %$max_pair)[0]}) {
+    my @results;
     foreach my $language (sort keys $hash) {
-      if (defined $hash->{$language}->{$number}->{result}) {
-        if ($hash->{$language}->{$number}->{result} != $perl_result) {
-          print "ERROR : Perl result is $perl_result and $language result is $hash->{$language}->{$number}->{result}\n";
-        }
+      my $result = $hash->{$language}->{$number}->{result};
+      push @results, $result if defined $result;
+    }
+    my $uniq = uniq @results;
+    if ($uniq > 1) {
+      print "----------------------------\n";
+      print "RESULTS ERROR for number $number\n";
+      foreach my $language (keys %$hash) {
+        print $language,"\t",$hash->{$language}->{$number}->{result},"\n";
       }
     }
   }
