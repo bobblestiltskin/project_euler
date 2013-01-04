@@ -39,6 +39,17 @@ sub get_data_hash {
     }
     undef $d;
   }
+  my $language = 'perl';
+  foreach my $number (sort {$a <=> $b} keys $hash->{$language}) {
+    my $perl_result = $hash->{perl}->{$number}->{result};
+    foreach my $language (sort keys $hash) {
+      if (defined $hash->{$language}->{$number}->{result}) {
+        if ($hash->{$language}->{$number}->{result} != $perl_result) {
+          print "ERROR : Perl result is $perl_result and $language result is $hash->{$language}->{$number}->{result}\n";
+        }
+      }
+    }
+  }
   return $hash;
 }
 
