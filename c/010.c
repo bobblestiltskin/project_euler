@@ -2,42 +2,36 @@
 #include <stdlib.h>
 #include <math.h>
 
-int is_prime(int, int, int *);
+unsigned int is_prime(unsigned int, unsigned int, unsigned int *);
 
 int main()
 {
-  int last = 2000000;
+  unsigned int last = 2000000;
 
-  int *primes = (int *) calloc(2, sizeof(int));
+  unsigned int *primes = (unsigned int *) calloc(1, sizeof(unsigned int));
   *primes = 2;
-  *(primes+1) = 3;
-  int numprimes = 2;
+  unsigned int numprimes = 1;
 
-  int test = primes[numprimes - 1] + 2;
-  while (test < last)
+  unsigned long long sum = 2;
+  unsigned int test;
+  for (test = 3; test < last; test+=2)
   {
     if (is_prime(test, numprimes, primes))
     {
       primes = realloc(primes, sizeof(int)*(numprimes+1));
       primes[numprimes++] = test;
+      sum += test;
     }
-    test += 2;
-  }
-  unsigned long long sum = 0;
-  int i;
-  for (i=0; i < numprimes; ++i)
-  {
-    sum += primes[i];
   }
   printf("%llu\n", sum);    
   free(primes);
   exit(0);
 }
 
-int is_prime(int test, int numprimes, int *primes)
+unsigned int is_prime(unsigned int test, unsigned int numprimes, unsigned int *primes)
 {
   int root = (int) sqrt(test);
-  int i;
+  unsigned int i;
   for (i=0; i<numprimes; i++)
   {
     if (primes[i] > root)

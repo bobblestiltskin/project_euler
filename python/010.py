@@ -6,17 +6,13 @@ def main():
   """ this computes projecteuler.net problem 010 """
 
   last = 2000000;
-  primes = [2, 3]
+  primes = [2]
 
-  test = primes[-1] + 2
-  while (test < last):
+  psum = 2
+  for test in range(3, last, 2):
     if (is_prime(test, primes)):
       primes.append(test);
-    test += 2;
-
-  psum = 0
-  for prime in (primes):
-    psum += prime
+      psum += test
 
   print psum
 

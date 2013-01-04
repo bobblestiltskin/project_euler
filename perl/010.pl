@@ -2,20 +2,16 @@
 use strict;
 
 my $last = 2000000;
-my @primes = qw(2 3);
 
-my $test = $primes[-1] + 2;
-while ($test < $last) {
+my @primes = (2);
+my $sum = 2;
+for (my $test=3; $test < $last; $test += 2) {
   if (is_prime($test, \@primes)) {
     push @primes, $test;
+    $sum += $test;
   }
-  $test += 2;
 }
 
-my $sum = 0;
-foreach my $prime (@primes) {
-  $sum += $prime;
-}
 print $sum,"\n";
 
 sub is_prime {

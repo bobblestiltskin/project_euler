@@ -22,21 +22,15 @@ public class pe010 {
 
     ArrayList<Integer> primes = new ArrayList<Integer>();
     primes.add(2);
-    primes.add(3);
 
-    int test = 5;
-    while (test < last) {
-      if (is_prime(test, primes))
+    BigInteger psum = BigInteger.valueOf(2);
+    for (int test = 3; test < last; test += 2) {
+      if (is_prime(test, primes)) {
         primes.add(test);
-      test += 2;
+        psum = psum.add(BigInteger.valueOf(test));
+      }
     }
 
-    Object iprimes[] = primes.toArray(); 
-    BigInteger psum = 	BigInteger.ZERO;
-
-    for (int i = 0; i < iprimes.length; i++)
-      psum = psum.add(BigInteger.valueOf(((Integer) iprimes[i]).intValue()));
-     
     System.out.println(psum);
   }
 }

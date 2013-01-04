@@ -17,18 +17,13 @@ int main() {
 
   std::vector<int> primes;
   primes.push_back(2);
-  primes.push_back(3);
 
-  int test = primes[primes.size() - 1] + 2;
-  while (test < last) {
+  uint64_t sum = 2;
+  for (int test = 3; test < last; test += 2) {
     if (is_prime(test, primes)) {
       primes.push_back(test);
+      sum += test;
     }
-    test += 2;
-  }
-  uint64_t sum = 0;
-  for (unsigned int i = 0; i < primes.size(); ++i) {
-    sum += primes[i];
   }
   printf("%" PRIu64 "\n", sum);
 //  primes.clear();
