@@ -41,7 +41,7 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
             print $query->h3($subdir);
             display_file($query, join('/', $dir, $subdir), $file);
             if ($subdir eq 'forth') {
-              open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
+              open(my $fh, "<", join('/', $dir, $subdir, $file)) or print "Cannot open ",$file,": $!";
               while (<$fh>) {
                 if (/^\s*include\s+(.+\.fs)\s*$/) {
                   display_file($query, join('/', $dir, $subdir), $1);
