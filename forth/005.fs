@@ -37,6 +37,9 @@ loop
 drop
 ;
 
+: pe005
 20 lcm . cr
+;
 
+pe005
 bye

@@ -22,8 +22,8 @@ begin fib test-number dup 4000000 > until
 swap drop dup even if - else drop then ;
 ( ." test-loop after " .S cr ; )
 
-: answer ( -- )
+: pe002 ( -- )
 0 1 1 test-loop . cr ;
 
-answer
+pe002
 bye

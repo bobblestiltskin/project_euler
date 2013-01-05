@@ -2,7 +2,7 @@
 
 include isprime.fs
 
-: newloop
+: pe010
 0.
 2000000 0 do
   i isprime
@@ -13,5 +13,5 @@ loop
 d. cr
 ;
 
-newloop
+pe010
 bye

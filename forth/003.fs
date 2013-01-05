@@ -8,7 +8,7 @@
 
 include isprime.fs
 
-: myloop
+: pe003
 1 sqroot do
 penumber i fm/mod
 drop 0=
@@ -22,5 +22,5 @@ then
 -1 +loop
 ;
 
-myloop
+pe003
 bye

@@ -20,19 +20,9 @@ loop
   dup *
 ;
 
-: answer ( -- )
-100 dup sqsum swap sumsq -
+: pe006 ( -- )
+100 dup sqsum swap sumsq - . cr
 ;
 
-answer . cr
-
-( 4 dup . sqsum . cr )
-( 5 dup . sqsum . cr )
-( 7 dup . sqsum . cr )
-( 100 dup . sqsum . cr )
-( 4 dup . sumsq . cr )
-( 5 dup . sumsq . cr )
-( 7 dup . sumsq . cr )
-( 100 dup . sumsq . cr )
-
+pe006
 bye

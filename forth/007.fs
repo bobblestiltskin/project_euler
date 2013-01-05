@@ -16,6 +16,9 @@ until
 drop drop 1 -
 ;
 
+: pe007
 10001 count_primes . cr
+;
 
+pe007
 bye
