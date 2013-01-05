@@ -1,6 +1,6 @@
 #! /usr/bin/gforth
-: even ( n -- iseven )
-2 mod 0= ;
+
+include even.fs
 
 : sumsq  ( n -- sumsq )
 ( returns the sum of the square of all integers to n )
