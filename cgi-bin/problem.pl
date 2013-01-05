@@ -11,7 +11,7 @@ my $extensions = {
   c      => 'c',
   'c++'  => 'cpp',
   java   => 'java',
-  forth  => 'fth',
+  forth  => 'fs',
   perl   => 'pl',
   python => 'py',
 };
@@ -40,6 +40,15 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
           if ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir}))) {
             print $query->h3($subdir);
             display_file($query, join('/', $dir, $subdir), $file);
+            if ($subdir eq 'forth') {
+              open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
+              while (<$fh>) {
+                if (/^\s*include\s+(.+\.fs)\s*$/) {
+                  display_file($query, join('/', $dir, $subdir), $1);
+                }
+              }
+              close $fh;
+            }
             last;
           }
         }
