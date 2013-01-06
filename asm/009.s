@@ -32,7 +32,7 @@ jstart:
 	add	tmp, icount, jcount
 kstart:
 	add	tmp, tmp, kcount
-	cmp	tmp, 1000
+	cmp	tmp, #limit
 	bne	nextk
 #        mov     r3, kcount
 #        mov     r2, jcount
