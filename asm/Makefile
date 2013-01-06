@@ -15,6 +15,7 @@ test_isprime: test_isprime.s isprime.s
 test_divide_by_10: test_divide_by_10.s divide_by_10.s
 test_ispalindromic: test_ispalindromic.s ispalindromic.s divide_by_10.s
 
+007: 007.s isprime.s
 005: 005.s isprime.s
 004: 004.s ispalindromic.s divide_by_10.s
 003: 003.s isprime.s
