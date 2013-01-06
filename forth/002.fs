@@ -1,6 +1,8 @@
 #! /usr/bin/gforth
 
-include even.fs
+: even ( n -- is_even )
+2 mod 0=
+;
 
 : fib ( sum previous current -- sum current next )
 ( ." fib before " .S cr )
