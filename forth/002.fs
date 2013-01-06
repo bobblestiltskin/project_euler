@@ -1,6 +1,8 @@
 #! /usr/bin/gforth
-: even ( n -- iseven )
-2 mod 0= ;
+
+: even ( n -- is_even )
+2 mod 0=
+;
 
 : fib ( sum previous current -- sum current next )
 ( ." fib before " .S cr )
@@ -22,8 +24,8 @@ begin fib test-number dup 4000000 > until
 swap drop dup even if - else drop then ;
 ( ." test-loop after " .S cr ; )
 
-: answer ( -- )
+: pe002 ( -- )
 0 1 1 test-loop . cr ;
 
-answer
+pe002
 bye

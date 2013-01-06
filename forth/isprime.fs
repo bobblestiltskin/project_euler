@@ -1,5 +1,3 @@
-#! /usr/bin/gforth
-
 : isprime ( n -- isprime )
 dup 2 mod ( check for even)
 if 
@@ -28,21 +26,3 @@ else
 then
 swap drop ( drop all but isprime)
 ;
-
-: count_primes ( n -- primen )
-( counts primes until the nth prime and returns it )
-1 0 rot
-begin
-  rot dup isprime 
-  if
-    rot 1+ rot rot ( increment prime count )
-  then
-  1+ ( increment i )
-  rot rot 2dup = ( check for prime count == limit )
-until
-drop drop 1 -
-;
-
-10001 count_primes . cr
-
-bye

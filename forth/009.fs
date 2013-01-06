@@ -1,6 +1,6 @@
 #! /usr/bin/gforth
 
-: loop3
+: pe009
 1000 1 do
   1000 i do
     1000 j do
@@ -17,5 +17,5 @@
 loop
 ;
 
-loop3
+pe009
 bye

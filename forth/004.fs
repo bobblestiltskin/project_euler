@@ -54,7 +54,7 @@ dup         9 > if 2 else
   then
 ;
 
-: testloop ( -- max_palindrome )
+: pe004 ( -- max_palindrome )
 
 MIN3 min3j !
 MIN3 min3i !
@@ -83,8 +83,8 @@ while
   dup
 repeat
 maxv @
+. cr
 ;
 
-testloop . cr
-
+pe004
 bye

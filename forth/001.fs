@@ -17,8 +17,8 @@ dup mod3 if add-number then then drop ;
 : test-loop ( n  -- )
 0 do i test-number loop ;
 
-: answer ( -- )
+: pe001 ( -- )
 0 1000 test-loop . cr ;
 
-answer
+pe001
 bye
