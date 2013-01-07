@@ -4,8 +4,7 @@
 <title>Code for some of the problems from projecteuler.net</title>
 </head>
 <body>
-<p>The problems are listed at <a href="http://projecteuler.net/problems">http://projecteuler.net/problems</a> - these are my solutions.</p><p>You may want to write them yourself.</p>
-<!-- <p>N.B. some of the C code requires -lm to link. (make LDFLAGS+="-lm" problem_number)</p> -->
+<p>The problems are listed at <a href="http://projecteuler.net/problems">http://projecteuler.net/problems</a> - these are my solutions. You may want to write them yourself.</p>
 <p>The code is available from <i>git@github.com:bobblestiltskin/project_euler.git</i></p>
 <p>The more interesting links below are the column headers and the left-hand column</p>
 <table border="1">
@@ -394,4 +393,22 @@
 <!-- <a href="/cgi-bin/escape.pl?file=asm/025.s">025</a> -->
 </td></tr>
 </table>
+<h3>Timing Data</h3>
+<p>A <a href="project_euler_timings_sweden.html">Raspberry Pi</a></p>
+<p>A <a href="project_euler_timings_portugal.html">HP laptop with Linux running under VirtualBox</a></p>
+<h3>Future Plans</h3>
+<p>The assembly language implementations deliberately at the first pass only use the integer unit of the ARM processor. I intend to investigate the use of the floating point unit in conjunction with the integer unit to improve performance. The integer-only implementation is useful for those ARM processors without a floating-point unit (e.g. the SheevaPlug). Optimisation needs a baseline to work from (we can see where we are deficient by comparison with the C compilers). We can also compare the gcc compiler to that provided by LLVM (clang).</p>
+<p>Since I want to provide insight into programming the Raspberry Pi I intend to also code the problems in :</p>
+<ul>
+<li>Haskell</li>
+<li>Erlang</li>
+<li>Lua</li>
+<li>One or more Lisp dialects - clisp, scheme, clojure?</li>
+<li>Ocaml</li>
+<li>Fortran</li>
+<li>Ada</li>
+<li>JavaScript</li>
+<li>Bash</li>
+<li>...</li>
+</ul>
 </body>
