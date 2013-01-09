@@ -1,4 +1,3 @@
-
 #! /usr/bin/gforth
 
 create data 7 c, 3 c, 1 c, 6 c, 7 c, 1 c, 7 c, 6 c, 5 c, 3 c, 1 c, 3 c, 3 c,
