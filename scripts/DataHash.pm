@@ -26,6 +26,7 @@ sub get_data_hash {
         while (<$fh>) {
           if ($. == 2) {
             chomp;
+            $_ =~ s/\s+$//;
             $hash->{$language}->{$number}->{result} = $_;
           } elsif ($. == 3) {
             my ($user, $system, $elapsed) = ($_ =~ /^([\d.:]+)user\s+([\d.:]+)system\s+([\d.:]+)elapsed/);
@@ -70,7 +71,7 @@ sub check_results {
       print "----------------------------\n";
       print "RESULTS ERROR for number $number\n";
       foreach my $language (keys %$hash) {
-        print $language,"\t",$hash->{$language}->{$number}->{result},"\n";
+        print $language,"\t'",$hash->{$language}->{$number}->{result},"'\n";
       }
     }
   }
