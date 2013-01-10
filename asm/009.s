@@ -14,8 +14,6 @@ jksum	.req r9
         .align  2
 resstring:
         .asciz "%d\n"
-#ijkresstring:
-#        .asciz "i is %d j is %d k is %d\n"
 .text
         .align  2
         .global main
@@ -34,11 +32,6 @@ kstart:
 	add	tmp, tmp, kcount
 	cmp	tmp, #limit
 	bne	nextk
-#        mov     r3, kcount
-#        mov     r2, jcount
-#        mov     r1, icount
-#        ldr     r0, =ijkresstring  @ store address of start of string to r0
-#        bl      printf
 	mul	jksum, kcount, kcount
 	mul	tmp, jcount, jcount
 	add	jksum, jksum, tmp
@@ -61,8 +54,9 @@ printme:
         mov     r1, tmp
         ldr     r0, =resstring  @ store address of start of string to r0
         bl      printf
-        ldmfd   sp!, {r4-r9, pc}
 
+	mov	r0, 0
+        ldmfd   sp!, {r4-r9, pc}
         mov     r7, 1           @ set r7 to 1 - the syscall for exit
         swi     0               @ then invoke the syscall from linux
 

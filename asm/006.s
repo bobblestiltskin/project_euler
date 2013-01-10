@@ -39,8 +39,8 @@ last:
 	mov	r1, tmp
 	ldr	r0, =string	@ store address of start of string to r0
 	bl	printf
-	mov	r0, 0
 
+	mov	r0, 0
 	ldmfd	sp!, {r4-r7, pc}
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux

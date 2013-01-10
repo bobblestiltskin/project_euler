@@ -34,5 +34,6 @@ main:
 	number  num3
 	number  num8
 
+	mov	r0, 0
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux

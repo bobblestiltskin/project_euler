@@ -44,5 +44,6 @@ main:
 	num_is_prime 27
 	num_is_prime 29
 
+	mov	r0, 0
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux

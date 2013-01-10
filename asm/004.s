@@ -61,7 +61,7 @@ last:
 	ldr	r0, =sumstring	@ store address of start of string to r0
 	bl	printf
 
-	ldmfd	sp!, {r4-r10, pc}
 	mov	r0, 0
+	ldmfd	sp!, {r4-r10, pc}
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux
