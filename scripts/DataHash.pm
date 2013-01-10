@@ -55,14 +55,15 @@ sub check_results {
   foreach my $language (keys %$hash) {
     push @lang_nums, {$language => scalar keys %{$hash->{$language}}};
   }
-  my $max_pair = max values @lang_nums;
+  my $max_pair = max @lang_nums;
   
 # check the unique number of results per problem -
 # if it is > 1 then we have found an anomaly
 
-  foreach my $number (sort {$a <=> $b} keys $hash->{(keys %$max_pair)[0]}) {
+  my $first = (keys %$max_pair)[0];
+  foreach my $number (sort {$a <=> $b} keys %{$hash->{$first}}) {
     my @results;
-    foreach my $language (sort keys $hash) {
+    foreach my $language (sort keys %$hash) {
       my $result = $hash->{$language}->{$number}->{result};
       push @results, $result if defined $result;
     }
@@ -84,10 +85,10 @@ sub dump_column_to_files {
 
   my $hash = get_data_hash($output_dir);
 
-  foreach my $language (sort keys $hash) {
+  foreach my $language (sort keys %$hash) {
     my $file = join('.', $language, $suffix);
     if (open(my $fh, ">", join('/', $output_dir, $file))) {
-      foreach my $number (sort {$a <=> $b} keys $hash->{$language}) {
+      foreach my $number (sort {$a <=> $b} keys %{$hash->{$language}}) {
         my $hlnf = $hash->{$language}->{$number}->{$field};
         print $fh (defined $hlnf) ? $hlnf : '*',"\n";
       }

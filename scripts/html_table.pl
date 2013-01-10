@@ -42,7 +42,7 @@ if (open(my $fh, '>', join('/', $output_dir, $file))) {
   print $fh $query->start_td;
   print $fh "Problem";
   print $fh $query->end_td;
-  foreach my $language (sort keys $hash) {
+  foreach my $language (sort keys %$hash) {
     print $fh $query->start_td;
     print $fh $language;
     print $fh $query->end_td;
@@ -50,12 +50,12 @@ if (open(my $fh, '>', join('/', $output_dir, $file))) {
   print $fh $query->end_Tr,"\n";
   
   my $language = 'perl';
-  foreach my $number (sort {$a <=> $b} keys $hash->{$language}) {
+  foreach my $number (sort {$a <=> $b} keys %{$hash->{$language}}) {
     print $fh $query->start_Tr;
     print $fh $query->start_td;
     print $fh $number;
     print $fh $query->end_td;
-    foreach my $language (sort keys $hash) {
+    foreach my $language (sort keys %$hash) {
       print $fh $query->start_td;
       print $fh $hash->{$language}->{$number}->{elapsed} if (defined $hash->{$language}->{$number}->{elapsed});
       print $fh $query->end_td;
