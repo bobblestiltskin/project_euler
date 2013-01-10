@@ -1,2 +1,11 @@
-./time1 forth ./ 001 "" .fth
-./time1 forth ./ 002 "" .fth
+./time1 forth ./ 001 "" .fs
+./time1 forth ./ 002 "" .fs
+./time1 forth ./ 003 "" .fs
+./time1 forth ./ 004 "" .fs
+./time1 forth ./ 005 "" .fs
+./time1 forth ./ 006 "" .fs
+./time1 forth ./ 007 "" .fs
+./time1 forth ./ 008 "" .fs
+./time1 forth ./ 009 "" .fs
+./time1 forth ./ 010 "" .fs
+./time1 forth ./ 011 "" .fs
