@@ -26,7 +26,7 @@ sub get_data_hash {
         while (<$fh>) {
           if ($. == 2) {
             chomp;
-            $_ =~ s/\s+$//;
+            $_ =~ s/\s+//g;
             $hash->{$language}->{$number}->{result} = $_;
           } elsif ($. == 3) {
             my ($user, $system, $elapsed) = ($_ =~ /^([\d.:]+)user\s+([\d.:]+)system\s+([\d.:]+)elapsed/);
