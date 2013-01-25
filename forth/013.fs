@@ -152,16 +152,16 @@ col_nums 0 do
    i get_3_result + i put_3_result
  loop 
 
-result dup c@ . 
-1+ dup c@ . 
-1+ dup c@ . 
-1+ dup c@ . 
-1+ dup c@ . 
-1+ dup c@ . 
-1+ dup c@ . 
-1+ dup c@ . 
-1+ dup c@ . 
-1+ c@ . cr
+result dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ dup c@ 1 u.r 
+1+ c@ 1 u.r cr
 ;
 
 pe013
