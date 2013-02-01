@@ -17,6 +17,11 @@ variable carry
 ( cr )
 ;
 
+: increment ( variable -- )
+( increments the variable )
+  dup @ 1 + swap !
+;
+
 : double ( strlen -- )
 ( returns the string doubled )
 0 swap strbase @ swap
@@ -28,7 +33,8 @@ variable carry
   if
     i 1 + strlen @ =
     if
-      strlen dup @ 1 + swap ! swap dup c@ dup + rot + swap 2dup c!
+      strlen increment 
+      swap 2dup c!
     else
       swap
     then
