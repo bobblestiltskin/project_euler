@@ -16,6 +16,8 @@ seventy seventyone seventytwo seventythree seventyfour seventyfive seventysix se
 eighty eightyone eightytwo eightythree eightyfour eightyfive eightysix eightyseven eightyeight eightynine 
 ninety ninetyone ninetytwo ninetythree ninetyfour ninetyfive ninetysix ninetyseven ninetyeight ninetynine 
 )];
+my $hcount = 7; # "hundred";
+my $handcount = 10; # "hundred and ";
 
 my $unit_hash;
 foreach my $unit (@$units) {
@@ -31,8 +33,6 @@ my $count = 0;
 $count += $_ for (values %$unit_hash);
 $count += $_ for (values %$ten_hash);
 foreach my $unit (@$units) {
-  my $hcount = 7; # "hundred";
-  my $handcount = 10; # "hundred and ";
   $count += $unit_hash->{$unit} + $hcount;
   $count += $unit_hash->{$unit} + $handcount + $_ for (values %$unit_hash);
   $count += $unit_hash->{$unit} + $handcount + $_ for (values %$ten_hash);
