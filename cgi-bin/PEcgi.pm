@@ -25,6 +25,11 @@ sub display_file {
     s/</&lt;/g;
     s/>/&gt;/g;
     print;
+    if ($dir =~ m|/forth$|) {
+      if (/^\s*include\s+(.+\.fs)\s*$/) {
+        display_file($query, $dir, $1);
+      }
+    }
   }
   close $fh;
   print $query->end_pre;
