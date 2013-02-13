@@ -8,15 +8,6 @@ variable strbase
 variable strlen
 variable carry
 
-: cdump ( ptr count -- )
-( dumps count bytes from ptr )
-( 0 do )
-(   dup i + c@ 1 u.r )
-( loop )
-( drop )
-( cr )
-;
-
 : increment ( variable -- )
 ( increments the variable )
   dup @ 1 + swap !
@@ -52,13 +43,9 @@ result numlen + strbase !
 result numlen 1 + erase
 2 strbase @ c!
 power 1 do
-(  i . cr )
-(  result numlen 1 + cdump )
   strlen @ double
 loop
-( result numlen 1 + cdump )
 0
-( numlen 1+ 0 do )
 strlen @ 0 do
   result i + c@ +
 loop

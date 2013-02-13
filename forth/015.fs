@@ -1,5 +1,7 @@
 #! /usr/bin/gforth
 
+include cdump.fs
+
 ( compute 2n!/n!*n! )
 
 19 constant N-1
@@ -22,15 +24,6 @@ loop
 20 0 do
   denominators i + c@ *
 loop
-;
-
-: cdump ( ptr count -- )
-( dumps count bytes from ptr )
-0 do
-  dup i + c@ .
-loop
-drop
-cr
 ;
 
 : set_numerators ( num -- )
