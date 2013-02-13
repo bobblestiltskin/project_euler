@@ -31,12 +31,7 @@
 .equ	thousand,8
 .equ	and,3
 
-.macro units tenmul
-	ldr	r1, =\tenmul
-	mov	r2, 10
-	mul	r1, r1, r2
-	add	r0, r0, r1
-
+.macro units
 	add	r0, r0, one
 	add	r0, r0, two
 	add	r0, r0, three
@@ -46,6 +41,39 @@
 	add	r0, r0, seven
 	add	r0, r0, eight
 	add	r0, r0, nine
+.endm
+
+.macro teens
+	add	r0, r0, ten
+	add	r0, r0, eleven
+	add	r0, r0, twelve
+	add	r0, r0, thirteen
+	add	r0, r0, fourteen
+	add	r0, r0, fifteen
+	add	r0, r0, sixteen
+	add	r0, r0, seventeen
+	add	r0, r0, eighteen
+	add	r0, r0, nineteen
+.endm
+
+.macro tens tenmul
+	ldr	r1, =\tenmul
+	mov	r2, 10
+	mul	r1, r1, r2
+	add	r0, r0, r1
+	units
+.endm
+
+.macro alltens
+	teens
+	tens	twenty
+	tens	thirty
+	tens	forty
+	tens	fifty
+	tens	sixty
+	tens	seventy
+	tens	eighty
+	tens	ninety
 .endm
 
 .macro hundreds hundredmul
@@ -60,33 +88,8 @@
 	mul	r1, r1, r2
 	add	r0, r0, r1
 
-	add	r0, r0, one
-	add	r0, r0, two
-	add	r0, r0, three
-	add	r0, r0, four
-	add	r0, r0, five
-	add	r0, r0, six
-	add	r0, r0, seven
-	add	r0, r0, eight
-	add	r0, r0, nine
-	add	r0, r0, ten
-	add	r0, r0, eleven
-	add	r0, r0, twelve
-	add	r0, r0, thirteen
-	add	r0, r0, fourteen
-	add	r0, r0, fifteen
-	add	r0, r0, sixteen
-	add	r0, r0, seventeen
-	add	r0, r0, eighteen
-	add	r0, r0, nineteen
-	units	twenty
-	units	thirty
-	units	forty
-	units	fifty
-	units	sixty
-	units	seventy
-	units	eighty
-	units	ninety
+	units
+	alltens
 .endm
 
 .section .rodata
@@ -99,33 +102,8 @@ sum_string:
 	.type	main, %function
 main:
 	mov	r0, 0
-	add	r0, r0, one
-	add	r0, r0, two
-	add	r0, r0, three
-	add	r0, r0, four
-	add	r0, r0, five
-	add	r0, r0, six
-	add	r0, r0, seven
-	add	r0, r0, eight
-	add	r0, r0, nine
-	add	r0, r0, ten
-	add	r0, r0, eleven
-	add	r0, r0, twelve
-	add	r0, r0, thirteen
-	add	r0, r0, fourteen
-	add	r0, r0, fifteen
-	add	r0, r0, sixteen
-	add	r0, r0, seventeen
-	add	r0, r0, eighteen
-	add	r0, r0, nineteen
-	units	twenty
-	units	thirty
-	units	forty
-	units	fifty
-	units	sixty
-	units	seventy
-	units	eighty
-	units	ninety
+	units
+	alltens
 	hundreds	one
 	hundreds	two
 	hundreds	three
