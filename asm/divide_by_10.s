@@ -27,6 +27,8 @@
 .type	divide_by_10_remainder, %function
 divide_by_10_remainder:
 	stmfd	sp!, {lr}
+	cmp	r0, 10
+	blt	rsmall
 	ldr	r1, =const
 	umull	r2, r3, r1, r0
 	mov	r2, r3, lsr #3	@ r2 = r3 / 8 == r0 / 10
@@ -37,6 +39,11 @@ divide_by_10_remainder:
 	rsb	r3, r3, r0	@ r3 = r0 - r3 = r0 - 10*int(r0/10)
 	mov	r1, r3		@ the remainder
 	mov	r0, r2		@ the dividend
+	b	rlast
+rsmall:
+	mov	r1, r0
+	mov	r0, 0
+rlast:
 	ldmfd	sp!, {pc}
 
 
@@ -61,8 +68,14 @@ divide_by_10_remainder:
 .type	divide_by_10, %function
 divide_by_10:
 	stmfd	sp!, {lr}
+	cmp	r0, 10
+	blt	small
 	ldr	r1, =const
 	umull	r2, r3, r1, r0
 	mov	r2, r3, lsr #3	@ r2 = r3 / 8 == r0 / 10
 	mov	r0, r2		@ the dividend
+	b	last
+small:
+	mov	r0, 0
+last:
 	ldmfd	sp!, {pc}
