@@ -15,6 +15,7 @@ test_isprime: test_isprime.s isprime.s
 test_divide_by_10: test_divide_by_10.s divide_by_10.s
 test_ispalindromic: test_ispalindromic.s ispalindromic.s divide_by_10.s
 test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s
+test_add_digit_strings: test_add_digit_strings.s add_digit_strings.s divide_by_10.s
 
 016: 016.s mul_digit_string.s divide_by_10.s
 015: 015.s mul_64to64.s
@@ -29,4 +30,4 @@ test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string
+	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings
