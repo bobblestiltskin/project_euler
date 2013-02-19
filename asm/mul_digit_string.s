@@ -1,7 +1,5 @@
 .syntax unified
 
-.equ datum_size, 1
-
 # this subroutine multiplies the byte array at r0, length r1 by the digit r2 
 # and stores to r0 with output length in r1
 #
@@ -16,30 +14,42 @@
 #   r1 - length of output vector
 #
 # local
-#
-	iptr		.req r4
-	optr		.req r5
-	offset		.req r6
-	tmp		.req r7
-	carry		.req r8
-	multiplier	.req r9
-	cell		.req r10
-#
+
+iptr		.req r4
+optr		.req r5
+offset		.req r6
+tmp		.req r7
+carry		.req r8
+multiplier	.req r9
+cell		.req r10
+
 .global mul_digit_string
 .type mul_digit_string, %function
 .text
 .align	2
-#
+
 mul_digit_string:
 	stmfd	sp!, {r4-r10, lr}
-#	teq	r2, 0
-#	moveq	r2, r3
-#	beq	clearbytes
-#
-#	teq	r2, 1
-#	moveq	r2, r3
-#	beq	copybytes
-#
+	teq	r2, 0
+	bne	mds_one
+	moveq	r0, r3
+	moveq	tmp, r3
+	moveq	r1, 1
+	bleq	clearbytes
+	mov	r0, tmp
+	moveq	r1, 1
+	b	mds_end
+mds_one:
+	teq	r2, 1
+	bne	mds_start
+	moveq	r2, r3
+	moveq	tmp, r0
+	moveq	cell, r1
+	bleq	copybytes
+	mov	r0, tmp
+	mov	r1, cell
+	b	mds_end
+mds_start:
 	mov	carry, 0
 	mov	multiplier, r2
 	mov	offset, r1
@@ -65,5 +75,5 @@ mds_last:
 	strbne	carry, [optr]
 	movne	r0, optr
 	addne	r1, tmp, 1
-
+mds_end:
 	ldmfd	sp!, {r4-r10, pc}
