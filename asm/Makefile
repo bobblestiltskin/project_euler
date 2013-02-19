@@ -14,10 +14,11 @@ test: $(patsubst %.s,%,$(wildcard test*.s))
 test_isprime: test_isprime.s isprime.s
 test_divide_by_10: test_divide_by_10.s divide_by_10.s
 test_ispalindromic: test_ispalindromic.s ispalindromic.s divide_by_10.s
-test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s
-test_add_digit_strings: test_add_digit_strings.s add_digit_strings.s divide_by_10.s
+test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
+test_add_digit_strings: test_add_digit_strings.s add_digit_strings.s printbytes.s
+test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 
-016: 016.s mul_digit_string.s divide_by_10.s
+016: 016.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s
 015: 015.s mul_64to64.s
 013: 013.s divide_by_10.s
 010: 010.s isprime.s
