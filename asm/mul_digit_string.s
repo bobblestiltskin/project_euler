@@ -17,13 +17,13 @@
 #
 # local
 #
-	cell		.req r3
 	iptr		.req r4
 	optr		.req r5
 	offset		.req r6
 	tmp		.req r7
 	carry		.req r8
 	multiplier	.req r9
+	cell		.req r10
 #
 .global mul_digit_string
 .type mul_digit_string, %function
@@ -31,16 +31,24 @@
 .align	2
 #
 mul_digit_string:
-	stmfd	sp!, {r4-r9, lr}
+	stmfd	sp!, {r4-r10, lr}
+#	teq	r2, 0
+#	moveq	r2, r3
+#	beq	clearbytes
+#
+#	teq	r2, 1
+#	moveq	r2, r3
+#	beq	copybytes
+#
 	mov	carry, 0
-	mov	offset, r1
 	mov	multiplier, r2
+	mov	offset, r1
 	sub	offset, offset, 1
 	add	iptr, r0, offset
 	add	optr, r3, offset
 	add	offset, offset, 1
 	mov	tmp, r1
-loopstart:
+mds_loopstart:
 	ldrb	cell, [iptr], -1
 	mul	r0, cell, multiplier
 	add	r0, r0, carry
@@ -48,13 +56,14 @@ loopstart:
 	strb	r1, [optr], -1
 	mov	carry, r0
 	subs	offset, offset, 1
-	beq	last
-	b	loopstart
-last:
+	beq	mds_last
+	b	mds_loopstart
+mds_last:
 	cmp	carry, 0
 	addeq	r0, optr, 1
 	moveq	r1, tmp
 	strbne	carry, [optr]
 	movne	r0, optr
 	addne	r1, tmp, 1
-	ldmfd	sp!, {r4-r9, pc}
+
+	ldmfd	sp!, {r4-r10, pc}
