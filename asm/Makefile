@@ -31,4 +31,4 @@ test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s 
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings
+	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string
