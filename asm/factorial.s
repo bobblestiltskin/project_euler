@@ -42,18 +42,32 @@ factorial_start:
 	mov	r0, optr
 	mov	r1, ilen
 	add	r1, r1, 1
+bclear:
 	bl	clearbytes
+aclear:
         mov     r0, iptr
         mov     r1, ilen
         mov     r2, counter
         mov     r3, optr
+bmis:
         bl      mul_int_string
+amis:
 	teq	counter, number
-	beq	factorial_end
+	beq	factorial_last
 	mov	ilen, r1
 	mov	r2, iptr
+bcopy:
 	bl	copybytes
+acopy:
 	add	counter, counter, 1
 	b	factorial_start
+factorial_last:
+	mov	counter, r0
+	mov	tmp, r1
+	mov	r0, iptr
+	mov	r1, ilen
+	bl	clearbytes
+	mov	r1, tmp
+	mov	r0, counter
 factorial_end:
 	ldmfd   sp!, {r4-r9, pc}
