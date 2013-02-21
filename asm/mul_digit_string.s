@@ -48,6 +48,16 @@ mds_one:
 	mov	r1, cell
 	b	mds_end
 mds_start:
+	mov	carry, r0
+	mov	tmp, r1
+	mov	offset, r3
+	mov	r0, r3
+	add	r1, r1, 1
+	bl	clearbytes
+	mov	r0, carry
+	mov	r1, tmp
+	mov	r3, offset
+
 	mov	carry, 0
 	mov	multiplier, r2
 	mov	offset, r1
