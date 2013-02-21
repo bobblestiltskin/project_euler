@@ -20,13 +20,14 @@
 	bl	clearbytes
 .endm
 
-.equ	iLENGTH,4
+.equ	iLENGTH,10
 .equ	ipLENGTH,iLENGTH+1
 .equ	oLENGTH,iLENGTH+2
 .equ	opLENGTH,oLENGTH+1
 
 .equ	scalar1,1
 .equ	scalar3,3
+.equ	scalar14,14
 .equ	scalar20,20
 .equ	scalar31,31
 .equ	scalar32,32
@@ -35,8 +36,10 @@
 .section .data
 .align	2
 input:
-.byte 4, 3, 2, 7
+#.byte 4, 3, 2, 7
 #.byte 1, 2, 3
+#fact13:
+.byte 6, 2, 2, 7, 0, 2, 0, 8, 0, 0
 .section .rodata
 instring:
 .asciz "input string is %s\n"
@@ -63,6 +66,7 @@ main:
 
 	multiplystring scalar1
 	multiplystring scalar3
+	multiplystring scalar14
 	multiplystring scalar31
 	multiplystring scalar32
 	multiplystring scalar87
