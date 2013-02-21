@@ -3,9 +3,6 @@
 .equ datum_size, 1
 .equ MAXLEN,192
 
-# how could we allocate temporary arrays from the code
-# we need the size to be some function of r2?
-
 .section bss
 .lcomm tmp_vector,MAXLEN
 
@@ -21,16 +18,14 @@
 # outputs
 #   r0 - pointer to output vector
 #   r1 - length of output vector
-#
-# local
 
-	iptr		.req r4
-	optr		.req r5
-	ilength		.req r6
-	tlength		.req r7
-	olength		.req r8
-	tmp		.req r9
-	multiplier	.req r10
+iptr		.req r4
+optr		.req r5
+ilength		.req r6
+tlength		.req r7
+olength		.req r8
+tmp		.req r9
+multiplier	.req r10
 
 .global mul_int_string
 .type mul_int_string, %function
@@ -83,10 +78,14 @@ ba:
         add     sp, sp, 4       @ revert sp to before (1)
 	ldmfd	sp!, {r4}
 aa:
+	ldr	r0, =tmp_vector
+	mov	r1, tlength
+	bl	clearbytes
+	mov	r0, optr
+	mov	r1, olength
 	teq	multiplier, 0
 	addne	ilength, ilength, 1	
 	beq	mis_last
 	bne	mis_loopstart
 mis_last:
 	ldmfd	sp!, {r4-r10, pc}
-

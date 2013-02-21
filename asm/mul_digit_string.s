@@ -12,8 +12,6 @@
 # outputs
 #   r0 - pointer to output vector
 #   r1 - length of output vector
-#
-# local
 
 iptr		.req r4
 optr		.req r5
