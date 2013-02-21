@@ -17,6 +17,7 @@ test_ispalindromic: test_ispalindromic.s ispalindromic.s divide_by_10.s
 test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_add_digit_strings: test_add_digit_strings.s add_digit_strings.s printbytes.s
 test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
+test_factorial: test_factorial.s factorial.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 
 016: 016.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s
 015: 015.s mul_64to64.s
@@ -31,4 +32,4 @@ test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s 
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string
+	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string test_factorial
