@@ -19,7 +19,9 @@ test_add_digit_strings: test_add_digit_strings.s add_digit_strings.s printbytes.
 test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_factorial: test_factorial.s factorial.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 
+021: 021.s divide.s
 020: 020.s factorial.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
+019: 019.s divide.s
 016: 016.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s
 015: 015.s mul_64to64.s
 013: 013.s divide_by_10.s
