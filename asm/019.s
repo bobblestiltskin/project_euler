@@ -53,14 +53,3 @@ last:
         ldmfd   sp!, {r4-r8, pc}
         mov     r7, 1           @ set r7 to 1 - the syscall for exit
         swi     0               @ then invoke the syscall from linux
-
-# divide takes value in r0, divisor in r1 and returns modulus in r2 and dividend in r3
-	.global	divide
-	.type	divide, %function
-divide:
-	mov	r3, 0
-divideloop:
-	subs	r0, r0, r1
-	addge	r3, r3, 1
-	bge	divideloop
-	add	r2, r0, r1
