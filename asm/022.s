@@ -105,7 +105,8 @@ ilast:
         ldmfd   sp!, {r4-r10, pc}
 
 
-# vectored_bubblesort takes start in r0, size in r1 and returns the sum of letters-ASCII in r0
+# vectored_bubblesort uses the indirection vector, sorted, and sorts the names by manipulating the contents of the vector
+# we could use a different sorting algortithm, this is the simplest to implement but it is inefficient
 .type   vectored_bubblesort, %function
 vectored_bubblesort:
         stmfd   sp!, {r4-r10, lr}
