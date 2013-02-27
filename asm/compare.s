@@ -29,8 +29,8 @@ compare:
 	movgt	minlen, r3
 	mov	count, 0
 loopstart:
-	ldrb	val1, [r0], count
-	ldrb	val2, [r2], count
+	ldrb	val1, [r0, count]
+	ldrb	val2, [r2, count]
 	cmp	val1, val2
 	movlt	r0, -1
 	movgt	r0, 1

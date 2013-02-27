@@ -31,6 +31,11 @@ cattle:
 	.asciz "cattle"
 comparestring:
 	.asciz "string1 is %s and string2 is %s comparison is %d\n"
+linda:
+	.asciz "LINDA"
+lisa:
+	.asciz "LISA"
+
 .text
 	.align	2
 	.global	main
@@ -48,6 +53,8 @@ main:
 	compare_strings cat 3 cattle 6 
 	compare_strings bob 3 bob 3 
 	compare_strings cat 3 cat 3
+	compare_strings lisa 4 linda 5
+	compare_strings linda 5 lisa 4 
 
 	mov	r0, 0
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
