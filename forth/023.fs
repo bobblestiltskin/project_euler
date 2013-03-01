@@ -45,7 +45,10 @@ SIZE 1 do
     drop 2dup swap
     abundanti swap cells + !
     dup rot swap
-    abundantbit + 1 swap c!
+    dup SIZE <
+    if 
+      abundantbit + 1 swap c!
+    then
     1+ swap dup
   then
     2drop
