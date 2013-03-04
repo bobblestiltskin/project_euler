@@ -63,7 +63,7 @@ instring:
 outstring:
 .asciz "output string is %s\n"
 
-.section bss
+.section .bss
 .lcomm print_vector,ipLENGTH
 .lcomm output,oLENGTH
 
