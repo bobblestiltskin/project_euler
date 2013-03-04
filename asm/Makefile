@@ -20,6 +20,7 @@ test_isprime: test_isprime.s isprime.s
 test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 
+024: 024.s add_digit_strings.s printbytes.s copybytes.s
 023: 023.s divide.s
 022: 022.s compare.s
 021: 021.s divide.s
