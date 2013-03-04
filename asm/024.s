@@ -1,12 +1,7 @@
 .syntax unified
 
-# more reading shows my intuition was ok
 # - see http://en.wikipedia.org/wiki/Factorial_number_system
 # - and http://en.wikipedia.org/wiki/Permutation
-
-# this macro lifted from test_add_digit_strings.s 
-# the usage of add_digit_strings is tricky because
-# the fifth parameter must be passed on the stack
 
 .macro check_digit a
 	ldr	r0, =vector
@@ -24,6 +19,10 @@
 	ldr	r2, =\b
 	bl	copybytes
 .endm
+
+# this macro lifted from test_add_digit_strings.s 
+# the usage of add_digit_strings is tricky because
+# the fifth parameter must be passed on the stack
 
 .macro add_strings a al b bl c
         stmfd   sp!, {r4}       @ stash r4 on the stack - we destroy it in add_digit_strings
