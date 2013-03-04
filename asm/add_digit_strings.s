@@ -1,9 +1,11 @@
 .syntax unified 
 
+# see usage in test_add_digit_strings.s - it requires
+# the fifth parameter to be passed on the stack
+
 .equ datum_size, 1
 
 .text
-#optr		.req r11
 optr		.req r4
 sptr		.req r5
 lptr		.req r6
@@ -22,7 +24,7 @@ ptmp		.req r10
 #   r0 - pointer to input1 vector
 #   r1 - length of input1 vector
 #   r2 - pointer to input2 vector
-#   r3 - length of input3 vector
+#   r3 - length of input2 vector
 #   r4 - pointer to output vector
 #
 # outputs
@@ -63,7 +65,6 @@ add_digit_strings:
 .global add_strings_short_to_long
 .type add_strings_short_to_long, %function
 add_strings_short_to_long:
-#        stmfd   sp!, {r5-r11, lr} @ 7 longs
         stmfd   sp!, {r5-r10, lr} @ 7 longs
 	ldr	optr, [sp, #40]
 	mov	sptr, r0
@@ -108,9 +109,7 @@ lstart:
 asstl_last:
 	cmp	carry, 1
 	strbeq	carry, [optr], -1
-#	addne	optr, optr, 1
 
 	add	r0, optr, 1
 	add	r1, r3, carry
         ldmfd   sp!, {r5-r10, pc}
-#        ldmfd   sp!, {r5-r11, pc}
