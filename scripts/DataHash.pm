@@ -19,7 +19,7 @@ sub get_data_hash {
   my $d = DirHandle->new($output_dir);
   if (defined $d) {
     while (defined(my $file = $d->read)) {
-      next unless ($file =~ /^data\.([\w+]+)\.(\d+)$/);
+      next unless ($file =~ /^data\.([\w+-]+)\.(\d+)$/);
       my $language = $1;
       my $number = $2;
       if (open(my $fh, "<", join('/', $output_dir, $file))) {
