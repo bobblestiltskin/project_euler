@@ -1,6 +1,5 @@
 #! /usr/bin/gforth
 
-include cdump.fs
 include add_digit_strings.fs
 
 create vec1
