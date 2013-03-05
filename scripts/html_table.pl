@@ -56,7 +56,7 @@ if (open(my $fh, '>', join('/', $output_dir, $file))) {
     print $fh $number;
     print $fh $query->end_td;
     foreach my $language (sort keys %$hash) {
-      print $fh $query->start_td;
+      print $fh $query->start_td({-align=>"right"});
       print $fh $hash->{$language}->{$number}->{elapsed} if (defined $hash->{$language}->{$number}->{elapsed});
       print $fh $query->end_td;
     }
