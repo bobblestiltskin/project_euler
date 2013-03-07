@@ -4,7 +4,7 @@
 
 #define ASCII 48
 
-void double_string(char *);
+void double_string(char **);
 
 int main()
 {
@@ -19,87 +19,88 @@ int main()
 
   int i;
   for (i=0; i < max; ++i)
-    double_string(in_string);
+    double_string(&in_string);
 
   int sum = 0;
   for (i=0; i < strlen(in_string); ++i)
     sum += *(in_string+i) - ASCII;
 
   printf("%d\n", sum);
+  free (in_string);
 
   return(0);
 }
 
-void double_string(char *in)
+void double_string(char **in)
 {
 /*
   given a string containing an integer this function will double the value
   the string will be extended if necessary to hold the number
 */
 
-  int first = *in - ASCII; /* use ASCII in string */
+  int first = **in - ASCII; /* use ASCII in string */
   int ra = 0;
   if ((first == 5) || (first == 6) || (first == 7) || (first == 8) || (first == 9))
   {
     /* extend string by a character */
-    in = realloc(in, strlen(in) + 2);
+    *in = realloc(*in, strlen(*in) + 2);
     ra = 1;
-    *(in+strlen(in)) = *(in+strlen(in)+1) = 0; // initialise to null
+    *(*in+strlen(*in)) = *(*in+strlen(*in)+1) = 0; // initialise to null
   }
 
   /* walk backwards through the string doubling as we go */
   int carry = 0;
   int j;
-  for (j = strlen(in); j > 0; --j)
+  for (j = strlen(*in); j > 0; --j)
   {
     int i = j - 1;
-    switch(*(in+i)-ASCII)
+    switch(*(*in+i)-ASCII)
     {
       case 0:
-        *(in+i+ra) = 0 + ASCII + carry;
+        *(*in+i+ra) = 0 + ASCII + carry;
         carry = 0;
         break;
       case 1:
-        *(in+i+ra) = 2 + ASCII + carry;
+        *(*in+i+ra) = 2 + ASCII + carry;
         carry = 0;
         break;
       case 2:
-        *(in+i+ra) = 4 + ASCII + carry;
+        *(*in+i+ra) = 4 + ASCII + carry;
 	carry = 0;
         break;
       case 3:
-        *(in+i+ra) = 6 + ASCII + carry;
+        *(*in+i+ra) = 6 + ASCII + carry;
         carry = 0;
         break;
       case 4:
-        *(in+i+ra) = 8 + ASCII + carry;
+        *(*in+i+ra) = 8 + ASCII + carry;
         carry = 0;
         break;
       case 5:
-        *(in+i+ra) = 0 + ASCII + carry;
+        *(*in+i+ra) = 0 + ASCII + carry;
         carry = 1;
         break;
       case 6:
-        *(in+i+ra) = 2 + ASCII + carry;
+        *(*in+i+ra) = 2 + ASCII + carry;
         carry = 1;
         break;
       case 7:
-        *(in+i+ra) = 4 + ASCII + carry;
+        *(*in+i+ra) = 4 + ASCII + carry;
         carry = 1;
         break;
       case 8:
-        *(in+i+ra) = 6 + ASCII + carry;
+        *(*in+i+ra) = 6 + ASCII + carry;
         carry = 1;
         break;
       case 9:
-        *(in+i+ra) = 8 + ASCII + carry;
+        *(*in+i+ra) = 8 + ASCII + carry;
         carry = 1;
         break;
     }
   }
   if (carry)
   {
-    *in = 0 + ASCII + carry;
+    **in = 0 + ASCII + carry;
     carry = 0;
   }
 }
