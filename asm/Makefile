@@ -32,7 +32,7 @@ test_prime_vector: test_prime_vector.s prime_vector.s divide.s
 015: 015.s mul_64to64.s
 013: 013.s divide_by_10.s
 010: 010.s prime_vector.s divide.s
-007: 007.s isprime.s
+007: 007.s prime_vector.s divide.s
 005: 005.s isprime.s
 004: 004.s ispalindromic.s divide_by_10.s
 003: 003.s isprime.s
