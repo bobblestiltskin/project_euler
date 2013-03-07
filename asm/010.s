@@ -3,7 +3,6 @@
 .equ    logword,2
 
 .equ	limit,2000000
-#.equ	numprimes,148933 @ from c code :-)
 .equ	numprimes4,595732
 
 sum_hi		.req r4
@@ -54,11 +53,6 @@ loop:
         add	numprimes, numprimes, 1
 	adds	sum_lo, sum_lo, number
 	adc	sum_hi, sum_hi, 0
-
-#        mov	r2, 1
-#        mov	r1, number
-#        ldr	r0, =primestring
-#        bl	printf
 nexti:
 	add	number, number, 2
 	b	loop

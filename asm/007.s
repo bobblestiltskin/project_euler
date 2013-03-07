@@ -1,11 +1,17 @@
 .syntax unified
 
 .equ	limit,10000
+.equ	limit4,40000
 
 .align 4
 
 number		.req r4
 count		.req r5
+numprimes	.req r6
+primes_ptr	.req r7
+
+.section .bss
+.lcomm primes_vector,limit4
 
 .section .rodata
 	.align	2
@@ -16,16 +22,24 @@ resstring:
 	.global	main
 	.type	main, %function
 main:
-	stmfd	sp!, {r4-r5, lr}
+	stmfd	sp!, {r4-r7, lr}
+
+        ldr     primes_ptr, =primes_vector
+        mov     numprimes, 1
+        mov     number, 2
+        strb    number, [primes_ptr]
 
 	ldr	count, =limit
 	mov	number, 3	@ 2 is the first prime
 loop:
-	mov	r0, number
-	bl	isprime
-	cmp	r0, 1
-	bne	nexti
-	
+        mov     r0, number
+        ldr     r1, =primes_vector
+        mov     r2, numprimes
+        bl      prime_vector
+        teq     r0, 1
+        bne     nexti
+        str     number, [primes_ptr, numprimes, lsl 2]
+        add     numprimes, numprimes, 1
 	subs	count, count, 1
 	beq	printme
 nexti:
@@ -38,6 +52,6 @@ printme:
 	bl	printf
 
 	mov	r0, 0
-	ldmfd	sp!, {r4-r5, pc}
+	ldmfd	sp!, {r4-r7, pc}
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux
