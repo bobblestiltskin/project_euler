@@ -108,7 +108,7 @@ int main()
 
   unsigned long long result_num = 0;
   int j = 0;
-  char string[11];
+  char string[11] = "0000000000";
   while (1)
   {
     int tmp_result = 0;
