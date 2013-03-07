@@ -19,6 +19,7 @@ test_ispalindromic: test_ispalindromic.s ispalindromic.s divide_by_10.s
 test_isprime: test_isprime.s isprime.s
 test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
+test_prime_vector: test_prime_vector.s prime_vector.s divide.s
 
 025: 025.s add_digit_strings.s copybytes.s
 024: 024.s add_digit_strings.s printbytes.s copybytes.s
@@ -30,7 +31,7 @@ test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s 
 016: 016.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s
 015: 015.s mul_64to64.s
 013: 013.s divide_by_10.s
-010: 010.s isprime.s
+010: 010.s prime_vector.s divide.s
 007: 007.s isprime.s
 005: 005.s isprime.s
 004: 004.s ispalindromic.s divide_by_10.s
