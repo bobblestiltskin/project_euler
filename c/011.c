@@ -55,6 +55,7 @@ so we decrement our row counter and increment the column counter so then our 1,1
     }
   }
   printf("%d\n", max);
+  free(a);
 
   return(0);
 }
