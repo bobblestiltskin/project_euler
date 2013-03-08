@@ -35,7 +35,7 @@ test_prime_vector: test_prime_vector.s prime_vector.s divide.s
 010: 010.s prime_vector.s divide.s
 007: 007.s prime_vector.s divide.s
 004: 004.s ispalindromic.s divide_by_10.s
-003: 003.s isprime.s divide.s
+003: 003.s isprime.s divide.s long_divide.s
 
 %: %.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
