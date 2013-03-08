@@ -17,6 +17,7 @@ test_divide_by_10: test_divide_by_10.s divide_by_10.s
 test_factorial: test_factorial.s factorial.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_ispalindromic: test_ispalindromic.s ispalindromic.s divide_by_10.s
 test_isprime: test_isprime.s isprime.s divide.s
+test_long_divide: test_long_divide.s long_divide.s
 test_mul_digit_string: test_mul_digit_string.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_mul_int_string: test_mul_int_string.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_prime_vector: test_prime_vector.s prime_vector.s divide.s
