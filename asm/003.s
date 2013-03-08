@@ -25,6 +25,7 @@ resstring:
 main:
 	stmfd	sp!, {r4-r8, lr}
 
+	mov	maxdiv, 0
 	ldr	n, =root
 	ldr	num_lo, =numlo
 	ldr	num_hi, =numhi
@@ -34,11 +35,11 @@ loop:
         mov     r2, n
         mov     r3, 0
         bl      long_divide
+	mov	tmp, r0
 	teq	r2, 0
 	bne	nextn
 	teq	r3, 0
 	bne	nextn
-	mov	tmp, r0
 	bl	isprime
 	teq	r0, 1
 	bne	testn
