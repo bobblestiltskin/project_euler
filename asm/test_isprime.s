@@ -43,6 +43,15 @@ main:
 	num_is_prime 25
 	num_is_prime 27
 	num_is_prime 29
+	ldr	number, =716151937
+	mov	r0, number
+	bl	isprime
+	mov	primeflag, r0
+
+	mov	r2, primeflag
+	mov	r1, number
+	ldr	r0, =primestring
+	bl	printf
 
 	mov	r0, 0
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
