@@ -111,10 +111,10 @@ sf_loop:
 	mov	r0, number
 	mov	r1, sfcount
 	bl	divide
-	teq	r2, 0
+	teq	r1, 0
 	bne	sf_next
-	add	sum, sum, r3
-	cmp	r3, sfcount
+	add	sum, sum, r0
+	cmp	r0, sfcount
 	addne	sum, sum, sfcount
 sf_next:
 	add	sfcount, sfcount, 1

@@ -78,9 +78,9 @@ sf_loop:
 	mov	r0, number
 	mov	r1, icount
 	bl	divide
-	teq	r2, 0
+	teq	r1, 0
 	bne	sf_next
-	add	sum, sum, r3
+	add	sum, sum, r0
 	add	sum, sum, icount
 sf_next:
 	add	icount, icount, 1

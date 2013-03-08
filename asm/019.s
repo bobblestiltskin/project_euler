@@ -37,7 +37,7 @@ mstart:
 	add	r0, dow, tmp
 	mov	r1, 7
 	bl	divide
-	mov	dow, r2
+	mov	dow, r1
 
 	add	mcount, mcount, 1
 	cmp	mcount, months
