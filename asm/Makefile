@@ -41,4 +41,4 @@ test_prime_vector: test_prime_vector.s prime_vector.s divide.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string test_factorial test_compare test_prime_vector
+	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string test_factorial test_compare test_prime_vector test_long_divide
