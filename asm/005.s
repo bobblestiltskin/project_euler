@@ -37,7 +37,7 @@ main:
 	mov	number, 2
 loop:
 	mov	r0, number
-	bl	isprime
+	bl	isprime20
 	cmp	r0, 1
 	bne	nexti
 	
@@ -78,3 +78,39 @@ printme:
 	ldmfd	sp!, {r4-r8, pc}
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux
+
+# this subroutine returns 1 if the passed number (<= 20) is prime; 0 if not
+#
+# inputs
+#   r0 - integer to test
+#
+# outputs
+#   r0 - prime boolean
+
+.global isprime20
+.type isprime20, %function
+.text
+.align	2
+
+isprime20:
+	stmfd	sp!, {lr}
+	mov	r1, r0
+	ands	r2, r1, 1
+	bne	odd
+	mov	r0, 0
+	cmp	r1, 2 	@ 2 is the only prime even r1
+	bne	last
+	mov	r0, 1
+	b	last
+odd:
+	mov	r0, 1
+	cmp	r1, 9
+	bne	test15
+	mov	r0, 0
+	b	last
+test15:
+	cmp	r1, 15
+	bne	last
+	mov	r0, 0
+last:
+	ldmfd	sp!, {pc}
