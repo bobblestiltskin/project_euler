@@ -13,6 +13,7 @@ test: $(patsubst %.s,%,$(wildcard test*.s))
 
 test_add_digit_strings: test_add_digit_strings.s add_digit_strings.s printbytes.s clearbytes.s
 test_compare: test_compare.s compare.s
+test_divide: test_divide.s divide.s
 test_divide_by_10: test_divide_by_10.s divide_by_10.s
 test_factorial: test_factorial.s factorial.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s
 test_ispalindromic: test_ispalindromic.s ispalindromic.s divide_by_10.s
@@ -41,4 +42,4 @@ test_prime_vector: test_prime_vector.s prime_vector.s divide.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string test_factorial test_compare test_prime_vector test_long_divide
+	/bin/rm -f 0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string test_factorial test_compare test_prime_vector test_long_divide test_divide
