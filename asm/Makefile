@@ -33,6 +33,7 @@ test_prime_vector: test_prime_vector.s prime_vector.s divide.s
 016: 016.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s
 015: 015.s mul_64to64.s
 013: 013.s divide_by_10.s
+012: 012.s divide.s
 010: 010.s prime_vector.s divide.s
 007: 007.s prime_vector.s divide.s
 004: 004.s ispalindromic.s divide_by_10.s

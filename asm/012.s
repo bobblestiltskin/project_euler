@@ -23,11 +23,11 @@ get_num_divisors:
 	mov	icount, 0
 	mov	jcount, 1
 jstart:
-	mov	tmp, num
-bigloop:
-        subs    tmp, tmp, jcount
-        bgt     bigloop
-        beq     factor
+	mov	r0, num
+	mov	r1, jcount
+	bl	divide
+	teq	r1, 0
+	beq	factor
 	b	nextj
 factor:
 	add	icount, icount, 1
