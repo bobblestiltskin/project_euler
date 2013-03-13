@@ -8,13 +8,14 @@ use DirHandle;
 use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string);
 
 my $extensions = {
-  asm    => 's',
-  c      => 'c',
-  'c++'  => 'cpp',
-  forth  => 'fs',
-  java   => 'java',
-  perl   => 'pl',
-  python => 'py',
+  asm		=> 's',
+  c		=> 'c',
+  'c++'		=> 'cpp',
+  forth		=> 'fs',
+  haskell	=> 'hs',
+  java		=> 'java',
+  perl		=> 'pl',
+  python	=> 'py',
 };
 
 my $prefix = {
