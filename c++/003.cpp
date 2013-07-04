@@ -6,7 +6,7 @@
 #include <cstdio>
 #include <cmath>
 
-void set_max_prime(const uint64_t big, int* max_prime_ptr)
+void set_max_prime(const uint64_t big, unsigned int* max_prime_ptr)
 {
   bool is_prime = 1;
   unsigned int count = 3;
@@ -15,22 +15,20 @@ void set_max_prime(const uint64_t big, int* max_prime_ptr)
       is_prime = 0;
     count = count + 2;
   }
-  if (is_prime && ((int) big > *max_prime_ptr))
-    *max_prime_ptr = (int) big;
+  if (is_prime && ((unsigned int) big > *max_prime_ptr))
+    *max_prime_ptr = (unsigned int) big;
 }
 
 int main() {
   uint64_t number = 600851475143ull;
-  const uint64_t root = sqrt(600851475143ull);
-
-  int max_prime = 0;
-  for (unsigned int i = 3; i < root; i=i+2) {
+  unsigned int max_prime = 0;
+  unsigned int i = 3;
+  while (number != 1) {
     if (!(number % i)) {
       set_max_prime(i, &max_prime);
       number = number/i;
-      if (number == 1)
-        break;
     }
+    i += 2;
   }
   printf("%d\n", max_prime);
   return(0);
