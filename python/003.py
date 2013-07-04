@@ -20,11 +20,11 @@ def main():
 
   max_prime = 0
   for i in range(2, int(sqrt(number)) + 1):
-    divi = 0
     if ((number % i) == 0):
-      divi = number/i
       max_prime = set_max_prime(i, max_prime)
-      max_prime = set_max_prime(divi, max_prime)
+      number = number / i
+      if (number == 1):
+        break
 
   print max_prime
 
