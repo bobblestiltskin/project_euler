@@ -20,14 +20,16 @@ void set_max_prime(const uint64_t big, int* max_prime_ptr)
 }
 
 int main() {
-  const uint64_t number = 600851475143ull;
+  uint64_t number = 600851475143ull;
+  const uint64_t root = sqrt(600851475143ull);
 
   int max_prime = 0;
-  for (int i = 2; i < sqrt(number); ++i) {
+  for (unsigned int i = 3; i < root; i=i+2) {
     if (!(number % i)) {
-      uint64_t divi = number/i;
       set_max_prime(i, &max_prime);
-      set_max_prime(divi, &max_prime);
+      number = number/i;
+      if (number == 1)
+        break;
     }
   }
   printf("%d\n", max_prime);
