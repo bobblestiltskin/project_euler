@@ -5,11 +5,10 @@ my $number = 600851475143;
 
 my $max_prime = 0;
 for my $i (2 .. sqrt($number)) {
-  my $divi = 0;
   unless ($number % $i) {
-    $divi = $number/$i;
     $max_prime = set_max_prime($i, $max_prime);
-    $max_prime = set_max_prime($divi, $max_prime);
+    $number = $number/$i;
+    last if ($number == 1);
   }
 }
 print "$max_prime\n";
