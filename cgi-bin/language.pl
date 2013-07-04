@@ -5,22 +5,7 @@
 use strict;
 use CGI;
 use DirHandle;
-use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string);
-
-my $extensions = {
-  asm		=> 's',
-  c		=> 'c',
-  'c++'		=> 'cpp',
-  forth		=> 'fs',
-  haskell	=> 'hs',
-  java		=> 'java',
-  perl		=> 'pl',
-  python	=> 'py',
-};
-
-my $prefix = {
-  java => 'pe',
-};
+use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string print_language_number $extensions $prefix);
 
 my $dir = '../project_euler/';
 my $query = CGI->new;
@@ -29,26 +14,23 @@ print $query->header;
 
 my $language = $query->param('language');
 if ((defined $language) and (grep {/^$language$/} keys %$extensions)) {
-  $dir .= '/' . $language;
   print $query->start_html(-title => 'Project Euler Problems in ' . $language);
   print '<link rel="stylesheet" href="/new.css" type="text/css">' . "\n";
-  my $dirh = DirHandle->new($dir);
+  my @num_files;
+  my $dirh = DirHandle->new(join('/', $dir, $language));
   if (defined $dirh) {
     while (defined (my $file = $dirh->read)) {
       next if ($file =~ /^\.\.?$/);
-      if ($file =~ /$extensions->{$language}$/) {
-        (my $stem = $file) =~ s/\.$extensions->{$language}$//;
-        my $prefix = $prefix->{$language};
-        $stem =~ s/^$prefix// if ($prefix);
-        if ($stem =~ /^\d+$/) {
-          print get_problem_as_string($stem);
-        }
-        display_file($query, $dir, $file);
+      if ((my $stem = $file) =~ s/\.$extensions->{$language}$//) {
+#print "STEM is $stem and F is $file\n";
+#        my $prefix = $prefix->{$language};
+        $stem =~ s/^$prefix->{$language}// if ($prefix->{$language});
+        push @num_files, $stem if ($stem =~ /^\d+$/);
       }
-      if (($extensions->{$language} =~ /^c/) && ($file =~ /\.h$/)) {
-# print header files for c and c++
-        display_file($query, $dir, $file);
-      }
+    }
+    foreach my $num_file (sort {$a <=> $b} @num_files) {
+      print get_problem_as_string($num_file);
+      print_language_number($query, $dir, $language, $num_file);
     }
   }
 } else {

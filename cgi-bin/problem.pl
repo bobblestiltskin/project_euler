@@ -4,22 +4,7 @@
 use strict;
 use CGI;
 use DirHandle;
-use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string);
-
-my $extensions = {
-  asm		=> 's',
-  c		=> 'c',
-  'c++'		=> 'cpp',
-  forth		=> 'fs',
-  haskell	=> 'hs',
-  java		=> 'java',
-  perl		=> 'pl',
-  python	=> 'py',
-};
-
-my $prefix = {
-  java => 'pe',
-};
+use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string print_language_number $extensions);
 
 my $dir = '../project_euler/';
 my $query = CGI->new;
@@ -35,38 +20,7 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
     while (defined (my $subdir = $dirh->read)) {
       next if (($subdir eq '.') or ($subdir eq '..'));
       next unless (grep {/^$subdir$/} keys %$extensions);
-      my $subdirh = DirHandle->new($dir . $subdir);
-      if (defined $subdirh) {
-        while (defined (my $file = $subdirh->read)) {
-          if ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir}))) {
-            print $query->h3($subdir);
-            display_file($query, join('/', $dir, $subdir), $file);
-            last;
-          }
-        }
-        $subdirh->rewind;
-        while (defined (my $file = $subdirh->read)) {
-          if ($file eq "Makefile") {
-            $file = join('/', $dir, $subdir, $file);
-            open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
-            while (<$fh>) {
-              if (s/^$number: //) {
-                my @dependencies = split(/ /);
-                foreach my $file (@dependencies) {
-                  if ($file =~ /\.(s|c\w*)$/) {
-                    (my $header = $file) =~ s/\.\w+$/.h/;
-                    chomp(my $full_header = join('/', $dir, $subdir, $header));
-                    if (-e "$full_header") {
-                      display_file($query, join('/', $dir, $subdir), $header);
-                    }
-                  }
-                  display_file($query, join('/', $dir, $subdir), $file) unless ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir})));
-                }
-              }
-            }
-          }
-        }
-      }
+      print_language_number($query, $dir, $subdir, $number);
     }
   } 
 } else {

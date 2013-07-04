@@ -9,7 +9,28 @@ use XML::LibXML;
 use Exporter;
 our (@ISA, @EXPORT_OK);
 @ISA =qw(Exporter);
-@EXPORT_OK = qw(display_file get_web_page decode_web_page get_problem_as_string);
+@EXPORT_OK = qw(display_file 
+                get_web_page
+                decode_web_page
+                get_problem_as_string
+                print_language_number
+                $extensions
+                $prefix);
+
+our $extensions = {
+  asm           => 's',
+  c             => 'c',
+  'c++'         => 'cpp',
+  forth         => 'fs',
+  haskell       => 'hs',
+  java          => 'java',
+  perl          => 'pl',
+  python        => 'py',
+};
+
+our $prefix = {
+  java => 'pe',
+};
 
 sub display_file {
   my $query = shift;
@@ -69,6 +90,46 @@ sub get_problem_as_string {
   $string =~ s/\&#13;//g;
   $string =~ s|href="|href="http://projecteuler.net/|g;
   return $string;
+}
+
+sub print_language_number {
+  my $query = shift;
+  my $dir = shift;
+  my $subdir = shift;
+  my $number = shift;
+
+  my $subdirh = DirHandle->new($dir . $subdir);
+  if (defined $subdirh) {
+    while (defined (my $file = $subdirh->read)) {
+      if ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir}))) {
+        print $query->h3($subdir);
+        display_file($query, join('/', $dir, $subdir), $file);
+        last;
+      }
+    }
+    $subdirh->rewind;
+    while (defined (my $file = $subdirh->read)) {
+      if ($file eq "Makefile") {
+        $file = join('/', $dir, $subdir, $file);
+        open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
+        while (<$fh>) {
+          if (s/^$number: //) {
+            my @dependencies = split(/ /);
+            foreach my $file (@dependencies) {
+              if ($file =~ /\.(s|c\w*)$/) {
+                (my $header = $file) =~ s/\.\w+$/.h/;
+                chomp(my $full_header = join('/', $dir, $subdir, $header));
+                if (-e "$full_header") {
+                  display_file($query, join('/', $dir, $subdir), $header);
+                }
+              }
+              display_file($query, join('/', $dir, $subdir), $file) unless ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir})));
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 1;
