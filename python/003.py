@@ -19,12 +19,12 @@ def main():
   number = 600851475143
 
   max_prime = 0
-  for i in range(2, int(sqrt(number)) + 1):
+  i = 3
+  while (number != 1):
     if ((number % i) == 0):
       max_prime = set_max_prime(i, max_prime)
       number = number / i
-      if (number == 1):
-        break
+    i+= 2
 
   print max_prime
 
