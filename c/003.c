@@ -19,19 +19,16 @@ void set_max_prime(const unsigned long long big, int* max_prime_ptr)
 int main()
 {
   unsigned long long number = 600851475143ull;
-  int root = 775147; // the first odd integer larger than root(number)
-
   int max_prime = 0;
-  int i;
-  for (i=3; i<root; i=i+2) // just use odd factors
+  int i = 3;
+  while (number != 1)
   {
     if (!(number % i))
     {
       set_max_prime(i, &max_prime);
       number = number/i;
-      if (number == 1)
-        break;
     }
+    i+=2;
   }
   printf("%d\n", max_prime);
   exit(0);
