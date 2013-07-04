@@ -4,12 +4,13 @@ use strict;
 my $number = 600851475143;
 
 my $max_prime = 0;
-for my $i (2 .. sqrt($number)) {
+my $i = 3;
+while ($number != 1) {
   unless ($number % $i) {
     $max_prime = set_max_prime($i, $max_prime);
     $number = $number/$i;
-    last if ($number == 1);
   }
+  $i += 2;
 }
 print "$max_prime\n";
 
