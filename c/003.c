@@ -23,14 +23,14 @@ int main()
 
   int max_prime = 0;
   int i;
-  for (i=root; i>2; i=i-2) // just use odd factors
+  for (i=3; i<root; i=i+2) // just use odd factors
   {
-    unsigned long long divi = 0;
     if (!(number % i))
     {
-      divi = number/i;
       set_max_prime(i, &max_prime);
-      set_max_prime(divi, &max_prime);
+      number = number/i;
+      if (number == 1)
+        break;
     }
   }
   printf("%d\n", max_prime);
