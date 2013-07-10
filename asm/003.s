@@ -27,6 +27,7 @@ main:
  ldr num_hi, =numhi
 loop:
  add n, n, 2           @ start at 3 and increment by 2
+loop1:
  mov r0, num_lo
  mov r1, num_hi
  mov r2, n
@@ -46,7 +47,7 @@ loop:
  movlt maxdiv, n        @ save n as the largest divisor if it is larger
  teq num_lo, 1          @ we know it has prime factors
  beq printme
- b loop
+ b loop1
 printme:
  mov r1, maxdiv
  ldr r0, =resstring     @ store address of start of string to r0
