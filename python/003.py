@@ -24,7 +24,8 @@ def main():
     if ((number % i) == 0):
       max_prime = set_max_prime(i, max_prime)
       number = number / i
-    i+= 2
+    else:
+      i+= 2
 
   print max_prime
 

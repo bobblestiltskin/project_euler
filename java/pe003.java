@@ -28,8 +28,9 @@ public class pe003 {
       if (big_number.mod(BigInteger.valueOf(counter)).intValue() == 0) {
         max_prime = set_max_prime(BigInteger.valueOf(counter), max_prime);
         big_number = big_number.divide(BigInteger.valueOf(counter));
+      } else {
+        counter++;
       }
-      counter++;
     }
     System.out.println(max_prime);
   }

@@ -23,12 +23,15 @@ int main()
   int i = 3;
   while (number != 1)
   {
-    if (!(number % i))
+    if ((number % i))
+    {
+      i+=2;
+    }
+    else
     {
       set_max_prime(i, &max_prime);
       number = number/i;
     }
-    i+=2;
   }
   printf("%d\n", max_prime);
   exit(0);

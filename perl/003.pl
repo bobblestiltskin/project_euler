@@ -6,11 +6,12 @@ my $number = 600851475143;
 my $max_prime = 0;
 my $i = 3;
 while ($number != 1) {
-  unless ($number % $i) {
+  if ($number % $i) {
+    $i += 2;
+  } else {
     $max_prime = set_max_prime($i, $max_prime);
     $number = $number/$i;
   }
-  $i += 2;
 }
 print "$max_prime\n";
 
