@@ -40,7 +40,7 @@ main:
 	ldr	primes_ptr, =primes_vector
 	mov	numprimes, 1
 	mov	number, 2
-	strb	number, [primes_ptr]
+	str	number, [primes_ptr]
 
 	num_is_prime 3
 	num_is_prime 4

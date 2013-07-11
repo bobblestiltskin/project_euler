@@ -27,7 +27,7 @@ main:
         ldr     primes_ptr, =primes_vector
         mov     numprimes, 1
         mov     number, 2
-        strb    number, [primes_ptr]
+        str     number, [primes_ptr]
 
 	ldr	count, =limit
 	mov	number, 3	@ 2 is the first prime

@@ -16,7 +16,6 @@ vptr		.req r5
 tmp		.req r6
 squared		.req r7
 vsize		.req r8
-vcount		.req r9
 
 .global prime_vector
 .type prime_vector, %function
@@ -24,11 +23,10 @@ vcount		.req r9
 .align	2
 
 prime_vector:
-	stmfd	sp!, {r4-r9, lr}
+	stmfd	sp!, {r4-r8, lr}
 	mov	number, r0
 	mov	vptr, r1
 	mov	vsize, r2
-	mov	vcount, 0
 nexti:
 	ldr	tmp, [vptr], word
 	mul	squared, tmp, tmp
@@ -41,9 +39,8 @@ nexti:
 	teq	r1, 0
 	moveq	r0, 0
 	beq	last
-	add	vcount, vcount, 1
-	cmp	vcount, vsize
-	blt	nexti
-	movge	r0, 0
+	subs	vsize, vsize, 1
+	bgt	nexti
+	mov	r0, 0
 last:
-	ldmfd	sp!, {r4-r9, pc}
+	ldmfd	sp!, {r4-r8, pc}
