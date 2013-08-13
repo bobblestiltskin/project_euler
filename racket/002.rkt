@@ -1,5 +1,6 @@
 #! /usr/bin/env racket
 #lang racket
+; this returns the sum of all even fibonacci numbers less than 4_000_000
 (define MAX 4000000)
 (define (fib-sum prev current sum)
   (cond
