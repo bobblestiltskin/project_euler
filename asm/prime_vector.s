@@ -41,6 +41,6 @@ nexti:
 	beq	last
 	subs	vsize, vsize, 1
 	bgt	nexti
-	mov	r0, 0
+	mov	r0, 1
 last:
 	ldmfd	sp!, {r4-r8, pc}
