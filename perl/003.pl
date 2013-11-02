@@ -22,7 +22,7 @@ sub set_max_prime {
   my $is_prime = 1;
   my $count = 3;
   while ($is_prime and ($count**2 < $big)) {
-    $is_prime = 0 unless ($big % $count);
+    $is_prime = $big % $count; # remainder => possible prime
     $count = $count + 2;
   }
   $max_prime = $big if ($is_prime && ($big > $max_prime));
