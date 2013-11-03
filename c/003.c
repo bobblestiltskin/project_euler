@@ -3,19 +3,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-void set_max_prime(const unsigned long long big, int* max_prime_ptr)
-{
-  int is_prime = 1;
-  int count = 3;
-  while (is_prime && ((count*count) < big)) {
-    if (!(big % count))
-      is_prime = 0;
-    count = count + 2;
-  }
-  if (is_prime && ((int)big > *max_prime_ptr))
-    *max_prime_ptr = (int) big;
-} 
-
 int main()
 {
   unsigned long long number = 600851475143ull;
@@ -29,7 +16,7 @@ int main()
     }
     else
     {
-      set_max_prime(i, &max_prime);
+      max_prime = i;
       number = number/i;
     }
   }
