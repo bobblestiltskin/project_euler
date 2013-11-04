@@ -18,7 +18,7 @@
       0
     )
   )
-  (printf "~a\n" maxp)
 )
 
 (loop)
+(printf "~a\n" maxp)
