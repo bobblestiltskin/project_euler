@@ -8,4 +8,10 @@
         [(divides? number i) (L (+ i 2) i (/ number i))]
         [else (L (+ i 2) maxp number)]))
 
-(L 3 0 maxnum)
+(define (eloop maxp number)
+  (cond [(= number 2) 2]
+        [(even? number) (eloop 2 (/ number 2))]
+        [else (L 3 0 number)])
+)
+
+(eloop 0 maxnum)
