@@ -1,24 +1,11 @@
 #lang racket
-(define number 600851475143)
-(define maxp 0)
+(define maxnum 600851475143)
+(define (divides? a b)
+  (= (remainder a b) 0))
 
-(define divides?
-  (lambda (a b)
-    (= (remainder a b) 0)))
+(define (L i maxp number)
+  (cond [(= number 1) maxp]
+        [(divides? number i) (L (+ i 2) i (/ number i))]
+        [else (L (+ i 2) maxp number)]))
 
-(define (set-vars i) 
-  (set! maxp i)
-  (set! number (/ number i))
-)
-
-(define (loop)
-  (for ([i (in-range 3 number 2)] #:break (= number 1))
-    (if (divides? number i)
-      (set-vars i)  
-      0
-    )
-  )
-)
-
-(loop)
-(printf "~a\n" maxp)
+(L 3 0 maxnum)
