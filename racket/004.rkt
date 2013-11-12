@@ -3,9 +3,9 @@
 (define maxi max3)
 (define maxj maxi)
 
-(define min3 10)
+(define min3 100)
 (define mini min3)
-(define minj min3)
+(define minj mini)
 
 (define (n2l n)
   (string->list (number->string n))
@@ -16,14 +16,29 @@
     (equal? (reverse pn) pn)
   )
 )
- 
-(for*/fold ([maxp 0]) ([i (in-range maxi mini -1)][j (in-range maxj minj -1)])
-  (let ((prod (* i j)))
-    (if (palindromic? prod) 
-        (max prod maxp)
-        maxp
+
+(define (jloop maxj minj)
+  (for/fold ([maxpj 0]) ([j (in-range maxj minj -1)])
+    (let ((prod (* maxj j)))
+      (if (palindromic? prod) 
+        (max prod maxpj)
+        maxpj
+      )
     )
-;    (printf "i is ~a, j is ~a, product is ~a, palindrome is ~s\n" i j prod (palindromic? prod))
   )
 )
-  
+
+(for/fold ([maxp 0]) ([i (in-range maxi mini -1)])
+  (let ((maxpj (jloop i minj)))
+    (if (> maxpj maxp)
+       ; shrink the minima 
+       ; 3 x performance optimisation
+       (let ((newmin (/ maxpj 1000)))
+         (set! mini newmin)
+         (set! minj newmin)
+         maxpj
+       )
+       maxp
+    )
+  )
+)
