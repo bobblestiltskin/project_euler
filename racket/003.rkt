@@ -4,6 +4,8 @@
 (define (divides? a b)
   (= (remainder a b) 0))
 
+; Dan Prager wrote the next function
+; http://www.mail-archive.com/users@racket-lang.org/msg20214.html
 (define (L i number)
   (cond [(= number 1) (- i 2)]
         [(divides? number i) (L (+ i 2) (/ number i))]
