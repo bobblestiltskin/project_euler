@@ -16,7 +16,7 @@
  
 (define (sum-sq mini maxi)
   (for/fold ([sumsq 0])([i (in-range mini (add1 maxi))])
-    (+ sumsq (* i i))
+    (+ sumsq (sqr i))
   )
 )
 
