@@ -1,3 +1,4 @@
+#! /usr/bin/env racket
 #lang racket
 ; this computes the largest prime factor of maxnum
 (define maxnum 600851475143)

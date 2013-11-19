@@ -1,3 +1,4 @@
+#! /usr/bin/env racket
 #lang racket
 (define max3 999)
 (define maxi max3)

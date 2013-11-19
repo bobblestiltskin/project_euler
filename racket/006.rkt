@@ -1,3 +1,4 @@
+#! /usr/bin/env racket
 #lang racket
 (define mini 1)
 (define maxi 100)
