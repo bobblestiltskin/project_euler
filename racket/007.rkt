@@ -24,11 +24,21 @@
   )
 )
 
-(define (mypair number)
-  (for/fold ([prime 0][primecount 0]) ([i (in-naturals)] #:when (prime? i))
-    #:break (= primecount number)
-    (values i (add1 primecount))
+(define (next-prime n)
+  (cond [(< n 2) 2]
+        [else (cond [(even? n) (cond [(= 2 n) 3]
+                                     [else (next-prime (sub1 n))])]
+                    [else (let ((try (+ 2 n)))
+                            (cond [(prime? try) try]
+                                  [else (next-prime try)]))])
+        ])
+)
+
+(define (nth-prime n p)
+  (if (= n 0)
+      p
+      (nth-prime (sub1 n) (next-prime p))
   )
 )
 
-(mypair number)
+(nth-prime 10001 1)
