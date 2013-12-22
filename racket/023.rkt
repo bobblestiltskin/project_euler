@@ -2,7 +2,6 @@
 #lang racket
 
 (define num 28123)
-;(define num 33)
 
 (define (sum-factors-ltsr n)
   (for/fold ([sumf 1]) ([i (in-range 2 (sqrt n) 1)])
@@ -36,11 +35,6 @@
   )    
 )
 
-;(for ([i (in-range 1 15)])
-;  (printf "i is ~s and sf is ~s\n" i (sum-factors i))
-;)
-;(printf "i is ~s and sf is ~s\n" 196 (sum-factors 196))
-
 (define (abundant? n)
   (< n (sum-factors n))
 )
@@ -50,17 +44,6 @@
 )
 
 (define bit-vector (abundant-bit-vector num))
-
-;(define (print-num-vector n)
-;  (let ((count 0))
-;    (for ([i (in-range 0 num)])
-;      (if (vector-ref bit-vector i)
-;         (printf "true ~s\n" (add1 i))
-;         (printf "false ~s\n" (add1 i))
-;      )
-;    )
-;  )
-;)
 
 (define (bit-set? i)
   (if (vector-ref bit-vector i)
@@ -76,23 +59,15 @@
 (define num-list (get-num-list num))
 (define num-vector (list->vector num-list))
 
-;(printf "bit vector is ~s\n" bit-vector)
-;(print-num-vector num)
-;(printf "num list is ~s\n" num-list)
-;(printf "num vector is ~s\n" num-vector)
-
-(define (process-num-list i nv)
+(define (process-num-vector i nv bv)
   (let ((nexti (add1 i)))
-;    (printf "i is ~s, nexti ~s\n" i nexti)
     (for/fold ([retv -1]) ([j (in-range (vector-length nv))] #:break (= retv 0))
       (let ((jval (vector-ref nv j)))
         (cond
           [(< nexti (vector-ref nv j)) nexti]
           [else 
             (let ((jidiff (- nexti jval)))
-;              (printf "nexti is ~s greater than j of ~s and diff is ~s\n" nexti jval jidiff)
-;              (if (member jidiff num-list)
-              (if (and (> jidiff 0) (vector-ref bit-vector (sub1 jidiff)))
+              (if (and (> jidiff 0) (vector-ref bv (sub1 jidiff)))
                 0
                 nexti
               )
@@ -104,18 +79,12 @@
   )
 )
 
-(define (process-ints n nv)
+(define (process-ints n nv bv)
   (for/fold ([total 0]) ([i (in-range n)])
-    (let ((pnl (process-num-list i nv)))
-;      (if (= pnl 0)
-;        (printf "zero: i is ~s and pnl is ~s and total is ~s\n" (add1 i) pnl total)
-;        (printf "adding : i is ~s and pnl is ~s and total is ~s\n" (add1 i) pnl (+ total pnl))
-;      )
+    (let ((pnl (process-num-vector i nv bv)))
       (+ total pnl)
     )
   )
 )
 
-(process-ints num num-vector)
-;(printf "length of num list is ~s\n" (length num-list))
-;(printf "196 sumf is ~s\n" (sum-factors 196))
+(process-ints num num-vector bit-vector)
