@@ -26,6 +26,7 @@ our $extensions = {
   java          => 'java',
   perl          => 'pl',
   python        => 'py',
+  racket        => 'rkt',
 };
 
 our $prefix = {
