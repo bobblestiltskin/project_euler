@@ -2,6 +2,7 @@
 #lang racket
 
 (define num 28123)
+;(define num 33)
 
 (define (sum-factors-ltsr n)
   (for/fold ([sumf 1]) ([i (in-range 2 (sqrt n) 1)])
@@ -45,16 +46,21 @@
 
 (define bit-vector (abundant-bit-vector num))
 
-; oops bit-vector is accessed globally?
-(define (abundant-bit-set? i)
-  (if (vector-ref bit-vector i)
+(define (abundant-bit-set? i bve)
+  (if bve
      (add1 i)
       -1
   )
 )
 
-(define num-vector 
-  (list->vector (filter positive? (map abundant-bit-set? (stream->list (in-range num)))))
+(define (num-vector bv)
+  (list->vector 
+    (filter positive?
+      (map abundant-bit-set? (stream->list (in-range num))
+                             (vector->list bv)
+      )
+    )
+  )
 )
 
 (define (process-num-vector i nv bv)
@@ -85,4 +91,4 @@
   )
 )
 
-(process-ints num num-vector bit-vector)
+(process-ints num (num-vector bit-vector) bit-vector)
