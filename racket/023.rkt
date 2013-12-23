@@ -45,19 +45,17 @@
 
 (define bit-vector (abundant-bit-vector num))
 
-(define (bit-set? i)
+; oops bit-vector is accessed globally?
+(define (abundant-bit-set? i)
   (if (vector-ref bit-vector i)
      (add1 i)
       -1
   )
 )
 
-(define (get-num-list n)
-  (filter positive? (map bit-set? (stream->list (in-range n))))
+(define num-vector 
+  (list->vector (filter positive? (map abundant-bit-set? (stream->list (in-range num)))))
 )
-
-(define num-list (get-num-list num))
-(define num-vector (list->vector num-list))
 
 (define (process-num-vector i nv bv)
   (let ((nexti (add1 i)))
