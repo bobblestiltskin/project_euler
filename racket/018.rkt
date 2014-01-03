@@ -20,16 +20,21 @@
 (define triangle (list rowe rowd rowc rowb rowa row9 row8
                        row7 row6 row5 row4 row3 row2 row1))
 
+; recursively process a row - pushing the max of each pair of elements on to a list
+; the output listis reversed and returned on termination
 (define (pair-max inlist outlist)
   (cond 
     [(null? (rest inlist)) (reverse outlist)]
     [else (let ([outlist (flatten (list (max (first inlist) (second inlist)) outlist))])
            (pair-max (rest inlist) outlist))]))
 
-(define (process-triangle triangle inlist)
+; recursively process the triangle and a row - pulling off the bottom row each iteration
+; rowsum created here is a sum of the bottom row of the triangle with the pair-max of the input row
+(define (process-triangle triangle row)
   (cond
-    [(null? triangle) (first inlist)]
-    [else (let ([outlist (for/list ([i (pair-max inlist null)] [j (first triangle)]) (+ i j))])
-           (process-triangle (rest triangle) outlist))]))
+    [(null? triangle) (first row)]
+    [else (let ([rowsum (for/list ([i (pair-max row null)] [j (first triangle)]) (+ i j))])
+           (process-triangle (rest triangle) rowsum))]))
 
+; triangle contains all rows but rowf arranged from rowe to row1
 (process-triangle triangle rowf)

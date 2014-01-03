@@ -24,6 +24,10 @@
   )
 )
 
+; this function will return the largest number base m which is less than n
+; e.g. max-base-m-lt-n 2 1 20 - will return 16 (2**4)
+;      max-base-m-lt-n 3 1 20 - will return 9  (3**2)
+;      max-base-m-lt-n 3 1 30 - will return 27 (3**3)
 (define (max-base-m-lt-n m last n)
   (if (> (* m last) n)
      last
@@ -31,6 +35,8 @@
   )
 )
 
+; we only look at the prime numbers - and for each we use the function
+; max-base-m-lt-n to get the largest number (base m < n)
 (for/fold ([lcm 1])([i (in-range 2 (add1 number))])
   (if (prime? i)
      (* lcm (max-base-m-lt-n i 1 number))

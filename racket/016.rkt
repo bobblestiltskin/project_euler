@@ -3,6 +3,7 @@
 
 (define THRESHOLD 1000)
 
+; recurse adding one digit per iteration
 (define (psum num digsum)
   (if (> num 9)
     (let-values ([(q r) (quotient/remainder num 10)])

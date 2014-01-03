@@ -2,12 +2,12 @@
 #lang racket
 (define max3 999)
 (define maxi max3)
-(define maxj maxi)
 
 (define min3 100)
 (define mini min3)
 (define minj mini)
 
+; number->list
 (define (n2l n)
   (string->list (number->string n))
 )
@@ -18,9 +18,9 @@
   )
 )
 
-(define (jloop maxj minj)
-  (for/fold ([maxpj 0]) ([j (in-range maxj minj -1)])
-    (let ((prod (* maxj j)))
+(define (jloop maxv minv)
+  (for/fold ([maxpj 0]) ([j (in-range maxv minv -1)])
+    (let ((prod (* maxv j)))
       (if (palindromic? prod) 
         (max prod maxpj)
         maxpj
@@ -29,6 +29,8 @@
   )
 )
 
+; we need to search through the permitted number set in pairs so we use two loops
+; however we can short circuit the computation when we find each palindrome
 (for/fold ([maxp 0]) ([i (in-range maxi mini -1)])
   (let ((maxpj (jloop i minj)))
     (if (> maxpj maxp)

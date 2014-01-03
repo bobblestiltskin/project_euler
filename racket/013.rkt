@@ -4,6 +4,7 @@
 (define numnum 100)
 (define width 50)
 
+; represent matrix by a vector of vectors
 (define tmat #(
   #(3 7 1 0 7 2 8 7 5 3 3 9 0 2 1 0 2 7 9 8 7 9 7 9 9 8 2 2 0 8 3 7 5 9 0 2 4 6 5 1 0 1 3 5 7 4 0 2 5 0)
   #(4 6 3 7 6 9 3 7 6 7 7 4 9 0 0 0 9 7 1 2 6 4 8 1 2 4 8 9 6 9 7 0 0 7 8 0 5 0 4 1 7 0 1 8 2 6 0 5 3 8)
@@ -108,12 +109,15 @@
  )
 )
 
+; this sums a column
 (define (colsum j)
   (for/fold ([csum 0]) ([i (in-range 0 numnum)])
     (+ (vector-ref (vector-ref tmat i) j) csum)
   )
 )
 
+; parse the columns from left to right and breakout when two consecutive sums 
+; are the same in the first ten places
 (define (add-numbers)
   (for/fold ([nstring "000000000000"][result_num 0]) ([j (in-range 0 width)])
     #:break
@@ -132,4 +136,6 @@
   )
 )
 (define-values (a b) (add-numbers))
+
+; print the first 10 digits
 (string->number (substring a 0 10))

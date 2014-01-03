@@ -2,8 +2,8 @@
 #lang racket
 
 (define num 28123)
-;(define num 33)
 
+; another sum factors definition - maybe better as a utility library?
 (define (sum-factors-ltsr n)
   (for/fold ([sumf 1]) ([i (in-range 2 (sqrt n) 1)])
     (let-values ([(q r) (quotient/remainder n i)])
@@ -40,6 +40,7 @@
   (< n (sum-factors n))
 )
 
+; generate a bit vector with elements set when the index is abundant 
 (define (abundant-bit-vector n)
   (list->vector (map abundant? (stream->list (in-range 1 (add1 n)))))
 )
@@ -53,6 +54,7 @@
   )
 )
 
+; create a vector of abundant numbers
 (define (num-vector bv)
   (list->vector 
     (filter positive?
@@ -63,6 +65,7 @@
   )
 )
 
+; for the input number i, return 0 if it can is the sum of 2 abundant numbers, or i+1 if not
 (define (process-num-vector i nv bv)
   (let ((nexti (add1 i)))
     (for/fold ([retv -1]) ([j (in-range (vector-length nv))] #:break (= retv 0))
@@ -83,6 +86,7 @@
   )
 )
 
+; sum the integers which are not the sum of 2 abundant numbers
 (define (process-ints n nv bv)
   (for/fold ([total 0]) ([i (in-range n)])
     (let ((pnl (process-num-vector i nv bv)))

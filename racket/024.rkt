@@ -1,3 +1,4 @@
+#! /usr/bin/env racket
 #lang racket
 
 ;  9! is 362880 so after all the 10 digit numbers which 
@@ -24,6 +25,7 @@
   (list->set (string->list (number->string n)))
 )
 
+; use sets to hold the constituent digits of our 
 (define-values (c l) 
   (for/fold ([count startcount][lval 0]) 
     ([i (in-range startnum 9876543210)] 

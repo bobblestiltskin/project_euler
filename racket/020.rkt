@@ -8,6 +8,7 @@
     [(= 1 n) 1]
     [else (* n (factorial (sub1 n)))]))
 
+; add digits recursively, dividing by 10 each iteration
 (define (sum-digits n sofar)
   (cond
     [(< n 10) (+ n sofar)]

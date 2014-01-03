@@ -21,12 +21,10 @@
 
 (define (hundreds-and-units-count)
   (for*/fold ([count 0]) ([h (values units)][u (values units)])
-;    (printf "h is ~s and u is ~s\n" h u)
     (+ count (string-length h) (string-length u) handcount)))
 
 (define (hundreds-and-tens-count)
   (for*/fold ([count 0]) ([h (values units)][t (values tens)])
-;    (printf "h is ~s and t is ~s\n" h t)
     (+ count (string-length h) (string-length t) handcount)))
 
 (define (one-to-onek-letter-sum)

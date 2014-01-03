@@ -2,7 +2,6 @@
 #lang racket
 
 (define number 2000000)
-;(define number 10)
 
 ; prime? adapted from http://danf.wordpress.com/2011/03/05/testing-for-primes-scheme/
 

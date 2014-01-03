@@ -24,6 +24,7 @@
   )
 )
 
+; given a prime it tests subsequent odd numbers until a prime is found
 (define (next-prime n)
   (cond [(< n 2) 2]
         [else (cond [(even? n) (cond [(= 2 n) 3]
@@ -34,6 +35,7 @@
         ])
 )
 
+; this will recurse getting the next prime until the counter stops
 (define (nth-prime n p)
   (if (= n 0)
       p

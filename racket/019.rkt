@@ -23,9 +23,11 @@
 (define num-cycles 25)
 
 (define (process-month m daycount daynum)
-  (if (zero? (remainder (+ daynum m) 7))
-    (values (add1 daycount) (+ m daynum))
-    (values daycount (+ m daynum))
+  (let ([nextdn (+ daynum m)])
+    (if (zero? (remainder nextdn 7))
+      (values (add1 daycount) nextdn)
+      (values daycount nextdn)
+    )
   )
 )
 

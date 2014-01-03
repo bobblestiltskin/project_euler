@@ -5,6 +5,7 @@
 
 (define minv 10000)
 
+; this function will return the product of the five digits at the right of num
 (define (one-prod num)
    (define-values (q1 r1) (quotient/remainder num 10))
    (define-values (q2 r2) (quotient/remainder q1 10))
@@ -14,6 +15,9 @@
    (* r5 r4 r3 r2 r1)
 )
 
+; work through num from the right dropping a digit each iteration 
+; and passing through highest best so far
+; stop when the number has 4 digits and return the highest
 (define (div-print num maxv)
   (cond [(< num minv) maxv]
         [else (let ((candidate (one-prod num))
