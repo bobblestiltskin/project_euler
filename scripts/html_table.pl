@@ -9,10 +9,11 @@ my $have_proc_cpuinfo = 0;
 eval qq(require $InfoName;);
 if ($@) {
   print "Require failure for Linux::Proc::Cpuinfo, $@";
-  print "Avaliable from http://search.cpan.org/CPAN/authors/id/H/HA/HAGGAI/Linux-Proc-Cpuinfo-0.02.tar.gz\n";
+  print "Available from http://search.cpan.org/CPAN/authors/id/H/HA/HAGGAI/Linux-Proc-Cpuinfo-0.02.tar.gz\n";
   print "With dependencies http://search.cpan.org/CPAN/authors/id/M/MA/MATTN/Devel-CheckLib-0.98.tar.gz\n";
   print "and latest version of https://savannah.nongnu.org/projects/proccpuinfo/\n";
   print "which is http://download.savannah.gnu.org/releases/proccpuinfo/libproccpuinfo-0.0.8.tar.bz2";
+  exit;
 } else {
   $have_proc_cpuinfo = 1;
   import $InfoName;
