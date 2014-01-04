@@ -1,0 +1,25 @@
+#!/bin/bash
+mkdir -p ../output
+declare -a compiled
+compiled=(c c++ java)
+if grep --quiet -E "ARMv[1-9]" /proc/cpuinfo
+then
+  compiled=(asm ${compiled[@]})
+fi
+echo compiled is $compiled
+for lang in ${compiled[@]}
+do
+  echo lang is $lang
+  make -C ../$lang
+  ./time$lang
+  mv data.$lang.* ../output
+  make -C ../$lang clean
+done
+#
+declare -a scripts
+scripts=(forth perl python racket)
+for lang in ${scripts[@]}
+do
+  echo lang is $lang
+  ./time$lang
+done
