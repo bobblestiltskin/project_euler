@@ -1,25 +1,5 @@
-./time1 java pe 001 java
-./time1 java pe 002 java
-./time1 java pe 003 java
-./time1 java pe 004 java
-./time1 java pe 005 java
-./time1 java pe 006 java
-./time1 java pe 007 java
-./time1 java pe 008 java
-./time1 java pe 009 java
-./time1 java pe 010 java
-./time1 java pe 011 java
-./time1 java pe 012 java
-./time1 java pe 013 java
-./time1 java pe 014 java
-./time1 java pe 015 java
-./time1 java pe 016 java
-./time1 java pe 017 java
-./time1 java pe 018 java
-./time1 java pe 019 java
-./time1 java pe 020 java
-./time1 java pe 021 java
-./time1 java pe 022 java
-./time1 java pe 023 java
-./time1 java pe 024 java
-./time1 java pe 025 java
+#!/bin/bash
+MAX=25
+for i in $(seq 1 $MAX); do
+  printf "./time1 java pe %03d java\n" $i | bash
+done

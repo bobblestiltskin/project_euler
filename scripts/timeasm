@@ -1,25 +1,5 @@
-./time1 asm ./ 001
-./time1 asm ./ 002
-./time1 asm ./ 003
-./time1 asm ./ 004
-./time1 asm ./ 005
-./time1 asm ./ 006
-./time1 asm ./ 007
-./time1 asm ./ 008
-./time1 asm ./ 009
-./time1 asm ./ 010
-./time1 asm ./ 011
-./time1 asm ./ 012
-./time1 asm ./ 013
-./time1 asm ./ 014
-./time1 asm ./ 015
-./time1 asm ./ 016
-./time1 asm ./ 017
-./time1 asm ./ 018
-./time1 asm ./ 019
-./time1 asm ./ 020
-./time1 asm ./ 021
-./time1 asm ./ 022
-./time1 asm ./ 023
-./time1 asm ./ 024
-./time1 asm ./ 025
+#!/bin/bash
+MAX=25
+for i in $(seq 1 $MAX); do
+  printf "./time1 asm ./ %03d\n" $i | bash
+done

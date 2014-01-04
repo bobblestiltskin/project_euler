@@ -1,25 +1,5 @@
-./time1 forth ./ 001 "" .fs
-./time1 forth ./ 002 "" .fs
-./time1 forth ./ 003 "" .fs
-./time1 forth ./ 004 "" .fs
-./time1 forth ./ 005 "" .fs
-./time1 forth ./ 006 "" .fs
-./time1 forth ./ 007 "" .fs
-./time1 forth ./ 008 "" .fs
-./time1 forth ./ 009 "" .fs
-./time1 forth ./ 010 "" .fs
-./time1 forth ./ 011 "" .fs
-./time1 forth ./ 012 "" .fs
-./time1 forth ./ 013 "" .fs
-./time1 forth ./ 014 "" .fs
-./time1 forth ./ 015 "" .fs
-./time1 forth ./ 016 "" .fs
-./time1 forth ./ 017 "" .fs
-./time1 forth ./ 018 "" .fs
-./time1 forth ./ 019 "" .fs
-./time1 forth ./ 020 "" .fs
-./time1 forth ./ 021 "" .fs
-./time1 forth ./ 022 "" .fs
-./time1 forth ./ 023 "" .fs
-./time1 forth ./ 024 "" .fs
-./time1 forth ./ 025 "" .fs
+#!/bin/bash
+MAX=25
+for i in $(seq 1 $MAX); do
+  printf "./time1 forth ./ %03d \"\" .fs\n" $i | bash
+done
