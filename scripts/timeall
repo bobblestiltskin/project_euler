@@ -22,4 +22,5 @@ for lang in ${scripts[@]}
 do
   echo lang is $lang
   ./time$lang
+  mv data.$lang.* ../output
 done
