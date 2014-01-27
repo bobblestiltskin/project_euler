@@ -103,7 +103,7 @@ sub print_language_number {
   if (defined $subdirh) {
     while (defined (my $file = $subdirh->read)) {
       if ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir}))) {
-        print $query->h3($subdir);
+        print $query->h3($subdir) if ($0 =~ /problem\.pl$/);
         display_file($query, join('/', $dir, $subdir), $file);
         last;
       }
