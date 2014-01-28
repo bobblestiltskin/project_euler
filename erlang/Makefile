@@ -4,7 +4,7 @@ SSOPTS := start -s init stop
 ERLC := /usr/bin/erlc
 ERLCOPTS := -v
 
-all: pe001 pe002 pe003
+all: $(patsubst %.erl,%,$(wildcard pe0*.erl))
 
 %: %.beam
 	$(ERL) $(ERLOPTS) $@ $(SSOPTS)
