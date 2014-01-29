@@ -17,13 +17,24 @@ pe004(Mini, I, Minj, J, BestP) when (J == Minj) ->
 
 pe004(Mini, I, Minj, J, BestP) ->
   Product = I * J,
-  Palindrome = is_palindrome(Product),
+  Updating = is_palindrome(Product) and (Product > BestP),
+
   Next = if
-    (Palindrome == true) and (Product > BestP) -> Product;
+    (Updating == true) -> Product;
     true -> BestP
   end, 
 
-  pe004(Mini, I, Minj, J - 1, Next).
+  Istop = if
+    (Updating == true) -> Product div 1000;
+    true -> Mini
+  end, 
+
+  Jstop = if
+    (Updating == true) -> Product div 1000;
+    true -> Minj
+  end, 
+
+  pe004(Istop, I, Jstop, J - 1, Next).
 
 is_palindrome(Number) ->
   integer_to_list(Number) == lists:reverse(integer_to_list(Number)).
