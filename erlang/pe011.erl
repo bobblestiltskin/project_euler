@@ -34,7 +34,8 @@ start() ->
   
 pe011(S, L) ->
 %  north(4, 1, L).
-  northeast(18, 17, L, S).
+%  northeast(18, 17, L, S).
+  northwest(16, 16, L, S).
     
 %pe011(N, Result) ->
 %  io:format("~w~n", [Result]).
@@ -68,5 +69,101 @@ northeast(I, J, L, S, P) when L > 0 ->
   northeast(I - 1, J + 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
 northeast(I, J, L, S, P) ->
+  io:format("PRODUCT is ~w~n", [P]),
+  P.
+
+east(I, J, L, S) when J > (S - L + 1) ->
+  io:format("OUT ... I ~w, J ~w, L ~w~n", [I, J, L]),
+  0;
+
+east(I, J, L, S) ->
+  io:format("I ~w, J ~w, L ~w~n", [I, J, L]),
+  east(I, J, L, S, 1).
+
+east(I, J, L, S, P) when L > 0 ->
+  io:format("I ~w, J ~w, L ~w, P ~w~n", [I, J, L, P]),
+  east(I, J + 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
+
+east(I, J, L, S, P) ->
+  io:format("PRODUCT is ~w~n", [P]),
+  P.
+
+southeast(I, J, L, S) when I > (S - L + 1); J > (S - L + 1) ->
+  io:format("OUT ... I ~w, J ~w, L ~w~n", [I, J, L]),
+  0;
+
+southeast(I, J, L, S) ->
+  io:format("I ~w, J ~w, L ~w~n", [I, J, L]),
+  southeast(I, J, L, S, 1).
+
+southeast(I, J, L, S, P) when L > 0 ->
+  io:format("I ~w, J ~w, L ~w, P ~w~n", [I, J, L, P]),
+  southeast(I + 1, J + 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
+
+southeast(I, J, L, S, P) ->
+  io:format("PRODUCT is ~w~n", [P]),
+  P.
+
+south(I, J, L, S) when I > (S - L + 1) ->
+  io:format("OUT ... I ~w, J ~w, L ~w~n", [I, J, L]),
+  0;
+
+south(I, J, L, S) ->
+  io:format("I ~w, J ~w, L ~w~n", [I, J, L]),
+  south(I, J, L, S, 1).
+
+south(I, J, L, S, P) when L > 0 ->
+  io:format("I ~w, J ~w, L ~w, P ~w~n", [I, J, L, P]),
+  south(I + 1, J, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
+
+south(I, J, L, S, P) ->
+  io:format("PRODUCT is ~w~n", [P]),
+  P.
+
+southwest(I, J, L, S) when I > (S - L + 1), J < L ->
+  io:format("OUT ... I ~w, J ~w, L ~w~n", [I, J, L]),
+  0;
+
+southwest(I, J, L, S) ->
+  io:format("I ~w, J ~w, L ~w~n", [I, J, L]),
+  southwest(I, J, L, S, 1).
+
+southwest(I, J, L, S, P) when L > 0 ->
+  io:format("I ~w, J ~w, L ~w, P ~w~n", [I, J, L, P]),
+  southwest(I + 1, J - 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
+
+southwest(I, J, L, S, P) ->
+  io:format("PRODUCT is ~w~n", [P]),
+  P.
+
+west(I, J, L, S) when J < L ->
+  io:format("OUT ... I ~w, J ~w, L ~w~n", [I, J, L]),
+  0;
+
+west(I, J, L, S) ->
+  io:format("I ~w, J ~w, L ~w~n", [I, J, L]),
+  west(I, J, L, S, 1).
+
+west(I, J, L, S, P) when L > 0 ->
+  io:format("I ~w, J ~w, L ~w, P ~w~n", [I, J, L, P]),
+  west(I, J - 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
+
+west(I, J, L, S, P) ->
+  io:format("PRODUCT is ~w~n", [P]),
+  P.
+
+northwest(I, J, L, S) when I < L; J < L ->
+  io:format("OUT ... I ~w, J ~w, L ~w~n", [I, J, L]),
+  0;
+
+northwest(I, J, L, S) ->
+  io:format("I ~w, J ~w, L ~w~n", [I, J, L]),
+  northwest(I, J, L, S, 1).
+
+northwest(I, J, L, S, P) when L > 0 ->
+  io:format("I ~w, J ~w, L ~w, P ~w~n", [I, J, L, P]),
+  northwest(I - 1, J - 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
+
+northwest(I, J, L, S, P) ->
   io:format("PRODUCT is ~w~n", [P]),
   P.
