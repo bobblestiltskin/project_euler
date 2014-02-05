@@ -55,7 +55,7 @@ north(I, J, L, S, P) ->
   io:format("PRODUCT is ~w~n", [P]),
   P.
 
-northeast(I, J, L, S) when (I < L) or (J > (S - L + 1)) ->
+northeast(I, J, L, S) when I < L; J > (S - L + 1) ->
   io:format("OUT ... I ~w, J ~w, L ~w~n", [I, J, L]),
   0;
 
