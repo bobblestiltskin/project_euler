@@ -30,20 +30,26 @@ start() ->
   pe011(sqsize(), sqsize(), lsize(), sqsize(), 0).
   
 pe011(I, J, L, S, Max) when I == 1, J == 0 ->
-  io:format("MAX is ~w~n", [Max]);
+  io:format("~w~n", [Max]);
     
 pe011(I, J, L, S, Max) when J == 0 ->
   pe011(I - 1, S, L, S, Max);
     
 pe011(I, J, L, S, Max) ->
-  New = point(I, J, L, S),
-  if
-    New > Max ->
-      io:format("New is ~w~n", [New]),
-      pe011(I, J - 1, L, S, New);
-    true ->
-      pe011(I, J - 1, L, S, Max)
-  end.
+  pe011(I, J - 1, L, S, 
+    lists:max([point(I, J, L, S), Max])
+  ).
+
+%  New = lists:max([point(I, J, L, S), Max]),
+%  pe011(I, J - 1, L, S, New).
+
+%  New = point(I, J, L, S),
+%  if
+%    New > Max ->
+%      pe011(I, J - 1, L, S, New);
+%    true ->
+%      pe011(I, J - 1, L, S, Max)
+%  end.
     
 point(I, J, L, S) ->
   Result = lists:max([
@@ -56,7 +62,6 @@ point(I, J, L, S) ->
     west(I, J, L, S),
     northwest(I, J, L, S)
   ]),
-  io:format("MAX for (~w, ~w) is ~w~n", [I, J, Result]),
   Result.
 
 north(I, J, L, S) when I < L ->
