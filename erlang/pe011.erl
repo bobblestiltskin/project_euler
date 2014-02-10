@@ -29,7 +29,7 @@ matrix() ->
 start() ->
   pe011(sqsize(), sqsize(), lsize(), sqsize(), 0).
   
-pe011(I, J, L, S, Max) when I == 1, J == 0 ->
+pe011(I, J, _L, _S, Max) when I == 1, J == 0 ->
   io:format("~w~n", [Max]);
     
 pe011(I, J, L, S, Max) when J == 0 ->
@@ -64,7 +64,7 @@ point(I, J, L, S) ->
   ]),
   Result.
 
-north(I, J, L, S) when I < L ->
+north(I, _J, L, _S) when I < L ->
   0;
 
 north(I, J, L, S) ->
@@ -73,7 +73,7 @@ north(I, J, L, S) ->
 north(I, J, L, S, P) when L > 0 ->
   north(I - 1, J, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-north(I, J, L, S, P) ->
+north(_I, _J, _L, _S, P) ->
   P.
 
 northeast(I, J, L, S) when I < L; J > (S - L + 1) ->
@@ -85,10 +85,10 @@ northeast(I, J, L, S) ->
 northeast(I, J, L, S, P) when L > 0 ->
   northeast(I - 1, J + 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-northeast(I, J, L, S, P) ->
+northeast(_I, _J, _L, _S, P) ->
   P.
 
-east(I, J, L, S) when J > (S - L + 1) ->
+east(_I, J, L, S) when J > (S - L + 1) ->
   0;
 
 east(I, J, L, S) ->
@@ -97,7 +97,7 @@ east(I, J, L, S) ->
 east(I, J, L, S, P) when L > 0 ->
   east(I, J + 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-east(I, J, L, S, P) ->
+east(_I, _J, _L, _S, P) ->
   P.
 
 southeast(I, J, L, S) when I > (S - L + 1); J > (S - L + 1) ->
@@ -109,10 +109,10 @@ southeast(I, J, L, S) ->
 southeast(I, J, L, S, P) when L > 0 ->
   southeast(I + 1, J + 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-southeast(I, J, L, S, P) ->
+southeast(_I, _J, _L, _S, P) ->
   P.
 
-south(I, J, L, S) when I > (S - L + 1) ->
+south(I, _J, L, S) when I > (S - L + 1) ->
   0;
 
 south(I, J, L, S) ->
@@ -121,7 +121,7 @@ south(I, J, L, S) ->
 south(I, J, L, S, P) when L > 0 ->
   south(I + 1, J, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-south(I, J, L, S, P) ->
+south(_I, _J, _L, _S, P) ->
   P.
 
 southwest(I, J, L, S) when I > (S - L + 1); J < L ->
@@ -133,10 +133,10 @@ southwest(I, J, L, S) ->
 southwest(I, J, L, S, P) when L > 0 ->
   southwest(I + 1, J - 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-southwest(I, J, L, S, P) ->
+southwest(_I, _J, _L, _S, P) ->
   P.
 
-west(I, J, L, S) when J < L ->
+west(_I, J, L, _S) when J < L ->
   0;
 
 west(I, J, L, S) ->
@@ -145,10 +145,10 @@ west(I, J, L, S) ->
 west(I, J, L, S, P) when L > 0 ->
   west(I, J - 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-west(I, J, L, S, P) ->
+west(_I, _J, _L, _S, P) ->
   P.
 
-northwest(I, J, L, S) when I < L; J < L ->
+northwest(I, J, L, _S) when I < L; J < L ->
   0;
 
 northwest(I, J, L, S) ->
@@ -157,5 +157,5 @@ northwest(I, J, L, S) ->
 northwest(I, J, L, S, P) when L > 0 ->
   northwest(I - 1, J - 1, L - 1, S, P * lists:nth(J, lists:nth(I, matrix())));
 
-northwest(I, J, L, S, P) ->
+northwest(_I, _J, _L, _S, P) ->
   P.

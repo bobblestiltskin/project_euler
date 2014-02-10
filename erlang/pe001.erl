@@ -12,5 +12,5 @@ pe001(N, Result) when N > 0, N rem 3 == 0; N rem 5 == 0 ->
 pe001(N, Result) when N > 0 ->
     pe001(N-1, Result);
     
-pe001(N, Result) ->
+pe001(_N, Result) ->
     io:format("~w~n", [Result]).
