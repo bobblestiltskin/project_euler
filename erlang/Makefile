@@ -6,6 +6,10 @@ ERLCOPTS := -v
 
 all: $(patsubst %.erl,%,$(wildcard pe0*.erl))
 
+run: $(patsubst %.beam,%,$(wildcard pe0*.beam))
+
+compile: $(patsubst %.erl,%.beam,$(wildcard pe0*.erl))
+
 %: %.beam
 	$(ERL) $(ERLOPTS) $@ $(SSOPTS)
 
