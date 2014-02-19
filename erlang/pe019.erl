@@ -29,7 +29,7 @@ cycle() -> year() ++ year() ++ year() ++ leap_year(). % inefficient but probably
 start() ->
   pe019(num_cycles(), cycle(), 2, 0).
   
-pe019(NC, _C, _DN, DC) when NC == 0 ->
+pe019(NC, _C, _DN, DC) when NC =:= 0 ->
   io:format("~w~n", [DC]);
   
 pe019(NC, C, DN, DC) ->
@@ -42,7 +42,7 @@ process_month([], DN, DC) ->
 process_month([H|T], DN, DC) ->
   Day = (DN + H) rem 7,
   if
-    Day == 0 ->
+    Day =:= 0 ->
       process_month(T, Day, DC + 1);
     true ->
       process_month(T, Day, DC)

@@ -16,11 +16,11 @@ pe012(Max, _Len, I, Total) ->
     
 sqrt_factors(I, N, NF) ->
   if
-    ((I * I) == N) ->
+    ((I * I) =:= N) ->
       (2 * NF) + 1;
     ((I * I) > N) ->
       (2 * NF);
-    (N rem I == 0) ->
+    (N rem I =:= 0) ->
       sqrt_factors(I + 1, N, NF + 1);
     true ->
       sqrt_factors(I + 1, N, NF)

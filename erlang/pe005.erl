@@ -24,13 +24,13 @@ max_base_m_lt_n(M, Last, N) when (M * Last) > N ->
 max_base_m_lt_n(M, Last, N) ->
   max_base_m_lt_n(M, (M * Last), N).
 
-is_prime(Number) when Number == 1; Number == 0  ->
+is_prime(Number) when Number =:= 1; Number =:= 0  ->
   false;
 
-is_prime(Number) when Number == 2 ->
+is_prime(Number) when Number =:= 2 ->
   true;
 
-is_prime(Number) when Number rem 2 == 0 ->
+is_prime(Number) when Number rem 2 =:= 0 ->
   false;
 
 is_prime(Number) ->
@@ -39,7 +39,7 @@ is_prime(Number) ->
 prime_test(Div, Number) when (Div * Div) > Number ->
   true;
 
-prime_test(Div, Number) when Number rem Div == 0 ->
+prime_test(Div, Number) when Number rem Div =:= 0 ->
   false;
 
 prime_test(Div, Number) ->

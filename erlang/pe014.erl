@@ -18,10 +18,10 @@ pe014(Maxv, Maxi, I, M) when I < M ->
 pe014(_Maxv, Maxi, _I, _M) ->
   io:format("~w~n", [Maxi]).
     
-pe014(C, N) when N == 1 ->
+pe014(C, N) when N =:= 1 ->
   C;
 
-pe014(C, N) when N rem 2 == 0 ->
+pe014(C, N) when N rem 2 =:= 0 ->
   pe014(C + 1, N div 2);
     
 pe014(C, N) ->

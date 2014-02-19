@@ -29,10 +29,10 @@ matrix() ->
 start() ->
   pe011(sqsize(), sqsize(), lsize(), sqsize(), 0).
   
-pe011(I, J, _L, _S, Max) when I == 1, J == 0 ->
+pe011(I, J, _L, _S, Max) when I =:= 1, J =:= 0 ->
   io:format("~w~n", [Max]);
     
-pe011(I, J, L, S, Max) when J == 0 ->
+pe011(I, J, L, S, Max) when J =:= 0 ->
   pe011(I - 1, S, L, S, Max);
     
 pe011(I, J, L, S, Max) ->

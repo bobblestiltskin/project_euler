@@ -116,7 +116,7 @@ pe013(J, S, _L, M) when J =< 10 ->
 pe013(J, S, L, M) ->
   Last = lists:sublist(integer_to_list(S div num()), 10),
   if 
-    Last == L ->
+    Last =:= L ->
       io:format("~w~n", [list_to_integer(Last)]);
     true ->      
       pe013(J + 1, (10 * S) + colsum(J, M), Last, M)
@@ -134,7 +134,7 @@ build_matrix([H|T], M) ->
 colsum(J, M) ->
   colsum(rows(), J, 0, M).
 
-colsum(I, _J, Sum, _M) when I == 0 ->
+colsum(I, _J, Sum, _M) when I =:= 0 ->
   Sum - ascii_offset_100();
   
 colsum(I, J, Sum, M) ->

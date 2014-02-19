@@ -14,7 +14,7 @@ pe009(I, J) ->
       K = sum() - (I + J),
       P = I * J * K,
       io:format("~w~n", [P]);
-    J == LastJ ->
+    J =:= LastJ ->
       pe009(I + 1, I + 2);
     true ->
       pe009(I, J + 1)
@@ -26,4 +26,4 @@ high_eq_lowmid(I, J) ->
    J2 = J * J,
    K2 = K * K,
   [Low , Mid, High] = lists:sort([I2, J2, K2]),
-  (Low + Mid == High).
+  (Low + Mid =:= High).
