@@ -18,6 +18,7 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
+        stmfd   sp!, {r4, lr}
 	mov	r3, 1
 	ldr	r0, =input
 	strb	r3, [r0]
@@ -39,5 +40,6 @@ lstart:
 	bl	printf
 	
 	mov	r0, 0
+        ldmfd   sp!, {r4, pc}
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux

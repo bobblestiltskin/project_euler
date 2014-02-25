@@ -101,6 +101,7 @@ sum_string:
 	.global	main
 	.type	main, %function
 main:
+	stmfd   sp!, {r4, lr}
 	mov	r0, 0
 	units
 	alltens
@@ -121,5 +122,6 @@ main:
 	bl	printf
 
 	mov	r0, 0
+	ldmfd   sp!, {r4, pc}
 	mov	r7, 1		@ set r7 to 1 - the syscall for exit
 	swi	0		@ then invoke the syscall from linux
