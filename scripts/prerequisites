@@ -1,4 +1,4 @@
-$ sudo aptitude install time java7-sdk make cmake gcc flex
+$ sudo aptitude install time java7-sdk make cmake gcc flex bzip2 git erlang racket build-essentials gcc g++ gforth python liblist-moreutils-perl
 $ wget http://download.savannah.gnu.org/releases/proccpuinfo/libproccpuinfo-0.0.8.tar.bz2
 $ tar jxvf libproccpuinfo-0.0.8.tar.bz2
 $ cd libproccpuinfo-0.0.8
