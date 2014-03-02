@@ -23,12 +23,12 @@ our $extensions = {
   'c++'         => 'cpp',
   erlang        => 'erl',
   forth         => 'fs',
-  haskell       => 'hs',
   java          => 'java',
   perl          => 'pl',
   python        => 'py',
   racket        => 'rkt',
 };
+#  haskell       => 'hs',
 
 our $prefix = {
   erlang => 'pe',
