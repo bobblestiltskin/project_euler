@@ -21,6 +21,7 @@ our $extensions = {
   asm           => 's',
   c             => 'c',
   'c++'         => 'cpp',
+  erlang        => 'erl',
   forth         => 'fs',
   haskell       => 'hs',
   java          => 'java',
@@ -30,6 +31,7 @@ our $extensions = {
 };
 
 our $prefix = {
+  erlang => 'pe',
   java => 'pe',
 };
 
