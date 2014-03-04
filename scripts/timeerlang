@@ -1,0 +1,5 @@
+#!/bin/bash
+MAX=25
+for i in $(seq 1 $MAX); do
+  printf "./time1 erlang pe %03d '/usr/bin/erl -noshell -s ' ' start -s init stop'\n" $i | bash
+done
