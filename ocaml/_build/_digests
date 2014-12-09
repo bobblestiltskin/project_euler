@@ -1,0 +1,5 @@
+"Rule: ocaml: ml -> cmo & cmi (%=pe001 )": "!\151\243\212\026\165K\233`4\179\227\246F\176R"
+"Rule: ocaml: cmx* & o* -> native (%=pe001 )": "\173\007\254J}f&\148\233\190\136\237P\002Q\234"
+"Rule: ocaml dependencies ml (%=pe001 )": "Z\156\253\004P\231\023}\180\216\238\014$g4\136"
+"Resource: /home/bob/src/project_euler/ocaml/pe001.ml": "}R\\=\140p\012\195-\222\208M^Y\\\232"
+"Rule: ocaml: ml & cmi -> cmx & o (%=pe001 )": "\254'\229p\158pp\212.\240\"\152\200\251\182E"

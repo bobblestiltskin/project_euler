@@ -1,0 +1,532 @@
+"pe001.ml" 3 15 19 "pe001.ml" 3 15 24
+type(
+  int -> unit
+)
+ident(
+  def pe001 "pe001.ml" 15 338 338 "pe001.ml" 1 0 -1
+)
+"pe001.ml" 3 15 25 "pe001.ml" 3 15 26
+type(
+  int
+)
+ident(
+  def n "pe001.ml" 4 29 31 "pe001.ml" 13 314 334
+)
+"pe001.ml" 4 29 35 "pe001.ml" 4 29 46
+type(
+  int -> bool
+)
+ident(
+  def divisible_5 "pe001.ml" 5 67 69 "pe001.ml" 13 314 334
+)
+"pe001.ml" 4 29 47 "pe001.ml" 4 29 48
+type(
+  int
+)
+ident(
+  def x "pe001.ml" 4 29 51 "pe001.ml" 4 29 62
+)
+"pe001.ml" 4 29 51 "pe001.ml" 4 29 52
+type(
+  int
+)
+ident(
+  int_ref x "pe001.ml" 4 29 47 "pe001.ml" 4 29 48
+)
+"pe001.ml" 4 29 57 "pe001.ml" 4 29 58
+type(
+  int
+)
+"pe001.ml" 4 29 51 "pe001.ml" 4 29 58
+type(
+  int
+)
+type(
+  int -> int -> int
+)
+ident(
+  ext_ref Pervasives.( mod )
+)
+"pe001.ml" 4 29 59 "pe001.ml" 4 29 60
+type(
+  int -> int -> bool
+)
+ident(
+  ext_ref Pervasives.( = )
+)
+"pe001.ml" 4 29 61 "pe001.ml" 4 29 62
+type(
+  int
+)
+"pe001.ml" 4 29 51 "pe001.ml" 4 29 62
+type(
+  bool
+)
+"pe001.ml" 4 29 47 "pe001.ml" 4 29 62
+type(
+  int -> bool
+)
+"pe001.ml" 5 67 73 "pe001.ml" 5 67 84
+type(
+  int -> bool
+)
+ident(
+  def divisible_3 "pe001.ml" 6 105 107 "pe001.ml" 13 314 334
+)
+"pe001.ml" 5 67 85 "pe001.ml" 5 67 86
+type(
+  int
+)
+ident(
+  def x "pe001.ml" 5 67 89 "pe001.ml" 5 67 100
+)
+"pe001.ml" 5 67 89 "pe001.ml" 5 67 90
+type(
+  int
+)
+ident(
+  int_ref x "pe001.ml" 5 67 85 "pe001.ml" 5 67 86
+)
+"pe001.ml" 5 67 95 "pe001.ml" 5 67 96
+type(
+  int
+)
+"pe001.ml" 5 67 89 "pe001.ml" 5 67 96
+type(
+  int
+)
+type(
+  int -> int -> int
+)
+ident(
+  ext_ref Pervasives.( mod )
+)
+"pe001.ml" 5 67 97 "pe001.ml" 5 67 98
+type(
+  int -> int -> bool
+)
+ident(
+  ext_ref Pervasives.( = )
+)
+"pe001.ml" 5 67 99 "pe001.ml" 5 67 100
+type(
+  int
+)
+"pe001.ml" 5 67 89 "pe001.ml" 5 67 100
+type(
+  bool
+)
+"pe001.ml" 5 67 85 "pe001.ml" 5 67 100
+type(
+  int -> bool
+)
+"pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+type(
+  int ref
+)
+ident(
+  def count "pe001.ml" 7 128 130 "pe001.ml" 13 314 334
+)
+"pe001.ml" 6 105 119 "pe001.ml" 6 105 122
+type(
+  int -> int ref
+)
+ident(
+  ext_ref Pervasives.ref
+)
+"pe001.ml" 6 105 123 "pe001.ml" 6 105 124
+type(
+  int
+)
+"pe001.ml" 6 105 119 "pe001.ml" 6 105 124
+type(
+  int ref
+)
+"pe001.ml" 7 128 134 "pe001.ml" 7 128 137
+type(
+  int ref
+)
+ident(
+  def sum "pe001.ml" 8 149 151 "pe001.ml" 13 314 334
+)
+"pe001.ml" 7 128 140 "pe001.ml" 7 128 143
+type(
+  int -> int ref
+)
+ident(
+  ext_ref Pervasives.ref
+)
+"pe001.ml" 7 128 144 "pe001.ml" 7 128 145
+type(
+  int
+)
+"pe001.ml" 7 128 140 "pe001.ml" 7 128 145
+type(
+  int ref
+)
+"pe001.ml" 8 149 158 "pe001.ml" 8 149 163
+type(
+  int ref
+)
+ident(
+  int_ref count "pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+)
+"pe001.ml" 8 149 157 "pe001.ml" 8 149 163
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 8 149 164 "pe001.ml" 8 149 165
+type(
+  int -> int -> bool
+)
+ident(
+  ext_ref Pervasives.( < )
+)
+"pe001.ml" 8 149 166 "pe001.ml" 8 149 167
+type(
+  int
+)
+ident(
+  int_ref n "pe001.ml" 3 15 25 "pe001.ml" 3 15 26
+)
+"pe001.ml" 8 149 157 "pe001.ml" 8 149 167
+type(
+  bool
+)
+"pe001.ml" 9 171 178 "pe001.ml" 9 171 189
+type(
+  int -> bool
+)
+ident(
+  int_ref divisible_5 "pe001.ml" 4 29 35 "pe001.ml" 4 29 46
+)
+"pe001.ml" 9 171 191 "pe001.ml" 9 171 196
+type(
+  int ref
+)
+ident(
+  int_ref count "pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+)
+"pe001.ml" 9 171 190 "pe001.ml" 9 171 196
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 9 171 178 "pe001.ml" 9 171 196
+call(
+  stack
+)
+type(
+  bool
+)
+"pe001.ml" 9 171 202 "pe001.ml" 9 171 205
+type(
+  int ref
+)
+ident(
+  int_ref sum "pe001.ml" 7 128 134 "pe001.ml" 7 128 137
+)
+"pe001.ml" 9 171 210 "pe001.ml" 9 171 213
+type(
+  int ref
+)
+ident(
+  int_ref sum "pe001.ml" 7 128 134 "pe001.ml" 7 128 137
+)
+"pe001.ml" 9 171 209 "pe001.ml" 9 171 213
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 9 171 214 "pe001.ml" 9 171 215
+type(
+  int -> int -> int
+)
+ident(
+  ext_ref Pervasives.( + )
+)
+"pe001.ml" 9 171 217 "pe001.ml" 9 171 222
+type(
+  int ref
+)
+ident(
+  int_ref count "pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+)
+"pe001.ml" 9 171 216 "pe001.ml" 9 171 222
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 9 171 209 "pe001.ml" 9 171 222
+type(
+  int
+)
+"pe001.ml" 9 171 202 "pe001.ml" 9 171 222
+type(
+  unit
+)
+type(
+  int ref -> int -> unit
+)
+ident(
+  ext_ref Pervasives.( := )
+)
+"pe001.ml" 10 228 235 "pe001.ml" 10 228 246
+type(
+  int -> bool
+)
+ident(
+  int_ref divisible_3 "pe001.ml" 5 67 73 "pe001.ml" 5 67 84
+)
+"pe001.ml" 10 228 248 "pe001.ml" 10 228 253
+type(
+  int ref
+)
+ident(
+  int_ref count "pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+)
+"pe001.ml" 10 228 247 "pe001.ml" 10 228 253
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 10 228 235 "pe001.ml" 10 228 253
+call(
+  stack
+)
+type(
+  bool
+)
+"pe001.ml" 10 228 259 "pe001.ml" 10 228 262
+type(
+  int ref
+)
+ident(
+  int_ref sum "pe001.ml" 7 128 134 "pe001.ml" 7 128 137
+)
+"pe001.ml" 10 228 267 "pe001.ml" 10 228 270
+type(
+  int ref
+)
+ident(
+  int_ref sum "pe001.ml" 7 128 134 "pe001.ml" 7 128 137
+)
+"pe001.ml" 10 228 266 "pe001.ml" 10 228 270
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 10 228 271 "pe001.ml" 10 228 272
+type(
+  int -> int -> int
+)
+ident(
+  ext_ref Pervasives.( + )
+)
+"pe001.ml" 10 228 274 "pe001.ml" 10 228 279
+type(
+  int ref
+)
+ident(
+  int_ref count "pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+)
+"pe001.ml" 10 228 273 "pe001.ml" 10 228 279
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 10 228 266 "pe001.ml" 10 228 279
+type(
+  int
+)
+"pe001.ml" 10 228 259 "pe001.ml" 10 228 279
+type(
+  unit
+)
+type(
+  int ref -> int -> unit
+)
+ident(
+  ext_ref Pervasives.( := )
+)
+"pe001.ml" 10 228 232 "pe001.ml" 10 228 279
+type(
+  unit
+)
+type(
+  unit
+)
+"pe001.ml" 9 171 175 "pe001.ml" 10 228 279
+type(
+  unit
+)
+"pe001.ml" 11 281 285 "pe001.ml" 11 281 290
+type(
+  int ref
+)
+ident(
+  int_ref count "pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+)
+"pe001.ml" 11 281 295 "pe001.ml" 11 281 300
+type(
+  int ref
+)
+ident(
+  int_ref count "pe001.ml" 6 105 111 "pe001.ml" 6 105 116
+)
+"pe001.ml" 11 281 294 "pe001.ml" 11 281 300
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 11 281 301 "pe001.ml" 11 281 302
+type(
+  int -> int -> int
+)
+ident(
+  ext_ref Pervasives.( + )
+)
+"pe001.ml" 11 281 303 "pe001.ml" 11 281 304
+type(
+  int
+)
+"pe001.ml" 11 281 294 "pe001.ml" 11 281 304
+type(
+  int
+)
+"pe001.ml" 11 281 285 "pe001.ml" 11 281 304
+type(
+  unit
+)
+type(
+  int ref -> int -> unit
+)
+ident(
+  ext_ref Pervasives.( := )
+)
+"pe001.ml" 9 171 175 "pe001.ml" 12 306 312
+type(
+  unit
+)
+"pe001.ml" 8 149 151 "pe001.ml" 12 306 312
+type(
+  unit
+)
+"pe001.ml" 13 314 316 "pe001.ml" 13 314 322
+type(
+  (int -> unit, out_channel, unit) format -> int -> unit
+)
+ident(
+  ext_ref Core.Std.printf
+)
+"pe001.ml" 13 314 323 "pe001.ml" 13 314 329
+type(
+  (int -> unit, out_channel, unit) format
+)
+"pe001.ml" 13 314 331 "pe001.ml" 13 314 334
+type(
+  int ref
+)
+ident(
+  int_ref sum "pe001.ml" 7 128 134 "pe001.ml" 7 128 137
+)
+"pe001.ml" 13 314 330 "pe001.ml" 13 314 334
+type(
+  int
+)
+type(
+  int ref -> int
+)
+ident(
+  ext_ref Pervasives.( ! )
+)
+"pe001.ml" 13 314 316 "pe001.ml" 13 314 334
+call(
+  tail
+)
+type(
+  unit
+)
+"pe001.ml" 8 149 151 "pe001.ml" 13 314 334
+type(
+  unit
+)
+"pe001.ml" 7 128 130 "pe001.ml" 13 314 334
+type(
+  unit
+)
+"pe001.ml" 6 105 107 "pe001.ml" 13 314 334
+type(
+  unit
+)
+"pe001.ml" 5 67 69 "pe001.ml" 13 314 334
+type(
+  unit
+)
+"pe001.ml" 4 29 31 "pe001.ml" 13 314 334
+type(
+  unit
+)
+"pe001.ml" 3 15 25 "pe001.ml" 13 314 334
+type(
+  int -> unit
+)
+"pe001.ml" 15 338 338 "pe001.ml" 15 338 343
+type(
+  int -> unit
+)
+ident(
+  int_ref pe001 "pe001.ml" 3 15 19 "pe001.ml" 3 15 24
+)
+"pe001.ml" 15 338 344 "pe001.ml" 15 338 348
+type(
+  int
+)
+"pe001.ml" 15 338 338 "pe001.ml" 15 338 348
+call(
+  stack
+)
+type(
+  unit
+)
