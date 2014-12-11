@@ -1,0 +1,2 @@
+%.native: %.ml
+	corebuild $@
