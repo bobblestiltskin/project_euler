@@ -21,15 +21,17 @@ our $extensions = {
   asm           => 's',
   c             => 'c',
   'c++'         => 'cpp',
+  erlang        => 'erl',
   forth         => 'fs',
-  haskell       => 'hs',
   java          => 'java',
   perl          => 'pl',
   python        => 'py',
   racket        => 'rkt',
 };
+#  haskell       => 'hs',
 
 our $prefix = {
+  erlang => 'pe',
   java => 'pe',
 };
 
@@ -77,6 +79,7 @@ sub get_web_page {
 sub decode_web_page {
   my $html = shift;
 
+  $html =~ s|You are currently using a secure connection</div>|You are currently using a secure connection|; # mend b0rken html
   my $xp = XML::LibXML->load_html(string => $html);
   return ($xp->findnodes('//*[@role="problem"]'))[0];
 }

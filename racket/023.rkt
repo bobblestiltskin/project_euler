@@ -65,7 +65,7 @@
   )
 )
 
-; for the input number i, return 0 if it can is the sum of 2 abundant numbers, or i+1 if not
+; for the input number i, return 0 if it is the sum of 2 abundant numbers, or i+1 if not
 (define (process-num-vector i nv bv)
   (let ((nexti (add1 i)))
     (for/fold ([retv -1]) ([j (in-range (vector-length nv))] #:break (= retv 0))
