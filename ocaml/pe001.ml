@@ -1,15 +1,15 @@
 open Core.Std
 
-let pe001 n =
-  let divisible_5 x = x mod 5 = 0 in 
-  let divisible_3 x = x mod 3 = 0 in 
-  let count = ref 0 in
-  let sum = ref 0 in
-  while !count < n do
-    if divisible_5 !count then sum := !sum + !count else
-    if divisible_3 !count then sum := !sum + !count;
-    count := !count + 1;
-  done;
-  printf "%d\n" !sum;;
+let divisible_5 x = x mod 5 = 0 ;;
+let divisible_3 x = x mod 3 = 0 ;;
 
-pe001 1000
+let rec pe001 count sum =
+  if count > 0 then
+    if (divisible_5 count || divisible_3 count) then
+      pe001 (count - 1) (sum + count)
+    else 
+      pe001 (count - 1) sum
+  else 
+    printf "%d\n" sum ;;
+
+pe001 999 0
