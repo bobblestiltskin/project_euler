@@ -26,4 +26,4 @@ let pe004 max =
     done;
     !maxval;;
 
-printf "%d" (pe004 999);;
+printf "%d\n" (pe004 999);;
