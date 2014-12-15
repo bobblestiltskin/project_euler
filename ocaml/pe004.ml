@@ -16,12 +16,14 @@ let palindromic s =
 
 let pe004 max =
   let maxval = ref 0 in
-    for i = 0 to max do
-      for j = 0 to max do 
+  let minind = ref 0 in 
+    for i = max downto !minind do
+      for j = max downto !minind do 
         let product = i * j in
           if (palindromic (sprintf "%06d" product)) then
             if (product > !maxval) then
               maxval := product;
+              minind := product / 1000;
       done;
     done;
     !maxval;;
