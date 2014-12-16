@@ -14,18 +14,27 @@ let palindromic s =
       !result
 ;;
 
-let pe004 max =
-  let maxval = ref 0 in
-  let minind = ref 0 in 
-    for i = max downto !minind do
-      for j = max downto !minind do 
-        let product = i * j in
-          if (palindromic (sprintf "%06d" product)) then
-            if (product > !maxval) then
-              maxval := product;
-              minind := product / 1000;
-      done;
-    done;
-    !maxval;;
+let rec jpe004 ival jval minj maxv =
+(*  printf "JLOOP - i %d, j %d\n" ival jval; *)
+  let prod = ival * jval in
+  if (jval = minj) then
+    maxv
+  else
+    if ((palindromic (sprintf "%06d" prod)) && (prod > maxv)) then
+      jpe004 ival (jval -1) (prod/1000) prod
+    else
+      jpe004 ival (jval -1) minj maxv;;
 
-printf "%d\n" (pe004 999);;
+let rec pe004 ival mini maxv =
+(*  printf "ival is %d, mini is %d and maxv is %d\n" ival mini maxv; *)
+  if (ival = mini) then
+    maxv
+  else
+    let prod = jpe004 ival 999 (maxv/1000) maxv in
+(*    printf "i is %d, prod is %d\n" ival prod; *)
+    if (prod > maxv) then
+      pe004 (ival - 1) (prod/1000) prod
+    else
+      pe004 (ival - 1) (maxv/1000) maxv;;
+      
+printf "%d\n" (pe004 999 0 0);;
