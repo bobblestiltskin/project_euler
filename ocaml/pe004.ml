@@ -2,14 +2,20 @@ open Core.Std
 
 let palindromic s = 
   let n = String.length s in 
-    let h = ((n / 2)  + 1) in
-      let result = ref true in
-      for i = 0 to h do
-        if (s.[i] <> s.[n - i - 1])
-        then
-         result := false;
-      done;
-      !result
+    if (n < 3) then 
+     if (n = 2) then 
+       s.[0] = s.[1]
+     else
+       true 
+    else
+      let h = ((n / 2)  + 1) in
+        let result = ref true in
+          let i = ref 0 in
+            while (!result && (!i <= h)) do
+              if (s.[!i] <> s.[n - !i - 1]) then result := false;
+              i := !i + 1
+            done;
+            !result
 ;;
 
 let rec jpe004 ival jval minj maxv =
