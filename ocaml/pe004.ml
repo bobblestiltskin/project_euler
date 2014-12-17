@@ -5,10 +5,8 @@ let palindromic s =
     let h = ((n / 2)  + 1) in
       let result = ref true in
       for i = 0 to h do
-        if (phys_equal s.[i] s.[n - i - 1])
+        if (s.[i] <> s.[n - i - 1])
         then
-         printf "" (* nop - want to invert test? *)
-        else
          result := false;
       done;
       !result
