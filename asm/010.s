@@ -21,8 +21,6 @@ limit		.req r9
 	.align	2
 llustring:
 	.asciz "%llu\n"
-primestring:
-        .asciz "num %d primality is %d\n"
 
 .text
 .align	8

@@ -11,8 +11,6 @@ tmp		.req r9
 
 .section .rodata
 	.align	2
-fibstring:
-	.asciz "fib is %d\n"
 sumstring:
 	.asciz "%d\n"
 
@@ -27,16 +25,9 @@ main:
 	mov	current, 1
 	mov	sum, 0
 
-#	mov	r1, current
-#	ldr	r0, =fibstring	@ store address of start of string to r0
-#	bl	printf
 loop:
 	cmp	current, max
 	bgt	last
-
-#	mov	r1, current		
-#	ldr	r0, =fibstring	@ store address of start of string to r0
-#	bl	printf
 
 	add	next, current, previous
 
