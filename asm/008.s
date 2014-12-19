@@ -1,8 +1,9 @@
 .syntax unified
 
 .equ    limit,10000
-.equ	outer, 996
-.equ	inner, 5 
+.equ	outer, 988
+.equ	inner, 13 
+.equ	address_offset, 12 @inner - 1
 
 .align 4
 
@@ -10,8 +11,13 @@ address         .req r4
 thisbyte	.req r5
 icounter	.req r6
 ocounter	.req r7
-maxv		.req r8
-tmp		.req r9
+maxv_lo		.req r8
+maxv_hi		.req r9
+tmp_lo		.req r10
+tmp_hi		.req r11
+carry		.req r12
+addoff		.req r12
+tmp		.req r0
 
 .section .data
 buffer:
@@ -60,37 +66,45 @@ buffer:
 
 .section .rodata
         .align  2
-resstring:
-        .asciz "%d\n"
+llustring:
+        .asciz "%llu\n"
 .text
         .align  2
         .global main
         .type   main, %function
 main:
-        stmfd   sp!, {r4-r9, lr}
+        stmfd   sp!, {r4-r12, lr}
+	mov	maxv_lo, #0
+	mov	maxv_hi, #0
 	ldr	address, =buffer
 	ldr	ocounter, =outer
 outer_start:
 	ldr	icounter, =inner
-	mov	tmp, #1
+	mov	tmp_lo, #1
+	mov	tmp_hi, #0
 inner_start:
 	ldrb	thisbyte, [address], 1
-	mul	tmp, tmp, thisbyte
+	umull	tmp_lo, carry, tmp_lo, thisbyte @ multiply 64 bit tmp 
+	mla	tmp_hi, tmp_hi, thisbyte, carry @ by thisbyte
 	subs	icounter, icounter, 1
 	bne	inner_start
-	cmp	maxv, tmp
-	movlt	maxv, tmp	
-	sub	address, address, 4
+	cmp	maxv_lo, tmp_lo			@ compare 2 64 bit numbers
+	sbcs	tmp, maxv_hi, tmp_hi		@ low then high halves
+	movlt	maxv_lo, tmp_lo
+	movlt	maxv_hi, tmp_hi
+	ldr	addoff, =address_offset
+	sub	address, address, addoff
 	subs	ocounter, ocounter, 1
 	bne	outer_start
 
 printme:
-        mov     r1, maxv
-        ldr     r0, =resstring  @ store address of start of string to r0
+	mov     r2, maxv_lo
+	mov     r3, maxv_hi
+        ldr     r0, =llustring  @ store address of start of string to r0
         bl      printf
 
 	mov	r0, 0
-        ldmfd   sp!, {r4-r9, pc}
+        ldmfd   sp!, {r4-r12, pc}
         mov     r7, 1           @ set r7 to 1 - the syscall for exit
         swi     0               @ then invoke the syscall from linux
 
