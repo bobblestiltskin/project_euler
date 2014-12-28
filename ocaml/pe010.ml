@@ -1,4 +1,5 @@
 open Core.Std
+open Int64
 
 let maxi = 2_000_000L ;;
 
@@ -6,7 +7,6 @@ let divisible x y  =
   Int64.(rem x y = zero) ;;
 
 let rec prime_test n maxv =
-  let open Int64 in
   if (n * n) > maxv then
     true
   else
@@ -16,7 +16,6 @@ let rec prime_test n maxv =
       prime_test (n + of_int 2) maxv ;;
 
 let is_prime n =
-  let open Int64 in
   match n with
   | 0L   -> false
   | 1L   -> false
@@ -27,7 +26,6 @@ let rec pe010 isum count =
   if count > maxi then
     printf "%Ld\n" isum
   else
-  let open Int64 in
     if is_prime count then
       pe010 Int64.(isum + count) Int64.(succ count) 
     else
