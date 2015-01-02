@@ -64,10 +64,10 @@ int main() {
   const std::vector<int> n(digits, digits + sizeof(digits) / sizeof(digits[0]));
 
   int num = 13;
-  long max = 0;
+  long long max = 0;
   std::vector<int>::size_type sz = n.size();
   for (unsigned int i = 0; i < sz - (num - 1); i++) {
-    long sum = 1;
+    long long sum = 1;
     for (int j = 0; j < num; j++) {
       sum *= n[i+j];
     }
@@ -75,6 +75,6 @@ int main() {
       max = sum;
   }
 
-  printf("%ld\n", max);
+  printf("%lld\n", max);
   return(0);
 }
