@@ -18,7 +18,7 @@ min3() -> 100.
 min2() -> 10.
 
 start() ->
-  pe008(0, maxv(), min6()).
+  pe008(0, maxv(), mine()).
 
 pe008(Max, Num, Min) when (Num < Min) -> 
   io:format("~w~n", [Max]);
@@ -36,21 +36,21 @@ pe008(Max, Num, Min) ->
 one_prod(Number) ->
   Numd   = Number rem mine(),
   Digitd = Numd div mind(),
-  Numc   = Number rem mind(),
+  Numc   = Numd rem mind(),
   Digitc = Numc div minc(),
-  Numb   = Number rem minc(),
+  Numb   = Numc rem minc(),
   Digitb = Numb div minb(),
-  Numa   = Number rem minb(),
+  Numa   = Numb rem minb(),
   Digita = Numa div mina(),
-  Num9   = Number rem mina(),
+  Num9   = Numa rem mina(),
   Digit9 = Num9 div min9(),
-  Num8   = Number rem min9(),
+  Num8   = Num9 rem min9(),
   Digit8 = Num8 div min8(),
-  Num7   = Number rem min8(),
+  Num7   = Num8 rem min8(),
   Digit7 = Num7 div min7(),
-  Num6   = Number rem min7(),
+  Num6   = Num7 rem min7(),
   Digit6 = Num6 div min6(),
-  Num5   = Number rem min6(),
+  Num5   = Num6 rem min6(),
   Digit5 = Num5 div min5(),
   Num4   = Num5 rem min5(),
   Digit4 = Num4 div min4(),
