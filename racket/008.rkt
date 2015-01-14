@@ -5,7 +5,7 @@
 
 (define minv 1000000000000)
 
-; this function will return the product of the five digits at the right of num
+; this function will return the product of the thirteen digits at the right of num
 (define (one-prod num)
    (define-values (q1 r1) (quotient/remainder num 10))
    (define-values (q2 r2) (quotient/remainder q1 10))
