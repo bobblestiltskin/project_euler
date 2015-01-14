@@ -6,16 +6,15 @@ let count = 13 ;;
 
 let rec nprod n i prod =
   match n with
-(*  | 0 -> printf "%d\n" prod *)
   | 0 -> prod
-  | _ -> nprod (n - 1) (i + 1) (data.(i) * prod) ;;
+  | _ -> nprod (n - 1) (i + 1) Int64.(prod * of_int data.(i)) ;;
 
 let mymax a b =
-  if a > b then a else b ;;
+  if Int64.(compare a b) > 0 then a else b ;;
 
 let rec getmax max i = 
   match i with 
-  | -1 -> printf "%d" max 
-  | _  -> getmax (mymax max (nprod count i 1)) (i - 1) ;; 
+  | -1 -> printf "%Ld\n" max 
+  | _  -> getmax (mymax max (nprod count i 1L)) (i - 1) ;; 
 
-getmax 0 ((Array.length data) - count) ;;
+getmax 0L ((Array.length data) - count) ;;
