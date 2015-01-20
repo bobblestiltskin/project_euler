@@ -11,7 +11,7 @@ pe012(Max, Len, _I, Total) when (Len > Max) ->
     
 pe012(Max, _Len, I, Total) ->
   Next = Total + I,
-  Result = sqrt_factors(0, Next, 0),
+  Result = sqrt_factors(1, Next, 0),
   pe012(Max, Result, I + 1, Next).
     
 sqrt_factors(I, N, NF) ->
