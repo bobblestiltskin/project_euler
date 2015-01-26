@@ -24,8 +24,29 @@ my $orig = [[ qw(8 2 22 97 38 15 0 40 0 75 4 5 7 78 52 12 50 77 91 8) ],
 
 # of course the matrix is stored upside down in memory cf with normal mathematical representation
 # so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell
-for (my $i=0; $i < 20; $i++) {
-  for (my $j=0; $j < 20; $j++) {
-    print 'm.(', $i+3,').(', $j+3,') <- ',$orig->[$i]->[$j]," ;;\n";
+print "let m = [|\n";
+for (my $i=0; $i < 3; $i++) {
+  print '  [|';
+  for (my $j=0; $j < 26; $j++) {
+    print "0;";
   }
+  print "|];\n";
 }
+#
+for (my $i=0; $i < 20; $i++) {
+  print '  [|0;0;0;';
+  for (my $j=0; $j < 20; $j++) {
+    print $orig->[$i]->[$j],";";
+  }
+  print "0;0;0;|];\n";
+}
+#
+for (my $i=0; $i < 3; $i++) {
+  print '  [|';
+  for (my $j=0; $j < 26; $j++) {
+    print "0;";
+  }
+  print "|];\n";
+}
+#
+print "|] ;;";
