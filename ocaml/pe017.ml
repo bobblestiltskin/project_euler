@@ -17,10 +17,10 @@ let ucount x y list =
                  ~init:((y + String.length x) * List.length list) 
                  list ;;
 
-let get_hundred y x =
-  y + String.length x + huncount + 
-  ucount x handcount units + 
-  ucount x handcount tens ;;
+let get_hundred x y =
+  x + String.length y + huncount + 
+  ucount y handcount units + 
+  ucount y handcount tens ;;
 
 let pe017 =
   sum_list units + sum_list tens + 
