@@ -4,7 +4,7 @@ nativefiles := $(mlfiles:.ml=.native)
 all: $(nativefiles)
 
 %.native: %.ml
-	corebuild $@
+	corebuild -tag use_nums $@
 
 clean:
 	rm -rf *.native _build
