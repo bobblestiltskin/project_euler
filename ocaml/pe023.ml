@@ -31,39 +31,32 @@ let rec print_list list =
   | [] -> printf "complete\n"
   | h :: t -> printf "%d\n" h; print_list t ;;
 
-(* need to have optional parameters here... put bool first? *)
 (*    | []     -> List.sort_uniq ~cmp:compare s *)
-(*    | []     -> List.dedup ?compare:compare s *)
-(*    | []     -> List.remove_consecutive_duplicates equal (List.sort ~cmp:compare s) *)
-(*    | []     -> List.dedup (List.sort ~cmp:compare s) *)
-(*    | []     -> List.dedup s *)
-let rec nested_sum b h t l x s n =
-  if b = 0 then
-    match l with
-    | []     -> List.sort ~cmp:compare (List.dedup s)
-    | h1 :: t1 -> nested_sum 1 h1 t1 l l s n
-  else
+let rec nested_sum_3 l s n =
+  match l with
+  | []     -> List.sort ~cmp:compare (List.dedup s)
+  | h1 :: t1 -> nested_sum_6 h1 t1 l l s n
+and nested_sum_6 h t l x s n =
     match x with (* xxx is this needed *)
     | h2 :: l2 -> if (h + h2) < n then
-                    nested_sum 1 h t l l2 ((h + h2) :: s) n
+                    nested_sum_6 h t l l2 ((h + h2) :: s) n
                   else
-                    nested_sum 0 0 [] t l s n 
+                    nested_sum_3 t s n 
     | _ -> [] ;;
 
-let rec sum_lists boo x a b s =
-  if boo = 0 then
-    match x with 
-    | [] -> s
-    | h :: t -> sum_lists 1 t h b s
+let rec sum_lists_3 x b s =
+  match x with 
+  | [] -> s
+  | h :: t -> sum_lists_4 t h b s
+and sum_lists_4 x a b s = 
+  if a = b then
+    sum_lists_3 x (b + 1) s
   else
-    if a = b then
-      sum_lists 0 x a (b + 1) s
-    else
-      sum_lists 1 x a (b + 1) (b + s) ;;
+    sum_lists_4 x a (b + 1) (b + s) ;;
     
-let pe021 num =
+let pe023 num =
   let l = abundant_list [] 1 num in
-  let s = nested_sum 0 0 [] l l [] num in
-  sum_lists 0 s 0 0 0 ;;
+  let s = nested_sum_3 l [] num in
+  sum_lists_3 s 0 0 ;;
 
-printf "%d\n" (pe021 maxv) ;;
+printf "%d\n" (pe023 maxv) ;;
