@@ -24,6 +24,7 @@ our $extensions = {
   erlang        => 'erl',
   forth         => 'fs',
   java          => 'java',
+  ocaml         => 'ml',
   perl          => 'pl',
   python        => 'py',
   racket        => 'rkt',
@@ -33,6 +34,7 @@ our $extensions = {
 our $prefix = {
   erlang => 'pe',
   java => 'pe',
+  ocaml => 'pe',
 };
 
 sub display_file {
