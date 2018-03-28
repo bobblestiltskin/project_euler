@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let divisible_5 x = x mod 5 = 0 ;;
 let divisible_3 x = x mod 3 = 0 ;;
