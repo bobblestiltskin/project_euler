@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let even x = x mod 2 = 0 ;;
 

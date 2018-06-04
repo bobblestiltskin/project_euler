@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let maxv = 100 ;;
 

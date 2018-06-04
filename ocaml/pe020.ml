@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let ascii_offset = 48 ;; 
 

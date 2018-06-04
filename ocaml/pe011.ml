@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 (* allocate our matrix with a border of 0 *)
 (* so that we null any products outside *)

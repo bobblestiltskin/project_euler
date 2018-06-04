@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open Int64
 
 let maxi = 2_000_000L ;;

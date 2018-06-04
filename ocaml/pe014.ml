@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open Int64
 
 let million = 1000000L ;;

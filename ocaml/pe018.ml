@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let data = [|[|75|];
              [|95; 64|];

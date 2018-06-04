@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let maxv = 28123 ;;
 
@@ -26,15 +26,27 @@ let rec abundant_list list istart iend =
     else
       abundant_list list (istart + 1) iend ;;
 
+let sort_and_remove_duplicates l = 
+  let sl = List.sort compare l in
+  let rec go l acc = match l with
+    | [] -> List.rev acc
+    | [x] -> List.rev (x::acc) 
+    | (x1::x2::xs) -> 
+      if x1 = x2
+      then go (x2::xs) acc
+      else go (x2::xs) (x1::acc)
+in go sl []
+
 let rec print_list list =
   match list with 
   | [] -> printf "complete\n"
   | h :: t -> printf "%d\n" h; print_list t ;;
 
 (*    | []     -> List.sort_uniq ~cmp:compare s *)
+(*    | []     -> List.sort ~cmp:compare (List.dedup s) *)
 let rec nested_sum_3 l s n =
   match l with
-  | []     -> List.sort ~cmp:compare (List.dedup s)
+  | []     -> sort_and_remove_duplicates s
   | h1 :: t1 -> nested_sum_6 h1 t1 l l s n
 and nested_sum_6 h t l x s n =
     match x with (* xxx is this needed *)

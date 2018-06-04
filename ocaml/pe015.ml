@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let rec gen_list n max list =
   if n = max then

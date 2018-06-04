@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let divisible x y  = 
   Int64.(rem x y = zero) ;;

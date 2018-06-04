@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 
 let palindromic s = 
   let n = String.length s in 

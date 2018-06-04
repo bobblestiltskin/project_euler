@@ -1,4 +1,4 @@
-open Core.Std
+open Core
 open Str
 
 let ascii_offset = 64 ;;
@@ -32,5 +32,13 @@ let rec process_name names index sum =
                     process_name tail nexti (sum + (sc * nexti)) ;;
 
 let all_names = read_line names_f ;;
-let names_list = List.sort ~cmp:compare (split_by_comma all_names) ;;
+let rec sort = function
+    | [] -> []
+    | x :: l -> insert x (sort l)
+  and insert elem = function
+    | [] -> [elem]
+    | x :: l -> if elem < x then elem :: x :: l
+                else x :: insert elem l;;
+(* let names_list = List.sort ~cmp:compare (split_by_comma all_names) ;; *)
+let names_list = sort (split_by_comma all_names) ;;
 printf "%d\n" (process_name names_list 0 0) ;;
