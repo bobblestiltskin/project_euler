@@ -1,5 +1,4 @@
-#!/usr/bin/perl -w
-use strict;
+#!/usr/bin/perl6
 
 my $stop = 1000;
 loop (my $a = 1; $a < $stop; $a++) {
