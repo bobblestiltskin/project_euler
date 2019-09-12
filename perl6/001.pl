@@ -1,8 +1,6 @@
 #!/usr/bin/perl6
-#use strict;
 
 my $total = 0;
-
 my $max = 1000;
 
 loop (my $i=1; $i < $max; $i++) {

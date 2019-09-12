@@ -1,5 +1,4 @@
-#!/usr/bin/perl6 -w
-#use strict;
+#!/usr/bin/perl6
 
 my $last = 10001;
 my @primes = <2 3>;

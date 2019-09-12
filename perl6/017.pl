@@ -1,5 +1,4 @@
-#!/usr/bin/perl -w
-use strict;
+#!/usr/bin/perl6
 
 my @units = <one two three four five six seven eight nine>;
 

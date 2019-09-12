@@ -1,4 +1,5 @@
 #!/usr/bin/perl6
+
 my $x = 2;
 my $y = 1000;
 $x = $x ** $y;

@@ -1,5 +1,4 @@
-#!/usr/bin/perl66
-use strict;
+#!/usr/bin/perl6
 
 my $last = 500 +> 1;
 

@@ -1,5 +1,4 @@
-#!/usr/bin/perl6 -w
-#use strict;
+#!/usr/bin/perl6
 
 my $MAX3 = 999;
 my $MIN3 = 100;

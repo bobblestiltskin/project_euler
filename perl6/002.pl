@@ -1,5 +1,4 @@
-#!/usr/bin/perl6 -w
-#use strict;
+#!/usr/bin/perl6
 
 my $total = 0;
 my $max = 4000000;

@@ -1,5 +1,4 @@
 #!/usr/bin/perl6
-#use strict;
 
 # need to compute 2n!/((n!)*(n!))
 

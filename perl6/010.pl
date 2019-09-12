@@ -1,5 +1,4 @@
 #!/usr/bin/perl6
-#use strict;
 
 my $last = 2000000;
 
