@@ -1,4 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
+
 procedure pe006 is
 
 max   : constant Integer := 100;

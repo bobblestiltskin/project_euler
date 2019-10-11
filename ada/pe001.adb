@@ -1,4 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
+
 procedure pe001 is
 
 total : Integer := 0;

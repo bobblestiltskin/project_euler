@@ -1,6 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Fixed;
---with Ada.Strings.Bounded; use Ada.Strings.Bounded;
 
 procedure pe004 is
 
