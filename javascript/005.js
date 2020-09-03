@@ -1,3 +1,5 @@
+"use strict"
+
 const MAX = 20;
 
 function isprime(num) {
@@ -43,4 +45,4 @@ while (i <= MAX) {
   i++;
 }
 
-console.log("%d",total);
+console.log(total);

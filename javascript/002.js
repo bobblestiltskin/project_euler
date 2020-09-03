@@ -1,3 +1,5 @@
+"use strict"
+
 const max = 4000000;
 
 let total = 0;
@@ -13,4 +15,4 @@ while (current < max)
   current = next;
 }
 
-console.log("%d", total);
+console.log(total);

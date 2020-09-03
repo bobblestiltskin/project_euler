@@ -1,3 +1,5 @@
+"use strict"
+
 let number = 600851475143;
 let max_prime = 0;
 let i = 3;
@@ -13,4 +15,4 @@ while (number != 1)
   }
 }
 
-console.log("%d", max_prime);
+console.log(max_prime);

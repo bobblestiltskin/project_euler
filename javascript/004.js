@@ -1,3 +1,5 @@
+"use strict"
+
 const MAX3 = 999;
 const MIN3 = 100;
 const MAXDIGITS = 6;
@@ -34,4 +36,4 @@ for (let i = MAX3; i >= mini; i--)
   maxj = i;
 }
 
-console.log("%d",maxp);
+console.log(maxp);
