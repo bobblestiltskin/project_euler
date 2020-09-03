@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from math import sqrt
 
 def main():
@@ -14,7 +14,7 @@ def main():
     num = get_num_divisors(i)
     j += 1
 
-  print i
+  print(i)
   return 0
 
 def get_num_divisors(num):

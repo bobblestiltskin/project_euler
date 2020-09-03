@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 008 """
@@ -13,7 +13,7 @@ def main():
     if (ssum > smax):
       smax = ssum
 
-  print smax
+  print(smax)
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from math import sqrt
 
@@ -14,7 +14,7 @@ def main():
       primes.append(test);
       psum += test
 
-  print psum
+  print(psum)
 
 def is_prime(test, primes):
   root = sqrt(test);

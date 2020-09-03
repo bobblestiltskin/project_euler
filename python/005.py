@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def isprime(num):
   if (num % 2):
@@ -39,7 +39,7 @@ def main():
       if (try_product == 0):
         total *= i
     i += 1
-  print total
+  print(total)
 
   return 0
 

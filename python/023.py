@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from math import sqrt
 
@@ -23,13 +23,13 @@ def main():
       if (j >= i):
         break
       diff = i - j
-      if (adictionary.has_key(diff)):
+      if diff in adictionary:
         addi = 0
         break
     if (addi):
       asum += i
 
-  print asum
+  print(asum)
   return 0
 
 def sum_factors(number):

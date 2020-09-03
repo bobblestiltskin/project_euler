@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 022 """
@@ -27,7 +27,7 @@ def main():
       letters += ord(names[i][j]) - 64
     total += letters * (i+1)
 
-  print total
+  print(total)
   return 0
 
 if __name__ == "__main__":

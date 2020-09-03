@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from math import sqrt
 
@@ -17,7 +17,7 @@ def main():
   for i in range(flen): 
     fsum += int(fstring[i])
 
-  print fsum
+  print(fsum)
 
 if __name__ == "__main__":
     main()

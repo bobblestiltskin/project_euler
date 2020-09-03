@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 001 """
@@ -10,7 +10,7 @@ def main():
     if (((i % 3) == 0) or ((i % 5) == 0)):
       total += i 
 
-  print total
+  print(total)
   return 0
 
 if __name__ == "__main__":

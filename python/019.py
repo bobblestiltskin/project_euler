@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 019 """
@@ -16,7 +16,7 @@ def main():
         if (dow == 0):
           count += 1
         dow = (dow + cycle[j]) % 7
-  print count
+  print(count)
 
   return 0
 

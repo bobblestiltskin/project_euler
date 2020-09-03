@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 015 """
@@ -28,7 +28,7 @@ def main():
     num *= numerator[i]
     denom *= denominator[i]
       
-  print num/denom
+  print(num//denom)
   return 0
 
 if __name__ == "__main__":

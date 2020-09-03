@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 011 """
@@ -44,7 +44,7 @@ def main():
       if (point > amax):
         amax = point
 
-  print amax
+  print(amax)
 
   return 0
 

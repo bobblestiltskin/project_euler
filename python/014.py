@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 014 """
@@ -18,7 +18,7 @@ def main():
     if (counter > maxv):
       maxv = counter
       maxi = i
-  print maxi
+  print(maxi)
 
   return 0
   

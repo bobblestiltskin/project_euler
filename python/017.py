@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 017 """
@@ -42,7 +42,7 @@ def main():
       count += len(units[i]) + handcount + len(tens[j])
 
   count += len(onek) - 1 # contains a space
-  print count
+  print(count)
 
   return 0
 

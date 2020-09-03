@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 025 """
@@ -11,7 +11,7 @@ def main():
     i += 1
     fib(i, vector)
 
-  print i
+  print(i)
   return 0
 
 def fib(n, vector):

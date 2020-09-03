@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 024 """
@@ -61,7 +61,7 @@ def main():
     if (count == 1000000):
       break
 
-  print i
+  print(i)
 
   return 0
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 016 """
@@ -10,7 +10,7 @@ def main():
   string = str(num)
   for i in range(0, len(string)):
     ssum += int(string[i])
-  print ssum
+  print(ssum)
 
   return 0
 

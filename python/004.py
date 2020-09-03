@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 004 """
@@ -16,11 +16,11 @@ def main():
       if is_palindromic(str(product)):
         if product > maxp:
           maxp = product
-          minj = product / 1000 
-          mini = product / 1000
+          minj = product // 1000 
+          mini = product // 1000
     maxj = i
 
-  print maxp
+  print(maxp)
 
   return 0
 

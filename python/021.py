@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from math import sqrt
 
@@ -17,14 +17,14 @@ def main():
         if (spd[spd[i]] == i):
           result += i
 
-  print result
+  print(result)
   return 0
 
 def sum_factors(number):
   total = 1
   for i in range (2, int(sqrt(number))):
     if ((number % i) == 0):
-      total += (i + (number / i))
+      total += (i + (number // i))
 
   return total
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 002 """
@@ -14,7 +14,7 @@ def main():
     previous = current
     current = next
 
-  print total
+  print(total)
   return 0
 
 if __name__ == "__main__":

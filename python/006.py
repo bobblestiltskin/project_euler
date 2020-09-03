@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 006 """
@@ -9,7 +9,7 @@ def main():
 
   sqsum = (101 * 50) ** 2
   
-  print sqsum -sumsq
+  print(sqsum - sumsq)
 
   return 0
 

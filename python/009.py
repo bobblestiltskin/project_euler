@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 009 """
@@ -9,7 +9,7 @@ def main():
       for c in range(b+1,stop):
         if (a+b+c == stop):
           if ((a*a)+(b*b) == (c*c)):
-            print a*b*c
+            print(a*b*c)
             exit(0)
   exit(1)
 

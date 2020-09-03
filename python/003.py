@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from math import sqrt
 
@@ -16,7 +16,7 @@ def main():
     else:
       i+= 2
 
-  print max_prime
+  print(max_prime)
 
   return 0
 

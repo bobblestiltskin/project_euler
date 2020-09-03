@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 def main():
   """ this computes projecteuler.net problem 013 """
@@ -127,7 +127,7 @@ def main():
 # add another column
     j += 1
 
-  print string[0:10]
+  print(string[0:10])
 
   return 0
 
