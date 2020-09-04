@@ -1,5 +1,5 @@
 #!/bin/bash
 MAX=25
 for i in $(seq 1 $MAX); do
-  printf "./time1 python ./ %03d python .py\n" $i | bash
+  printf "./time1 python ./ %03d python3 .py\n" $i | bash
 done
