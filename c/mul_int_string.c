@@ -47,7 +47,7 @@ printf("out_string_ptr is %p\n", out_string_ptr);
       }
     }
     in_copy = realloc(in_copy, strlen(in_copy) + 2);
-    strncat(in_copy, "0", 1);
+    strcat(in_copy, "0");
   } while ((alpha = alpha / BASE));
   free(in_copy);
 

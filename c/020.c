@@ -16,7 +16,7 @@ int main()
 {
   int maxa = 100;
   char *b = (char *) calloc(2, sizeof(char));
-  strncpy(b, "1", 1);
+  strcpy(b, "1");
   factorial(maxa, &b);
   int sum = 0;
   int i;

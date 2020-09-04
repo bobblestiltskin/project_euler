@@ -17,7 +17,7 @@ printf("entering mul_digit_string digit is %d input is %s output is %s\n", digit
   assert(digit <= 9);
 
   if (digit == 0)
-    strncpy(*out_string_ptr, "0", 1);
+    strcpy(*out_string_ptr, "0");
   else if (digit == 1)
     strncpy(*out_string_ptr, in_string, strlen(in_string));
   else
