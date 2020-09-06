@@ -1,11 +1,16 @@
-$ sudo aptitude install time java7-sdk make cmake gcc flex bzip2 git erlang racket build-essential gcc g++ gforth python liblist-moreutils-perl
+$ sudo apt install time java7-sdk make cmake gcc flex bzip2 git erlang racket build-essential gcc g++ gforth python3 ocaml-core ocamlbuild opam liblist-moreutils-perl libchart-gnuplot-perl libcgi-pm-perl 
+
 $ wget http://download.savannah.gnu.org/releases/proccpuinfo/libproccpuinfo-0.0.8.tar.bz2
 $ tar jxvf libproccpuinfo-0.0.8.tar.bz2
 $ cd libproccpuinfo-0.0.8
 $ cmake -D CMAKE_INSTALL_PREFIX=/usr .
 $ make
 $ make test
-
 $ sudo make install
+
 $ sudo perl -MCPAN -e 'install Devel::CheckLib'
 $ sudo perl -MCPAN -e 'notest install Linux::Proc::Cpuinfo'
+
+$ opam init
+$ opam install core
+

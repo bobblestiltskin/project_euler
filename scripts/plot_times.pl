@@ -31,7 +31,7 @@ my $dataSet_c = Chart::Gnuplot::DataSet->new(
 my $dataSet_cpp = Chart::Gnuplot::DataSet->new(
   xdata => \@x,
   datafile => join('/', $output_dir , "c++.times"),
-  title => "C times ",
+  title => "C++ times ",
   style => "linespoints",
 );
 

@@ -12,6 +12,15 @@ our (@ISA, @EXPORT_OK);
 @ISA =qw(Exporter);
 @EXPORT_OK = qw(get_data_hash dump_column_to_files);
 
+=pod
+
+=head1 get_data_hash
+
+get_data_hash hashes all of the data.number.language files in the output directory and returns
+all of the information from the data files hashed. The results are checked for consistency via ...
+
+=cut
+
 sub get_data_hash {
   my $output_dir = shift;
   
@@ -46,6 +55,14 @@ sub get_data_hash {
   return $hash;
 }
 
+=pod
+
+=head1 check_results
+
+check results takes the hash constructed in get_data_hash and checks that all of the results are consistent.
+
+=cut
+
 sub check_results {
   my $hash = shift;
 
@@ -77,6 +94,17 @@ sub check_results {
     }
   }
 }
+
+=pod
+
+=head1 dump_column_to_files
+
+dump_column_to_files constructs a hash via get_data_hash and dumps a slice of this hash into a file.
+
+invoked via : dump_column_to_files($output_dir, "times", "user");
+        and : dump_column_to_files($output_dir, "output", "result");
+
+=cut
 
 sub dump_column_to_files {
   my $output_dir = shift;

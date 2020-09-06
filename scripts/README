@@ -1,0 +1,19 @@
+timeall is the script which runs all of the timelanguage scripts (where language is c, perl etc)
+each of these timelanguage scripts is a loop which invoke the time1 script with appropriate parameters
+#
+# LANGUAGE=$1
+# PREFIX=$2
+# INDEX=$3
+# COMMAND=$4
+# SUFFIX=$5
+#
+we create an indexed data file, data.language.index
+echo language/index to it
+time command prefixindexsuffix and put the output and error into the file
+then mark a trailing footer to the data file
+
+each of these data files is stored in the output directory.
+
+cd scripts
+PERL5LIB=. perl html_table.pl generates a HTML table of the data files called ../output/project_euler_timings_${hostname}.html
+PERL5LIB=. perl plot_times.pl which uses gnuplot to create a file called ./project_euler.${hostname}.ps which shows the data files graphically
