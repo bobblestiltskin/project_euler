@@ -1,3 +1,5 @@
+"use strict"
+
 let nums = new Array(100);
 
 nums[0] = "37107287533902102798797998220837590246510135740250";
@@ -121,4 +123,4 @@ while (1)
     break;
   j++;
 } 
-console.log(string);
+console.log(Number(string));

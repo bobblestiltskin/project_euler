@@ -1,3 +1,5 @@
+"use strict"
+
 function get_num_divisors(num)
 {
   let counter = 0;

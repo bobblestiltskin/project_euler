@@ -1,3 +1,5 @@
+"use strict"
+
 const MSIZE = 26; // Size of our padded matrix
 const ROWS = 20;
 
