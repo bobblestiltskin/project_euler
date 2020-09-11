@@ -24,6 +24,7 @@ our $extensions = {
   erlang        => 'erl',
   forth         => 'fs',
   java          => 'java',
+  javascript    => 'js',
   ocaml         => 'ml',
   perl          => 'pl',
   python        => 'py',
