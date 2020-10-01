@@ -1,9 +1,9 @@
-fn pe002() -> u64 {
-    let limit:u64 = 4000000;
-    let mut total:u64 = 0;
-    let mut next:u64;
-    let mut previous:u64 = 1;
-    let mut current:u64 = 1;
+fn pe002() -> usize {
+    let limit:usize = 4000000;
+    let mut total:usize = 0;
+    let mut next:usize;
+    let mut previous:usize = 1;
+    let mut current:usize = 1;
 
     while current < limit {
         next = current + previous;

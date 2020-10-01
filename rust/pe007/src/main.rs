@@ -1,6 +1,6 @@
-fn is_prime(test: u64, primes: &Vec<u64>) -> bool {
+fn is_prime(test: usize, primes: &Vec<usize>) -> bool {
     let root = (test as f64).sqrt();
-    let introot = root.floor() as u64;
+    let introot = root.floor() as usize;
 
     for i in primes {
         if i > &introot {
@@ -13,14 +13,14 @@ fn is_prime(test: u64, primes: &Vec<u64>) -> bool {
     return true
 }
 
-fn pe007() -> u64 {
-    let primenum:u64 = 10001;
+fn pe007() -> usize {
+    let primenum:usize = 10001;
     let mut primes = vec![2,3];
 
     let mut test = primes[primes.len() - 1] + 2;
-    while (primes.len() as u64) < primenum {
-        if is_prime(test as u64, &primes) {
-            primes.push(test as u64)
+    while (primes.len() as usize) < primenum {
+        if is_prime(test as usize, &primes) {
+            primes.push(test as usize)
         }
         test += 2
     }

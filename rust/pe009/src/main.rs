@@ -1,5 +1,5 @@
-fn pe009() -> u64 {
-    let stop:u64 = 1000;
+fn pe009() -> usize {
+    let stop:usize = 1000;
 
     for a in 0 .. stop {
         for b in a+1 .. stop {

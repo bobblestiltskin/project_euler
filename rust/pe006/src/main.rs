@@ -1,7 +1,7 @@
-fn pe006() -> u64 {
-    let imax:u64 = 101;
-    let sqsum:u64 = (imax * 50) * (imax * 50);
-    let mut sumsq:u64 = 0;
+fn pe006() -> usize {
+    let imax:usize = 101;
+    let sqsum:usize = (imax * 50) * (imax * 50);
+    let mut sumsq:usize = 0;
 
     for i in 0 .. imax {
         sumsq += i * i;

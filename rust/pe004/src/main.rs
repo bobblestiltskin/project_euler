@@ -10,15 +10,15 @@ fn is_palindromic(digits: String) -> bool {
     result
 }
 
-fn pe004() -> u64 {
-    let max3:u64 = 999;
-    let min3:u64 = 100;
-    let mut maxp:u64 = 0;
+fn pe004() -> usize {
+    let max3:usize = 999;
+    let min3:usize = 100;
+    let mut maxp:usize = 0;
 
-    let mini:u64 = min3;
-    let mut minj:u64 = min3;
-    let mut maxj:u64 = max3;
-    let mut product:u64;
+    let mini:usize = min3;
+    let mut minj:usize = min3;
+    let mut maxj:usize = max3;
+    let mut product:usize;
 
     for i in (mini .. max3).rev() {
         for j in (minj .. maxj).rev() {

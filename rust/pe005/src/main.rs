@@ -1,5 +1,5 @@
-fn isprime(num:u64) -> bool {
-    let mut divisor:u64 = 3;
+fn isprime(num:usize) -> bool {
+    let mut divisor:usize = 3;
     if num % 2 == 1 {
         if num < 8 {
             if num == 1 {
@@ -21,13 +21,13 @@ fn isprime(num:u64) -> bool {
     }
 }
 
-fn pe005() -> u64 {
-    let max:u64 = 20;
-    let mut i:u64 = 2;
+fn pe005() -> usize {
+    let max:usize = 20;
+    let mut i:usize = 2;
     let mut try_product:bool = true;
-    let mut total:u64 = 1;
-    let mut tmp:u64;
-    let mut last:u64;
+    let mut total:usize = 1;
+    let mut tmp:usize;
+    let mut last:usize;
 
     while i < max {
         if isprime(i) {
