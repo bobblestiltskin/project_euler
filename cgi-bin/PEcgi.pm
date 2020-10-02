@@ -27,6 +27,7 @@ our $extensions = {
   javascript    => 'js',
   ocaml         => 'ml',
   perl          => 'pl',
+  perl6         => 'pl',
   python        => 'py',
   racket        => 'rkt',
 };
