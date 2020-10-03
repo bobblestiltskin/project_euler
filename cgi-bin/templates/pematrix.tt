@@ -3,6 +3,9 @@
     <title>Bob Wilkinson's Project Euler Code</title>  
   </head>  
   <body>  
+    <p>The problems are listed at <a href="http://projecteuler.net/problems">http://projecteuler.net/problems</a> - these are my solutions. You may want to write them yourself. My code is available <a href="https://github.com/bobblestiltskin/project_euler.git">here</a>. We have <a href="https://www.fourtheye.org/timing_data.html">timing data</a> for some machines</p>
+
+    <center>
     <table border="1">  
       <tr>  
         <th>Problem</th>  
@@ -31,5 +34,9 @@
         </tr>  
       [%- END %]
     </table>
+
+    <p>The more <strong>interesting</strong> links in the table above are the <em>column headers</em> and the <em>left-hand column</em></p>
+
+    </center>
   </body>
 </html>
