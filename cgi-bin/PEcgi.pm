@@ -68,9 +68,13 @@ sub get_web_page {
 
   my $ua = LWP::UserAgent->new;
   $ua->agent('bob@fourtheye.org::problem_text_grabber');
+  $ua->timeout(10);
+  $ua->env_proxy;
 
-  my $req = HTTP::Request->new('GET', $url);
-  my $res = $ua->request($req);
+  my $res = $ua->get($url);
+
+#  my $req = HTTP::Request->new('GET', $url);
+#  my $res = $ua->request($req);
 
   if ($res->is_error()) {
     carp "Error getting $url: ", $res->status_line, "\n";
