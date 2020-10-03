@@ -15,7 +15,7 @@
                 [% language.display %]
               </a>
           </td>  
-        [%- END %]
+        [% END %]
       </tr>  
       [% FOREACH problem = problems - %]
         <tr>  
@@ -30,9 +30,9 @@
                 [% problem.number %]
               </a>
             </td>
-          [%- END %]
+          [% END %]
         </tr>  
-      [%- END %]
+      [% END %]
     </table>
 
     <p>The more <strong>interesting</strong> links in the table above are the <em>column headers</em> and the <em>left-hand column</em></p>

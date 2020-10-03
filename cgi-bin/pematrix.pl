@@ -72,20 +72,18 @@ my $languages = [
   },
 ];  
 
-my $problems = [
-  {number => '001'}, {number => '002'}, {number => '003'}, {number => '004'}, {number => '005'},
-  {number => '006'}, {number => '007'}, {number => '008'}, {number => '009'}, {number => '010'},
-  {number => '011'}, {number => '012'}, {number => '013'}, {number => '014'}, {number => '015'},
-  {number => '016'}, {number => '017'}, {number => '018'}, {number => '019'}, {number => '020'},
-  {number => '021'}, {number => '022'}, {number => '023'}, {number => '024'}, {number => '025'},
-];
+my $problems = [];
+for (my $i=1; $i <= 25; $i++) {
+	my $ns = sprintf("%03d", $i);
+	push @$problems, {number => "$ns"};
+}
 
 my $data = {
   "problems" => $problems,
   "languages" => $languages,
 };
 
-print header;  
+#print header;  
 
-my $tt = Template->new;
+my $tt = Template->new({EVAL_PERL => 1});
 $tt->process('templates/pematrix.tt', $data) or die $tt->error;
