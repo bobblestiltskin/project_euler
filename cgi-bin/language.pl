@@ -5,6 +5,7 @@
 use strict;
 use CGI;
 use DirHandle;
+use lib qw(.);
 use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string print_language_number $extensions $prefix);
 
 my $dir = '../project_euler/';
@@ -22,8 +23,6 @@ if ((defined $language) and (grep {/^$language$/} keys %$extensions)) {
     while (defined (my $file = $dirh->read)) {
       next if ($file =~ /^\.\.?$/);
       if ((my $stem = $file) =~ s/\.$extensions->{$language}$//) {
-#print "STEM is $stem and F is $file\n";
-#        my $prefix = $prefix->{$language};
         $stem =~ s/^$prefix->{$language}// if ($prefix->{$language});
         push @num_files, $stem if ($stem =~ /^\d+$/);
       }
