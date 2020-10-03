@@ -1,0 +1,35 @@
+<html>
+  <head>  
+    <title>Bob Wilkinson's Project Euler Code</title>  
+  </head>  
+  <body>  
+    <table border="1">  
+      <tr>  
+        <th>Problem</th>  
+        [% FOREACH language = languages - %]
+          <td>
+              <a href="https://www.fourtheye.org/cgi-bin/language.pl?language=[% language.language_name %]">
+                [% language.display %]
+              </a>
+          </td>  
+        [%- END %]
+      </tr>  
+      [% FOREACH problem = problems - %]
+        <tr>  
+          <td>
+            <a href="https://www.fourtheye.org/cgi-bin/problem.pl?number=[% problem.number %]">
+              [% problem.number %]
+            </a>
+          </td>
+          [% FOREACH language = languages - %]
+            <td>
+              <a href="https://www.fourtheye.org/cgi-bin/escape.pl?file=[% language.language_name %]/[% problem.number %].[% language.extension %]">
+                [% problem.number %]
+              </a>
+            </td>
+          [%- END %]
+        </tr>  
+      [%- END %]
+    </table>
+  </body>
+</html>
