@@ -2,11 +2,9 @@
 
 use strict;
 use warnings;
-	
-use Data::Dumper;
+use Carp;
 
 use Template;
-
 use CGI qw(:all);  
 
 my $languages = [
@@ -83,7 +81,7 @@ my $data = {
   "languages" => $languages,
 };
 
-#print header;  
+print header;  
 
-my $tt = Template->new({EVAL_PERL => 1});
-$tt->process('templates/pematrix.tt', $data) or die $tt->error;
+my $tt = Template->new;
+$tt->process('templates/pematrix.tt', $data) or croak $tt->error;
