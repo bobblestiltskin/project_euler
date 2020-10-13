@@ -1,6 +1,8 @@
 #!/usr/bin/perl -w
 use strict;
 use CGI;
+use lib qw(.);
+use PEcgi qw($prefix);
 
 my $dir = '../project_euler/';
 my $query = CGI->new;
@@ -8,8 +10,13 @@ my $query = CGI->new;
 print $query->header;
 print $query->start_html;
 
-my $file = $query->param('file');
-if ((defined $file) and ($file =~ m!^(?:perl|perl6|asm|forth|c|c\+\+|python|java|javascript|racket|erlang|ocaml|haskell)/(?:pe)?\d+\.(?:pl|s|fs|c|cpp|py|java|js|rkt|erl|ml|hs)$!)) {
+my $file = $query->param('file'); # passed as language/number.extension
+if ((defined $file) and ($file =~ m!^(?:perl|perl6|asm|forth|c|c\+\+|python|java|javascript|racket|erlang|ocaml|haskell)/\d+\.(?:pl|s|fs|c|cpp|py|java|js|rkt|erl|ml|hs)$!)) {
+  (my $language = $file) =~ s|/.*$||;
+  # prefix number with prefix listed in $prefix hash when defined e.g. 011.erl => pe011.erl
+  if (defined $prefix->{$language}) {
+    $file =~ s|/|/$prefix->{$language}|;
+  }
   print $query->start_pre;
   $file = $dir . $file;
   open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
