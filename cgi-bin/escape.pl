@@ -11,7 +11,7 @@ print $query->header;
 print $query->start_html;
 
 my $file = $query->param('file'); # passed as language/number.extension
-if ((defined $file) and ($file =~ m!^(?:perl|perl6|asm|forth|c|c\+\+|python|java|javascript|racket|erlang|ocaml|haskell)/\d+\.(?:pl|s|fs|c|cpp|py|java|js|rkt|erl|ml|hs)$!)) {
+if ((defined $file) and ($file =~ m!^(?:perl|perl6|asm|forth|c|c\+\+|python|java|javascript|racket|erlang|ocaml|haskell|rust)/\d+\.(?:pl|s|fs|c|cpp|py|java|js|rkt|erl|ml|hs|rs)$!)) {
   (my $language = $file) =~ s|/.*$||;
   # prefix number with prefix listed in $prefix hash when defined e.g. 011.erl => pe011.erl
   if (defined $prefix->{$language}) {

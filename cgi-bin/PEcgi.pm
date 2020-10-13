@@ -30,6 +30,7 @@ our $extensions = {
   perl6         => 'pl',
   python        => 'py',
   racket        => 'rkt',
+  rust          => 'rs',
 };
 #  haskell       => 'hs',
 
@@ -37,6 +38,7 @@ our $prefix = {
   erlang => 'pe',
   java => 'pe',
   ocaml => 'pe',
+  rust => 'pe',
 };
 
 sub display_file {

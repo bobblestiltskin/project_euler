@@ -54,6 +54,11 @@ my $languages = [
     extension => 'rkt'
   },
   {
+    language_name => 'rust',
+    display => 'Rust',
+    extension => 'rs'
+  },
+  {
     language_name => 'erlang',
     display => 'Erlang',
     extension => 'erl'
