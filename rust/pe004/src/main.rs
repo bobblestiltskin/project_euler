@@ -35,14 +35,6 @@ fn pe004() -> usize {
     maxp
 }
 
-/*
-fn main() {
-    println!("{}", is_palindromic("level".to_string()));
-    println!("{}", is_palindromic("banana".to_string()));
-    println!("{}", is_palindromic("noon".to_string()))
-}
-*/
-
 fn main() {
     println!("{}", pe004())
 }

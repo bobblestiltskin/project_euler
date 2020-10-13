@@ -28,13 +28,5 @@ fn pe007() -> usize {
 }
 
 fn main() {
-    /*
-    let v1 = vec![2,3,5];
-    println!("{}", is_prime(15, v1));
-    let v2 = vec![2,3,5];
-    println!("{}", is_prime(16, v2));
-    let v3 = vec![2,3,5];
-    println!("{}", is_prime(17, v3));
-    */
     println!("{}", pe007())
 }
