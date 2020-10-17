@@ -6,7 +6,7 @@ use strict;
 use CGI;
 use DirHandle;
 use lib qw(.);
-use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string print_language_number $extensions $prefix);
+use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string print_language_number $extensions);
 
 my $dir = '../project_euler/';
 my $query = CGI->new;
@@ -23,7 +23,7 @@ if ((defined $language) and (grep {/^$language$/} keys %$extensions)) {
     while (defined (my $file = $dirh->read)) {
       next if ($file =~ /^\.\.?$/);
       if ((my $stem = $file) =~ s/\.$extensions->{$language}$//) {
-        $stem =~ s/^$prefix->{$language}// if ($prefix->{$language});
+        $stem =~ s/^pe//;
         push @num_files, $stem if ($stem =~ /^\d+$/);
       }
     }

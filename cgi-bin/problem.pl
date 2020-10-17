@@ -18,7 +18,7 @@ if ((defined $number) and ($number =~ /^\d+$/)) {
   print get_problem_as_string($number);
   my $dirh = DirHandle->new($dir);
   if (defined $dirh) {
-    while (defined (my $subdir = $dirh->read)) {
+    foreach my $subdir (sort readdir $dirh) {
       next if (($subdir eq '.') or ($subdir eq '..'));
       next unless (grep {/^$subdir$/} keys %$extensions);
       print_language_number($query, $dir, $subdir, $number);

@@ -14,8 +14,7 @@ our (@ISA, @EXPORT_OK);
                 decode_web_page
                 get_problem_as_string
                 print_language_number
-                $extensions
-                $prefix);
+                $extensions);
 
 our $extensions = {
   asm           => 's',
@@ -33,13 +32,6 @@ our $extensions = {
   rust          => 'rs',
 };
 #  haskell       => 'hs',
-
-our $prefix = {
-  erlang => 'pe',
-  java => 'pe',
-  ocaml => 'pe',
-  rust => 'pe',
-};
 
 sub display_file {
   my $query = shift;
@@ -115,7 +107,7 @@ sub print_language_number {
   my $subdirh = DirHandle->new($dir . $subdir);
   if (defined $subdirh) {
     while (defined (my $file = $subdirh->read)) {
-      if ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir}))) {
+      if ($file eq join(".", "pe" . $number, $extensions->{$subdir})) {
         print $query->h3($subdir) if ($0 =~ /problem\.pl$/);
         display_file($query, join('/', $dir, $subdir), $file);
         last;
@@ -127,9 +119,9 @@ sub print_language_number {
         $file = join('/', $dir, $subdir, $file);
         open(my $fh, "<", $file) or print "Cannot open ",$file,": $!";
         while (<$fh>) {
-          if (s/^$number: //) {
+          if (s/^pe$number: //) {
             my @dependencies = split(/ /);
-            foreach my $file (@dependencies) {
+            foreach my $file (grep {!/^pe$number/} (@dependencies)) {
               if ($file =~ /\.(s|c\w*)$/) {
                 (my $header = $file) =~ s/\.\w+$/.h/;
                 chomp(my $full_header = join('/', $dir, $subdir, $header));
@@ -137,7 +129,7 @@ sub print_language_number {
                   display_file($query, join('/', $dir, $subdir), $header);
                 }
               }
-              display_file($query, join('/', $dir, $subdir), $file) unless ($file eq join('', $prefix->{$subdir}, join(".", $number, $extensions->{$subdir})));
+              display_file($query, join('/', $dir, $subdir), $file);
             }
           }
         }

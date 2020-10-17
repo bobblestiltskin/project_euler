@@ -26,7 +26,7 @@
           </td>
           [% FOREACH language = languages - %]
             <td>
-              <a href="https://www.fourtheye.org/cgi-bin/escape.pl?file=[% language.language_name %]/[% problem.number %].[% language.extension %]">
+              <a href="https://www.fourtheye.org/cgi-bin/escape.pl?file=[% language.language_name %]/pe[% problem.number %].[% language.extension %]">
                 [% problem.number %]
               </a>
             </td>
