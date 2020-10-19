@@ -1,5 +1,5 @@
 #!/bin/bash
 MAX=25
 for i in $(seq 1 $MAX); do
-  printf "./time1 asm ./ %03d\n" $i | bash
+  printf "./time1 asm ./pe %03d\n" $i | bash
 done

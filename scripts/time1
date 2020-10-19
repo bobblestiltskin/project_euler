@@ -1,14 +1,18 @@
 #!/bin/bash
 #
-# LANGUAGE=$1
-# PREFIX=$2
-# INDEX=$3
-# COMMAND=$4
-# SUFFIX=$5
+LANGUAGE=$1
+PREFIX=$2
+INDEX=$3
+COMMAND=$4
+SUFFIX=$5
 #
 # we create an indexed data file, data.language.index
 # echo language/index to it
 # time command prefixindexsuffix and put the output and error into the file
 # then mark a trailing footer to the data file
 #
-(echo $1/$3 && cd ../$1 && /usr/bin/time $4 $2$3$5 && cd - > /dev/null) >data.$1.$3 2>err ; cat err >> data.$1.$3; rm err; echo "---------------------" >> data.$1.$3
+echo "running ${COMMAND} ${PREFIX}${INDEX}${SUFFIX}"
+(echo ${LANGUAGE}/${INDEX} && cd ../${LANGUAGE} && /usr/bin/time ${COMMAND} ${PREFIX}${INDEX}${SUFFIX} && cd - > /dev/null) >data.${LANGUAGE}.${INDEX} 2>err
+cat err >> data.${LANGUAGE}.${INDEX}
+rm err
+echo "---------------------" >> data.${LANGUAGE}.${INDEX}

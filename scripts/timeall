@@ -25,3 +25,14 @@ do
   ./time$lang
   mv data.$lang.* ../output
 done
+#
+for lang in rust
+do
+  echo lang is $lang
+  cd ../$lang
+  ./build.sh
+  ./runall.sh
+  mv data.$lang.* ../output
+  ./clean.sh
+  cd -
+done
