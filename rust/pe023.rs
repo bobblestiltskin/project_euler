@@ -1,1 +1,1 @@
-pe023/src/main.rs
+project_euler_023/src/main.rs
