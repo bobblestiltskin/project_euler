@@ -19,12 +19,12 @@ func is_prime(test int, primes []int) bool {
 }
 
 func main() {
-	primenum := 10001
+	const PRIMENUM = 10001
 	primes := []int{2, 3}
 
 	var test int
 	test = primes[len(primes)-1] + 2
-	for len(primes) < primenum {
+	for len(primes) < PRIMENUM {
 		if is_prime(test, primes) {
 			primes = append(primes, test)
 		}

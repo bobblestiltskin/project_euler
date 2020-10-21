@@ -15,16 +15,16 @@ func is_palindromic(digits string) bool {
 }
 
 func main() {
-	min3 := 100
-	max3 := 999
+	const MIN3 = 100
+	const MAX3 = 999
 
 	var mini, minj, maxj, maxp, product int
 
-	mini = min3
-	minj = min3
-	maxj = max3
+	mini = MIN3
+	minj = MIN3
+	maxj = MAX3
 	maxp = 0
-	for i := max3; i >= mini; i-- {
+	for i := MAX3; i >= mini; i-- {
 		for j := maxj; j >= minj; j-- {
 			product = i * j
 			digits := fmt.Sprintf("%d", product)

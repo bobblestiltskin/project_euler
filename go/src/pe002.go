@@ -5,11 +5,11 @@ import (
 )
 
 func main() {
-	max := 4000000
+	const MAX = 4000000
 	var next, total int
 	previous := 1
 	current := 1
-	for current < max {
+	for current < MAX {
 		next = current + previous
 		if current%2 == 0 {
 			total += current

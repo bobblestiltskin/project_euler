@@ -25,23 +25,23 @@ func is_prime(num int) bool {
 }
 
 func main() {
-	max := 20
+	const MAX = 20
 	var i, total int
 	var try_product bool
 
 	i = 2
 	total = 1
 	try_product = true
-	for i < max {
+	for i < MAX {
 		if is_prime(i) {
 			if try_product {
-				if i*i > max {
+				if i*i > MAX {
 					try_product = false
 				} else {
 					var tmp, last int
 					tmp = i
 					last = tmp
-					for tmp < max {
+					for tmp < MAX {
 						last = tmp
 						tmp *= i
 					}

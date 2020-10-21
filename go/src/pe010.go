@@ -19,12 +19,12 @@ func is_prime(test int, primes []int) bool {
 }
 
 func main() {
-	last := 2000000
+	const LAST = 2000000
 	primes := []int{2}
 
 	var sum int
 	sum = 2
-	for i := 3; i < last; i = i + 2 {
+	for i := 3; i < LAST; i = i + 2 {
 		if is_prime(i, primes) {
 			primes = append(primes, i)
 			sum += i

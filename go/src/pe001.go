@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	max := 1000
+	const MAX = 1000
 	var total int
-	for i := 0; i < max; i++ {
+	for i := 0; i < MAX; i++ {
 		if (i%3 == 0) || (i%5 == 0) {
 			total += i
 		}
