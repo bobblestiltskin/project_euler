@@ -9,7 +9,7 @@ $ make test
 $ sudo make install
 
 $ sudo perl -MCPAN -e 'install Devel::CheckLib'
-$ sudo perl -MCPAN -e 'notest install Linux::Proc::Cpuinfo'
+$ sudo perl -MCPAN -e "CPAN::Shell->notest(qw/install Linux::Proc::Cpuinfo/)"
 
 $ opam init
 $ opam install core
