@@ -22,6 +22,7 @@ our $extensions = {
   'c++'         => 'cpp',
   erlang        => 'erl',
   forth         => 'fs',
+  go            => 'go',
   java          => 'java',
   javascript    => 'js',
   ocaml         => 'ml',

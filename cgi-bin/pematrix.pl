@@ -49,6 +49,11 @@ my $languages = [
     extension => 'fs'
   },
   {
+    language_name => 'go',
+    display => 'Go',
+    extension => 'go'
+  },
+  {
     language_name => 'racket',
     display => 'Racket',
     extension => 'rkt'
