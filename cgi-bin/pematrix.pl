@@ -9,14 +9,9 @@ use CGI qw(:all);
 
 my $languages = [
   {
-    language_name => 'perl',
-    display => 'Perl',
-    extension => 'pl'
-  },
-  {
-    language_name => 'perl6',
-    display => 'Perl 6',
-    extension => 'pl'
+    language_name => 'asm',
+    display => 'ARM asm',
+    extension => 's'
   },
   {
     language_name => 'c',
@@ -29,19 +24,9 @@ my $languages = [
     extension => 'cpp'
   },
   {
-    language_name => 'python',
-    display => 'Python',
-    extension => 'py'
-  },
-  {
-    language_name => 'java',
-    display => 'Java',
-    extension => 'java'
-  },
-  {
-    language_name => 'javascript',
-    display => 'Javascript',
-    extension => 'js'
+    language_name => 'erlang',
+    display => 'Erlang',
+    extension => 'erl'
   },
   {
     language_name => 'forth',
@@ -54,6 +39,36 @@ my $languages = [
     extension => 'go'
   },
   {
+    language_name => 'java',
+    display => 'Java',
+    extension => 'java'
+  },
+  {
+    language_name => 'javascript',
+    display => 'Javascript',
+    extension => 'js'
+  },
+  {
+    language_name => 'ocaml',
+    display => 'Ocaml',
+    extension => 'ml'
+  },
+  {
+    language_name => 'perl',
+    display => 'Perl',
+    extension => 'pl'
+  },
+  {
+    language_name => 'perl6',
+    display => 'Perl 6',
+    extension => 'pl'
+  },
+  {
+    language_name => 'python',
+    display => 'Python',
+    extension => 'py'
+  },
+  {
     language_name => 'racket',
     display => 'Racket',
     extension => 'rkt'
@@ -62,21 +77,6 @@ my $languages = [
     language_name => 'rust',
     display => 'Rust',
     extension => 'rs'
-  },
-  {
-    language_name => 'erlang',
-    display => 'Erlang',
-    extension => 'erl'
-  },
-  {
-    language_name => 'ocaml',
-    display => 'Ocaml',
-    extension => 'ml'
-  },
-  {
-    language_name => 'asm',
-    display => 'ARM asm',
-    extension => 's'
   },
 ];  
 
