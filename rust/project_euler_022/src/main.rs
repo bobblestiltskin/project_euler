@@ -1,7 +1,7 @@
 use std::io::Read;
 
 fn pe021() -> usize {
-    let mut file = std::fs::File::open("../../names.txt").unwrap();
+    let mut file = std::fs::File::open("../names.txt").unwrap();
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
 
