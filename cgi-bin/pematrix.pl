@@ -78,6 +78,11 @@ my $languages = [
     display => 'Rust',
     extension => 'rs'
   },
+  {
+    language_name => 'tcl',
+    display => 'TCL',
+    extension => 'tcl'
+  },
 ];  
 
 my $problems = [];

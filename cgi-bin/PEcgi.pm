@@ -31,6 +31,7 @@ our $extensions = {
   python        => 'py',
   racket        => 'rkt',
   rust          => 'rs',
+  tcl           => 'tcl',
 };
 #  haskell       => 'hs',
 

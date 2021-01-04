@@ -18,7 +18,7 @@ do
 done
 #
 declare -a scripts
-scripts=(forth javascript perl python racket)
+scripts=(forth javascript perl python racket tcl)
 for lang in ${scripts[@]}
 do
   echo lang is $lang
