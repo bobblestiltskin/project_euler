@@ -1,0 +1,5 @@
+#!/bin/bash
+MAX=25
+for i in $(seq 1 $MAX); do
+  printf "./time1 tcl ./pe %03d tclsh .tcl\n" $i | bash
+done
