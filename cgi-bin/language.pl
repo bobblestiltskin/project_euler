@@ -6,7 +6,7 @@ use strict;
 use CGI;
 use DirHandle;
 use lib qw(.);
-use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string print_language_number $extensions);
+use PEcgi qw(display_file get_web_page decode_web_page get_problem_as_string print_language_number $extensions $problems);
 
 my $dir = '../project_euler/';
 my $query = CGI->new;
