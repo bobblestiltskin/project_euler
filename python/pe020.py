@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from math import sqrt
-
 def main():
   """ this computes projecteuler.net problem 020 """
   
