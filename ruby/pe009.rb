@@ -2,7 +2,7 @@
 
 STOP = 1000
 
-(0 ... STOP).each do |a|
+(1 ... STOP).each do |a|
   (a+1 ... STOP).each do |b|
     (b+1 ... STOP).each do |c|
       if a + b + c == STOP

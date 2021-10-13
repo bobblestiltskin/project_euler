@@ -28,7 +28,7 @@ adictionary = Hash.new
 end
 
 asum = 0
-(1 .. abundant[0]).each do |i|
+(1 ... abundant[0]).each do |i|
   asum += i
 end
 (abundant[0] ... MAX).each do |i|

@@ -2,8 +2,8 @@
 
 last = 100
 factorial = 1
-(0 ... last).each do |i|
-  factorial *= i+1
+(1 .. last).each do |i|
+  factorial *= i
 end
 
 fsum = 0

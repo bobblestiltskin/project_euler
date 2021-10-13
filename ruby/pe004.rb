@@ -2,7 +2,8 @@
 
 def is_palindromic(digits)
   len = digits.length
-  (0 ... len - 1).each do |i|
+  half_len = (len >> 1).to_i
+  (0 .. half_len).each do |i|
     if digits[i,1] != digits[len-(i+1),1]
       return false
     end
