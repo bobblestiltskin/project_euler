@@ -1,0 +1,9 @@
+#!/bin/bash
+MAX=25
+for i in $(seq 1 $MAX); do
+  FILENAME=$(printf "./pe%03d" $i)
+  echo FILENAME IS ${FILENAME}
+  tsc --target es2020 ../typescript/${FILENAME}.ts --outDir ../typescript
+  printf "./time1 typescript ./pe %03d nodejs .js\n" $i | bash
+  rm -f ../typescript/${FILENAME}.js
+done
