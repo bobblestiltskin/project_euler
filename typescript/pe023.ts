@@ -1,10 +1,10 @@
-function sum_factors(number): number {
+function sum_factors(num:number): number {
   let sum = 1
-  for (let i = 2; i <= Math.sqrt(number); ++i)
+  for (let i = 2; i <= Math.sqrt(num); ++i)
   {
-    if (!(number % i))
+    if (!(num % i))
     {
-      let divisor = number / i
+      let divisor = numr / i
       sum += i
       if (i != divisor)
         sum += divisor
