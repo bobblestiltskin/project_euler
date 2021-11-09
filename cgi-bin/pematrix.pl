@@ -88,6 +88,11 @@ my $languages = [
     display => 'TCL',
     extension => 'tcl'
   },
+  {
+    language_name => 'typescript',
+    display => 'Typescript',
+    extension => 'ts'
+  },
 ];  
 
 my $problems = [];

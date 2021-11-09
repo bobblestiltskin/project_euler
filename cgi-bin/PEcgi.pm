@@ -34,6 +34,7 @@ our $extensions = {
   ruby          => 'rb',
   rust          => 'rs',
   tcl           => 'tcl',
+  typescript    => 'ts',
 };
 #  haskell       => 'hs',
 
