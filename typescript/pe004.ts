@@ -1,4 +1,4 @@
-function is_palindromic(digits:Array<string>): boolean {
+function is_palindromic(digits:string[]): boolean {
   let len:number = digits.length
 
   for (let i=0;i<len;i++) /* only really need to test half of the string - if even and int(half)+1 if odd  - but more complexity */
@@ -19,7 +19,7 @@ function pe004(imin:number, imax:number, maxdigits:number): number {
     for (let j = maxj; j >= minj; j--)
     {
       let product:number = i * j
-      let digits:Array<string> = product.toString().split("", maxdigits)
+      let digits:string[] = product.toString().split("", maxdigits)
       if (is_palindromic(digits))
         if (product > maxp)
         {
