@@ -4,7 +4,7 @@ function sum_factors(num:number): number {
   {
     if (!(num % i))
     {
-      let divisor = numr / i
+      let divisor = num / i
       sum += i
       if (i != divisor)
         sum += divisor
