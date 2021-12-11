@@ -22,6 +22,7 @@ our $extensions = {
   c             => 'c',
   'c++'         => 'cpp',
   erlang        => 'erl',
+  elixir        => 'exs',
   forth         => 'fs',
   go            => 'go',
   java          => 'java',

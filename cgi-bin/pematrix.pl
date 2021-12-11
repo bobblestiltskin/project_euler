@@ -24,6 +24,11 @@ my $languages = [
     extension => 'cpp'
   },
   {
+    language_name => 'elixir',
+    display => 'Elixir',
+    extension => 'exs'
+  },
+  {
     language_name => 'erlang',
     display => 'Erlang',
     extension => 'erl'
