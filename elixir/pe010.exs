@@ -1,6 +1,3 @@
-# <p>The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.</p>
-# <p>Find the sum of all the primes below two million.</p> 
-
 defmodule ProjectEuler do
   def pe010(n) do
     sum_primes(3, n, 2)
