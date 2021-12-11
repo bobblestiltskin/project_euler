@@ -24,7 +24,7 @@ def main():
 
 # we process the data from the bottom of the triangle and compute the maximum of adjacent 
 # values and add these maxima to the previous row and iterate
-  for i in range(len(data), 0, -1):
+  for i in range(len(data), 1, -1):
     for j in range(i-1):
       data[i-2][j] += max(data[i-1][j], data[i-1][j+1]);
 
