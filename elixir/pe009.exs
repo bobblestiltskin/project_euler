@@ -2,7 +2,7 @@ defmodule ProjectEuler do
   def pe009(n) do
     pythagorean_triplet?(n, 1, 2, 3)
   end
-   
+
   defp equal_sum?(a, b, c, n) do
     n == a + b + c
   end

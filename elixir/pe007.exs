@@ -2,7 +2,7 @@ defmodule ProjectEuler do
   def pe007(n) do
     count_primes(3, 1, n)
   end
-   
+
   defp is_prime?(_, try) when try == 1 do
     true
   end
@@ -16,12 +16,13 @@ defmodule ProjectEuler do
   end
 
   defp is_prime?(n) do
-    root = Kernel.round :math.sqrt(n)
+    root = Kernel.round(:math.sqrt(n))
     is_prime?(n, root)
   end
 
   defp count_primes(current, index, limit) when index < limit do
     next = current + 2
+
     if is_prime?(current) do
       count_primes(next, index + 1, limit)
     else

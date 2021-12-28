@@ -8,7 +8,7 @@ defmodule ProjectEuler do
   end
 
   defp sum_digits(list, sum) do
-    [ head | tail ] = list
+    [head | tail] = list
     sum_digits(tail, sum + String.to_integer(head))
   end
 

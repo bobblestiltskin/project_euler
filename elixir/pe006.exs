@@ -15,9 +15,9 @@ defmodule ProjectEuler do
   defp sum(_, total) do
     total
   end
-   
+
   defp sum_squares(n, sum) when n > 0 do
-    sum_squares(n - 1, sum + n *n )
+    sum_squares(n - 1, sum + n * n)
   end
 
   defp sum_squares(_, sum) do

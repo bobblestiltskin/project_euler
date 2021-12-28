@@ -14,13 +14,14 @@ defmodule ProjectEuler do
       [18, 35, 87, 10],
       [17, 47, 82],
       [95, 64],
-      [75],
+      [75]
     ]
+
     first_row = [04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23]
 
     sum_triangles(a, first_row)
   end
-   
+
   defp sum_triangles([], maxv) do
     [head | _] = maxv
     head
@@ -38,9 +39,9 @@ defmodule ProjectEuler do
   end
 
   defp add_rows(in_row1, in_row2, out) do
-     [head1 | tail1] = in_row1
-     [head2 | tail2] = in_row2
-     add_rows(tail1, tail2, [head1 + head2 | out]) 
+    [head1 | tail1] = in_row1
+    [head2 | tail2] = in_row2
+    add_rows(tail1, tail2, [head1 + head2 | out])
   end
 
   defp process_row([], list) do
@@ -49,6 +50,7 @@ defmodule ProjectEuler do
 
   defp process_row(input, out) do
     [head | tail] = input
+
     if length(tail) > 0 do
       new_out = [mymax(head, hd(tail)) | out]
       process_row(tail, new_out)

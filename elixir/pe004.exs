@@ -2,7 +2,7 @@ defmodule ProjectEuler do
   def pe004(n) do
     longest_palindrome(n, n, n, 0)
   end
-   
+
   defp is_palindromic?(product) do
     product_s = to_string(product)
     product_s == String.reverse(product_s)
@@ -10,6 +10,7 @@ defmodule ProjectEuler do
 
   defp longest_palindrome(i, j, jstart, maxv) when j > 99 and i > 99 do
     product = i * j
+
     if product > maxv and is_palindromic?(product) do
       longest_palindrome(i, j - 1, jstart, product)
     else
