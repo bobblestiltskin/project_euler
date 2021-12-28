@@ -2,7 +2,7 @@ defmodule ProjectEuler do
   def pe010(n) do
     sum_primes(3, n, 2)
   end
-   
+
   defp is_prime?(_, try) when try == 1 do
     true
   end
@@ -16,7 +16,7 @@ defmodule ProjectEuler do
   end
 
   defp is_prime?(n) do
-    root = Kernel.round :math.sqrt(n)
+    root = Kernel.round(:math.sqrt(n))
     is_prime?(n, root)
   end
 

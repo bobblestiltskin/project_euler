@@ -2,7 +2,7 @@ defmodule ProjectEuler do
   def pe005(n) do
     lowest_common_multiple(n, n, 1)
   end
-   
+
   defp is_prime?(_, try) when try == 1 do
     true
   end
@@ -16,19 +16,20 @@ defmodule ProjectEuler do
   end
 
   defp is_prime?(n) do
-    root = Kernel.round :math.sqrt(n)
+    root = Kernel.round(:math.sqrt(n))
     is_prime?(n, root)
   end
 
   defp power_less_than(n, p, max) do
     product = n * p
+
     if product > max do
       p
     else
       power_less_than(n, product, max)
     end
   end
- 
+
   defp lowest_common_multiple(n, max, product) when n > 1 do
     if is_prime?(n) do
       x = power_less_than(n, 1, max)

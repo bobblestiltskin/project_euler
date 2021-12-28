@@ -2,9 +2,10 @@ defmodule ProjectEuler do
   def pe014(n) do
     count_collatz(n, 0, 0)
   end
-   
+
   defp count_collatz(n, maxn, maxc) when n > 0 do
     this_collatz = collatz(n, 0)
+
     if this_collatz > maxc do
       count_collatz(n - 1, n, this_collatz)
     else

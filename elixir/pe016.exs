@@ -2,7 +2,7 @@ defmodule ProjectEuler do
   def pe016(n) do
     sum_digits(String.graphemes(to_string(power(2, n))), 0)
   end
-   
+
   def power(base, 1) do
     base
   end
@@ -16,7 +16,7 @@ defmodule ProjectEuler do
   end
 
   defp sum_digits(list, sum) do
-    [ head | tail ] = list
+    [head | tail] = list
     sum_digits(tail, sum + String.to_integer(head))
   end
 end
