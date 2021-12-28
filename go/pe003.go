@@ -5,9 +5,9 @@ import (
 )
 
 func main() {
-	number := 600851475143
-	var max_prime int
-	i := 3
+	var number uint64 = 600851475143
+	var i uint64 = 3
+	var max_prime uint64
 	for number != 1 {
 		if number%i == 0 {
 			max_prime = i

@@ -4,8 +4,8 @@ import (
 	"fmt"
 )
 
-func next_term(num int) int {
-	var retval int
+func next_term(num uint64) uint64 {
+	var retval uint64
 	if num%2 == 0 {
 		retval = num / 2
 	} else {
@@ -15,11 +15,12 @@ func next_term(num int) int {
 }
 
 func main() {
-	const LAST = 1000000
-	const HLAST = 500000
-	var maxi, max int
+	const LAST uint64 = 1000000
+	const HLAST uint64 = 500000
+	var maxi, max uint64
 	for i := HLAST; i < LAST; i++ {
-		var counter, j int
+		var counter uint64
+		var j uint64
 		j = i
 		for j != 1 {
 			j = next_term(j)

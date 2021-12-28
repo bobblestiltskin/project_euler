@@ -21,8 +21,8 @@ import (
 )
 
 func main() {
-	const START = 2780000000
-	const END = 9876543210
+	const START uint64 = 2780000000
+	const END uint64 = 9876543210
 	const MAXNUM = 1000000
 
 	count := 725760 + 241920 + 30240
