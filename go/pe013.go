@@ -110,23 +110,23 @@ func main() {
 		"53503534226472524250874054075591789781264330331690",
 	}
 
-	var j, result_num int
+	var result_num uint64
 	result_string := "0000000000"
 	tmp_string := "1111111111"
-	for {
-		var tmp_result int
+	for j := 0; j < len(nums[0]); j++ {
+		var tmp_result uint64
 		for i := 0; i < len(nums); i++ {
-			tmp_result += int(nums[i][j])
+			tmp_result += uint64(nums[i][j])
 		}
 		result_num *= 10
 		result_num += tmp_result - OFFSET
 		tmp_string = fmt.Sprintf("%10d", result_num)
+		
 		if tmp_string[:10] != result_string[:10] {
 			result_string = tmp_string
 		} else {
 			break
 		}
-		j++
 	}
 	fmt.Printf("%s\n", result_string[:10])
 }
