@@ -9,3 +9,4 @@ all: $(patsubst %.go,%,$(wildcard pe0*.go))
 
 clean:
 	$(GO) $(CLEAN)
+	-rm -f pe0??
