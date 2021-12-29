@@ -26,11 +26,12 @@ func main() {
 		}
 	}
 
-	num := 1
-	denom := 1
+	var num, denom uint64
+	num = 1
+	denom = 1
 	for i := 0; i < MAX; i++ {
-		num *= numerator[i]
-		denom *= denominator[i]
+		num *= uint64(numerator[i])
+		denom *= uint64(denominator[i])
 	}
 
 	fmt.Printf("%d\n", num/denom)

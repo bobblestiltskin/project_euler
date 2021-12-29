@@ -22,12 +22,12 @@ func main() {
 	const LAST = 2000000
 	primes := []int{2}
 
-	var sum int
+	var sum uint64
 	sum = 2
 	for i := 3; i < LAST; i = i + 2 {
 		if is_prime(i, primes) {
 			primes = append(primes, i)
-			sum += i
+			sum += uint64(i)
 		}
 	}
 	fmt.Printf("%d\n", sum)
