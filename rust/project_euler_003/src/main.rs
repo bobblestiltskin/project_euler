@@ -1,7 +1,7 @@
-fn pe003() -> usize {
-    let mut number:usize = 600851475143;
-    let mut max_prime:usize = 0;
-    let mut i:usize = 3;
+fn pe003() -> u64 {
+    let mut number:u64 = 600851475143;
+    let mut max_prime:u64 = 0;
+    let mut i:u64 = 3;
 
     while number != 1 {
         if number % i == 0 {

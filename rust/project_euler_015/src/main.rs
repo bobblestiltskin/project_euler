@@ -1,4 +1,4 @@
-fn pe015() -> usize {
+fn pe015() -> u64 {
     const LIMIT:usize = 20;
     let mut numerator = vec![];
     let mut denominator = vec![];
@@ -25,13 +25,16 @@ fn pe015() -> usize {
         }
     }
 
-    num = 1;
-    den = 1;
+    let mut den64:u64;
+    let mut num64:u64;
+
+    num64 = 1;
+    den64 = 1;
     for i in 0 .. LIMIT {
-        num = num * numerator[i];
-        den = den * denominator[i];
+        num64 = num64 * numerator[i] as u64;
+        den64 = den64 * denominator[i] as u64;
     }
-    num / den
+    num64 / den64
 }
 
 fn main() {

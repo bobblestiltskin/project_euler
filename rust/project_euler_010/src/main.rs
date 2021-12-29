@@ -13,16 +13,16 @@ fn is_prime(test: usize, primes: &Vec<usize>) -> bool {
     return true
 }
 
-fn pe010() -> usize {
+fn pe010() -> u64 {
     let last:usize = 2000000;
     let mut primes = vec![2];
 
-    let mut psum:usize = 2;
+    let mut psum:u64 = 2;
     let mut test:usize = 3;
     while test < last {
         if is_prime(test, &primes) {
             primes.push(test as usize);
-            psum += test;
+            psum += test as u64;
         }
         test += 2;
     }

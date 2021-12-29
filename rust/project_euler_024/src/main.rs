@@ -1,5 +1,5 @@
-const START:usize = 2780000000;
-const END:usize = 9876543210;
+const START:u64 = 2780000000;
+const END:u64 = 9876543210;
 const MAXNUM:usize = 1000000;
 
 /*
@@ -19,9 +19,9 @@ find.
 2700000000 (excluding 2 and 7) and get to 2780000000, leaving 2080 to find.
 */
 
-fn pe024() -> usize {
+fn pe024() -> u64 {
     let mut count:usize = 725760 + 241920 + 30240;
-    let mut num:usize = START - 1;
+    let mut num:u64 = START - 1;
 
     while num < END {
         num = num + 1;

@@ -1,4 +1,4 @@
-fn next_term(num:usize) -> usize {
+fn next_term(num:u64) -> u64 {
   if num % 2 == 1 {
     return num + num + num + 1;
   } else {
@@ -15,7 +15,7 @@ fn pe014() -> usize {
 
     for i in HALFLAST .. LAST {
         let mut counter:usize = 0;
-        let mut j:usize = i;
+        let mut j:u64 = i as u64;
         while j != 1 {
             j = next_term(j);
             counter = counter + 1;

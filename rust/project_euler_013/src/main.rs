@@ -104,7 +104,7 @@ fn pe013() -> String {
     [2, 0, 8, 4, 9, 6, 0, 3, 9, 8, 0, 1, 3, 4, 0, 0, 1, 7, 2, 3, 9, 3, 0, 6, 7, 1, 6, 6, 6, 8, 2, 3, 5, 5, 5, 2, 4, 5, 2, 5, 2, 8, 0, 4, 6, 0, 9, 7, 2, 2],
     [5, 3, 5, 0, 3, 5, 3, 4, 2, 2, 6, 4, 7, 2, 5, 2, 4, 2, 5, 0, 8, 7, 4, 0, 5, 4, 0, 7, 5, 5, 9, 1, 7, 8, 9, 7, 8, 1, 2, 6, 4, 3, 3, 0, 3, 3, 1, 6, 9, 0]];
 
-    let mut result_num:usize = 0;
+    let mut result_num:u64 = 0;
     let mut j:usize = 0;
 
     let mut nstring = "0000000000".to_string();
@@ -115,7 +115,7 @@ fn pe013() -> String {
         }
 
         result_num *= 10;
-        result_num += tmp_result;
+        result_num += tmp_result as u64;
         if result_num > 999999999 { // need at least 10 digits for substring
             let first10 = &result_num.to_string()[..10];
             if nstring != first10.to_string() {
