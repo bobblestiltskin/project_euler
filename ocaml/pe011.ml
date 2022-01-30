@@ -1,5 +1,3 @@
-open Core
-
 (* allocate our matrix with a border of 0 *)
 (* so that we null any products outside *)
 
@@ -57,10 +55,13 @@ let maxprod n x y =
 let rec getmax i j amax =
   if j = minij then
     if i = minij then
-      printf "%d\n" amax
+      Printf.printf "%d\n" amax
     else
       getmax (i - 1) maxij (max amax (maxprod vnum i j))
   else
     getmax i (j - 1) (max amax (maxprod vnum i j)) ;;
 
-getmax maxij maxij 0 ;;
+let main () =
+  getmax maxij maxij 0 ;;
+
+let () = main ()

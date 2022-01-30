@@ -1,5 +1,3 @@
-open Core
-
 let maxi = 10001 ;;
 
 let divisible x y  = 
@@ -23,11 +21,14 @@ let is_prime n =
 
 let rec pe007 i max count =
   if count = max then
-    printf "%d\n" (i - 1)
+    Printf.printf "%d\n" (i - 1)
   else
     if is_prime i then
       pe007 (i + 1) max (count + 1)
     else
       pe007 (i + 1) max count ;;
 
-pe007 1 maxi 0 ;;
+let main () =
+  pe007 1 maxi 0 ;;
+
+let () = main ()

@@ -1,5 +1,3 @@
-open Core
-
 let maxv = 100 ;;
 
 let ap_sum x y =
@@ -16,6 +14,9 @@ let rec sum_sq i max sum =
     sum_sq (i + 1) max (sum + (i * i)) ;;
    
 let pe006 i max =
-  printf "%d\n" (abs((sq_sum i max) - (sum_sq i max 0))) ;;
+  Printf.printf "%d\n" (abs((sq_sum i max) - (sum_sq i max 0))) ;;
 
-pe006 1 maxv ;;
+let main () =
+  pe006 1 maxv ;;
+
+let () = main ()

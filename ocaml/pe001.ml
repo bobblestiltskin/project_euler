@@ -1,5 +1,3 @@
-open Core
-
 let divisible_5 x = x mod 5 = 0 ;;
 let divisible_3 x = x mod 3 = 0 ;;
 
@@ -10,6 +8,9 @@ let rec pe001 count sum =
     else 
       pe001 (count - 1) sum
   else 
-    printf "%d\n" sum ;;
+    Printf.printf "%d\n" sum ;;
 
-pe001 999 0
+let main () =
+  pe001 999 0
+
+let () = main ()

@@ -1,5 +1,3 @@
-open Core
-
 let january       = 31 ;;
 let february      = 28 ;;
 let march         = 31 ;;
@@ -38,4 +36,7 @@ let rec pe019 count months daynum daycount =
     let (tn, tc) = (process_month months daynum daycount) in
       pe019 (count - 1) months tn tc ;;
 
-printf "%d\n" (pe019 num_cycles cycle 2 0) ;;
+let main () =
+  Printf.printf "%d\n" (pe019 num_cycles cycle 2 0) ;;
+
+let () = main ()

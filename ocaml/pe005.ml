@@ -1,5 +1,3 @@
-open Core
-
 let maxv = 20 ;;
 
 let divisible x y  = 
@@ -29,11 +27,14 @@ let is_prime n =
 
 let rec pe005 i max lcm =
   if i > max then
-    printf "%d\n" lcm
+    Printf.printf "%d\n" lcm
   else
     if is_prime i then
       pe005 (i + 1) max (lcm * (max_base_m_lt_n i 1 max))
     else
       pe005 (i + 1) max lcm ;;
 
-pe005 1 maxv 1 ;;
+let main () =
+  pe005 1 maxv 1 ;;
+
+let () = main ()

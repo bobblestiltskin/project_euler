@@ -1,5 +1,3 @@
-open Core
-
 let isum = 1000 ;;
 
 let high_eq_lowmid i j  = 
@@ -15,11 +13,14 @@ let rec pe009 i j =
   let lastj = isum - (i + 1) in
   if high_eq_lowmid i j then
     let k = isum - (i + j) in
-    printf "%d\n" (i * j * k)
+    Printf.printf "%d\n" (i * j * k)
   else
     if j = lastj then
       pe009 (i + 1) (i + 2)
     else
       pe009 i (j + 1) ;;
 
-pe009 1 2 ;;
+let main () =
+  pe009 1 2 ;;
+
+let () = main ()

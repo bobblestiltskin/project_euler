@@ -1,5 +1,3 @@
-open Core
-
 let data = [|[|75|];
              [|95; 64|];
              [|17; 47; 82|];
@@ -26,4 +24,7 @@ let pe018 =
     done;
     data.(0).(0) ;;
 
-printf "%d\n" pe018 ;;
+let main () =
+  Printf.printf "%d\n" pe018 ;;
+
+let () = main ()

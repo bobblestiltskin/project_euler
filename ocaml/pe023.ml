@@ -1,5 +1,3 @@
-open Core
-
 let maxv = 28123 ;;
 
 let rec sum_factors count num sum =
@@ -39,8 +37,8 @@ in go sl []
 
 let rec print_list list =
   match list with 
-  | [] -> printf "complete\n"
-  | h :: t -> printf "%d\n" h; print_list t ;;
+  | [] -> Printf.printf "complete\n"
+  | h :: t -> Printf.printf "%d\n" h; print_list t ;;
 
 (*    | []     -> List.sort_uniq ~cmp:compare s *)
 (*    | []     -> List.sort ~cmp:compare (List.dedup s) *)
@@ -71,4 +69,4 @@ let pe023 num =
   let s = nested_sum_3 l [] num in
   sum_lists_3 s 0 0 ;;
 
-printf "%d\n" (pe023 maxv) ;;
+Printf.printf "%d\n" (pe023 maxv) ;;
