@@ -1,4 +1,3 @@
-open Core
 open Int64
 
 (*
@@ -24,7 +23,7 @@ let startnum   = 2780000000L ;;
 
 let rec pe024 n result =
   if result = maxcount then
-    n - one
+    sub n one
   else
     let ns = to_string n in
       if String.contains ns '0' &&
@@ -37,8 +36,11 @@ let rec pe024 n result =
          String.contains ns '7' &&
          String.contains ns '8' &&
          String.contains ns '9' then
-           pe024 (n + one) (result + one)
+           pe024 (add n one) (add result one)
          else
-           pe024 (n + one) result ;;
+           pe024 (add n one) result ;;
 
-printf "%Ld\n" (pe024 startnum startcount) ;;
+let main () =
+  Printf.printf "%Ld\n" (pe024 startnum startcount) ;;
+
+let () = main ()

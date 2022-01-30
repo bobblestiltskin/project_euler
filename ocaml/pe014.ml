@@ -1,4 +1,3 @@
-open Core
 open Int64
 
 let million = 1000000L ;;
@@ -10,18 +9,21 @@ let rec collatz c n =
     c
   else 
     if even n then
-      collatz (c + one) (n / 2L)
+      collatz (add c one) (div n 2L)
     else
-      collatz (c + one) ((3L * n) + one) ;;
+      collatz (add c one) (add (mul 3L n) one) ;;
      
 let rec pe014 maxv maxi i m =
   if i < m then
     let next = (collatz zero i) in
       if next > maxv then
-        pe014 next i (i + one) m
+        pe014 next i (add i one) m
       else
-        pe014 maxv maxi (i + one) m
+        pe014 maxv maxi (add i one) m
   else
-    printf "%Ld\n" maxi ;;
+    Printf.printf "%Ld\n" maxi ;;
 
-pe014 zero zero one million ;;
+let main () =
+  pe014 zero zero one million ;;
+
+let () = main ()

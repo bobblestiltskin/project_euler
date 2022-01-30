@@ -1,5 +1,3 @@
-open Core
-
 let palindromic s = 
   let n = String.length s in 
     if (n < 3) then 
@@ -23,7 +21,7 @@ let rec jpe004 ival jval minj maxv =
   if (jval = minj) then
     maxv
   else
-    if ((palindromic (sprintf "%06d" prod)) && (prod > maxv)) then
+    if ((palindromic (Printf.sprintf "%06d" prod)) && (prod > maxv)) then
       jpe004 ival (jval -1) (prod/1000) prod
     else
       jpe004 ival (jval -1) minj maxv;;
@@ -38,4 +36,4 @@ let rec pe004 ival mini maxv =
     else
       pe004 (ival - 1) (maxv/1000) maxv;;
       
-printf "%d\n" (pe004 999 0 0);;
+Printf.printf "%d\n" (pe004 999 0 0);;

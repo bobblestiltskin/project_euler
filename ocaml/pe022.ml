@@ -1,6 +1,3 @@
-open Core
-open Str
-
 let ascii_offset = 64 ;;
 let maxv = 10000 ;;
 let names_f = "../names.txt" ;;
@@ -11,7 +8,7 @@ let read_line filename =
     input_line chan ;;
 
 let split_by_comma string =
-  split (regexp_string ",") string ;;
+  Str.split (Str.regexp_string ",") string ;;
 
 (*
 let top_and_tail string =
@@ -41,4 +38,4 @@ let rec sort = function
                 else x :: insert elem l;;
 (* let names_list = List.sort ~cmp:compare (split_by_comma all_names) ;; *)
 let names_list = sort (split_by_comma all_names) ;;
-printf "%d\n" (process_name names_list 0 0) ;;
+Printf.printf "%d\n" (process_name names_list 0 0) ;;
