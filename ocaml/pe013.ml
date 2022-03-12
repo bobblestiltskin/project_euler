@@ -1,4 +1,4 @@
-open Core
+open Int64
 
 let data = [|
   [|3;7;1;0;7;2;8;7;5;3;3;9;0;2;1;0;2;7;9;8;7;9;7;9;9;8;2;2;0;8;3;7;5;9;0;2;4;6;5;1;0;1;3;5;7;4;0;2;5;0|];
@@ -112,15 +112,19 @@ let rec colsum x i j csum =
 let null10 = "0000000000" ;;
 
 let rec get_sums x col sum str =
-  let sum_string = Int64.(to_string sum) in
-    let new_sum = Int64.((10L * sum) + of_int (colsum x 99 col 0)) in
+  let sum_string = to_string sum in
+    let prod = mul sum 10L in
+    let new_sum = add prod (of_int (colsum x 99 col 0)) in
       if String.length sum_string > 9 then
-        let tmp = String.sub sum_string ~pos:0 ~len:10 in
+        let tmp = String.sub sum_string 0 10 in
           if tmp = str then
-            printf "%s\n" str
+            Printf.printf "%s\n" str
           else
             get_sums x (col + 1) new_sum tmp 
       else
         get_sums x (col + 1) new_sum null10 ;;
 
-get_sums data 0 0L null10 ;;
+let main () =
+  get_sums data 0 0L null10 ;;
+
+let () = main ()

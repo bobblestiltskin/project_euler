@@ -1,4 +1,4 @@
-open Core
+open Int64
 
 let maxv = 10000 ;;
 
@@ -21,15 +21,16 @@ let rec pe021 list num sum maxv =
     sum
   else
     let x = (sum_factors 2 num 0) in
-    if x < num then
-      let y = match List.nth list (num - x - 1) with
-      | None -> 0
-      | Some x -> x in
-      if num = y then
-        pe021 (x :: list) (num + 1) (x + num + sum) maxv
-      else 
-        pe021 (x :: list) (num + 1) sum maxv
-    else
-      pe021 (x :: list) (num + 1) sum maxv ;;
+      if x < num then
+        let y = List.nth list (num - x - 1) in
+        if num = y then
+          pe021 (x :: list) (num + 1) (x + num + sum) maxv
+        else 
+          pe021 (x :: list) (num + 1) sum maxv
+      else
+        pe021 (x :: list) (num + 1) sum maxv ;;
 
-printf "%d\n" (pe021 [] 1 0 maxv) ;;
+let main () =
+  Printf.printf "%d\n" (pe021 [] 1 0 maxv) ;;
+
+let () = main ()

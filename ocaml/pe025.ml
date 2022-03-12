@@ -1,4 +1,4 @@
-open Core
+open Int64
 
 let maxnum = 1000 ;;
 
@@ -10,4 +10,4 @@ let rec pe025 i j n =
   else
     n ;;
 
-printf "%d\n" (pe025 Big_int.zero_big_int Big_int.unit_big_int 2) ;;
+Printf.printf "%d\n" (pe025 Big_int.zero_big_int Big_int.unit_big_int 2) ;;
