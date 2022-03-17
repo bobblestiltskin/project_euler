@@ -11,8 +11,9 @@ let rec prod_list arr index prod =
     prod
   else
     let nexti = index - 1 in
-      let next_prod = prod * arr.(nexti) in
-        prod_list arr nexti next_prod ;;
+      let big_elem = of_int arr.(nexti) in
+        let next_prod = mul prod big_elem in
+          prod_list arr nexti next_prod ;;
 
 let maxv = 40 ;;
 let half = maxv / 2 ;;
@@ -34,11 +35,8 @@ let main () =
     done;
   done;
 
-(*  let nprod = prod_list num half 1L in *)
-(*  let dprod = prod_list denom half 1L in *)
-(*  Printf.printf "%Ld\n" (div nprod dprod) ;; *)
-  let nprod = prod_list num half 1 in
-  let dprod = prod_list denom half 1 in
-  Printf.printf "%d\n" (nprod / dprod) ;;
+  let nprod = prod_list num half 1L in
+  let dprod = prod_list denom half 1L in
+  Printf.printf "%Ld\n" (div nprod dprod) ;;
 
 let () = main ()
