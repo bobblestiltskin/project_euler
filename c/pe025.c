@@ -48,7 +48,10 @@ void fib(int num, char ***vector)
   if (num < 2)
   {
     char *nextfib = (char *) calloc(2, sizeof(char));
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-truncation"
     snprintf(nextfib, 2, "%d", num);
+#pragma GCC diagnostic pop
     *(nextfib+1) = 0;
     *(*vector+num) = nextfib;
   }

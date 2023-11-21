@@ -23,7 +23,10 @@ int main()
     for (j = maxj; j >= minj; j--)
     {
       uint32_t product = i * j;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wformat-truncation"
       snprintf(digits,MAXDIGITS+1,"%d",product);
+#pragma GCC diagnostic pop
       if (is_palindromic(digits))
       {
         if (product > maxp)
