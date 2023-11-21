@@ -14,6 +14,7 @@ then mark a trailing footer to the data file
 
 each of these data files is stored in the output directory.
 
+# perl -MCPAN -e 'install Linux::Proc::Cpuinfo'
 cd scripts
 PERL5LIB=. perl html_table.pl generates a HTML table of the data files called ../output/project_euler_timings_${hostname}.html
 PERL5LIB=. perl plot_times.pl which uses gnuplot to create a file called ./project_euler.${hostname}.ps which shows the data files graphically
