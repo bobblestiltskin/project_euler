@@ -1,5 +1,38 @@
 This is a home for my implementations of the problems at http://projecteuler.net.
 
 I first coded the problems in Perl. I then wrote them in 
-C, C++, Java, Python, Forth, ARM assembly language, Racket, Erlang
+C, C++, Java, Python, Forth, ARM assembly language, Racket, Erlang, ...
 
+If you want to run and time all of the code, on debian you can do ..
+
+$ sudo apt install time cmake gcc flex bzip2 git erlang racket build-essential gcc g++ gforth python3 ocaml-core ocamlbuild opam liblist-moreutils-perl libchart-gnuplot-perl libcgi-pm-perl perl6 golang cargo rustc tcl ruby node-typescript elixir openjdk-11-jdk-headless
+
+$ wget http://download.savannah.gnu.org/releases/proccpuinfo/libproccpuinfo-0.0.8.tar.bz2
+
+$ tar jxvf libproccpuinfo-0.0.8.tar.bz2
+
+$ cd libproccpuinfo-0.0.8
+
+$ cmake -D CMAKE_INSTALL_PREFIX=/usr .
+
+$ make
+
+$ make test
+
+$ sudo make install
+
+$ sudo perl -MCPAN -e 'install Devel::CheckLib'
+
+$ sudo perl -MCPAN -e "CPAN::Shell->notest(qw/install Linux::Proc::Cpuinfo/)"
+
+$ opam init
+
+$ opam install core
+
+$ cd scripts
+
+$ ./timeall 
+This should run all of the code and put the results into ../data
+
+$ PERL5LIB=. perl html_table.pl 
+This should read the data files (checking that all computed values match) and then write ../output/project_euler_timings_$(hostname).html
