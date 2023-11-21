@@ -1,5 +1,5 @@
-function pe016(limit:number): number {
-  let num = BigInt(2 ** limit)
+function pe016(limit16:number): number {
+  let num = BigInt(2 ** limit16)
   let string = num.toString()
 
   let ssum = 0
@@ -8,5 +8,5 @@ function pe016(limit:number): number {
   return ssum
 }
 
-let limit = 1000
-console.log(pe016(limit))
+let limit16 = 1000
+console.log(pe016(limit16))

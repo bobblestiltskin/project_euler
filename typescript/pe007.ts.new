@@ -1,0 +1,18 @@
+function pe007(primenum:number): number {
+  let primes:Array<number> = [2, 3]
+  let numprimes:number = 2
+
+  let test:number = 5
+  while (numprimes < primenum)
+  {
+    if (is_prime(test, numprimes, primes))
+      primes[numprimes++] = test
+    test += 2
+  }
+
+  return primes[numprimes-1]
+}
+
+const primenum = 10001;
+
+console.log(pe007(primenum));    

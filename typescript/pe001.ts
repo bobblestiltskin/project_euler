@@ -1,11 +1,11 @@
-function pe001(imax:number): number {
+function pe001(imax01:number): number {
   let total:number = 0
 
-  for (var i=0; i < imax; i++)
+  for (var i=0; i < imax01; i++)
     if (!(i % 3) || !(i % 5))
       total += i  
   return total
 }
 
-const imax:number = 1000
-console.log(pe001(imax))
+const imax01:number = 1000
+console.log(pe001(imax01))

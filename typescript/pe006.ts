@@ -1,13 +1,13 @@
-function pe006(imax:number): number {
+function pe006(imax06:number): number {
   let sumsq:number = 0
-  for (let i=0;i<imax;++i)
+  for (let i=0;i<imax06;++i)
     sumsq += (i+1) * (i+1)
 
-  let sqsum:number = ((imax + 1) * (imax >> 1)) * ((imax + 1) * (imax >> 1))
+  let sqsum:number = ((imax06 + 1) * (imax06 >> 1)) * ((imax06 + 1) * (imax06 >> 1))
 
   return sqsum - sumsq
 }
 
-const imax:number = 100
+const imax06:number = 100
 
-console.log(pe006(imax));
+console.log(pe006(imax06));

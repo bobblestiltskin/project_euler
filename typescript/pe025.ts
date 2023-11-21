@@ -6,11 +6,11 @@ function fib(n:number, vector:Array<bigint>): void {
     vector[vector.length] = BigInt(vector[n - 2]) + BigInt(vector[n - 1])
 }
 
-function pe025(limit:number): number {
+function pe025(limit25:number): number {
   let i = 0
   let vector = []
   fib(i, vector)
-  while (String(vector[vector.length - 1]).length < limit)
+  while (String(vector[vector.length - 1]).length < limit25)
   {
     i += 1
     fib(i, vector)
@@ -18,6 +18,6 @@ function pe025(limit:number): number {
   return i
 }
 
-const limit = 1000
+const limit25 = 1000
 
-console.log(pe025(limit))
+console.log(pe025(limit25))

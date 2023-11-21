@@ -1,7 +1,7 @@
-function pe020(last:number): number {
+function pe020(last20:number): number {
   let factorial = 1n
 
-  for(let i=0; i < last; i++)
+  for(let i=0; i < last20; i++)
     factorial *= BigInt(i+1)
 
   let fstring = factorial.toString()
@@ -13,5 +13,5 @@ function pe020(last:number): number {
   return fsum
 }
 
-let last = 100
-console.log(pe020(last))
+let last20 = 100
+console.log(pe020(last20))

@@ -1,4 +1,4 @@
-function max(left:number, right:number): number {
+function max18(left:number, right:number): number {
   if (right > left)
     return right;
   else
@@ -30,7 +30,7 @@ function pe018(): number {
   // we process the data from the bottom of the triangle and compute the maximum of adjacent 
   // values and add these maxima to the previous row and iterate
     for (let j=0; j < (i - 1); ++j)
-      data[i-2][j] += max(data[i-1][j], data[i-1][j+1]);
+      data[i-2][j] += max18(data[i-1][j], data[i-1][j+1]);
   }
   return data[0][0]
 }

@@ -1,9 +1,9 @@
-function pe002(max:number): number {
+function pe002(max02:number): number {
   let total:number = 0
   let previous:number = 1
   let current:number = 1
 
-  while (current < max)
+  while (current < max02)
   {
     let next = current + previous
     if (!(current % 2))
@@ -15,5 +15,5 @@ function pe002(max:number): number {
   return total
 }
 
-const max:number = 4000000
-console.log(pe002(max))
+const max02:number = 4000000
+console.log(pe002(max02))

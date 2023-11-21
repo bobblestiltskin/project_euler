@@ -1,0 +1,20 @@
+var fs = require("fs")
+var vm = require('vm')
+vm.runInThisContext(fs.readFileSync(__dirname + "/sum_factors.ts"))
+
+function pe021(): number {
+  const SIZE = 10000
+  
+  let sumproperdivisors = new Array(SIZE)
+  for (let i=0; i<SIZE ; i++)
+    sumproperdivisors[i] = sum_factors(i)
+  
+  let total = 0
+  for (let i=0; i<SIZE ; i++)
+    if ((sumproperdivisors[i] < SIZE) && (i != sumproperdivisors[i]) && (sumproperdivisors[sumproperdivisors[i]] == i))
+      total += i
+  
+  return total
+}
+
+console.log(pe021())
