@@ -4,7 +4,7 @@ nativefiles := $(mlfiles:.ml=.native)
 all: $(nativefiles)
 
 %.native: %.ml
-	ocamlbuild -r -verbose 1 $@
+	ocamlopt -o $@ -I `ocamlfind query zarith` zarith.cmxa $^
 
 clean:
 	rm -rf *.native _build

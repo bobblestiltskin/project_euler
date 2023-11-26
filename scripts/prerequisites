@@ -13,4 +13,4 @@ $ sudo perl -MCPAN -e "CPAN::Shell->notest(qw/install Linux::Proc::Cpuinfo/)"
 
 $ opam init
 $ opam install core
-
+$ opam install bignum
