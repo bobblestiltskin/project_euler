@@ -1,5 +1,3 @@
-open Int64
-
 let maxv = 10000 ;;
 
 let rec sum_factors count num sum =

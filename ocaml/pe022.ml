@@ -1,6 +1,5 @@
 let ascii_offset = 64 ;;
-let maxv = 10000 ;;
-let names_f = "../names.txt" ;;
+let names_f = "../../names.txt" ;;
 
 (* read_line just reads the first line from the file *)
 let read_line filename =
@@ -8,12 +7,7 @@ let read_line filename =
     input_line chan ;;
 
 let split_by_comma string =
-  Str.split (Str.regexp_string ",") string ;;
-
-(*
-let top_and_tail string =
-  String.sub string ~pos:1 ~len:(String.length string - 2) ;;
-*)
+  String.split_on_char ',' string ;;
 
 let rec sum_chars index string sum =
 (* stop on index 0 because all out strings are surrounded by "" *)

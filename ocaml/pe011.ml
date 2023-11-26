@@ -5,7 +5,6 @@ let matbase = 20 ;;
 let vnum = 4 ;;
 let maxij = matbase + vnum - 2 ;;
 let minij = vnum - 1 ;;
-let matdim = maxij + minij + 1 ;;
 
 let m = [|
   [|0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;|];

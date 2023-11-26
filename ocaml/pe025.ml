@@ -1,4 +1,6 @@
+(*
 open Int64
+*)
 
 let maxnum = 1000 ;;
 

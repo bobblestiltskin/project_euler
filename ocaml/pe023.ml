@@ -35,13 +35,6 @@ let sort_and_remove_duplicates l =
       else go (x2::xs) (x1::acc)
 in go sl []
 
-let rec print_list list =
-  match list with 
-  | [] -> Printf.printf "complete\n"
-  | h :: t -> Printf.printf "%d\n" h; print_list t ;;
-
-(*    | []     -> List.sort_uniq ~cmp:compare s *)
-(*    | []     -> List.sort ~cmp:compare (List.dedup s) *)
 let rec nested_sum_3 l s n =
   match l with
   | []     -> sort_and_remove_duplicates s
