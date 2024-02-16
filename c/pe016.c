@@ -100,7 +100,7 @@ void double_string(char **in)
   }
   if (carry)
   {
-    **in = 0 + ASCII + carry;
+    **in = 1 + ASCII;
     carry = 0;
   }
 }
