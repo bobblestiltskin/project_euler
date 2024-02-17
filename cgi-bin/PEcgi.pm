@@ -27,6 +27,7 @@ our $extensions = {
   go            => 'go',
   java          => 'java',
   javascript    => 'js',
+  lua           => 'lua',
   ocaml         => 'ml',
   perl          => 'pl',
   perl6         => 'pl',

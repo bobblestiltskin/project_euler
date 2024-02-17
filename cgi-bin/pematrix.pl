@@ -54,6 +54,11 @@ my $languages = [
     extension => 'js'
   },
   {
+    language_name => 'lua',
+    display => 'Lua',
+    extension => lua'
+  },
+  {
     language_name => 'ocaml',
     display => 'Ocaml',
     extension => 'ml'

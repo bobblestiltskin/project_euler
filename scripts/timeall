@@ -17,7 +17,7 @@ do
 done
 #
 declare -a scripts
-scripts=(elixir forth javascript perl python racket ruby tcl typescript)
+scripts=(elixir forth javascript lua perl python racket ruby tcl typescript)
 for lang in ${scripts[@]}
 do
   echo lang is $lang
