@@ -56,7 +56,7 @@ my $languages = [
   {
     language_name => 'lua',
     display => 'Lua',
-    extension => lua'
+    extension => 'lua'
   },
   {
     language_name => 'ocaml',
