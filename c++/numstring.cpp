@@ -1,5 +1,3 @@
-// Copyright 2012 Bob Wilkinson <bob@fourtheye.org>
-
 #include "./numstring.h"
 
 numstring::numstring(const std::string instring) {

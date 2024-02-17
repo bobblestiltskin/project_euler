@@ -1,5 +1,3 @@
-// Copyright 2012 Bob Wilkinson <bob@fourtheye.org>
-
 #include <cstdio>
 #include <sstream>
 

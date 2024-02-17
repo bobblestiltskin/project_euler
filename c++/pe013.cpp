@@ -1,5 +1,3 @@
-// Copyright 2012 Bob Wilkinson <bob@fourtheye.org>
-
 // This is a solution for http://projecteuler.net/problem=13
 
 #include <inttypes.h>
