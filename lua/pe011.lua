@@ -2,63 +2,38 @@
 
 local function compute_point(a, i, j)
   local amax = 0
-  local direction = ""
 
 -- north 
-  n = a[i][j] * a[i - 1][j] * a[i - 2][j] * a[i - 3][j]
-  if n > amax then
-    amax = n;
-    direction = "north"
-  end
+  local n = a[i][j] * a[i - 1][j] * a[i - 2][j] * a[i - 3][j]
+  if n > amax then amax = n end
 
 -- northeast
   n = a[i][j] * a[i - 1][j + 1] * a[i - 2][j + 2] * a[i - 3][j + 3]
-  if n > amax then
-    amax = n;
-    direction = "northeast"
-  end
+  if n > amax then amax = n end
 
 -- east
   n = a[i][j] * a[i][j + 1] * a[i][j + 2] * a[i][j + 3]
-  if n > amax then
-    amax = n;
-    direction = "east"
-  end
+  if n > amax then amax = n end
 
 -- southeast
   n = a[i][j] * a[i + 1][j + 1] * a[i + 2][j + 2] * a[i + 3][j + 3]
-  if n > amax then
-    amax = n;
-    direction = "southeast"
-  end
+  if n > amax then amax = n end
 
 -- south
   n = a[i][j] * a[i + 1][j] * a[i + 2][j] * a[i + 3][j]
-  if n > amax then
-    amax = n;
-    direction = "south"
-  end
+  if n > amax then amax = n end
 
 -- southwest
   n = a[i][j] * a[i + 1][j - 1] * a[i + 2][j - 2] * a[i + 3][j - 3]
-  if n > amax then
-    amax = n;
-    direction = "southwest"
-  end
+  if n > amax then amax = n end
 
 -- west
   n = a[i][j] * a[i][j - 1] * a[i][j - 2] * a[i][j - 3]
-  if n > amax then
-    amax = n;
-    direction = "west"
-  end
+  if n > amax then amax = n end
 
 -- northwest
   n = a[i][j] * a[i - 1][j - 1] * a[i - 2][j - 2] * a[i - 3][j - 3]
-  if n > amax then
-    amax = n;
-    direction = "northwest"
-  end
+  if n > amax then amax = n end
 
   return amax
 end
@@ -99,7 +74,7 @@ local maxa = 0
 
 for i = 23, 4, -1 do
   for j = 4, 23 do
-    point = compute_point(a, i, j)
+    local point = compute_point(a, i, j)
     
     if point > maxa then
       maxa = point
