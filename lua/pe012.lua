@@ -1,6 +1,6 @@
 -- this computes projecteuler.net problem 12
 
-function get_num_divisors(num)
+local function get_num_divisors(num)
   counter = 0
   running = 1
   while running <= math.sqrt(num) do
@@ -12,10 +12,10 @@ function get_num_divisors(num)
   return counter
 end
 
-last = 250
-num = 0
-i = 0
-j = 1
+local last = 250
+local num = 0
+local i = 0
+local j = 1
 
 while num < last do
   i = i + j

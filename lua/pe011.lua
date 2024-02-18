@@ -1,13 +1,11 @@
 -- this computes projecteuler.net problem 011
 
-function compute_point(a, i, j)
---	print("I is ",i,", J is ",j)
-  amax = 0
-  direction = ""
+local function compute_point(a, i, j)
+  local amax = 0
+  local direction = ""
 
 -- north 
   n = a[i][j] * a[i - 1][j] * a[i - 2][j] * a[i - 3][j]
---  print("N N is ", n)
   if n > amax then
     amax = n;
     direction = "north"
@@ -15,7 +13,6 @@ function compute_point(a, i, j)
 
 -- northeast
   n = a[i][j] * a[i - 1][j + 1] * a[i - 2][j + 2] * a[i - 3][j + 3]
---  print("N NE is ", n)
   if n > amax then
     amax = n;
     direction = "northeast"
@@ -23,7 +20,6 @@ function compute_point(a, i, j)
 
 -- east
   n = a[i][j] * a[i][j + 1] * a[i][j + 2] * a[i][j + 3]
---  print("N E is ", n)
   if n > amax then
     amax = n;
     direction = "east"
@@ -31,7 +27,6 @@ function compute_point(a, i, j)
 
 -- southeast
   n = a[i][j] * a[i + 1][j + 1] * a[i + 2][j + 2] * a[i + 3][j + 3]
---  print("N SE is ", n)
   if n > amax then
     amax = n;
     direction = "southeast"
@@ -39,7 +34,6 @@ function compute_point(a, i, j)
 
 -- south
   n = a[i][j] * a[i + 1][j] * a[i + 2][j] * a[i + 3][j]
---  print("N S is ", n)
   if n > amax then
     amax = n;
     direction = "south"
@@ -47,7 +41,6 @@ function compute_point(a, i, j)
 
 -- southwest
   n = a[i][j] * a[i + 1][j - 1] * a[i + 2][j - 2] * a[i + 3][j - 3]
---  print("N SW is ", n)
   if n > amax then
     amax = n;
     direction = "southwest"
@@ -55,7 +48,6 @@ function compute_point(a, i, j)
 
 -- west
   n = a[i][j] * a[i][j - 1] * a[i][j - 2] * a[i][j - 3]
---  print("N N is ", n)
   if n > amax then
     amax = n;
     direction = "west"
@@ -63,17 +55,15 @@ function compute_point(a, i, j)
 
 -- northwest
   n = a[i][j] * a[i - 1][j - 1] * a[i - 2][j - 2] * a[i - 3][j - 3]
---  print("N NW is ", n)
   if n > amax then
     amax = n;
     direction = "northwest"
   end
 
---  return {amax, direction};
   return amax
 end
 
-a = {
+local a = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -102,7 +92,7 @@ a = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
   }
 
-maxa = 0
+local maxa = 0
 
 -- of course the matrix is stored upside down in memory cf with normal mathematical representation
 -- so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell

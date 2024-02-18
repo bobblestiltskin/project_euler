@@ -2,10 +2,10 @@
 
 function double_string(in_string)
 -- walk backwards through the string doubling as we go
-  carry = false
-  out_string = ""
+  local carry = false
+  local out_string = ""
   for j = string.len(in_string), 1, -1 do
-    jchar = string.char(string.byte(in_string, j))
+    local jchar = string.char(string.byte(in_string, j))
   
     if jchar == "0" then
       if carry then
@@ -94,12 +94,12 @@ function double_string(in_string)
  return out_string
 end
 
-my_string = "2"
-limit = 1000
+local my_string = "2"
+local limit = 1000
 
-ssum = 0
+local ssum = 0
 for i =1, limit - 1 do
-	my_string = double_string(my_string)
+  my_string = double_string(my_string)
 end
 
 ssum = 0

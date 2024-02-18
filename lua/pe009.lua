@@ -1,6 +1,6 @@
 -- this computes projecteuler.net problem 009
 
-stop = 1000
+local stop = 1000
 for a = 1,stop do
   for b = a+1,stop do
     for c = b+1,stop do

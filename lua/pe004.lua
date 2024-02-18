@@ -1,16 +1,16 @@
 -- this computes projecteuler.net problem 004
 
-MAX3 = 999
-MIN3 = 100
-maxp = 0
+local MAX3 = 999
+local MIN3 = 100
+local maxp = 0
 
-mini = MIN3
-minj = MIN3
-maxj = MAX3
+local mini = MIN3
+local minj = MIN3
+local maxj = MAX3
 
-product = 0
+local product = 0
 
-function is_palindromic(digits)
+local function is_palindromic(digits)
   slen = string.len(digits)
 
   for i = 1, slen - 1 do

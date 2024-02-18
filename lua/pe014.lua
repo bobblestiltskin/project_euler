@@ -1,11 +1,12 @@
 -- this computes projecteuler.net problem 014
 
-first = 500000
-last = 1000000
-maxv = 0
-maxi = 0
+local first = 500000
+local last = 1000000
+local maxv = 0
+local maxi = 0
 
 function next_term(num)
+  local retval = 0
   if num % 2  == 1 then
     retval = num + num + num + 1
   else
@@ -14,10 +15,9 @@ function next_term(num)
   return retval
 end
   
---  for i in range(last >> 1, last):
 for i = first, last do
-  counter = 0
-  j = i
+  local counter = 0
+  local j = i
   while j ~= 1 do
     j = next_term(j)
     counter = 1 + counter

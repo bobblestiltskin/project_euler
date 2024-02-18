@@ -2,9 +2,9 @@
 
 -- need to compute 2n!/((n!)*(n!))
 
-limit = 20
-numerator = {}
-denominator = {}
+local limit = 20
+local numerator = {}
+local denominator = {}
 
 for i = 1, limit do
   denominator[i] = i
@@ -17,8 +17,8 @@ end
 
 for i = 1, limit do
   for j = 1, limit do
-    d = denominator[i]
-    n = numerator[j]
+    local d = denominator[i]
+    local n = numerator[j]
     if d ~= 1 and (n % d) == 0 then
         numerator[j] = math.floor(n / d)
         denominator[i] = 1
@@ -26,8 +26,8 @@ for i = 1, limit do
   end
 end
 
-num = 1
-denom = 1
+local num = 1
+local denom = 1
 for i = 1, limit do
   num = numerator[i] * num
   denom = denominator[i] * denom

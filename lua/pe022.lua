@@ -25,9 +25,9 @@ table.sort(names)
 
 local total = 0
 for i =1, name_count do
-  letters = 0
+  local letters = 0
   for j = 1, string.len(names[i]) do
-    letter_code = string.byte(names[i], j, j) - OFFSET
+    local letter_code = string.byte(names[i], j, j) - OFFSET
     letters = letter_code + letters
   end
   total = letters * i + total

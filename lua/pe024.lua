@@ -15,14 +15,14 @@
 --  7! is 5040, so 6 sets are 30240. As before we count 6 sets from 
 --  2700000000 (excluding 2 and 7) and get to 2780000000, leaving 2080 to find.
 
-start = 2780000000
+local start = 2780000000
 nend   = 9876543210
 
-count = 725760 + 241920 + 30240
-i = start - 1
+local count = 725760 + 241920 + 30240
+local i = start - 1
 while i <= nend do
   i = 1 + i
-  digits = tostring(i)
+  local digits = tostring(i)
 
   if string.find(digits, "0") and
     string.find(digits, "1") and

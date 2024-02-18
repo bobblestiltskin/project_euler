@@ -1,5 +1,5 @@
 -- this computes projecteuler.net problem 005
-function isprime(num)
+local function isprime(num)
   if num % 2 == 1 then
     if num < 8 then
       if num == 1 then
@@ -22,10 +22,10 @@ function isprime(num)
   end
 end
 
-MAX=20
-i = 2
-try_product = true
-total = 1
+local MAX=20
+local i = 2
+local try_product = true
+local total = 1
 
 while i <= MAX do
   if isprime(i) then

@@ -1,10 +1,11 @@
 -- this computes projecteuler.net problem 017
 
-onek = "one thousand"
-hcount = 7 -- "hundred" 
-handcount = 10 -- "hundred and "
-units = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
-tens = {"ten", "eleven", "twelve", "thirteen",
+local onek = "one thousand"
+local hcount = 7 -- "hundred" 
+local handcount = 10 -- "hundred and "
+local units = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
+local len_units = 9
+local tens = {"ten", "eleven", "twelve", "thirteen",
 "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
 "twenty", "twentyone", "twentytwo", "twentythree", "twentyfour",
 "twentyfive", "twentysix", "twentyseven", "twentyeight", "twentynine",
@@ -22,11 +23,10 @@ tens = {"ten", "eleven", "twelve", "thirteen",
 "eightyfive", "eightysix", "eightyseven", "eightyeight", "eightynine",
 "ninety", "ninetyone", "ninetytwo", "ninetythree", "ninetyfour",
 "ninetyfive", "ninetysix", "ninetyseven", "ninetyeight", "ninetynine"}
+local len_tens = 90
 
-count = 0
+local count = 0
 
-len_units = 9
-len_tens = 90
 for i = 1, len_units do
   count = string.len(units[i]) + count
 end

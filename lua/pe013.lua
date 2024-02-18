@@ -1,6 +1,6 @@
 -- this computes projecteuler.net problem 013 
 
-nums = {
+local nums = {
     "37107287533902102798797998220837590246510135740250",
     "46376937677490009712648124896970078050417018260538",
     "74324986199524741059474233309513058123726617309629",
@@ -103,19 +103,16 @@ nums = {
     "53503534226472524250874054075591789781264330331690",
   }
 
-result_num = 0
-j = 1 -- start column
-last_string = ""
+local result_num = 0
+local j = 1 -- start column
+local last_string = ""
+local OFFSET = 48
+local out_string = ""
 while true do
 -- sum all columns 
-  tmp_result = 0
---    for i in range(len(nums)):
+  local tmp_result = 0
   for i = 1, 100 do
---    print(string.byte(nums[i], j))
-    x = -48
-    x = x + string.byte(nums[i], j)
---    print(x)
-    tmp_result = x + tmp_result
+    tmp_result = string.byte(nums[i], j) - OFFSET + tmp_result
   end
 -- update global count with the sum of this column
   result_num = 10 * result_num

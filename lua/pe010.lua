@@ -1,10 +1,10 @@
 -- this computes projecteuler.net problem 010
 
-last = 2000000;
-primes = {2}
-pcount = 1
+local last = 2000000;
+local primes = {2}
+local pcount = 1
 
-function is_prime(test, primes) 
+local function is_prime(test, primes) 
   root = math.sqrt(test)
 
   for i, prime in ipairs(primes) do
@@ -17,7 +17,7 @@ function is_prime(test, primes)
   end
 end
 
-psum = 2
+local psum = 2
 
 --for test in range(3, last, 2):
 for test = 3, last, 2 do
