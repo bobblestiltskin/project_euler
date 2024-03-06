@@ -1,4 +1,4 @@
-FILES:= pe001 pe002 pe003 pe004 pe005 pe006 pe007 prime
+FILES:=$(patsubst %.adb,%,$(wildcard pe0*.adb))
 
 %: %.adb
 	gnatmake $?
@@ -6,4 +6,4 @@ FILES:= pe001 pe002 pe003 pe004 pe005 pe006 pe007 prime
 all: $(FILES)
 
 clean:
-	rm pe0?? *.ali *.o
+	rm -f pe0?? *.ali *.o
