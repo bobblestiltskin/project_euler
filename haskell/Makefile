@@ -1,4 +1,4 @@
-FILES:=pe001 pe002
+FILES:=$(patsubst %.hs,%,$(wildcard pe0*.hs))
 GHC := /usr/bin/ghc
 #GHCOPTS := -v
 
