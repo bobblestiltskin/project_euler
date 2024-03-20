@@ -1,3 +1,4 @@
+-- this computes projecteuler.net problem 004
 is_palindromic :: Int -> Bool
 is_palindromic a =
   do

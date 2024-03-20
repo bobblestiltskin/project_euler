@@ -1,3 +1,4 @@
+-- this computes projecteuler.net problem 008
 num_items = 13
 data_list =
   [7, 3, 1, 6, 7, 1, 7, 6, 5, 3, 1, 3, 3, 0, 6, 2, 4, 9, 1, 9, 2, 2, 5, 1, 1, 9, 6, 7, 4, 4, 2, 6,
@@ -37,21 +38,19 @@ compute_product :: [Int] -> Int -> Int
 compute_product [] n = n
 compute_product (x:xs) n = compute_product xs (x * n)
 
-sum_multiples :: [Int] -> Int -> Int -> Int
--- presumably should iterate over the list and stop when there are not num_items in the list?
--- or something
-sum_multiples data_list index maxprod | index <= (1000 - num_items) = 
+sum_multiples :: [Int] -> Int -> Int
+sum_multiples data_list maxprod | length data_list >= num_items =
   do
     let product = compute_product (take num_items data_list) 1
 
     if product > maxprod then
-      sum_multiples (tail data_list) (index + 1) product
+      sum_multiples (tail data_list) product
     else
-      sum_multiples (tail data_list) (index + 1) maxprod
+      sum_multiples (tail data_list) maxprod
 
-sum_multiples _ _ maxprod = maxprod
+sum_multiples _ maxprod = maxprod
 
 pe008 :: [Int] -> Int
-pe008 data_list = sum_multiples data_list 0 0
+pe008 data_list = sum_multiples data_list 0
 
 main = print(pe008(data_list))

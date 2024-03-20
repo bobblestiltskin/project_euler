@@ -1,3 +1,4 @@
+-- this computes projecteuler.net problem 006
 isum :: Int -> Int -> Int
 isum n total | n > 0 = isum (n - 1) (total + n)
 isum _ total         = total

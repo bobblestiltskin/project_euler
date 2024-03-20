@@ -1,3 +1,4 @@
+-- this computes projecteuler.net problem 005
 is_prime_try :: Int -> Int -> Bool
 
 is_prime_try _ 1                      = True

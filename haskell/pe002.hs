@@ -1,3 +1,4 @@
+-- this computes projecteuler.net problem 002
 fibonacci :: ( Integral a ) => a -> a
 fibonacci 0 = 0
 fibonacci 1 = 1

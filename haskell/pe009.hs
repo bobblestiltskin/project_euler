@@ -1,3 +1,4 @@
+-- this computes projecteuler.net problem 009
 equal_sum :: Int -> Int -> Int -> Int -> Bool
 equal_sum n a b c = n == a + b + c
 
