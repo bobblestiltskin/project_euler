@@ -1,10 +1,5 @@
 -- this computes projecteuler.net problem 015
 
-factorial :: Int -> Int -> Int
-factorial n sum | n > 0 = factorial (n - 1) (sum * n)
-
-factorial _ sum = sum
-
 list_product :: [Int] -> Int -> Int
 list_product [] n = n
 list_product (x:xs) n = list_product xs (x * n)
