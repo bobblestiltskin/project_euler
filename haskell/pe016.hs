@@ -28,11 +28,11 @@ sum_digits :: [Char] -> Int -> Int
 sum_digits []     sum = sum
 sum_digits (x:xs) sum = sum_digits xs (sum + digitToInt x)
 
-power_string:: Int -> String -> String
-power_string 0 str = str
-power_string n str = power_string (n - 1) (mul_digit_string 2 str 0 "" )
+power_string:: Int -> Int -> String -> String
+power_string 0 i str = str
+power_string n i str = power_string (n - 1) i (mul_digit_string i str 0 "" )
 
 pe016 :: Int -> Int
-pe016 n = sum_digits (power_string n "1") 0
+pe016 n = sum_digits (power_string n 2 "1") 0
 
 main = print(pe016 1000)
