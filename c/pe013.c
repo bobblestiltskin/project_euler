@@ -112,8 +112,7 @@ int main()
   while (1)
   {
     int tmp_result = 0;
-    int i;
-    for (i=0; i<100; i++)
+    for (int i=0; i<100; i++)
       tmp_result += nums[i][j];
 
     result_num *= 10;

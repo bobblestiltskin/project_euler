@@ -4,9 +4,8 @@ import Data.Char
 base :: Int
 base = 10
 
-reverse_list :: [a] -> [a]
-reverse_list []     = []
-reverse_list (x:xs) =  reverse_list xs ++ [x]
+charoffset ::Int
+charoffset = 48
 
 multiply_with_carry :: Int -> Int -> Int -> Int
 multiply_with_carry x n carry = (x * n) + carry
@@ -15,14 +14,14 @@ mul_digit_string :: Int -> String -> Int -> String -> String
 mul_digit_string 0 ins _ outs = "0"
 mul_digit_string 1 ins _ outs = ins
 mul_digit_string _ [] 0 outs = outs
-mul_digit_string _ [] carry outs = (show carry) ++ outs
+mul_digit_string _ [] carry outs = (chr (carry + charoffset)) : outs
 mul_digit_string n ins carry outs =
   do
-    let rs = reverse_list ins
+    let rs = reverse ins
     let p = multiply_with_carry (digitToInt (head rs)) n carry
     let newcarry = quot p base
-    let newout = show(mod p base) ++ outs
-    mul_digit_string n (reverse_list(tail rs)) newcarry newout
+    let newout = chr((p `mod` base) + charoffset) : outs
+    mul_digit_string n (reverse(tail rs)) newcarry newout
 
 sum_digits :: [Char] -> Int -> Int
 sum_digits []     sum = sum
