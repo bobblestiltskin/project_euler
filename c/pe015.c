@@ -9,8 +9,7 @@ int main()
 
   int numerator[max];
   int denominator[max];
-  int i;
-  for (i = 0; i < max; i++)
+  for (int i = 0; i < max; i++)
   {
     denominator[i] = i+1;
     numerator[i] = i+max+1;
@@ -19,10 +18,9 @@ int main()
   walk through lists and cast away multiples to reduce size of numbers from
   factorials
 */
-  for (i=0; i < max; i++)
+  for (int i=0; i < max; i++)
   {
-    int j;
-    for (j=0; j < max; j++)
+    for (int j=0; j < max; j++)
     {
       if ((denominator[i] != 1) && (!(numerator[j] % denominator[i])))
       {
@@ -33,7 +31,7 @@ int main()
   }
   unsigned long long num = 1;
   unsigned long long denom = 1;
-  for (i=0; i < max; i++)
+  for (int i=0; i < max; i++)
   {
     num *= numerator[i];
     denom *= denominator[i];
