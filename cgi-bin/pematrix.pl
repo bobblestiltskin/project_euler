@@ -44,6 +44,11 @@ my $languages = [
     extension => 'go'
   },
   {
+    language_name => 'haskell',
+    display => 'Haskell',
+    extension => 'hs'
+  },
+  {
     language_name => 'java',
     display => 'Java',
     extension => 'java'

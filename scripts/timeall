@@ -1,7 +1,7 @@
 #!/bin/bash
 mkdir -p ../output
 declare -a compiled
-compiled=(c c++ erlang go java ocaml)
+compiled=(c c++ erlang go haskell java ocaml)
 if grep --quiet -E "ARMv[1-9]" /proc/cpuinfo
 then
   compiled=(asm ${compiled[@]})

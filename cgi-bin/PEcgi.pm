@@ -25,6 +25,7 @@ our $extensions = {
   elixir        => 'exs',
   forth         => 'fs',
   go            => 'go',
+  haskell       => 'hs',
   java          => 'java',
   javascript    => 'js',
   lua           => 'lua',
