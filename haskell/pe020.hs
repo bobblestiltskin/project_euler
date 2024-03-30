@@ -1,3 +1,4 @@
+-- this computes projecteuler.net problem 020
 import Data.Char
 
 mysum :: String -> Int -> Int

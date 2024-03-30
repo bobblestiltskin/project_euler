@@ -1,4 +1,4 @@
--- this computes projecteuler.net problem 002
+-- this computes projecteuler.net problem 012
 get_number_of_divisors :: Int -> Int -> Int -> Int -> Int
 get_number_of_divisors n root running num_divisors | running < root =
     if rem n running == 0 then
