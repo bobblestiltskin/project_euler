@@ -11,7 +11,7 @@ pe015 n =
 -- so we factorise by removing the upper half of the lower set and replacing the corresponding doubles by 2
     let a = [ 1 .. div n 2]
     let b = filter odd [ (n + 1) .. (n * 2)]
-    let twos = [2,2,2,2,2,2,2,2,2,2]
+    let twos = replicate 10 2
 
     let x = list_product a 1
     let y = list_product b 1
