@@ -8,4 +8,4 @@ all: $(nativefiles)
 	ocamlopt -o $@ -I /usr/lib/ocaml/zarith zarith.cmxa $^
 
 clean:
-	rm -rf *.native _build
+	rm -rf *.native _build *.o *.cmi *.cmx
