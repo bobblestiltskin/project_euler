@@ -1,6 +1,7 @@
 const IMAX:usize = 1000;
 
 extern crate num_bigint;
+//use num_bigint::BigUint;
 use num_bigint::{BigUint,ToBigUint};
 
 fn fib(num:usize, mut vector:Vec<BigUint>) -> Vec<BigUint> {
