@@ -1,4 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Strings; use Ada.Strings;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 with Prime; use Prime;
 
 procedure pe007 is
@@ -17,5 +19,5 @@ begin
     end if;
     test := test + 2;
   end loop;
-  Put_Line (Integer'Image(primes(vsize)));
+  Put (Ada.Strings.Fixed.Trim(Integer'Image(primes(vsize)), Side => Both));
 end pe007;

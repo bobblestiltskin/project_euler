@@ -1,5 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Strings.Fixed;
+with Ada.Strings; use Ada.Strings;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe004 is
 
@@ -54,5 +55,5 @@ begin
     end loop;
     maxj := i;
   end loop;
-  Put_Line (Integer'Image(maxp));
+  Put (Ada.Strings.Fixed.Trim(Integer'Image(maxp), Side => Both));
 end pe004;

@@ -1,4 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Strings; use Ada.Strings;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe003 is
 
@@ -15,5 +17,5 @@ begin
        i := i + 2;
     end if;
   end loop;
-  Put_Line (Integer'Image(max_prime));
+  Put (Ada.Strings.Fixed.Trim(Integer'Image(max_prime), Side => Both));
 end pe003;

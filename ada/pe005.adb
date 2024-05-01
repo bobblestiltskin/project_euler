@@ -1,4 +1,6 @@
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Strings; use Ada.Strings;
+with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 with Prime; use Prime;
 
 procedure pe005 is
@@ -32,5 +34,5 @@ begin
     end if;
     i := i + 1;
   end loop;
-  Put_Line (Integer'Image(total));
+  Put (Ada.Strings.Fixed.Trim(Integer'Image(total), Side => Both));
 end pe005;
