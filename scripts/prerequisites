@@ -1,4 +1,7 @@
-$ sudo apt install time java7-sdk make cmake gcc elixir flex bzip2 git erlang racket build-essential gcc g++ gforth python3 ocaml-core ocamlbuild opam liblist-moreutils-perl libchart-gnuplot-perl libcgi-pm-perl perl6 golang cargo rustc tcl ruby node-typescript lua libzarith-ocaml libzarith-ocaml-dev ghc
+$ sudo apt install time make cmake gcc elixir flex bzip2 git erlang racket build-essential gcc g++ gforth python3 ocaml-core ocamlbuild opam liblist-moreutils-perl libchart-gnuplot-perl libcgi-pm-perl golang cargo rustc tcl ruby node-typescript libzarith-ocaml libzarith-ocaml-dev ghc
+$ sudo apt install java7-sdk
+$ sudo apt install lua
+$ sudo apt install perl6
 
 $ wget http://download.savannah.gnu.org/releases/proccpuinfo/libproccpuinfo-0.0.8.tar.bz2
 $ tar jxvf libproccpuinfo-0.0.8.tar.bz2
