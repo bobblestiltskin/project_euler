@@ -1,9 +1,6 @@
-pragma Ada_2022;
-
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings; use Ada.Strings;
 with Ada.Strings.Fixed; use Ada.Strings.Fixed;
-with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Integers;
 
 procedure pe008 is
 
@@ -11,9 +8,9 @@ vsize : constant Integer := 1000;
 count: constant Integer := 13;
 imax: constant Integer := vsize - (count -1);
 
-smax : Big_Integer := 0;
-ssum : Big_Integer := 1;
-bvalue : Big_Integer;
+smax : Long_Integer := 0;
+ssum : Long_Integer := 1;
+bvalue : Long_Integer;
 
 type Digit is range 0 .. 9;
 type Index is range 1 .. vsize;
@@ -26,7 +23,7 @@ begin
   for i in 1 .. imax loop
     ssum := 1;
     for j in 0 .. (count - 1) loop
-      bvalue := To_Big_Integer(Integer(Arr(Index(i+j))));
+      bvalue := Long_Integer(Integer(Arr(Index(i+j))));
       ssum := ssum * bvalue;
     end loop;
 
@@ -34,5 +31,5 @@ begin
       smax := ssum;
     end if;
   end loop;
-  Put (Ada.Strings.Fixed.Trim(Big_Integer'Image(smax), Side => Both));
+  Put (Ada.Strings.Fixed.Trim(Long_Integer'Image(smax), Side => Both));
 end pe008;
