@@ -9,10 +9,9 @@ point: Integer;
 
 type Rows  is new Natural range 0 .. 25;
 type Cols  is new Natural range 0 .. 25;
---type TwoDigits  is new Natural range 0 .. 99;
+type TwoDigits  is new Natural range 0 .. 99;
 
-type Matrix is array (Rows, Cols) of Integer;
---type Matrix is array (Rows, Cols) of TwoDigits;
+type Matrix is array (Rows, Cols) of TwoDigits;
 --  A 2D matrix.
 
 a : Matrix := (
@@ -49,49 +48,49 @@ function compute_point(a: Matrix; i : Rows; j : Cols) return Integer is
   n : Integer := 0;
   begin
 -- north 
-    n := a(i, j) * a(i - 1, j) * a(i - 2, j) * a(i - 3, j);
+    n := Integer(a(i, j) * a(i - 1, j) * a(i - 2, j) * a(i - 3, j));
     if (n > amax) then
       amax := n;
     end if;
 
 -- northeast
-    n := a(i, j) * a(i - 1, j + 1) * a(i - 2, j + 2) * a(i - 3, j + 3);
+    n := Integer(a(i, j) * a(i - 1, j + 1) * a(i - 2, j + 2) * a(i - 3, j + 3));
     if (n > amax) then
       amax := n;
     end if;
 
 -- east
-    n := a(i, j) * a(i, j + 1) * a(i, j + 2) * a(i, j + 3);
+    n := Integer(a(i, j) * a(i, j + 1) * a(i, j + 2) * a(i, j + 3));
     if (n > amax) then
       amax := n;
     end if;
 
 --  southeast
-    n := a(i, j) * a(i + 1, j + 1) * a(i + 2, j + 2) * a(i + 3, j + 3);
+    n := Integer(a(i, j) * a(i + 1, j + 1) * a(i + 2, j + 2) * a(i + 3, j + 3));
     if (n > amax) then
       amax := n;
     end if;
   
 --  south
-    n := a(i, j) * a(i + 1, j) * a(i + 2, j) * a(i + 3, j);
+    n := Integer(a(i, j) * a(i + 1, j) * a(i + 2, j) * a(i + 3, j));
     if (n > amax) then
       amax := n;
     end if;
   
 --  southwest
-    n := a(i, j) * a(i + 1, j - 1) * a(i + 2, j - 2) * a(i + 3, j - 3);
+    n := Integer(a(i, j) * a(i + 1, j - 1) * a(i + 2, j - 2) * a(i + 3, j - 3));
     if (n > amax) then
       amax := n;
     end if;
   
 --  west
-    n := a(i, j) * a(i, j - 1) * a(i, j - 2) * a(i, j - 3);
+    n := Integer(a(i, j) * a(i, j - 1) * a(i, j - 2) * a(i, j - 3));
     if (n > amax) then
       amax := n;
     end if;
   
 --  northwest
-    n := a(i, j) * a(i - 1, j - 1) * a(i - 2, j - 2) * a(i - 3, j - 3);
+    n := Integer(a(i, j) * a(i - 1, j - 1) * a(i - 2, j - 2) * a(i - 3, j - 3));
     if (n > amax) then
       amax := n;
     end if;
