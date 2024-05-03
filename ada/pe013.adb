@@ -141,40 +141,24 @@ MAINLOOP:
       tmp_result := tmp_result + idigit;
     end loop;
 -- update global count with the sum of this column
---    Put_Line (Ada.Strings.Fixed.Trim(Integer'Image(tmp_result), Side => Both));
---    Put_Line (Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both));
     result_num := result_num * 10;
---    Put_Line (Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both));
     result_num := result_num + Long_Integer(tmp_result);
---    Put_Line (Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both));
     tmp_string_length := Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both)'Length;
---    rstring_length := Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both)'Length;
     xstring := (1 .. 50 - tmp_string_length => Character'Val (48)) & Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both);
---    xstring := (1 .. 50 - tmp_string_length => Character'Val (48)) & 
     tmp_string := NumberString(xstring);
---    Put_Line (String(tmp_string));
---    Put_Line (Ada.Strings.Fixed.Trim(String(tmp_string), Side => Both));
 -- compare first ten characters of this number to that last computed
---    if (tmp_string_length < 10) or (rstring(1 .. 10) /= tmp_string(1 .. 10))) then
     if (tmp_string_length < 10) then
       rstring := tmp_string;
     else
---      rstring_ten := Ada.Strings.Fixed.Trim(String(rstring), Side => Left, Pad => Character'Val (48));
---      Put_Line (Ada.Strings.Fixed.Trim(String(rstring), Left => To_Set("0"), Right => To_Set("")));
       rstring_len := Ada.Strings.Fixed.Trim(String(rstring), Left => To_Set("0"), Right => To_Set(""))'Length;
---     Put_Line (Ada.Strings.Fixed.Trim(Integer'Image(rstring_len), Side => Both));
       if (rstring_len = 9) then
         rstring_ten := "0" & Ada.Strings.Fixed.Trim(String(rstring), Left => To_Set("0"), Right => To_Set(""));
       else
         rstring_ten := Ada.Strings.Fixed.Trim(String(rstring), Left => To_Set("0"), Right => To_Set(""))(1 .. 10);
       end if;
  
---      Put_Line (String(rstring_ten));
---     Put_Line (Ada.Strings.Fixed.Trim(String(tmp_string), Left => To_Set("0"), Right => To_Set("")));
       tmp_string_length := Ada.Strings.Fixed.Trim(String(tmp_string), Left => To_Set("0"), Right => To_Set(""))'Length;
---      Put_Line (Ada.Strings.Fixed.Trim(Integer'Image(tmp_string_length), Side => Both));
       tmp_string_ten := Ada.Strings.Fixed.Trim(String(tmp_string), Left => To_Set("0"), Right => To_Set(""))(1 .. 10);
---      tmp_string_ten := Ada.Strings.Fixed.Trim(String(tmp_string), Side => Left, Pad => Character'Val (48));
       if (rstring_ten /= tmp_string_ten) then
         rstring := tmp_string;
       else
@@ -185,7 +169,5 @@ MAINLOOP:
 -- add another column
     j := j + 1;
   end loop MAINLOOP;
---  Put (Ada.Strings.Fixed.Trim(NumberString(rstring(41 .. 50)), Side => Both));
---  Put (rstring(1 .. 10));
   Put (String(rstring_ten));
 end pe013;
