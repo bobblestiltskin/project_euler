@@ -1,6 +1,9 @@
+:--  this computes projecteuler.net problem 005
+
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings; use Ada.Strings;
 with Ada.Strings.Fixed; use Ada.Strings.Fixed;
+
 with Prime; use Prime;
 
 procedure pe005 is
