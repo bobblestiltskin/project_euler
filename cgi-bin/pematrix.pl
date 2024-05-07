@@ -9,8 +9,8 @@ use CGI qw(:all);
 
 my $languages = [
   {
-    language_name => 'asm',
-    display => 'ARM asm',
+    language_name => 'asm32',
+    display => 'ARM 32-bit asm',
     extension => 's'
   },
   {

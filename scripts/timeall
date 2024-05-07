@@ -4,7 +4,7 @@ declare -a compiled
 compiled=(c c++ erlang go haskell java ocaml)
 if grep --quiet -E "ARMv[1-9]" /proc/cpuinfo
 then
-  compiled=(asm ${compiled[@]})
+  compiled=(asm32 ${compiled[@]})
 fi
 echo compiled is $compiled
 for lang in ${compiled[@]}
