@@ -1,4 +1,4 @@
-:--  this computes projecteuler.net problem 005
+--  this computes projecteuler.net problem 005
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings; use Ada.Strings;
