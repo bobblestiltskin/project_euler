@@ -8,16 +8,18 @@ with Prime; use Prime;
 
 procedure pe010 is
 
-last : constant Integer := 2000000;
-primes : prime_array(1 .. last) := (1 => 2, 2 => 3, others => 0);
+LAST : constant Integer := 2000000;
 
-test   : Integer;
+primes : prime_array(1 .. LAST) := (1 => 2, 2 => 3, others => 0);
+
 vsize  : Integer := 2;
 psum   : Long_Integer := 5;
 
+test   : Integer;
+
 begin
   test := primes(vsize) + 2;
-  while test < last loop
+  while test < LAST loop
     if isprime_array(test, primes) then
       vsize := vsize + 1;
       primes(vsize) := test;

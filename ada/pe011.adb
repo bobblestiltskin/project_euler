@@ -6,15 +6,11 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe011 is
 
-amax: Integer;
-point: Integer;
-
 type Rows  is new Natural range 0 .. 25;
 type Cols  is new Natural range 0 .. 25;
 type TwoDigits  is new Natural range 0 .. 99;
 
 type Matrix is array (Rows, Cols) of TwoDigits;
---  A 2D matrix.
 
 a : Matrix := (
         (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
@@ -99,6 +95,9 @@ function compute_point(a: Matrix; i : Rows; j : Cols) return Integer is
   
     return amax;
 end compute_point;
+
+amax: Integer;
+point: Integer;
 
 begin
   amax := 0;

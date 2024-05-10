@@ -7,12 +7,11 @@ with Ada.Containers.Vectors;
 
 procedure pe018 is
 
-total : Integer := 0;
-max   : constant Integer := 1000;
+MAX   : constant Integer := 1000;
 
-package One_D_Vec is new Ada.Containers.Vectors (Index_Type   => Positive, Element_Type => Integer);
+package One_D_Vec is new Ada.Containers.Vectors (Index_Type => Positive, Element_Type => Integer);
 
-package Vector_Vector is new Ada.Containers.Vectors (Index_Type   => Positive, Element_Type => One_D_Vec.Vector, "="          => One_D_Vec."=");
+package Vector_Vector is new Ada.Containers.Vectors (Index_Type => Positive, Element_Type => One_D_Vec.Vector, "=" => One_D_Vec."=");
 
 row1  : One_D_Vec.Vector := One_D_Vec.To_Vector(New_Item => 75, Length => 1);
 row2  : One_D_Vec.Vector := One_D_Vec.To_Vector(New_Item => 95, Length => 1);

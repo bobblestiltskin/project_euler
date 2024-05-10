@@ -12,7 +12,7 @@ number    : Long_Integer := 600851475143;
 
 begin
   while number /= 1 loop
-    if (number mod Long_Integer(i) = 0) then
+    if number mod Long_Integer(i) = 0 then
        max_prime := i;
        number := number / Long_Integer(i);
     else

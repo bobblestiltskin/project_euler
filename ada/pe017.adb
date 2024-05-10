@@ -8,10 +8,10 @@ with Ada.Text_IO.Unbounded_IO; use Ada.Text_IO.Unbounded_IO;
 
 procedure pe017 is
 
-onek : constant String := "one thousand";
-oneklen : constant Integer := 12;
-hcount : constant Integer := 7; -- "hundred" 
-handcount : constant Integer := 10; -- "hundred and "
+ONEK : constant String := "one thousand";
+ONEKLEN : constant Integer := 12;
+HCOUNT : constant Integer := 7; -- "hundred" 
+HANDCOUNT : constant Integer := 10; -- "hundred and "
 
 type String_Array is array (Positive range <>) of Unbounded_String;
 
@@ -35,16 +35,16 @@ begin
   end loop;
   for unit of units loop
     ilength := Ada.Strings.Unbounded.Length (Source => unit);
-    count := count + ilength + hcount;
+    count := count + ilength + HCOUNT;
     for unit of units loop
       jlength := Ada.Strings.Unbounded.Length (Source => unit);
-      count := count + ilength + handcount + jlength;
+      count := count + ilength + HANDCOUNT + jlength;
     end loop;
     for ten of tens loop
       ilength := Ada.Strings.Unbounded.Length (Source => ten);
-      count := count + ilength + handcount + jlength;
+      count := count + ilength + HANDCOUNT + jlength;
     end loop;
   end loop;
-  count := count + oneklen - 1; -- contains a space
+  count := count + ONEKLEN - 1; -- contains a space
   Put (Ada.Strings.Fixed.Trim(Integer'Image(count), Side => Both));
 end pe017;

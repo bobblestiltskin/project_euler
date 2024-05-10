@@ -6,14 +6,14 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe019 is
 
-count: Integer := 0;
-dow: Integer := 2; --  start on tuesday 1901.1.1
-                   --           2000 is a leap year too!
-
 cycle : array(1 .. 48) of Integer := (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
                                       31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
                                       31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
                                       31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
+count: Integer := 0;
+dow: Integer := 2; --  start on tuesday 1901.1.1
+                   --           2000 is a leap year too!
+
 begin
   for i in 1 .. 25 loop
     for j in 1 .. 48 loop

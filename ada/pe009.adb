@@ -7,14 +7,14 @@ with Ada.Command_Line;
 
 procedure pe009 is
 
-stop   : constant Integer := 1000;
+STOP   : constant Integer := 1000;
 
 begin
 Outer_Loop:
-  for a in 1 .. stop loop
-    for b in (a+1) .. stop loop
-      for c in (b+1) .. stop loop
-        if (a+b+c) = stop then
+  for a in 1 .. STOP loop
+    for b in (a+1) .. STOP loop
+      for c in (b+1) .. STOP loop
+        if (a+b+c) = STOP then
           if ((a*a)+(b*b)) = (c*c) then
             Put (Ada.Strings.Fixed.Trim(Integer'Image(a*b*c), Side => Both));
             Ada.Command_Line.Set_Exit_Status(0);

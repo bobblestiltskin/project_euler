@@ -7,8 +7,12 @@ with Ada.Strings.Maps; use Ada.Strings.Maps;
 
 procedure pe013 is
 
-type NumberString is new String(1 .. 50);
-type ResultString is new String(1 .. 10);
+TEN     : constant Integer := 10;
+FIFTY   : constant Integer := 50;
+HUNDRED : constant Integer := 100;
+
+type NumberString is new String(1 .. FIFTY);
+type ResultString is new String(1 .. TEN);
 
 numstring            : NumberString;
 
@@ -22,7 +26,7 @@ result_string        : NumberString;
 result_string_length : Integer;
 result_string_ten    : ResultString;
 
-type String_Array is array (1 .. 100) of NumberString;
+type String_Array is array (1 .. HUNDRED) of NumberString;
 
 nums : String_Array := (
     "37107287533902102798797998220837590246510135740250",
@@ -127,7 +131,7 @@ nums : String_Array := (
     "53503534226472524250874054075591789781264330331690"
   );
 
-last   : Integer := 100;
+last   : Integer := HUNDRED;
 i      : Integer := 0;
 j      : Integer := 1; --  start column
 digit  : Character;
@@ -144,27 +148,27 @@ MAINLOOP:
       tmp_result := tmp_result + idigit;
     end loop;
 -- update global count with the sum of this column
-    result_num := result_num * 10;
+    result_num := result_num * Long_Integer(TEN);
     result_num := result_num + Long_Integer(tmp_result);
     tmp_string_length := Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both)'Length;
-    tmp_string := NumberString((1 .. 50 - tmp_string_length => Character'Val (48)) & Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both));
+    tmp_string := NumberString((1 .. FIFTY - tmp_string_length => Character'Val (48)) & Ada.Strings.Fixed.Trim(Long_Integer'Image(result_num), Side => Both));
 -- compare first ten characters of this number to that last computed
-    if (tmp_string_length < 10) then
+    if (tmp_string_length < TEN) then
       result_string := tmp_string;
     else
       result_string_length := Ada.Strings.Fixed.Trim(String(result_string), Left => To_Set("0"), Right => To_Set(""))'Length;
       if (result_string_length = 9) then
         result_string_ten := ResultString("0" & Ada.Strings.Fixed.Trim(String(result_string), Left => To_Set("0"), Right => To_Set("")));
       else
-        result_string_ten := ResultString(Ada.Strings.Fixed.Trim(String(result_string), Left => To_Set("0"), Right => To_Set(""))(1 .. 10));
+        result_string_ten := ResultString(Ada.Strings.Fixed.Trim(String(result_string), Left => To_Set("0"), Right => To_Set(""))(1 .. TEN));
       end if;
  
       tmp_string_length := Ada.Strings.Fixed.Trim(String(tmp_string), Left => To_Set("0"), Right => To_Set(""))'Length;
-      tmp_string_ten := ResultString(Ada.Strings.Fixed.Trim(String(tmp_string), Left => To_Set("0"), Right => To_Set(""))(1 .. 10));
+      tmp_string_ten := ResultString(Ada.Strings.Fixed.Trim(String(tmp_string), Left => To_Set("0"), Right => To_Set(""))(1 .. TEN));
       if (result_string_ten /= tmp_string_ten) then
         result_string := tmp_string;
       else
--- fall out of loop when the first 10 characters are same
+-- fall out of loop when the first TEN characters are same
         exit MAINLOOP;
       end if;
     end if;

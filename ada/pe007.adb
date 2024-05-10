@@ -8,14 +8,15 @@ with Prime; use Prime;
 
 procedure pe007 is
 
-last   : Integer := 10001;
-primes : prime_array(1 .. last) := (1 => 2, 2 => 3, others => 0);
-test   : Integer;
+LAST   : constant Integer := 10001;
+
+primes : prime_array(1 .. LAST) := (1 => 2, 2 => 3, others => 0);
 vsize  : Integer := 2;
+test   : Integer;
 
 begin
   test := primes(vsize) + 2;
-  while vsize < last loop
+  while vsize < LAST loop
     if isprime_array(test, primes) then
       vsize := vsize + 1;
       primes(vsize) := test;

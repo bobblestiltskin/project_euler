@@ -8,12 +8,11 @@ with Ada.Containers.Vectors;
 
 procedure pe021 is
 
+SIZE: constant Integer := 10000;
+
 package One_D_Vec is new Ada.Containers.Vectors (Index_Type   => Positive, Element_Type => Integer);
 
 spd  : One_D_Vec.Vector;
-
-SIZE: constant Integer := 10000;
-result: Integer := 0;
 
 function sum_factors(num : Integer) return Integer is
   total : Integer := 1;
@@ -26,6 +25,8 @@ function sum_factors(num : Integer) return Integer is
     end loop;
     return total;
 end sum_factors;
+
+result: Integer := 0;
 
 begin
   for i in 1 .. SIZE loop

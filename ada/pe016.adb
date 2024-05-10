@@ -10,19 +10,19 @@ with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Int
 
 procedure pe016 is
 
-limit      : constant Integer := 1000;
-num        : Big_Integer := 2 ** limit;
-num_length : Integer := Ada.Strings.Fixed.Trim(Big_Integer'Image(num), Side => Both)'Length;
-numstring  : String (1 .. num_length);
+LIMIT      : constant Integer := 1000;
+NUM        : constant Big_Integer := 2 ** LIMIT;
+NUM_LENGTH : constant Integer := Ada.Strings.Fixed.Trim(Big_Integer'Image(NUM), Side => Both)'Length;
+NUMSTRING  : constant String (1 .. NUM_LENGTH) := Ada.Strings.Fixed.Trim(Big_Integer'Image(NUM), Side => Both);
+
+ssum   : Integer := 0;
 
 digit  : Character;
 idigit : Integer ;
-ssum   : Integer := 0;
 
 begin
-  numstring := Ada.Strings.Fixed.Trim(Big_Integer'Image(num), Side => Both);
-  for i in 1 .. num_length loop
-    digit := numstring(i);
+  for i in 1 .. NUM_LENGTH loop
+    digit := NUMSTRING(i);
     idigit := Integer'Value ((1 => digit));
     ssum := ssum + idigit;
   end loop;

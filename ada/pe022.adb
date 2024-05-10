@@ -9,30 +9,28 @@ with Ada.Containers.Generic_Sort;
 
 procedure pe022 is
 
+MAXNAMES: constant Integer := 50000;
+
 package String_Vec is new Ada.Containers.Vectors (Index_Type => Positive, Element_Type => Unbounded_String);
 names  : String_Vec.Vector := String_Vec.To_Vector(1);
 
-MAXNAMES: constant Integer := 50000;
-type Unbounded_String_Array is array (Positive range <>) of Unbounded_String;
-namesa:  Unbounded_String_Array(1 .. MAXNAMES) := (others => To_Unbounded_String(""));
-
--- using the namesa variable inside these function bodies looks ... different
+-- using the names variable inside these function bodies looks ... different
 -- but they work and http://www.ada-auth.org/standards/12rat/html/Rat12-8-7.html
 
-function US_Before(L, R: Natural) return Boolean is 
+function SV_Before(L, R: Natural) return Boolean is 
 begin
-  return namesa(L) < namesa(R);
-end US_Before;
+  return names(L) < names(R);
+end SV_Before;
 
-procedure US_Swap(L, R: in Natural) is
+procedure SV_Swap(L, R: in Natural) is
 tmp_string : Unbounded_String := To_Unbounded_String("");
 begin
-   tmp_string := namesa(L);
-   namesa(L) := namesa(R);
-   namesa(R) := tmp_string;
-end US_Swap;
+   tmp_string := names(L);
+   names(L) := names(R);
+   names(R) := tmp_string;
+end SV_Swap;
 
-procedure US_G_Sort is new Ada.Containers.Generic_Sort (Positive, Before => US_Before, Swap => US_Swap);
+procedure SV_G_Sort is new Ada.Containers.Generic_Sort (Positive, Before => SV_Before, Swap => SV_Swap);
 
 function letter_count(word: Unbounded_String) return Integer is
   count : Integer := 0;
@@ -48,15 +46,6 @@ begin
 
   return count;
 end letter_count;
-
-function To_Unbounded_String_Array(V: String_Vec.Vector; A: IN OUT Unbounded_String_Array) return Unbounded_String_Array is
-  vlen: Natural := Natural(V.Length);
-begin
-    for I in 1 .. vlen loop
-        A(I) := V.Element(I);
-    end loop;
-    return A;
-end To_Unbounded_String_Array;
 
 function text_file_to_string_vector(in_file : File_Type) return String_Vec.Vector is
   One_Char : CHARACTER;
@@ -94,15 +83,11 @@ begin
   names := text_file_to_string_vector(Input_File);
   Ada.Text_IO.Close (File => Input_File); 
 
-  namesa := To_Unbounded_String_Array(names, namesa);
   names_length := Integer(names.Length);
-  US_G_Sort(First => 1, Last => names_length);
---  for n of names loop
-  for n of namesa loop
+  SV_G_Sort(First => 1, Last => names_length);
+  for n of names loop
     if To_String(n)'Length /= 0 then
---    Put_Line (To_String(n));
       count := count + (letter_count(n) * index);
---    Put_Line (Integer'Image(count));
     end if;
     index := index + 1;
   end loop;
