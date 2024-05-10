@@ -6,12 +6,13 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe001 is
 
+MAX   : constant Integer := 1000;
+
 total : Integer := 0;
-max   : constant Integer := 1000;
 
 begin
-  for i in 1 .. (max - 1) loop
-    if ((i mod 3 = 0) or (i mod 5 = 0)) then
+  for i in 1 .. MAX - 1 loop
+    if (i mod 3 = 0) or (i mod 5 = 0) then
       total := total + i;
     end if;
   end loop;

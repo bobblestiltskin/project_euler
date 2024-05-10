@@ -6,14 +6,15 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe002 is
 
+MAX      : constant Integer := 4000000;
+
 total    : Integer := 0;
 previous : Integer := 1;
 current  : Integer := 1;
 next     : Integer;
-max      : constant Integer := 4000000;
 
 begin
-  while (current < max) loop
+  while current < MAX loop
     next := previous + current;
     if (current mod 2 = 0) then
       total := total + current;

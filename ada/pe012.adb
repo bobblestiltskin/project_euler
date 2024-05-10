@@ -7,10 +7,7 @@ with Ada.Numerics.Elementary_Functions;  use Ada.Numerics.Elementary_Functions;
 
 procedure pe012 is
 
-last   : Integer := 250; -- halve the space by counting up to the square root of num
-num    : Integer := 0;
-i      : Integer := 0;
-j      : Integer := 1;
+LAST   : constant Integer := 250; -- halve the space by counting up to the square root of num
 
 function get_num_divisors(num : Integer) return Integer is
   counter : Integer := 0;
@@ -26,8 +23,12 @@ function get_num_divisors(num : Integer) return Integer is
     return counter;
 end get_num_divisors;
 
+num    : Integer := 0;
+i      : Integer := 0;
+j      : Integer := 1;
+
 begin
-  while num < last loop
+  while num < LAST loop
     i := i + j;
     num := get_num_divisors(i);
     j := j + 1;

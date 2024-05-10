@@ -8,23 +8,24 @@ with Prime; use Prime;
 
 procedure pe005 is
 
+MAX         : constant Integer := 20;
+
 i           : Integer := 2;
-max         : constant Integer := 20;
 try_product : boolean := true;
 total       : Integer := 1;
 tmp         : Integer;
 last        : Integer;
 
 begin
-  while i <= max loop
+  while i <= MAX loop
     if isprime(i) then
       if try_product then
-        if (i * i) > max then
+        if (i * i) > MAX then
           try_product := false;
         else
           tmp := i;
           last := i;
-          while tmp <= max loop
+          while tmp <= MAX loop
             last := tmp;
             tmp := tmp * i;
           end loop;

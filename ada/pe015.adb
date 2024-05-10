@@ -6,13 +6,13 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe015 is
 
-asize: constant Integer := 20;
+ASIZE: constant Integer := 20;
+
+denominator: array(1 .. ASIZE) of Integer := (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
+numerator: array(1 .. ASIZE) of Integer := (21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40);
 
 num : Long_Integer;
 denom : Long_Integer;
-
-denominator: array(1 .. asize) of Integer := (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20);
-numerator: array(1 .. asize) of Integer := (21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40);
 
 begin
 --
@@ -23,8 +23,8 @@ begin
 --  we could factor both completely if we wanted
 --  or skip this initialisation phase and use Big_Integers for num and denom 
 
-  for i in 1 .. asize loop
-    for j in 1 .. asize loop
+  for i in 1 .. ASIZE loop
+    for j in 1 .. ASIZE loop
       if ((denominator(i) /= 1) and (numerator(j) mod denominator(i) = 0)) then
         numerator(j) := numerator(j) / denominator(i);
         denominator(i) := 1;
@@ -34,7 +34,7 @@ begin
 
   num := 1;
   denom := 1;
-  for i in 1 .. asize loop
+  for i in 1 .. ASIZE loop
     num := num * Long_Integer(numerator(i));
     denom := denom * Long_Integer(denominator(i));
   end loop;

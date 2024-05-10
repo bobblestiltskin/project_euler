@@ -1,13 +1,13 @@
 --  this computes projecteuler.net problem 024
 
 --  9! is 362880 so after all the 10 digit numbers which 
---  start with 0 or 1 we will have passed 725760 of the 
---  combinations. The millionth combination will start
+--  START with 0 or 1 we will have passed 725760 of the 
+--  combinations. The millionth combination will START
 --  with a 2, since we need to count 274240 more combinations
 --  after 2000000000.
 --
---  8! is 40320, so there are that many 10 digit combinations starting 20.
---  The combination starting 22 is invalid (since the numerals must be
+--  8! is 40320, so there are that many 10 digit combinations STARTing 20.
+--  The combination STARTing 22 is invalid (since the numerals must be
 --  distinct), so we could count 6 sets of combinations of 40320 up to
 --  2700000000 and then we would have seen 725760+241920 leaving 32320 to
 --  find.
@@ -21,15 +21,16 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe024 is
 
-start: Long_Integer := 2780000000;
-nend: Long_Integer := 9876543210;
-count: Integer := 725760 + 241920 + 30240;
-i: Long_Integer := start - 1;
+START: constant Long_Integer := 2780000000;
+NEND: constant Long_Integer := 9876543210;
 
 digit_string: String (1 .. 10);
 
+count: Integer := 725760 + 241920 + 30240;
+i: Long_Integer := START - 1;
+
 begin
-  while i <= nend loop
+  while i <= NEND loop
     i := i + 1;
     digit_string := Ada.Strings.Fixed.Trim(Long_Integer'Image(i), Side => Both);
     if (Ada.Strings.Fixed.Index (Source => digit_string, Pattern => "0") /= 0)

@@ -9,10 +9,11 @@ with Ada.Containers.Generic_Sort;
 
 procedure pe022 is
 
+MAXNAMES: constant Integer := 50000;
+
 package String_Vec is new Ada.Containers.Vectors (Index_Type => Positive, Element_Type => Unbounded_String);
 names  : String_Vec.Vector := String_Vec.To_Vector(1);
 
-MAXNAMES: constant Integer := 50000;
 type Unbounded_String_Array is array (Positive range <>) of Unbounded_String;
 namesa:  Unbounded_String_Array(1 .. MAXNAMES) := (others => To_Unbounded_String(""));
 

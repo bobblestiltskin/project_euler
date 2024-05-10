@@ -34,11 +34,11 @@ function sum_factors(num : Integer) return Integer is
     return asum;
 end sum_factors;
 
-fsum: Integer;
+addi: Boolean := false;
 gasum : Integer := 0;
 
 diff : Integer;
-addi: Boolean := false;
+fsum: Integer;
 
 begin
   for i in 1 .. MAX loop

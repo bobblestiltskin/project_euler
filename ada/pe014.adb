@@ -6,14 +6,8 @@ with Ada.Strings.Fixed; use Ada.Strings.Fixed;
 
 procedure pe014 is
 
-last        : Integer := 1000000;
-half_last   : Integer := 500000;
-
-collatz     : Long_Integer;
-counter     : Integer;
-
-maxv        : Integer := 0;
-maxi        : Integer := 0;
+LAST        : constant Integer := 1000000;
+HALF_LAST   : constant Integer := 500000;
 
 function next_term(num : Long_Integer) return Long_Integer is
 begin
@@ -24,8 +18,14 @@ begin
   end if;
 end next_term;
 
+maxv        : Integer := 0;
+maxi        : Integer := 0;
+
+collatz     : Long_Integer;
+counter     : Integer;
+
 begin
-  for i in half_last ..  last loop
+  for i in HALF_LAST ..  LAST loop
     counter := 1;
     collatz := Long_Integer(i);
     while collatz /= 1 loop

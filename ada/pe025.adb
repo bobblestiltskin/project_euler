@@ -27,6 +27,7 @@ end fib;
 
 i: Integer := 1;
 last_fib_len: Integer := 1;
+
 fibi: Big_Integer;
 
 begin

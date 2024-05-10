@@ -10,16 +10,17 @@ with Ada.Numerics.Big_Numbers.Big_Integers; use Ada.Numerics.Big_Numbers.Big_Int
 
 procedure pe020 is
 
-last: Integer := 100;
+LAST: constant Integer := 100;
+
 factorial: Big_Integer := 1;
 factorial_string: Unbounded_String;
-fsum: Integer := 0;
 
-digit  : Character;
+fsum: Integer := 0;
 idigit : Integer := 0;
+digit  : Character;
 
 begin
-  for i in 1 .. last loop
+  for i in 1 .. LAST loop
     factorial := factorial * To_Big_Integer(i);
   end loop;
   factorial_string := To_Unbounded_String(Ada.Strings.Fixed.Trim(Big_Integer'Image(factorial), Side => Both));
