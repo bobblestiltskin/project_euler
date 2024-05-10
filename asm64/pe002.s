@@ -1,13 +1,11 @@
-.syntax unified
-
 .equ maxfib,4000000
 
-previous	.req r4
-current		.req r5
-next		.req r6
-sum		.req r7
-max		.req r8
-tmp		.req r9
+previous	.req x4
+current		.req x5
+next		.req x6
+sum		.req x7
+max		.req x8
+tmp		.req x9
 
 .section .rodata
 	.align	2
@@ -19,7 +17,12 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
-	stmfd	sp!, {r4-r9, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	max,   =maxfib
 	mov	previous, 1 
 	mov	current, 1
@@ -27,23 +30,29 @@ main:
 
 loop:
 	cmp	current, max
-	bgt	last
+	b.gt	last
 
 	add	next, current, previous
 
-	movs	tmp, current, lsr 1 @ set carry flag from lsr - for the odd-valued terms
-	addcc	sum, sum, current   @ these are even-valued fibonacci (when cc is true)
+        tbnz    current, #0, odd /* check 0th bit of current - set to 1 for odd numbers - so we jump to odd */
 
+	add	sum, sum, current   /* these are even-valued fibonacci */
+
+odd:
 	mov	previous, current
 	mov	current, next
 	b	loop
 
 last:
-	mov	r1, sum		
-	ldr	r0, =sumstring	@ store address of start of string to r0
+	mov	x1, sum
+	ldr	x0, =sumstring	/* store address of start of string to x0 */
 	bl	printf
 
-	mov	r0, 0
-	ldmfd	sp!, {r4-r9, pc}
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
