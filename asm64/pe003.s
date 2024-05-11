@@ -1,59 +1,58 @@
-.syntax unified
+/* 600851475143 is 8BE589EAC7 in hex */
 
-@ 600851475143 is 8BE589EAC7 in hex
+.equ numhi,0x8b
+.equ nummid,0xe589
+.equ numlo,0xeac7
 
-.equ numhi,139        @ 0x8b
-.equ numlo,3851020999 @ 0xe589eac7
-
-num_hi  .req r4
-num_lo  .req r5
-maxdiv  .req r6
-n       .req r7
+running    .req x4
+remainder  .req x5
+maxprime   .req x6
+count      .req x7
 
 .section .rodata
- .align 2
+        .align 2
 resstring:
- .asciz "%d\n"
+        .asciz "%d\n"
 .text
- .align 2
- .global main
- .type main, %function
+        .align 2
+        .global main
+        .type main, %function
 main:
- stmfd sp!, {r4-r7, lr}
+# stmfd sp!, {r4-r7, lr}
+        stp fp, lr, [sp, #-0x30]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        mov fp, sp
 
- mov maxdiv, 0
- mov n, 1
- ldr num_lo, =numlo
- ldr num_hi, =numhi
+        mov maxprime, 0
+        mov count, 1
+        movz running, numlo
+        movk running, nummid, lsl #16
+        movk running, numhi, lsl #32
 loop:
- add n, n, 2           @ start at 3 and increment by 2
+        add count, count, 2           /* start at 3 and increment by 2 */
 loop1:
- mov r0, num_lo
- mov r1, num_hi
- mov r2, n
- mov r3, 0
- bl  long_divide
- teq r2, 0
- bne loop
- teq r3, 0
- bne loop
- mov num_lo, r0         @ only get here when we have no remainder
- mov num_hi, r1         @ save the divisor as the new number
- mov r0, n
- bl isprime
- teq r0, 1
- bne loop               @ increment n if n is non-prime
- cmp maxdiv, n
- movlt maxdiv, n        @ save n as the largest divisor if it is larger
- teq num_lo, 1          @ we know it has prime factors
- beq printme
- b loop1
+        udiv x0, running, count
+        mul  x1, x0, count
+        sub remainder, running, x1
+        cmp remainder, 0
+        b.ne loop
+/* save the divisor as the new number */
+        mov maxprime, count
+        udiv running, running, count
+        cmp running, 1
+        b.ne loop
 printme:
- mov r1, maxdiv
- ldr r0, =resstring     @ store address of start of string to r0
- bl printf
+        mov x1, maxprime
+        ldr x0, =resstring     /* store address of start of string to r0 */
+        bl printf
 
- mov r0, 0
- ldmfd sp!, {r4-r7, pc}
- mov r7, 1              @ set r7 to 1 - the syscall for exit
- swi 0                  @ then invoke the syscall from linux
+ mov x0, 0
+# ldmfd sp!, {r4-r7, pc}
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x30
+
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
