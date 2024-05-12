@@ -6,8 +6,6 @@
 #I is 104441 and DIVI is 5753023
 #I is 486847 and DIVI is 1234169
 
-.syntax unified
-
 .equ num0,6857
 .equ num1,59569
 .equ num2,104441
@@ -15,8 +13,8 @@
 .equ num4,4
 .equ num5,4500
 
-.equ numhi,139          @ 0x8b
-.equ numlo,3851020999   @ 0xe589eac7
+.equ numhi,139          /* 0x8b */
+.equ numlo,3851020999   /* 0xe589eac7 */
 
 tmp0	.req r4
 tmp1	.req r5
@@ -82,6 +80,7 @@ main:
 	long_divide_m  num4
 	long_divide_m  num5
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
+

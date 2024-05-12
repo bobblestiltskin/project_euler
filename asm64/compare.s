@@ -11,8 +11,6 @@
 # strings are equal. n is 1 if the string specified by c-addr1 and u1 is 
 # greater than the string specified by c-addr2 and u2.
 
-.syntax unified
-
 .text
 
 minlen	.req r4
@@ -23,7 +21,13 @@ count	.req r7
 	.global	compare
 	.type	compare, %function
 compare:
-        stmfd   sp!, {r4-r8, lr}
+#        stmfd   sp!, {r4-r8, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	minlen, r1
 	cmp	minlen, r3
 	movgt	minlen, r3
@@ -43,5 +47,11 @@ loopstart:
 	movlt	r0, -1
 	movgt	r0, 1
 loopend:
-        ldmfd   sp!, {r4-r8, pc}
+#        ldmfd   sp!, {r4-r8, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	ret
 

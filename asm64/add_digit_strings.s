@@ -1,5 +1,3 @@
-.syntax unified 
-
 # see usage in test_add_digit_strings.s - it requires
 # the fifth parameter to be passed on the stack
 
@@ -37,7 +35,13 @@ ptmp		.req r10
 .global add_digit_strings
 .type add_digit_strings, %function
 add_digit_strings:
-        stmfd   sp!, {r9-r10, lr}
+#        stmfd   sp!, {r9-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	cmp	r3, r1
 	movlt	ptmp, r0
 	movlt	r0, r2
@@ -46,7 +50,11 @@ add_digit_strings:
 	movlt	r1, r3
 	movlt	r3, ltmp
 	bl	add_strings_short_to_long
-        ldmfd   sp!, {r9-r10, pc}
+#        ldmfd   sp!, {r9-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
 
 # this subroutine adds the short byte array at r0, length r1
 # to the byte array at r2, length r3.
@@ -65,7 +73,13 @@ add_digit_strings:
 .global add_strings_short_to_long
 .type add_strings_short_to_long, %function
 add_strings_short_to_long:
-        stmfd   sp!, {r5-r10, lr} @ 7 longs
+#        stmfd   sp!, {r5-r10, lr} /* 7 longs */
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	optr, [sp, #40]
 	mov	sptr, r0
 	add	sptr, sptr, r1
@@ -112,4 +126,10 @@ asstl_last:
 
 	add	r0, optr, 1
 	add	r1, r3, carry
-        ldmfd   sp!, {r5-r10, pc}
+#        ldmfd   sp!, {r5-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	ret

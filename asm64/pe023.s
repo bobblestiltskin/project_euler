@@ -1,5 +1,3 @@
-.syntax unified
-
 .equ	datum_size, 2
 .equ	SIZE, 28123
 
@@ -17,7 +15,7 @@ icount		.req r9
 tmp		.req r10
 
 .section .bss
-.lcomm array,SIZE<<1	@ use 16-bit ints for the list
+.lcomm array,SIZE<<1	/* use 16-bit ints for the list */
 .lcomm bitarray,SIZE
 
 .section .rodata
@@ -29,7 +27,13 @@ resstring:
 .global main
 .type   main, %function
 main:
-        stmfd   sp!, {r4-r10, lr}
+#        stmfd   sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 # store the abundant numbers to the vector array and set the elements corresponding 
 # to the sum of the factors in the bit vector abundantbit
 	mov	icount, 1
@@ -63,12 +67,12 @@ sloop:
 	bne	sloop
 
 	ldr	aptr, =array
-	ldrh	r0, [aptr]	@ r0 is the index of the outer loop
+	ldrh	r0, [aptr]	/* r0 is the index of the outer loop */
 ploop:
 	ldr	aptr, =array
 	ldr	bptr, =bitarray
         mov	addi, 1
-	mov	r3, 0		@ r3 is the index of the inner loop
+	mov	r3, 0		/* r3 is the index of the inner loop */
 iloop:
 	ldrh	tmp, [aptr], #datum_size
 	cmp	r0, tmp
@@ -89,18 +93,30 @@ ilast:
 	bne	ploop
 printme:
         mov     r1, total
-        ldr     r0, =resstring  @ store address of start of string to r0
+        ldr     r0, =resstring  /* store address of start of string to r0 */
         bl      printf
 
 	mov	r0, 0
-        ldmfd   sp!, {r4-r10, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+#        ldmfd   sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
 
 .global sum_factors
 .type   sum_factors, %function
 sum_factors:
-        stmfd   sp!, {r4-r6, lr}
+#        stmfd   sp!, {r4-r6, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	number, r0
 	mov	sum, 1
 	mov	sfcount, 2
@@ -121,4 +137,8 @@ sf_next:
 	b	sf_loop
 sf_end:	
 	mov	r0, sum
-        ldmfd   sp!, {r4-r6, pc}
+#        ldmfd   sp!, {r4-r6, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40

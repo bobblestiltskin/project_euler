@@ -4,6 +4,9 @@
 .equ nummid,0xe589
 .equ numlo,0xeac7
 
+tmp_div    .req x0
+tmp_mul    .req x1
+
 running    .req x4
 remainder  .req x5
 maxprime   .req x6
@@ -32,9 +35,9 @@ main:
 loop:
         add count, count, 2           /* start at 3 and increment by 2 */
 loop1:
-        udiv x0, running, count
-        mul  x1, x0, count
-        sub remainder, running, x1
+        udiv tmp_div, running, count
+        mul  tmp_mul, tmp_div, count
+        sub remainder, running, tmp_mul
         cmp remainder, 0
         b.ne loop
 /* save the divisor as the new number */

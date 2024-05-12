@@ -1,5 +1,3 @@
-.syntax unified
-
 .equ	months,48
 .equ	cycles,25
 
@@ -22,7 +20,13 @@ resstring:
 	.global	main
 	.type	main, %function
 main:
-        stmfd   sp!, {r4-r8, lr}
+#        stmfd   sp!, {r4-r8, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	scount, 0
 	mov	dow, 2
 	ldr	ccount, =cycles
@@ -50,6 +54,12 @@ last:
 	bl	printf
 
         mov     r0, 0
-        ldmfd   sp!, {r4-r8, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+#        ldmfd   sp!, {r4-r8, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */

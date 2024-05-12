@@ -1,5 +1,3 @@
-.syntax unified
-
 .equ	comma, 44
 .equ	ASCII, 64
 
@@ -23,8 +21,8 @@ size_ptr	.req r9
 swapped		.req r10
 
 .section .bss
-.lcomm namestart,NAMES<<1	@ need 16 bit ints (half words) to handle 5163
-.lcomm namesize,NAMES		@ none of the names are > 255 characters so use bytes
+.lcomm namestart,NAMES<<1	/* need 16 bit ints (half words) to handle 5163 */
+.lcomm namesize,NAMES		/* none of the names are > 255 characters so use bytes */
 .lcomm sorted,NAMES<<1
 .lcomm printname,63
 # actually namesize is superfluous; we know the the size of i is from istart to (i+1)start-3? (3 from 2 " and 1 ,)
@@ -40,7 +38,13 @@ names:
 .global main
 .type   main, %function
 main:
-        stmfd   sp!, {r4-r10, lr}
+#        stmfd   sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 
 	bl	init_sorted
 	bl	parse_names
@@ -51,14 +55,26 @@ main:
 	bl	printf
 
 	mov	r0, 0
-        ldmfd   sp!, {r4-r10, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+#        ldmfd   sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
 
 # init_sorted initialises the sorted list to i
 .type   init_sorted, %function
 init_sorted:
-        stmfd   sp!, {r5, r7, lr}
+#        stmfd   sp!, {r5, r7, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	sorted_ptr, =sorted
 	mov	count, 0
 	ldr	r3, =NAMES
@@ -67,12 +83,26 @@ siloop:
 	add	count, count, 1
 	cmp	count, r3
 	bne	siloop
-        ldmfd   sp!, {r5, r7, pc}
+#        ldmfd   sp!, {r5, r7, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+#	mov	x0, #0		/* exit code to 0 */
+#	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+#        svc	#0		/* then invoke the syscall from linux */
 
 # parse_names parses the name string and populates namestart and namesize lists
 .type   parse_names, %function
 parse_names:
-        stmfd   sp!, {r4-r10, lr}
+#        stmfd   sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	names_ptr, =names
 	ldr	start_ptr, =namestart
 	ldr	size_ptr, =namesize
@@ -82,7 +112,7 @@ parse_names:
 iloop:
 	ldrb	r0, [names_ptr], 1
 	add	count, count, 1
-	teq	r0, 0			@ use .asciz for string so it is null-terminated
+	teq	r0, 0			/* use .asciz for string so it is null-terminated */
 	beq	iloopend
 	cmp	r0, #comma
 	bne	iloop
@@ -102,14 +132,23 @@ iloopend:
 	sub	nsize, count, nstart
 	strb	nsize, [size_ptr]
 ilast:
-        ldmfd   sp!, {r4-r10, pc}
-
+#        ldmfd   sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
 
 # vectored_bubblesort uses the indirection vector, sorted, and sorts the names by manipulating the contents of the vector
 # we could use a different sorting algortithm, this is the simplest to implement but it is inefficient
 .type   vectored_bubblesort, %function
 vectored_bubblesort:
-        stmfd   sp!, {r4-r10, lr}
+#        stmfd   sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	swapped, 0
 bubblestart:
 	ldr	names_ptr, =names
@@ -149,12 +188,22 @@ bubbleloop:
 	teq	swapped, 1
 	mov	swapped, 0
 	beq	bubblestart
-        ldmfd   sp!, {r4-r10, pc}
+#        ldmfd   sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
 
 # sumname takes start in r0, size in r1 and returns the sum of letters-ASCII in r0
 .type   sumname, %function
 sumname:
-        stmfd   sp!, {lr}
+#        stmfd   sp!, {lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	r2, =names
 	add	r2, r2, r0
 	mov	r0, 0
@@ -164,12 +213,22 @@ nextsumchar:
 	add	r0, r0, r3
 	subs	r1, r1, 1
 	bne	nextsumchar
-        ldmfd   sp!, {pc}
+#        ldmfd   sp!, {pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
 
 # compute_score computes the score from the sorted vector and returns it in r0
 .type   compute_score, %function
 compute_score:
-        stmfd   sp!, {r4-r10, lr}
+#        stmfd   sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov 	r4, 0
 	mov	count, 0
 	ldr	sorted_ptr, =sorted
@@ -191,4 +250,8 @@ cs_start:
 	blt	cs_start
 
 	mov	r0, r4
-        ldmfd   sp!, {r4-r10, pc}
+#        ldmfd   sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40

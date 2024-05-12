@@ -1,5 +1,3 @@
-.syntax unified
-
 .equ datum_size, 1
 .equ MAXLEN,192
 
@@ -33,7 +31,13 @@ multiplier	.req r10
 .align	2
 
 mul_int_string:
-	stmfd	sp!, {r4-r10, lr}
+#	stmfd	sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	iptr, r0
 	mov	ilength, r1
 	mov	tlength, r1
@@ -60,11 +64,23 @@ bm:
 am:
 	mov	tmp, r0
 	cmp     tlength, r1
-        movlt   tlength, r1    @ set tlength to max of tlength and r1
+        movlt   tlength, r1    /* set tlength to max of tlength and r1 */
 
-        stmfd   sp!, {r4}
+#        stmfd   sp!, {r4}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
         mov     r0, optr
-        stmfd   sp!, {r0}       @ this is the fifth parameter for the subroutine
+#        stmfd   sp!, {r0}       /* this is the fifth parameter for the subroutine */
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 
 	mov	r0, tmp
 	mov	r1, tlength
@@ -75,8 +91,13 @@ ba:
 	mov	optr, r0
 	cmp	olength, r1
 	movlt	olength, r1
-        add     sp, sp, 4       @ revert sp to before (1)
-	ldmfd	sp!, {r4}
+        add     sp, sp, 4       /* revert sp to before (1) */
+#	ldmfd	sp!, {r4}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
 aa:
 	ldr	r0, =tmp_vector
 	mov	r1, tlength
@@ -88,4 +109,10 @@ aa:
 	beq	mis_last
 	bne	mis_loopstart
 mis_last:
-	ldmfd	sp!, {r4-r10, pc}
+#	ldmfd	sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	ret

@@ -1,4 +1,3 @@
-.syntax unified
 .equ	word, 4
 
 # this subroutine returns 1 if the passed number is prime; 0 if not
@@ -23,7 +22,13 @@ vsize		.req r8
 .align	2
 
 prime_vector:
-	stmfd	sp!, {r4-r8, lr}
+#	stmfd	sp!, {r4-r8, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	number, r0
 	mov	vptr, r1
 	mov	vsize, r2
@@ -43,4 +48,8 @@ nexti:
 	bgt	nexti
 	mov	r0, 1
 last:
-	ldmfd	sp!, {r4-r8, pc}
+#	ldmfd	sp!, {r4-r8, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40

@@ -16,16 +16,10 @@ string:
 	.global	main
 	.type	main, %function
 main:
-#	stmfd	sp!, {x4-88, lr}
-        stp fp, lr, [sp, #-0x90]!
-        stp x19, x20, [sp, #0x10]
-        stp x21, x22, [sp, #0x20]
-        stp x23, x24, [sp, #0x30]
-        stp x25, x26, [sp, #0x40]
-        stp x27, x28, [sp, #0x50]
-        stp x4, x5, [sp, #0x60]
-        stp x6, x7, [sp, #0x70]
-        stp x8, x9, [sp, #0x80]
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
         mov fp, sp
 
 	ldr	max5,   =max5start
@@ -62,19 +56,11 @@ last:
 	ldr	x0, =string	/* store address of start of string to x0 */
 	bl	printf
 
-	mov	x0, 0
-#	ldmfd	sp!, {r4-r8, pc}
-        ldp x8, x9, [sp, #0x80]
-        ldp x6, x7, [sp, #0x70]
-        ldp x4, x5, [sp, #0x60]
-        ldp x27, x28, [sp, #0x50]
-        ldp x25, x26, [sp, #0x40]
-        ldp x23, x24, [sp, #0x30]
-        ldp x21, x22, [sp, #0x20]
-        ldp x19, x20, [sp, #0x10]
-        ldp fp, lr, [sp], #0x90
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
         svc	#0		/* then invoke the syscall from linux */
-

@@ -1,5 +1,3 @@
-.syntax unified
-
 # - see http://en.wikipedia.org/wiki/Factorial_number_system
 # - and http://en.wikipedia.org/wiki/Permutation
 
@@ -25,16 +23,32 @@
 # the fifth parameter must be passed on the stack
 
 .macro add_strings a al b bl c
-        stmfd   sp!, {r4}       @ stash r4 on the stack - we destroy it in add_digit_strings
+#        stmfd   sp!, {r4}       /* stash r4 on the stack - we destroy it in add_digit_strings */
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
         ldr     r0, =\c
-        stmfd   sp!, {r0}       @ this is the fifth parameter for the subroutine
+#        stmfd   sp!, {r0}       /* this is the fifth parameter for the subroutine */
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
         ldr     r0, =\a
         ldr     r1, =\al
         ldr     r2, =\b
         ldr     r3, =\bl
         bl      add_digit_strings
-        add     sp, sp, 4       @ revert sp to before (1)
-        ldmfd   sp!, {r4}       @ and get stashed r4
+        add     sp, sp, 4       /* revert sp to before (1) */
+#        ldmfd   sp!, {r4}      /* and get stashed r4 */
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
 .endm
 
 .equ	datum_size, 2
@@ -65,7 +79,13 @@ outstring:
 .global main
 .type   main, %function
 main:
-        stmfd   sp!, {r4, lr}
+        #stmfd   sp!, {r4, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	icount, =SIZE
 mloop:
 	add_strings vector 10 increment 10 output
@@ -93,16 +113,28 @@ printme:
         bl      printf
 
 	mov	r0, 0
-        ldmfd   sp!, {r4, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+#        ldmfd   sp!, {r4, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
 
 # contains takes a pointer to a byte vector in r0, and a size in r1 and a scalar in r2
 # it returns 1 in r0 if the vector contains the scalar and 0 otherwise
 .global contains
 .type   contains, %function
 contains:
-        stmfd   sp!, {r4, lr}
+#        stmfd   sp!, {r4, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	r4, r0
 	mov	r0, 0
 contains_start:
@@ -113,4 +145,8 @@ contains_start:
 	subs	r1, r1, 1
 	bne	contains_start
 contains_end:	
-        ldmfd   sp!, {r4, pc}
+#        ldmfd   sp!, {r4, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40

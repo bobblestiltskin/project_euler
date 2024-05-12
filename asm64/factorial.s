@@ -1,5 +1,3 @@
-.syntax unified
-
 # this computes the factorial of the number passed 
 #
 # inputs
@@ -23,7 +21,12 @@ optr	.req r9
 	.global	factorial
 	.type	factorial, %function
 factorial:
-	stmfd   sp!, {r4-r9, lr}
+#	stmfd   sp!, {r4-r9, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
 
 	cmp	r0, 2
 	bge	factorial_ok
@@ -70,4 +73,10 @@ factorial_last:
 	mov	r1, tmp
 	mov	r0, counter
 factorial_end:
-	ldmfd   sp!, {r4-r9, pc}
+#	ldmfd   sp!, {r4-r9, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	ret

@@ -1,5 +1,3 @@
-.syntax unified
-
 # this subroutine multiplies the byte array at r0, length r1 by the digit r2 
 # and stores to r0 with output length in r1
 #
@@ -27,7 +25,13 @@ cell		.req r10
 .align	2
 
 mul_digit_string:
-	stmfd	sp!, {r4-r10, lr}
+#	stmfd	sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	teq	r2, 0
 	bne	mds_one
 	moveq	r0, r3
@@ -84,4 +88,10 @@ mds_last:
 	movne	r0, optr
 	addne	r1, tmp, 1
 mds_end:
-	ldmfd	sp!, {r4-r10, pc}
+#	ldmfd	sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	ret

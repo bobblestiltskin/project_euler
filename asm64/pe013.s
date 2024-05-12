@@ -1,11 +1,9 @@
-.syntax unified
-
 .equ ten, 10
 .equ hundred, 100
 .equ col_nums,50
 .equ row_nums,100
 .equ col_offset,50
-@ maximum sum of any column is 900 - if all elements were 9
+/* maximum sum of any column is 900 - if all elements were 9 */
 
 .align 4
 
@@ -135,7 +133,12 @@ nlstring:
         .global main
         .type   main, %function
 main:
-        stmfd   sp!, {r4-r10, lr}
+        #stmfd   sp!, {r4-r10, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
 
 	ldr	col_num, =col_nums
 loopstart:
@@ -180,14 +183,26 @@ last:
         ldr     r0, =nlstring
         bl      printf
         mov     r0, 0
-        ldmfd   sp!, {r4-r10, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+#        ldmfd   sp!, {r4-r10, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
 
         .global get_3_result
         .type   get_3_result, %function
 get_3_result:
-        stmfd   sp!, {data_ptr, tmp, lr}
+#        stmfd   sp!, {data_ptr, tmp, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	data_ptr, =result
 	add	data_ptr, data_ptr, r0
 	ldrb	byte, [data_ptr], 1
@@ -201,12 +216,27 @@ get_3_result:
 	ldrb	byte, [data_ptr], 1
 	add	tmp, tmp, byte
 	mov	r0, tmp
-        ldmfd   sp!, {data_ptr, tmp, pc}
+#        ldmfd   sp!, {data_ptr, tmp, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+#	mov	x0, #0		/* exit code to 0 */
+#	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+#        svc	#0		/* then invoke the syscall from linux */
+
 
         .global put_3_result
         .type   put_3_result, %function
 put_3_result:
-        stmfd   sp!, {data_ptr, lr}
+#        stmfd   sp!, {data_ptr, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	ldr	data_ptr, =result
 	add	data_ptr, data_ptr, r1
 	add	data_ptr, data_ptr, 2
@@ -217,4 +247,13 @@ put_3_result:
 	bl	divide_by_10_remainder
 	strb	r1, [data_ptr], -1
 	strb	r0, [data_ptr]
-        ldmfd   sp!, {data_ptr, pc}
+#        ldmfd   sp!, {data_ptr, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
+
+#	mov	x0, #0		/* exit code to 0 */
+#	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+#        svc	#0		/* then invoke the syscall from linux */
+

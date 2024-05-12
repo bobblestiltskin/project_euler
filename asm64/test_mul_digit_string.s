@@ -1,5 +1,3 @@
-.syntax unified
-
 .macro multiplystring num
 	ldr	r0, =input
 	ldr	r1, =iLENGTH
@@ -62,6 +60,6 @@ main:
 	multiplystring scalar8
 	multiplystring scalar2
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */

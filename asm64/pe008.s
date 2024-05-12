@@ -1,9 +1,7 @@
-.syntax unified
-
 .equ    limit,10000
 .equ	outer, 988
 .equ	inner, 13 
-.equ	address_offset, 12 @inner - 1
+.equ	address_offset, 12 /*inner - 1
 
 .align 4
 
@@ -73,7 +71,13 @@ llustring:
         .global main
         .type   main, %function
 main:
-        stmfd   sp!, {r4-r12, lr}
+#        stmfd   sp!, {r4-r12, lr}
+        stp fp, lr, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+        mov fp, sp
+
 	mov	maxv_lo, #0
 	mov	maxv_hi, #0
 	ldr	address, =buffer
@@ -84,12 +88,12 @@ outer_start:
 	mov	tmp_hi, #0
 inner_start:
 	ldrb	thisbyte, [address], 1
-	umull	tmp_lo, carry, tmp_lo, thisbyte @ multiply 64 bit tmp 
-	mla	tmp_hi, tmp_hi, thisbyte, carry @ by thisbyte
+	umull	tmp_lo, carry, tmp_lo, thisbyte /* multiply 64 bit tmp */
+	mla	tmp_hi, tmp_hi, thisbyte, carry /* by thisbyte */
 	subs	icounter, icounter, 1
 	bne	inner_start
-	cmp	maxv_lo, tmp_lo			@ compare 2 64 bit numbers
-	sbcs	tmp, maxv_hi, tmp_hi		@ low then high halves
+	cmp	maxv_lo, tmp_lo			/* compare 2 64 bit numbers */
+	sbcs	tmp, maxv_hi, tmp_hi		/* low then high halves */
 	movlt	maxv_lo, tmp_lo
 	movlt	maxv_hi, tmp_hi
 	ldr	addoff, =address_offset
@@ -100,11 +104,16 @@ inner_start:
 printme:
 	mov     r2, maxv_lo
 	mov     r3, maxv_hi
-        ldr     r0, =llustring  @ store address of start of string to r0
+        ldr     r0, =llustring  /* store address of start of string to r0 */
         bl      printf
 
 	mov	r0, 0
-        ldmfd   sp!, {r4-r12, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+#        ldmfd   sp!, {r4-r12, pc}
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp fp, lr, [sp], #0x40
 
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */

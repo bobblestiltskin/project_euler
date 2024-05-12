@@ -1,5 +1,3 @@
-.syntax unified
-
 #.equ compare2,815518
 
 number		.req r4
@@ -56,6 +54,7 @@ main:
 	compare_strings lisa 4 linda 5
 	compare_strings linda 5 lisa 4 
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
+

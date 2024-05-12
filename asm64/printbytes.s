@@ -1,5 +1,3 @@
-/* .syntax unified */
-
 /* printbytes takes input pointer in r0, input length in r1 and writes printable vector to r2 (with trailing null) */
 
 .global printbytes
