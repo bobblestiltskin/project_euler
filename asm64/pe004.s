@@ -20,7 +20,6 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
-#	stmfd	sp!, {r4-r10, lr}
         stp fp, lr, [sp, #-0x50]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
@@ -32,6 +31,7 @@ main:
 	ldr	mini, =min3
 	ldr	maxj, =max3
 	ldr	minj, =min3
+        mov	maxp, xzr
 iloop:
 	mov	j, maxj
 jloop:
@@ -45,9 +45,9 @@ jloop:
 	ble	next
 	mov	maxp, product
 	mov	x0, product
-	bl	divide_by_10 /* divides r0 by 10 */
-	bl	divide_by_10 /* so 3 consecutive calls */
-	bl	divide_by_10 /* will divide by 1000 */
+	bl	divide_by_10_remainder /* divides r0 by 10 */
+	bl	divide_by_10_remainder /* so 3 consecutive calls */
+	bl	divide_by_10_remainder /* will divide by 1000 */
 	mov	minj, x0
 	mov	minj, x0
 
@@ -67,7 +67,6 @@ last:
 	bl	printf
 
 	mov	x0, 0
-#	ldmfd	sp!, {r4-r10, pc}
         ldp x10, x11, [sp, #0x40]
         ldp x8, x9, [sp, #0x30]
         ldp x6, x7, [sp, #0x20]

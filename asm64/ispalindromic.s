@@ -19,7 +19,6 @@
 .align	2
 #
 is_palindromic:
-#	stmfd	sp!, {r4-r9, lr}
         stp fp, lr, [sp, #-0x40]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
@@ -56,7 +55,6 @@ is_palindromic:
 no:
         mov 	x0, 0
 is_palindromic_end:
-#	ldmfd	sp!, {r4-r9, pc}
         ldp x8, x9, [sp, #0x30]
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]
