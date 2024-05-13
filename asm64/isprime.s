@@ -16,8 +16,7 @@ tmp		.req x6
 .align	2
 
 isprime:
-#	stmfd	sp!, {r4-r6, lr}
-        stp fp, lr, [sp, #-0x30]!
+	stp fp, lr, [sp, #-0x30]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
         mov fp, sp
@@ -54,7 +53,6 @@ big:
 factor:
 	mov	x0, 0
 last:
-#	ldmfd	sp!, {r4-r6, pc}
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]
         ldp fp, lr, [sp], #0x30

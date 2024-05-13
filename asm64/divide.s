@@ -1,16 +1,7 @@
 # divide takes value in r0, divisor in r1 and returns dividend in r0 and modulus in r1 
-	.global	divide
-	.type	divide, %function
-divide:
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+.global	divide
+.type	divide, %function
 
-# this subroutine divides x0 by x1 and
-# returns the dividend and remainder
-#
 # inputs
 #   x0 - integer to divide
 #   x1 - the divisor
@@ -28,9 +19,7 @@ tmp_div    .req x7
 
 .text
 .align	2
-.global	divide_with_remainder
-.type	divide_with_remainder, %function
-divide_with_remainder:
+divide:
         stp fp, lr, [sp, #-0x30]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
