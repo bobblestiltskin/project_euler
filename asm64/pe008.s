@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 008
+
 .equ    limit,10000
 .equ	outer, 988
 .equ	inner, 13 
@@ -67,13 +69,6 @@ llustring:
         .global main
         .type   main, %function
 main:
-        stp fp, lr, [sp, #-0x50]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        stp x10, x11, [sp, #0x40]
-        mov fp, sp
-
 	mov	maxv, #0
 	ldr	address, =buffer
 	ldr	ocounter, =outer
@@ -101,12 +96,6 @@ printme:
 	mov     x1, maxv
         ldr     x0, =llustring  /* store address of start of string to r0 */
         bl      printf
-
-        ldp x10, x11, [sp, #0x40]
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x50
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */

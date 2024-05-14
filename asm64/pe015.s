@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 015
+
 .align 4
 
 .macro factor2 d n

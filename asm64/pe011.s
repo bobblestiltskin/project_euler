@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 011
+
 .align 2
 
 .section .rodata
@@ -79,13 +81,6 @@ bigga\@:
         .global main
         .type   main, %function
 main:
-        stp fp, lr, [sp, #-0x50]!
-        stp x2, x3, [sp, #0x10]
-        stp x4, x5, [sp, #0x20]
-        stp x6, x7, [sp, #0x30]
-        stp x8, x9, [sp, #0x40]
-        mov fp, sp
-
 	mov	icount, icolumns
 iloop:
 	mov	jcount, icolumns
@@ -117,13 +112,6 @@ printme:
         mov     x1, maxv
         ldr     x0, =resstring  /* store address of start of string to r0 */
         bl      printf
-
-#        ldmfd   sp!, {r4-r9, pc}
-        ldp x8, x9, [sp, #0x40]
-        ldp x6, x7, [sp, #0x30]
-        ldp x4, x5, [sp, #0x20]
-        ldp x2, x3, [sp, #0x10]
-        ldp fp, lr, [sp], #0x50
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */

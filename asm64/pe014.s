@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 014
+
 .equ last, 1000000
 .equ first, 500000
 

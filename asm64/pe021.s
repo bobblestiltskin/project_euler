@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 021
+
 .equ	SIZE, 10000
 .equ	SIZEB, 40000
 

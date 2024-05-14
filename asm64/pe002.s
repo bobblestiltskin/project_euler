@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 002
+
 .equ maxfib,4000000
 
 previous	.req x4
@@ -17,12 +19,6 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
-
 	ldr	max,   =maxfib
 	mov	previous, 1 
 	mov	current, 1
@@ -33,11 +29,8 @@ loop:
 	b.gt	last
 
 	add	next, current, previous
-
         tbnz    current, #0, odd /* check 0th bit of current - set to 1 for odd numbers - so we jump to odd */
-
 	add	sum, sum, current   /* these are even-valued fibonacci */
-
 odd:
 	mov	previous, current
 	mov	current, next
@@ -47,11 +40,6 @@ last:
 	mov	x1, sum
 	ldr	x0, =sumstring	/* store address of start of string to x0 */
 	bl	printf
-
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */

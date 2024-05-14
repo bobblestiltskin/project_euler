@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 006
+
 .equ limit,100
 
 number	.req x4
@@ -14,11 +16,6 @@ string:
 	.global	main
 	.type	main, %function
 main:
-        stp fp, lr, [sp, #-0x30]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        mov fp, sp
-
 	mov	sqsum, 0
 	mov	sumsq, 0
 	ldr	number, =limit
@@ -41,10 +38,6 @@ last:
 	mov	x1, tmp
 	ldr	x0, =string	/* store address of start of string to r0 */
 	bl	printf
-
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x30
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */

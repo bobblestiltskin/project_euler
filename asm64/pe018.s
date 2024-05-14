@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 018
+
 .equ	maxij, 14
 .equ	width, 2
 .equ	logwidth, 1

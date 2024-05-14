@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 016
+
 .equ	power,1000
 .equ	iLENGTH,302
 .equ	scalar2,2

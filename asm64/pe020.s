@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 020
+
 .equ	LENGTH,200
 .equ	scalar100,100
 

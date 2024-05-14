@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 007
+
 .equ	limit,10000
 .equ	limit8,80000
 
@@ -22,12 +24,6 @@ resstring:
 	.global	main
 	.type	main, %function
 main:
-        stp fp, lr, [sp, #-0x40]!
-        stp x20, x21, [sp, #0x10]
-        stp x22, x23, [sp, #0x20]
-        stp x24, x25, [sp, #0x30]
-        mov fp, sp
-
         ldr     primes_ptr, =primes_vector
         mov     numprimes, 1
         mov     number, 2
@@ -56,11 +52,6 @@ printme:
 	mov	x1, number
 	ldr	x0, =resstring	/* store address of start of string to r0 */
 	bl	printf
-
-        ldp x24, x25, [sp, #0x30]
-        ldp x22, x23, [sp, #0x20]
-        ldp x20, x21, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */

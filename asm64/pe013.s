@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 013
+
 .equ ten, 10
 .equ hundred, 100
 .equ col_nums,50

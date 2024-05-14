@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 019
+
 .equ	months,48
 .equ	cycles,25
 

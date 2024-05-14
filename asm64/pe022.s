@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 022
+
 .equ	comma, 44
 .equ	ASCII, 64
 

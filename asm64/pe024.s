@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 024
+
 # - see http://en.wikipedia.org/wiki/Factorial_number_system
 # - and http://en.wikipedia.org/wiki/Permutation
 

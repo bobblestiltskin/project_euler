@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 023
+
 .equ	datum_size, 2
 .equ	SIZE, 28123
 

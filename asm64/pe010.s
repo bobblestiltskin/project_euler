@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 010
+
 .equ    word,4
 .equ    logword,2
 
@@ -25,13 +27,6 @@ llustring:
 	.global	main
 	.type	main, %function
 main:
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
-
-
         ldr     primes_ptr, =primes_vector
         mov     numprimes, 1
         mov     number, 2
@@ -59,11 +54,6 @@ printme:
 	mov	x1, sum
 	ldr	x0, =llustring	/* store address of start of string to r0 */
 	bl	printf
-
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */

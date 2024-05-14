@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 012
+
 .align 2
 
 .section .rodata

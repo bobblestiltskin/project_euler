@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 025
+
 .macro copy_vector a b
 	ldr	r0, =\a
 	add	r0, r0, 1

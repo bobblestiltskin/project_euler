@@ -1,3 +1,5 @@
+# this computes projecteuler.net problem 017
+
 .equ	one,3
 .equ	two,3
 .equ	three,5
