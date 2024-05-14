@@ -69,7 +69,7 @@ nexti:
 	
 printme:
 	mov	x1, total
-	ldr	x0, =resstring	/* store address of start of string to r0 */ 
+	ldr	x0, =resstring	/* store address of start of string to x0 */ 
 	bl	printf
 
 	mov	x0, #0		/* exit code to 0 */

@@ -36,7 +36,7 @@ end_loop:
 last:
 	sub	tmp, sumsq, sqsum 
 	mov	x1, tmp
-	ldr	x0, =string	/* store address of start of string to r0 */
+	ldr	x0, =string	/* store address of start of string to x0 */
 	bl	printf
 
 	mov	x0, #0		/* exit code to 0 */

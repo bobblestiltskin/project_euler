@@ -40,7 +40,7 @@ jloop:
 	ble	next
 	mov	maxp, product
 	mov	x0, product
-	bl	divide_by_10_remainder /* divides r0 by 10 */
+	bl	divide_by_10_remainder /* divides x0 by 10 */
 	bl	divide_by_10_remainder /* so 3 consecutive calls */
 	bl	divide_by_10_remainder /* will divide by 1000 */
 	mov	minj, x0
@@ -58,7 +58,7 @@ next:
 
 last:
 	mov	x1, maxp
-	ldr	x0, =sumstring	/* store address of start of string to r0 */
+	ldr	x0, =sumstring	/* store address of start of string to x0 */
 	bl	printf
 
 	mov	x0, #0		/* exit code to 0 */

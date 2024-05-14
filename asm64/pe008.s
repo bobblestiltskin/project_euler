@@ -94,7 +94,7 @@ maxv_bigger:
 
 printme:
 	mov     x1, maxv
-        ldr     x0, =llustring  /* store address of start of string to r0 */
+        ldr     x0, =llustring  /* store address of start of string to x0 */
         bl      printf
 
 	mov	x0, #0		/* exit code to 0 */
