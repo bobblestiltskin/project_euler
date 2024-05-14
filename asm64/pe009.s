@@ -2,11 +2,11 @@
 
 .align 4
 
-icount	.req r4
-jcount	.req r5
-kcount	.req r6
-tmp	.req r8
-jksum	.req r9
+icount	.req x4
+jcount	.req x5
+kcount	.req x6
+tmp	.req x8
+jksum	.req x9
 
 .section .rodata
         .align  2
@@ -17,7 +17,6 @@ resstring:
         .global main
         .type   main, %function
 main:
-#        stmfd   sp!, {r4-r9, lr}
         stp fp, lr, [sp, #-0x40]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
@@ -55,12 +54,10 @@ nexti:
 printme:
 	mul	tmp, icount, jcount
 	mul	tmp, tmp, kcount
-        mov     r1, tmp
-        ldr     r0, =resstring  /* store address of start of string to r0 */
+        mov     x1, tmp
+        ldr     x0, =resstring  /* store address of start of string to r0 */
         bl      printf
 
-	mov	r0, 0
-#        ldmfd   sp!, {r4-r9, pc}
         ldp x8, x9, [sp, #0x30]
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]
@@ -69,4 +66,3 @@ printme:
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
         svc	#0		/* then invoke the syscall from linux */
-
