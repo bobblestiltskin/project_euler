@@ -9,14 +9,15 @@
 
 .align 4
 
-const		.req r1
-byte		.req r2
-col_num		.req r4
-row_num		.req r5
-row1		.req r6
-data_ptr	.req r8
-col_sum		.req r9
-tmp		.req r10
+const		.req x1
+tbyte		.req w2
+col_num		.req x4
+row_num		.req x5
+row1		.req x6
+byte_tmp        .req x7
+data_ptr	.req x8
+col_sum		.req x9
+tmp		.req x10
 
 .section .bss
    .lcomm result, 52
@@ -156,18 +157,19 @@ col_loop:
 	blt	printme
 	
 row_loop:
-	ldrb	byte, [data_ptr], col_offset
-	add	col_sum, col_sum, byte
+	ldrb	tbyte, [data_ptr], col_offset
+	sxtw	byte_tmp, tbyte
+	add	col_sum, col_sum, byte_tmp
 	subs	row_num, row_num, 1
 	bne	row_loop
 
-	mov	r0, col_num
+	mov	x0, col_num
 	bl	get_3_result
 
-	mov	tmp, r0
+	mov	tmp, x0
 	add	col_sum, col_sum, tmp
-	mov	r0, col_sum
-	mov	r1, col_num
+	mov	x0, col_sum
+	mov	x1, col_num
 	bl	put_3_result
 
 	b	col_loop
@@ -176,15 +178,22 @@ printme:
 	ldr	data_ptr, =result
 
 next_digit:
-        ldrb	r1, [data_ptr], 1
-        ldr     r0, =numstring
+        ldrb	w1, [data_ptr], 1
+        ldr     x0, =numstring
+        stp fp, lr, [sp, #-0x30]!
+        stp x8, x9, [sp, #0x20] /* printf wipes out x8 */
+        stp x6, x7, [sp, #0x10] /* printf wipes out x6 */
+        mov fp, sp
         bl      printf
+        ldp x6, x7, [sp, #0x10]
+        ldp x8, x9, [sp, #0x20]
+        ldp fp, lr, [sp], #0x30
 	subs	row1, row1, 1
 	bne	next_digit
 last:
-        ldr     r0, =nlstring
+        ldr     x0, =nlstring
         bl      printf
-        mov     r0, 0
+        mov     x0, 0
 #        ldmfd   sp!, {r4-r10, pc}
         ldp x8, x9, [sp, #0x30]
         ldp x6, x7, [sp, #0x20]
@@ -206,28 +215,28 @@ get_3_result:
         mov fp, sp
 
 	ldr	data_ptr, =result
-	add	data_ptr, data_ptr, r0
-	ldrb	byte, [data_ptr], 1
+	add	data_ptr, data_ptr, x0
+	ldrb	tbyte, [data_ptr], 1
+	sxtw	byte_tmp, tbyte
 	mov	const, hundred
-	mul	byte, byte, const
-	mov	tmp, byte
-	ldrb	byte, [data_ptr], 1
+	mul	byte_tmp, byte_tmp, const
+	mov	tmp, byte_tmp
+	ldrb	tbyte, [data_ptr], 1
+	sxtw	byte_tmp, tbyte
 	mov	const, ten
-	mul	byte, byte, const
-	add	tmp, tmp, byte
-	ldrb	byte, [data_ptr], 1
-	add	tmp, tmp, byte
-	mov	r0, tmp
+	mul	byte_tmp, byte_tmp, const
+	add	tmp, tmp, byte_tmp
+	ldrb	tbyte, [data_ptr], 1
+	sxtw	byte_tmp, tbyte
+	add	tmp, tmp, byte_tmp
+	mov	x0, tmp
 #        ldmfd   sp!, {data_ptr, tmp, pc}
         ldp x8, x9, [sp, #0x30]
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]
         ldp fp, lr, [sp], #0x40
 
-#	mov	x0, #0		/* exit code to 0 */
-#	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-#        svc	#0		/* then invoke the syscall from linux */
-
+	ret
 
         .global put_3_result
         .type   put_3_result, %function
@@ -240,22 +249,19 @@ put_3_result:
         mov fp, sp
 
 	ldr	data_ptr, =result
-	add	data_ptr, data_ptr, r1
+	add	data_ptr, data_ptr, x1
 	add	data_ptr, data_ptr, 2
 
 	bl	divide_by_10_remainder
 
-	strb	r1, [data_ptr], -1
+	strb	w1, [data_ptr], #-1
 	bl	divide_by_10_remainder
-	strb	r1, [data_ptr], -1
-	strb	r0, [data_ptr]
+	strb	w1, [data_ptr], #-1
+	strb	w0, [data_ptr]
 #        ldmfd   sp!, {data_ptr, pc}
         ldp x8, x9, [sp, #0x30]
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]
         ldp fp, lr, [sp], #0x40
 
-#	mov	x0, #0		/* exit code to 0 */
-#	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-#        svc	#0		/* then invoke the syscall from linux */
-
+	ret
