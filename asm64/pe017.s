@@ -32,35 +32,35 @@
 .equ	and,3
 
 .macro units
-	add	r0, r0, one
-	add	r0, r0, two
-	add	r0, r0, three
-	add	r0, r0, four
-	add	r0, r0, five
-	add	r0, r0, six
-	add	r0, r0, seven
-	add	r0, r0, eight
-	add	r0, r0, nine
+	add	x0, x0, one
+	add	x0, x0, two
+	add	x0, x0, three
+	add	x0, x0, four
+	add	x0, x0, five
+	add	x0, x0, six
+	add	x0, x0, seven
+	add	x0, x0, eight
+	add	x0, x0, nine
 .endm
 
 .macro teens
-	add	r0, r0, ten
-	add	r0, r0, eleven
-	add	r0, r0, twelve
-	add	r0, r0, thirteen
-	add	r0, r0, fourteen
-	add	r0, r0, fifteen
-	add	r0, r0, sixteen
-	add	r0, r0, seventeen
-	add	r0, r0, eighteen
-	add	r0, r0, nineteen
+	add	x0, x0, ten
+	add	x0, x0, eleven
+	add	x0, x0, twelve
+	add	x0, x0, thirteen
+	add	x0, x0, fourteen
+	add	x0, x0, fifteen
+	add	x0, x0, sixteen
+	add	x0, x0, seventeen
+	add	x0, x0, eighteen
+	add	x0, x0, nineteen
 .endm
 
 .macro tens tenmul
-	ldr	r1, =\tenmul
-	mov	r2, 10
-	mul	r1, r1, r2
-	add	r0, r0, r1
+	ldr	x1, =\tenmul
+	mov	x2, 10
+	mul	x1, x1, x2
+	add	x0, x0, x1
 	units
 .endm
 
@@ -77,16 +77,16 @@
 .endm
 
 .macro hundreds hundredmul
-	ldr	r1, =\hundredmul
-	add	r1, r1, hundred
-	mov	r2, 100
-	mul	r1, r1, r2
-	add	r0, r0, r1
+	ldr	x1, =\hundredmul
+	add	x1, x1, hundred
+	mov	x2, 100
+	mul	x1, x1, x2
+	add	x0, x0, x1
 
-	ldr	r1, =and
-	mov	r2, 99
-	mul	r1, r1, r2
-	add	r0, r0, r1
+	ldr	x1, =and
+	mov	x2, 99
+	mul	x1, x1, x2
+	add	x0, x0, x1
 
 	units
 	alltens
@@ -101,14 +101,7 @@ sum_string:
 	.global	main
 	.type	main, %function
 main:
-#	stmfd   sp!, {r4, lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
-
-	mov	r0, 0
+	mov	x0, 0
 	units
 	alltens
 	hundreds	one
@@ -120,19 +113,12 @@ main:
 	hundreds	seven
 	hundreds	eight
 	hundreds	nine
-	add	r0, r0, one
-	add	r0, r0, thousand
+	add	x0, x0, one
+	add	x0, x0, thousand
 
-	mov	r1, r0
-	ldr	r0, =sum_string
+	mov	x1, x0
+	ldr	x0, =sum_string
 	bl	printf
-
-	mov	r0, 0
-#	ldmfd   sp!, {r4, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
