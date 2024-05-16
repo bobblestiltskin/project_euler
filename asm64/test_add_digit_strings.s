@@ -5,56 +5,56 @@
 .equ	opLENGTH,oLENGTH+1
 
 .macro add_strings a al b bl c
-	ldr	r0, =\a
-	ldr	r1, =\al
-	ldr	r2, =print_vector
+	ldr	x0, =\a
+	ldr	x1, =\al
+	ldr	x2, =print_vector
 	bl	printbytes
 
-	ldr	r1, =print_vector
-	ldr	r0, =instring
+	ldr	x1, =print_vector
+	ldr	x0, =instring
 	bl	printf
 
-	ldr	r0, =\b
-	ldr	r1, =\bl
-	ldr	r2, =print_vector
+	ldr	x0, =\b
+	ldr	x1, =\bl
+	ldr	x2, =print_vector
 	bl	printbytes
 
-	ldr	r1, =print_vector
-	ldr	r0, =instring
+	ldr	x1, =print_vector
+	ldr	x0, =instring
 	bl	printf
 
 #        stmfd   sp!, {r4}	/* stash r4 on the stack - we destroy it in add_digit_strings */
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+#        stp fp, lr, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
+#        mov fp, sp
 
-	ldr	r0, =\c
 #	stmfd   sp!, {r0}       /* this is the fifth parameter for the subroutine */
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+#        stp fp, lr, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
+#        mov fp, sp
 
-	ldr	r0, =\a
-	ldr	r1, =\al
-	ldr	r2, =\b
-	ldr	r3, =\bl
+	ldr	x0, =\a
+	ldr	x1, =\al
+	ldr	x2, =\b
+	ldr	x3, =\bl
+	ldr	x4, =\c
 	bl	add_digit_strings
-	add     sp, sp, 4       /* revert sp to before (1) */
+#	add     sp, sp, 4       /* revert sp to before (1) */
 #        ldmfd   sp!, {r4}	/* and get stashed r4 */
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp fp, lr, [sp], #0x40
 
-	ldr	r2, =print_vector
+	ldr	x2, =print_vector
 	bl	printbytes
 
-	ldr	r1, =print_vector
-	ldr	r0, =outstring
+	ldr	x1, =print_vector
+	ldr	x0, =outstring
 	bl	printf
 .endm
 
