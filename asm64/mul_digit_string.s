@@ -37,10 +37,9 @@ mul_digit_string:
 
 	cmp	x2, 0
 	b.ne	mds_one
-	mov	x0, x3
-	mov	tmp, 3
-	mov	x1, 1
-	b.eq	clearbytes
+	mov	cellb, 0
+	mov	tmp, x3
+	strb	cellb, [x3], 1
 	mov	x0, tmp
 	mov	x1, 1
 	b	mds_end
