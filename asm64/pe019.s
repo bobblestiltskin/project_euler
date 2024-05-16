@@ -3,12 +3,12 @@
 .equ	months,48
 .equ	cycles,25
 
-tmp             .req r1
-scount          .req r4
-ccount          .req r5
-mcount          .req r6
-dow		.req r7
-cptr		.req r8
+tmp             .req w1
+scount          .req w4
+ccount          .req w5
+mcount          .req w6
+dow		.req w7
+cptr		.req x8 /* 64bit pointer */
 
 .section .rodata
 cycle:
@@ -22,13 +22,6 @@ resstring:
 	.global	main
 	.type	main, %function
 main:
-#        stmfd   sp!, {r4-r8, lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
-
 	mov	scount, 0
 	mov	dow, 2
 	ldr	ccount, =cycles
@@ -36,31 +29,26 @@ cstart:
 	mov	mcount, 0
 	ldr	cptr, =cycle
 mstart:
-	teq	dow, 0
-	addeq	scount, scount, 1
+	cmp	dow, 0
+	b.ne	not_sunday
+	add	scount, scount, 1
 
+not_sunday:
 	ldrb	tmp, [cptr], 1
-	add	r0, dow, tmp
-	mov	r1, 7
+	add	w0, dow, tmp
+	mov	w1, 7
 	bl	divide
-	mov	dow, r1
+	mov	dow, w1
 
 	add	mcount, mcount, 1
 	cmp	mcount, months
-	blt	mstart
+	b.lt	mstart
 	subs	ccount, ccount, 1
-	bne	cstart
+	b.ne	cstart
 last:
-	mov	r1, scount
-	ldr	r0, =resstring
+	mov	w1, scount
+	ldr	x0, =resstring
 	bl	printf
-
-        mov     r0, 0
-#        ldmfd   sp!, {r4-r8, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
