@@ -37,12 +37,7 @@ length		.req x20
 .global add_digit_strings
 .type add_digit_strings, %function
 add_digit_strings:
-        stp fp, lr, [sp, #-0x60]!
-        stp x12, x13, [sp, #0x10]
-        stp x14, x15, [sp, #0x20]
-        stp x16, x17, [sp, #0x30]
-        stp x18, x19, [sp, #0x40]
-        stp x20, x21, [sp, #0x50]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 	cmp	x3, x1
@@ -57,12 +52,7 @@ add_digit_strings:
 no_swap:
 	bl	add_strings_short_to_long
 
-        ldp x20, x21, [sp, #0x50]
-        ldp x18, x19, [sp, #0x40]
-        ldp x16, x17, [sp, #0x30]
-        ldp x14, x15, [sp, #0x20]
-        ldp x12, x13, [sp, #0x10]
-        ldp fp, lr, [sp], #0x60
+        ldp fp, lr, [sp], #0x10
 	ret
 
 # this subroutine adds the short byte array at x0, length x1
@@ -82,12 +72,7 @@ no_swap:
 .global add_strings_short_to_long
 .type add_strings_short_to_long, %function
 add_strings_short_to_long:
-        stp fp, lr, [sp, #-0x60]!
-        stp x12, x13, [sp, #0x10]
-        stp x14, x15, [sp, #0x20]
-        stp x16, x17, [sp, #0x30]
-        stp x18, x19, [sp, #0x40]
-        stp x20, x21, [sp, #0x50]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 	mov	length, x3
@@ -142,11 +127,5 @@ no_carry_store:
 	sxtw	carry, carryw
 	add	x1, length, carry
 
-        ldp x20, x21, [sp, #0x50]
-        ldp x18, x19, [sp, #0x40]
-        ldp x16, x17, [sp, #0x30]
-        ldp x14, x15, [sp, #0x20]
-        ldp x12, x13, [sp, #0x10]
-        ldp fp, lr, [sp], #0x60
-
+        ldp fp, lr, [sp], #0x10
 	ret

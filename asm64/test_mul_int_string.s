@@ -3,7 +3,20 @@
 	ldr	x1, =iLENGTH
 	ldr	x2, =\num
 	ldr	x3, =output
+
+        stp x18, x19, [sp, #-0x50]!
+        stp x10, x11, [sp, #0x10]
+        stp x12, x13, [sp, #0x20]
+        stp x14, x15, [sp, #0x30]
+        stp x16, x17, [sp, #0x40]
+
 	bl	mul_int_string
+
+        ldp x16, x17, [sp, #0x40]
+        ldp x14, x15, [sp, #0x30]
+        ldp x12, x13, [sp, #0x20]
+        ldp x10, x11, [sp, #0x10]
+        ldp x18, x19, [sp], #0x50
 
 	ldr	x2, =print_vector
 	bl	printbytes
@@ -59,34 +72,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	ldr	x0, =input
-	ldr	x1, =iLENGTH
-	ldr	x2, =print_vector
-	bl	printbytes
-
-	ldr	x1, =print_vector
-	ldr	x0, =instring
-	bl	printf
-
-	ldr	x0, =input
-	ldr	x1, =iLENGTH
-	ldr	x2, =scalar11
-	ldr	x3, =output
-	bl	mul_int_string
-
-	ldr	x2, =print_vector
-	bl	printbytes
-
-	ldr	x1, =scalar11
-	ldr	x2, =print_vector
-	ldr	x0, =outstring
-	bl	printf
-
-	ldr	x0, =output
-	ldr	x1, =oLENGTH
-	bl	clearbytes
-
-#	multiplystring scalar10
+	multiplystring scalar11
 	multiplystring scalar0
 	multiplystring scalar1
 	multiplystring scalar3

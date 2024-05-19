@@ -3,7 +3,18 @@
 	ldr	x1, =iLENGTH
 	ldr	x2, =\num
 	ldr	x3, =output
+
+        stp x10, x11, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+
 	bl	mul_digit_string
+
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp x10, x11, [sp], #0x40
 
 	ldr	x2, =print_vector
 	bl	printbytes

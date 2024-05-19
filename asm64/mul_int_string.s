@@ -4,6 +4,7 @@
 
 .section bss
 .lcomm tmp_vector,MAXLEN
+.lcomm rolling_sum,MAXLEN
 
 # this subroutine multiplies the byte array at x0 with length x1 by x2 
 # and stores to x0 with output length in x1
@@ -28,7 +29,8 @@ olength		.req x15
 number		.req x16
 numtens		.req x17
 digit		.req x18
-mylr		.req x19
+rptr		.req x19
+rlength		.req x20
 
 .global mul_int_string
 .type mul_int_string, %function
@@ -36,17 +38,12 @@ mylr		.req x19
 .align	2
 
 mul_int_string:
-        stp fp, lr, [sp, #-0x60]!
-        stp x10, x11, [sp, #0x10]
-        stp x12, x13, [sp, #0x20]
-        stp x14, x15, [sp, #0x30]
-        stp x16, x17, [sp, #0x40]
-        stp x18, x19, [sp, #0x50]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
-	mov mylr, x30
 
 	mov	iptr, x0
 	ldr	tptr, =tmp_vector
+	ldr	rptr, =rolling_sum
 	mov	ilength, x1
 	mov	olength, x1
 	mov	number, x2
@@ -58,7 +55,15 @@ mul_int_string:
 	mov	numtens, #0
 loopstart:
 	mov 	x0, number
+
+        stp x6, x7, [sp, #-0x20]!
+        stp x4, x5, [sp, #0x10]
+
 	bl	divide_by_10_remainder
+
+        ldp x4, x5, [sp, #0x10]
+        ldp x6, x7, [sp], #0x20
+
 	mov	number, x0
 	mov	digit, x1
 
@@ -66,7 +71,18 @@ loopstart:
 	mov	x1, ilength
 	mov	x2, digit
 	mov	x3, tptr
+
+        stp x10, x11, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+
 	bl	mul_digit_string
+
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp x10, x11, [sp], #0x40
 
 	mov	tptr, x0
 	mov	tlength, x1
@@ -74,11 +90,20 @@ loopstart:
 	cmp	numtens, #0
 	b.ne	havetens
 
-# first digit processed. copy the current data to the output
+# first digit processed. copy the current data to the rolling sum
+
 	mov	x0, tptr
 	mov	x1, tlength
-	mov	x2, optr
+	mov	x2, rptr
+	mov	rlength, tlength
+
+        stp x6, x7, [sp, #-0x20]!
+        stp x4, x5, [sp, #0x10]
+
 	bl	copybytes
+
+        ldp x4, x5, [sp, #0x10]
+        ldp x6, x7, [sp], #0x20
 
 	b	increment_numtens
 havetens:
@@ -88,19 +113,55 @@ havetens:
 
 	add	x0, tptr, tlength
 	mov 	x1, numtens
+
+        stp x6, x7, [sp, #-0x20]!
+        stp x4, x5, [sp, #0x10]
+
 	bl	clearbytes
+
+        ldp x4, x5, [sp, #0x10]
+        ldp x6, x7, [sp], #0x20
+
 	add	tlength, tlength, numtens
+	add	olength, olength, numtens
 
 # add the current data to the output data
-	mov	x0, tptr
+	mov	x0, rptr
 	mov	x1, tlength
-	mov	x2, optr
-	mov	x3, olength
+	mov	x2, tptr
+	mov	x3, tlength
 	mov	x4, optr
+
+        stp x20, x21, [sp, #-0x50]!
+        stp x12, x13, [sp, #0x10]
+        stp x14, x15, [sp, #0x20]
+        stp x16, x17, [sp, #0x30]
+        stp x18, x19, [sp, #0x40]
 
 	bl	add_digit_strings
 	mov	optr, x0
 	mov	olength, x1
+
+        ldp x18, x19, [sp, #0x40]
+        ldp x16, x17, [sp, #0x30]
+        ldp x14, x15, [sp, #0x20]
+        ldp x12, x13, [sp, #0x10]
+        ldp x20, x21, [sp], #0x50
+
+# move the output data to the rolling sum
+
+	mov	x0, optr
+	mov	x1, olength
+	mov	x2, rptr
+	mov	rlength, olength
+
+        stp x6, x7, [sp, #-0x20]!
+        stp x4, x5, [sp, #0x10]
+
+	bl	copybytes
+
+        ldp x4, x5, [sp, #0x10]
+        ldp x6, x7, [sp], #0x20
 
 increment_numtens:
 	add	numtens, numtens, #1
@@ -112,14 +173,19 @@ loopend:
 
 	b	mis_end
 single_digit:
-	bl	mul_digit_string
-mis_end:
-        ldp x18, x19, [sp, #0x50]
-        ldp x16, x17, [sp, #0x40]
-        ldp x14, x15, [sp, #0x30]
-        ldp x12, x13, [sp, #0x20]
-        ldp x10, x11, [sp, #0x10]
-        ldp fp, lr, [sp], #0x60
+        stp x10, x11, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
 
-#	mov lr, mylr
+	bl	mul_digit_string
+
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp x10, x11, [sp], #0x40
+
+mis_end:
+
+        ldp fp, lr, [sp], #0x10
 	ret

@@ -23,19 +23,11 @@
 	ldr	x0, =instring
 	bl	printf
 
-#        stmfd   sp!, {r4}	/* stash r4 on the stack - we destroy it in add_digit_strings */
-#        stp fp, lr, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-#        mov fp, sp
-
-#	stmfd   sp!, {r0}       /* this is the fifth parameter for the subroutine */
-#        stp fp, lr, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-#        mov fp, sp
+        stp x20, x21, [sp, #-0x50]!
+        stp x12, x13, [sp, #0x10]
+        stp x14, x15, [sp, #0x20]
+        stp x16, x17, [sp, #0x30]
+        stp x18, x19, [sp, #0x40]
 
 	ldr	x0, =\a
 	ldr	x1, =\al
@@ -43,12 +35,12 @@
 	ldr	x3, =\bl
 	ldr	x4, =\c
 	bl	add_digit_strings
-#	add     sp, sp, 4       /* revert sp to before (1) */
-#        ldmfd   sp!, {r4}	/* and get stashed r4 */
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp fp, lr, [sp], #0x40
+
+        ldp x18, x19, [sp, #0x40]
+        ldp x16, x17, [sp, #0x30]
+        ldp x14, x15, [sp, #0x20]
+        ldp x12, x13, [sp, #0x10]
+        ldp x20, x21, [sp], #0x50
 
 	ldr	x2, =print_vector
 	bl	printbytes
@@ -60,6 +52,10 @@
 
 .section .data
 .align	2
+one_two_three_zero:
+.byte 1, 2, 3, 0
+zeroes4:
+.byte 0, 0, 0, 0
 short:
 .byte 4, 3, 2, 7
 long:
@@ -86,6 +82,8 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
+	add_strings one_two_three_zero sLENGTH zeroes4 sLENGTH output
+	add_strings zeroes4 sLENGTH one_two_three_zero sLENGTH output
 	add_strings short sLENGTH long lLENGTH output
 	add_strings long lLENGTH short sLENGTH output
 	add_strings nines2 2 nines4 4 output

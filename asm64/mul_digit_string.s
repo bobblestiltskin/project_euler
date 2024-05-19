@@ -28,11 +28,7 @@ ilength		.req x11
 .align	2
 
 mul_digit_string:
-        stp fp, lr, [sp, #-0x50]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        stp x10, x11, [sp, #0x40]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 	mov	iptr, x0
@@ -54,7 +50,19 @@ mds_one:
 	mov	x0, iptr
 	mov	x1, ilength
 	mov	x2, optr
-	b	copybytes
+
+        stp x10, x11, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+
+	bl	copybytes
+
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp x10, x11, [sp], #0x40
+
 	mov	x0, optr
 	mov	x1, ilength
 	b	mds_end
@@ -64,7 +72,19 @@ mds_start:
 	mov	offset, x3
 	mov	x0, x3
 	add	x1, x1, 1
+
+        stp x10, x11, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+
 	bl	clearbytes
+
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp x10, x11, [sp], #0x40
+
 	mov	x0, carry
 	mov	x1, tmp
 	mov	x3, offset
@@ -83,7 +103,19 @@ mds_loopstart:
 	mul	x0, cell, multiplier
 	sxtw	carry, carryb
 	add	x0, x0, carry
+
+        stp x10, x11, [sp, #-0x40]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
+        stp x8, x9, [sp, #0x30]
+
 	bl	divide_by_10_remainder
+
+        ldp x8, x9, [sp, #0x30]
+        ldp x6, x7, [sp, #0x20]
+        ldp x4, x5, [sp, #0x10]
+        ldp x10, x11, [sp], #0x40
+
 	strb	w1, [optr], -1
 	mov	carryb, w0
 #orr x0, x0, x0, lsr #32
@@ -103,10 +135,11 @@ store_byte:
 	mov	x0, optr
 	add	x1, tmp, 1
 mds_end:
-        ldp x10, x11, [sp, #0x40]
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x50
+#        ldp x10, x11, [sp, #0x40]
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp fp, lr, [sp], #0x50
 
+        ldp 	fp, lr, [sp], #0x10
 	ret
