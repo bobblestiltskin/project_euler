@@ -1,21 +1,20 @@
-# see usage in test_add_digit_strings.s - it requires
-# the fifth parameter to be passed on the stack
+# see usage in test_add_digit_strings.s
 
 .equ datum_size, 1
 
 .text
-optr		.req x4
-sptr		.req x5
-lptr		.req x6
-scellw		.req w7
-scell		.req x7
-lcellw		.req w8
-lcell		.req x8
-carryw		.req w9
-carry		.req x9
-ltmp		.req x9
-counter		.req x10
-ptmp		.req x10
+optr		.req x12
+sptr		.req x13
+lptr		.req x14
+scellw		.req w15
+scell		.req x15
+lcellw		.req w16
+lcell		.req x16
+carryw		.req w17
+carry		.req x17
+counter		.req x18
+tmp		.req x19
+length		.req x20
 
 # this subroutine adds the byte array at x0, length x1
 # to the byte array at x2, length x3. The data is output 
@@ -38,23 +37,32 @@ ptmp		.req x10
 .global add_digit_strings
 .type add_digit_strings, %function
 add_digit_strings:
-        stp fp, lr, [sp, #-0x10]!
+        stp fp, lr, [sp, #-0x60]!
+        stp x12, x13, [sp, #0x10]
+        stp x14, x15, [sp, #0x20]
+        stp x16, x17, [sp, #0x30]
+        stp x18, x19, [sp, #0x40]
+        stp x20, x21, [sp, #0x50]
         mov fp, sp
 
 	cmp	x3, x1
 	b.ge	no_swap
 
-	mov	ptmp, x0
+	mov	x5, x0
 	mov	x0, x2
-	mov	x2, ptmp
-	mov	ltmp, x1
+	mov	x2, x5
+	mov	x5, x1
 	mov	x1, x3
-	mov	x3, ltmp
+	mov	x3, x5
 no_swap:
 	bl	add_strings_short_to_long
 
-        ldp fp, lr, [sp], #0x10
-
+        ldp x20, x21, [sp, #0x50]
+        ldp x18, x19, [sp, #0x40]
+        ldp x16, x17, [sp, #0x30]
+        ldp x14, x15, [sp, #0x20]
+        ldp x12, x13, [sp, #0x10]
+        ldp fp, lr, [sp], #0x60
 	ret
 
 # this subroutine adds the short byte array at x0, length x1
@@ -74,9 +82,15 @@ no_swap:
 .global add_strings_short_to_long
 .type add_strings_short_to_long, %function
 add_strings_short_to_long:
-        stp fp, lr, [sp, #-0x10]!
+        stp fp, lr, [sp, #-0x60]!
+        stp x12, x13, [sp, #0x10]
+        stp x14, x15, [sp, #0x20]
+        stp x16, x17, [sp, #0x30]
+        stp x18, x19, [sp, #0x40]
+        stp x20, x21, [sp, #0x50]
         mov fp, sp
 
+	mov	length, x3
 	mov	sptr, x0
 	add	sptr, sptr, x1
 	sub	sptr, sptr, 1
@@ -126,8 +140,13 @@ asstl_last:
 no_carry_store:
 	add	x0, optr, 1
 	sxtw	carry, carryw
-	add	x1, x3, carry
+	add	x1, length, carry
 
-        ldp fp, lr, [sp], #0x10
+        ldp x20, x21, [sp, #0x50]
+        ldp x18, x19, [sp, #0x40]
+        ldp x16, x17, [sp, #0x30]
+        ldp x14, x15, [sp, #0x20]
+        ldp x12, x13, [sp, #0x10]
+        ldp fp, lr, [sp], #0x60
 
 	ret

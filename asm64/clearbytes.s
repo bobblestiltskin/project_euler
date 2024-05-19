@@ -4,10 +4,14 @@
 .global clearbytes
 .type	clearbytes, %function
 clearbytes:
+        stp fp, lr, [sp, #-0x10]!
+        mov fp, sp
+
 	mov	w3, 0
 clearbytesloopstart:
 	strb	w3, [x0], 1
 	subs	x1, x1, 1
 	b.ne	clearbytesloopstart
 
+        ldp fp, lr, [sp], #0x10
 	ret

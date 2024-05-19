@@ -17,40 +17,27 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
-#        stmfd   sp!, {r4, lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+	mov	w3, 1
+	ldr	x0, =input
+	strb	w3, [x0]
 
-	mov	r3, 1
-	ldr	r0, =input
-	strb	r3, [r0]
-
-	ldr	r0, =scalar100
-	ldr	r1, =input
-	ldr	r2, =output
+	ldr	x0, =scalar100
+	ldr	x1, =input
+	ldr	x2, =output
 	bl	factorial
 
-	mov	r2, 0
+	mov	x2, 0
 lstart:
-	ldrb	r3, [r0], 1
-	add	r2, r2, r3
-	subs	r1, r1, 1
+	ldrb	w3, [x0], 1
+	sxtw	x3, w3
+	add	x2, x2, x3
+	subs	x1, x1, 1
 	bne	lstart
 	
-	mov	r1, r2
-	ldr	r0, =sumstring
+	mov	x1, x2
+	ldr	x0, =sumstring
 	bl	printf
 	
-	mov	r0, 0
-#        ldmfd   sp!, {r4, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
-
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
         svc	#0		/* then invoke the syscall from linux */

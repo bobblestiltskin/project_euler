@@ -20,6 +20,7 @@ carry		.req x8
 multiplier	.req x9
 cellb		.req w10
 cell		.req x10
+ilength		.req x11
 
 .global mul_digit_string
 .type mul_digit_string, %function
@@ -27,7 +28,6 @@ cell		.req x10
 .align	2
 
 mul_digit_string:
-#        stp fp, lr, [sp, #-0x40]!
         stp fp, lr, [sp, #-0x50]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
@@ -35,23 +35,28 @@ mul_digit_string:
         stp x10, x11, [sp, #0x40]
         mov fp, sp
 
-	cmp	x2, 0
+	mov	iptr, x0
+	mov	ilength, x1
+	mov	multiplier, x2
+	mov	optr, x3
+
+	cmp	multiplier, 0
 	b.ne	mds_one
 	mov	cellb, 0
-	mov	tmp, x3
+	mov	optr, x3
 	strb	cellb, [x3], 1
-	mov	x0, tmp
+	mov	x0, optr
 	mov	x1, 1
 	b	mds_end
 mds_one:
-	cmp	x2, 1
+	cmp	multiplier, 1
 	b.ne	mds_start
-	mov	x2, x3
-	mov	tmp, x0
-	mov	cell, x1
-	b.eq	copybytes
-	mov	x0, tmp
-	mov	x1, cell
+	mov	x0, iptr
+	mov	x1, ilength
+	mov	x2, optr
+	b	copybytes
+	mov	x0, optr
+	mov	x1, ilength
 	b	mds_end
 mds_start:
 	mov	carry, x0
@@ -103,6 +108,5 @@ mds_end:
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]
         ldp fp, lr, [sp], #0x50
-#        ldp fp, lr, [sp], #0x40
 
 	ret

@@ -1,29 +1,34 @@
 .equ datum_size, 1
-.equ MAXLEN,192
+#.equ MAXLEN,192
+.equ MAXLEN,384
 
 .section bss
 .lcomm tmp_vector,MAXLEN
 
-# this subroutine multiplies the byte array at r0, length r1 by the int r2 
-# and stores to r0 with output length in r1
+# this subroutine multiplies the byte array at x0 with length x1 by x2 
+# and stores to x0 with output length in x1
+# the output vector is passed as x3.
 #
 # inputs
-#   r0 - pointer to input vector
-#   r1 - length of input vector
-#   r2 - multiplicand
-#   r3 - pointer to output vector
+#   x0 - pointer to input vector
+#   x1 - length of input vector
+#   x2 - multiplicand
+#   x3 - pointer to output vector
 #
 # outputs
-#   r0 - pointer to output vector
-#   r1 - length of output vector
+#   x0 - pointer to output vector
+#   x1 - length of output vector
 
-iptr		.req r4
-optr		.req r5
-ilength		.req r6
-tlength		.req r7
-olength		.req r8
-tmp		.req r9
-multiplier	.req r10
+tptr 		.req x10
+iptr		.req x11
+optr		.req x12
+tlength		.req x13
+ilength		.req x14
+olength		.req x15
+number		.req x16
+numtens		.req x17
+digit		.req x18
+mylr		.req x19
 
 .global mul_int_string
 .type mul_int_string, %function
@@ -31,88 +36,90 @@ multiplier	.req r10
 .align	2
 
 mul_int_string:
-#	stmfd	sp!, {r4-r10, lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+        stp fp, lr, [sp, #-0x60]!
+        stp x10, x11, [sp, #0x10]
+        stp x12, x13, [sp, #0x20]
+        stp x14, x15, [sp, #0x30]
+        stp x16, x17, [sp, #0x40]
+        stp x18, x19, [sp, #0x50]
         mov fp, sp
+	mov mylr, x30
 
-	mov	iptr, r0
-	mov	ilength, r1
-	mov	tlength, r1
-	mov	olength, r1
-	mov	multiplier, r2
-	mov	optr, r3
-mis_loopstart:
-	teq	multiplier, 0
-	beq	mis_last
+	mov	iptr, x0
+	ldr	tptr, =tmp_vector
+	mov	ilength, x1
+	mov	olength, x1
+	mov	number, x2
+	mov	optr, x3
 
-	ldr	r0, =tmp_vector
-	mov	r1, tlength
-	bl	clearbytes
+	cmp	number, 10
+	b.lt	single_digit
 
-	mov	r0, multiplier
+	mov	numtens, #0
+loopstart:
+	mov 	x0, number
 	bl	divide_by_10_remainder
-	mov	multiplier, r0
-	mov	r2, r1
-	mov	r0, iptr
-	mov	r1, ilength
-	ldr	r3, =tmp_vector
-bm:
+	mov	number, x0
+	mov	digit, x1
+
+	mov	x0, iptr
+	mov	x1, ilength
+	mov	x2, digit
+	mov	x3, tptr
 	bl	mul_digit_string
-am:
-	mov	tmp, r0
-	cmp     tlength, r1
-        movlt   tlength, r1    /* set tlength to max of tlength and r1 */
 
-#        stmfd   sp!, {r4}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+	mov	tptr, x0
+	mov	tlength, x1
 
-        mov     r0, optr
-#        stmfd   sp!, {r0}       /* this is the fifth parameter for the subroutine */
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+	cmp	numtens, #0
+	b.ne	havetens
 
+# first digit processed. copy the current data to the output
+	mov	x0, tptr
+	mov	x1, tlength
+	mov	x2, optr
+	bl	copybytes
 
-	mov	r0, tmp
-	mov	r1, tlength
-	mov	r2, optr
-ba:
-	mov	r3, olength
-	bl	add_digit_strings
-	mov	optr, r0
-	cmp	olength, r1
-	movlt	olength, r1
-        add     sp, sp, 4       /* revert sp to before (1) */
-#	ldmfd	sp!, {r4}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+	b	increment_numtens
+havetens:
+# already have output data so add the new data to the current data
 
-aa:
-	ldr	r0, =tmp_vector
-	mov	r1, tlength
+# multiply current by 10 by adding zeroes to the end and extending
+
+	add	x0, tptr, tlength
+	mov 	x1, numtens
 	bl	clearbytes
-	mov	r0, optr
-	mov	r1, olength
-	teq	multiplier, 0
-	addne	ilength, ilength, 1	
-	beq	mis_last
-	bne	mis_loopstart
-mis_last:
-#	ldmfd	sp!, {r4-r10, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+	add	tlength, tlength, numtens
 
+# add the current data to the output data
+	mov	x0, tptr
+	mov	x1, tlength
+	mov	x2, optr
+	mov	x3, olength
+	mov	x4, optr
+
+	bl	add_digit_strings
+	mov	optr, x0
+	mov	olength, x1
+
+increment_numtens:
+	add	numtens, numtens, #1
+	cmp	number, #0
+	b.ne	loopstart
+loopend:
+	mov	x0, optr
+	mov	x1, olength
+
+	b	mis_end
+single_digit:
+	bl	mul_digit_string
+mis_end:
+        ldp x18, x19, [sp, #0x50]
+        ldp x16, x17, [sp, #0x40]
+        ldp x14, x15, [sp, #0x30]
+        ldp x12, x13, [sp, #0x20]
+        ldp x10, x11, [sp, #0x10]
+        ldp fp, lr, [sp], #0x60
+
+#	mov lr, mylr
 	ret

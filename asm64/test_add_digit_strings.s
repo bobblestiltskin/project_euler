@@ -89,6 +89,7 @@ main:
 	add_strings short sLENGTH long lLENGTH output
 	add_strings long lLENGTH short sLENGTH output
 	add_strings nines2 2 nines4 4 output
+	add_strings nines2 2 nines7 7 output
 	add_strings nines6 6 nines4 4 output
 	add_strings nines6 6 nines2 2 output
 	add_strings nines7 7 nines2 2 output

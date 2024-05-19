@@ -4,6 +4,9 @@ len	.req x5
 .global copybytes
 .type	copybytes, %function
 copybytes:
+        stp fp, lr, [sp, #-0x10]!
+        mov fp, sp
+
 	mov	len, x1
 	mov	ptr, x2
 copybytesloopstart:
@@ -15,4 +18,5 @@ copybytesloopstart:
 	mov	x0, ptr
 	mov	x1, len
 
+        ldp fp, lr, [sp], #0x10
 	ret

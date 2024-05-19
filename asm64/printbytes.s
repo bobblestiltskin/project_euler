@@ -4,12 +4,7 @@
 .type	printbytes, %function
 
 printbytes:
-        stp fp, lr, [sp, #-0x60]!
-        stp x19, x20, [sp, #0x10]
-        stp x21, x22, [sp, #0x20]
-        stp x23, x24, [sp, #0x30]
-        stp x25, x26, [sp, #0x40]
-        stp x27, x28, [sp, #0x50]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 printbytes_loopstart:
@@ -22,10 +17,6 @@ printbytes_loopstart:
 	mov	x3, 0
 	strb	w3, [x2], 1
 
-        ldp x27, x28, [sp, #0x50]
-        ldp x25, x26, [sp, #0x40]
-        ldp x23, x24, [sp, #0x30]
-        ldp x21, x22, [sp, #0x20]
-        ldp x19, x20, [sp, #0x10]
-        ldp fp, lr, [sp], #0x60
+        ldp fp, lr, [sp], #0x10
 
+	ret
