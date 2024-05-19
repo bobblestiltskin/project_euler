@@ -114,7 +114,7 @@ havetens:
 
         mov     x0, tptr
         mov     x1, tlength
-        mov     x2, numtens
+        mov     x2, 1
         mov     x3, optr
 
         stp x18, x19, [sp, #-0x50]!
@@ -150,7 +150,6 @@ havetens:
 
 	mov	x0, tptr
 	mov	x1, tlength
-#	b	mis_end
 ba:
 
 # add the current data to the rolling sum
@@ -167,15 +166,15 @@ ba:
         stp x18, x19, [sp, #0x40]
 
 	bl	add_digit_strings
-	mov	optr, x0
-	mov	olength, x1
 
         ldp x18, x19, [sp, #0x40]
         ldp x16, x17, [sp, #0x30]
         ldp x14, x15, [sp, #0x20]
         ldp x12, x13, [sp, #0x10]
         ldp x20, x21, [sp], #0x50
-	b	mis_end
+
+	mov	optr, x0
+	mov	olength, x1
 
 # move the output data to the rolling sum
 
@@ -196,8 +195,10 @@ increment_numtens:
 	cmp	number, #0
 	b.ne	loopstart
 loopend:
-	mov	x0, rptr
-	mov	x1, rlength
+	mov	x0, optr
+	mov	x1, olength
+#	mov	x0, rptr
+#	mov	x1, rlength
 
 	b	mis_end
 single_digit:

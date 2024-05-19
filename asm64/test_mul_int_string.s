@@ -49,6 +49,8 @@
 .equ	scalar31,31
 .equ	scalar32,32
 .equ	scalar87,87
+.equ	scalar100,100
+.equ	scalar101,101
 
 .section .data
 .align	2
@@ -70,7 +72,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	multiplystring scalar10
+	multiplystring scalar100
 	multiplystring scalar0
 	multiplystring scalar1
 	multiplystring scalar3
@@ -79,10 +81,12 @@ main:
 	multiplystring scalar11
 	multiplystring scalar12
 	multiplystring scalar14
+	multiplystring scalar20
 	multiplystring scalar31
 	multiplystring scalar32
 	multiplystring scalar87
-	multiplystring scalar20
+	multiplystring scalar100
+	multiplystring scalar101
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
