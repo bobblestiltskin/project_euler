@@ -114,7 +114,7 @@ havetens:
 
         mov     x0, tptr
         mov     x1, tlength
-        mov     x2, 1
+        mov     x2, numtens
         mov     x3, optr
 
         stp x18, x19, [sp, #-0x50]!
@@ -135,8 +135,9 @@ havetens:
         ldp x18, x19, [sp], #0x50
 
 	mov	x0, optr
-	add	olength, olength, numtens
-	mov	tlength, olength
+	add	tlength, olength, 1
+#	add	olength, olength, numtens
+#	mov	tlength, olength
 	mov	x1, olength
 	mov	x2, tptr
 
