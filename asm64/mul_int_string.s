@@ -31,6 +31,7 @@ numtens		.req x17
 digit		.req x18
 rptr		.req x19
 rlength		.req x20
+wtmp		.req w21
 
 .global mul_int_string
 .type mul_int_string, %function
@@ -111,23 +112,50 @@ havetens:
 
 # multiply current by 10 by adding zeroes to the end and extending
 
-	add	x0, tptr, tlength
-	mov 	x1, numtens
+        mov     x0, tptr
+        mov     x1, tlength
+        mov     x2, numtens
+        mov     x3, optr
+
+        stp x18, x19, [sp, #-0x50]!
+        stp x10, x11, [sp, #0x10]
+        stp x12, x13, [sp, #0x20]
+        stp x14, x15, [sp, #0x30]
+        stp x16, x17, [sp, #0x40]
+
+        bl      mul_tens_string
+
+	mov	optr, x0
+	mov	olength, x1
+
+        ldp x16, x17, [sp, #0x40]
+        ldp x14, x15, [sp, #0x30]
+        ldp x12, x13, [sp, #0x20]
+        ldp x10, x11, [sp, #0x10]
+        ldp x18, x19, [sp], #0x50
+
+	mov	x0, optr
+	add	olength, olength, numtens
+	mov	tlength, olength
+	mov	x1, olength
+	mov	x2, tptr
 
         stp x6, x7, [sp, #-0x20]!
         stp x4, x5, [sp, #0x10]
 
-	bl	clearbytes
+	bl	copybytes
 
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
 
-	add	tlength, tlength, numtens
-	add	olength, olength, numtens
-
-# add the current data to the output data
-	mov	x0, rptr
+	mov	x0, tptr
 	mov	x1, tlength
+#	b	mis_end
+ba:
+
+# add the current data to the rolling sum
+	mov	x0, rptr
+	mov	x1, rlength
 	mov	x2, tptr
 	mov	x3, tlength
 	mov	x4, optr
@@ -147,6 +175,7 @@ havetens:
         ldp x14, x15, [sp, #0x20]
         ldp x12, x13, [sp, #0x10]
         ldp x20, x21, [sp], #0x50
+	b	mis_end
 
 # move the output data to the rolling sum
 
@@ -162,14 +191,13 @@ havetens:
 
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
-
 increment_numtens:
 	add	numtens, numtens, #1
 	cmp	number, #0
 	b.ne	loopstart
 loopend:
-	mov	x0, optr
-	mov	x1, olength
+	mov	x0, rptr
+	mov	x1, rlength
 
 	b	mis_end
 single_digit:
@@ -184,8 +212,6 @@ single_digit:
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]
         ldp x10, x11, [sp], #0x40
-
 mis_end:
-
         ldp fp, lr, [sp], #0x10
 	ret

@@ -58,8 +58,6 @@ input:
 #fact13:
 #.byte 6, 2, 2, 7, 0, 2, 0, 8, 0, 0
 .section .rodata
-instring:
-.asciz "input string is %s\n"
 outstring:
 .asciz "scalar is %d and output string is %s\n"
 
@@ -72,7 +70,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	multiplystring scalar11
+	multiplystring scalar10
 	multiplystring scalar0
 	multiplystring scalar1
 	multiplystring scalar3

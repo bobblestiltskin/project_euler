@@ -52,6 +52,8 @@
 
 .section .data
 .align	2
+one_two_three:
+.byte 1, 2, 3
 one_two_three_zero:
 .byte 1, 2, 3, 0
 zeroes4:
@@ -82,6 +84,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
+	add_strings one_two_three_zero 4 one_two_three 3 output
 	add_strings one_two_three_zero sLENGTH zeroes4 sLENGTH output
 	add_strings zeroes4 sLENGTH one_two_three_zero sLENGTH output
 	add_strings short sLENGTH long lLENGTH output
