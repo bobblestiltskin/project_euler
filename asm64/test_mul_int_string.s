@@ -31,8 +31,8 @@
 	bl	clearbytes
 .endm
 
-#.equ	iLENGTH,3
-.equ	iLENGTH,10
+.equ	iLENGTH,3
+#.equ	iLENGTH,10
 .equ	ipLENGTH,iLENGTH+1
 .equ	oLENGTH,iLENGTH+2
 .equ	opLENGTH,oLENGTH+1
@@ -57,15 +57,15 @@
 .section .data
 .align	2
 input:
+.byte 1, 2, 3
 #.byte 4, 3, 2, 7
-#.byte 1, 2, 3
-#fact13:
-.byte 1, 2, 3, 4, 5, 6, 7, 8, 9, 1
+#.byte 1, 2, 3, 4, 5, 6, 7, 8, 9, 1
 #.byte 6, 2, 2, 7, 0, 2, 0, 8, 0, 0
 .section .rodata
 instring:
+.asciz "input string is 123\n"
+#.asciz "input string is 1234567891\n"
 #.asciz "input string is 6227020800\n"
-.asciz "input string is 1234567891\n"
 outstring:
 .asciz "scalar is %d and output string is %s\n"
 
