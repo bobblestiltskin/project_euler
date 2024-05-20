@@ -70,6 +70,10 @@ nines6:
 .byte 9, 9, 9, 9, 0, 9
 nines7:
 .byte 9, 0, 9, 0, 0, 9, 9
+sevend1:
+.byte 7, 2, 5, 7, 6, 0, 0
+sevend2:
+.byte 1, 0, 8, 8, 6, 4, 0
 instring:
 .asciz "input string is %s\n"
 outstring:
@@ -84,6 +88,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
+	add_strings sevend1 7 sevend2 7 output
 	add_strings one_two_three_zero 4 one_two_three 3 output
 	add_strings one_two_three_zero sLENGTH zeroes4 sLENGTH output
 	add_strings zeroes4 sLENGTH one_two_three_zero sLENGTH output

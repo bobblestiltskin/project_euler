@@ -51,11 +51,11 @@ mul_int_string:
 	mov	rlength, x1
 	mov	number, x2
 	mov	optr, x3
-	mov	rolling_sum_init, #0
 
 	cmp	number, 10
 	b.lt	single_digit
 
+	mov	rolling_sum_init, #0
 	mov	numtens, #0
 loopstart:
 	mov 	x0, number
@@ -160,7 +160,6 @@ no_tens:
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
 
-
 	b	increment_numtens
 have_rolling_sum:
 # already have output data so add the new data to the current data
@@ -186,12 +185,13 @@ have_rolling_sum:
         ldp x10, x11, [sp, #0x10]
         ldp x18, x19, [sp], #0x50
 
-	mov	optr, x0
+#	mov	optr, x0
+	mov	tptr, x0
 	mov	olength, x1
 	mov	tlength, x1
 
 	mov	x0, optr
-#	add	tlength, olength, 1
+	add	tlength, olength, 1
 	mov	x1, olength
 	mov	x2, tptr
 
@@ -203,8 +203,8 @@ have_rolling_sum:
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
 
-#	mov	x0, tptr
-#	mov	x1, tlength
+	mov	tptr, x0
+	mov	tlength, x1
 ba:
 
 # add the current data to the rolling sum
