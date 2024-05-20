@@ -245,6 +245,9 @@ ba:
 
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
+
+	mov	rptr, x0
+	mov	rlength, x1
 increment_numtens:
 	add	numtens, numtens, #1
 	cmp	number, #0

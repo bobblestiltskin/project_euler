@@ -21,8 +21,10 @@
 .endm
 
 .equ	iLENGTH,1
-.equ	ipLENGTH,200
-.equ	oLENGTH,200
+#.equ	ipLENGTH,200
+#.equ	oLENGTH,200
+.equ	ipLENGTH,400
+.equ	oLENGTH,400
 
 .equ	scalar1,1
 .equ	scalar2,2
@@ -70,6 +72,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
+	dofac scalar3
 	dofac scalar1
 	dofac scalar2
 	dofac scalar3

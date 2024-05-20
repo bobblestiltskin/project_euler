@@ -21,18 +21,24 @@ optr	.req x9
 	.global	factorial
 	.type	factorial, %function
 factorial:
-#	stmfd   sp!, {r4-r9, lr}
-#        stp fp, lr, [sp, #-0x40]!
 #        stp x4, x5, [sp, #0x10]
 #        stp x6, x7, [sp, #0x20]
 #        stp x8, x9, [sp, #0x30]
-#        mov fp, sp
+        stp fp, lr, [sp, #-0x10]!
+        mov fp, sp
 
-	cmp	x0, 2
-	b.ge	factorial_ok
+	cmp	x0, 1
+	b.gt	factorial_ok
 	mov	x0, x1
 	mov	x1, 1
-	bl	copybytes
+        stp x6, x7, [sp, #-0x20]!
+        stp x4, x5, [sp, #0x10]
+
+        bl      copybytes
+
+        ldp x4, x5, [sp, #0x10]
+        ldp x6, x7, [sp], #0x20
+
 	b	factorial_end
 factorial_ok:
 	mov	number, x0
@@ -40,7 +46,7 @@ factorial_ok:
 	mov	optr, x2
 	mov	ilen, 1
 	mov	counter, 2
-	mov	x0, optr
+#	mov	x0, optr
 factorial_start:
 	mov	x0, optr
 	mov	x1, ilen
@@ -53,14 +59,35 @@ aclear:
         mov     x2, counter
         mov     x3, optr
 bmis:
+        stp x22, x23, [sp, #-0x70]!
+        stp x20, x21, [sp, #0x60]
+        stp x18, x19, [sp, #0x50]
+        stp x16, x17, [sp, #0x40]
+        stp x14, x15, [sp, #0x30]
+        stp x12, x13, [sp, #0x20]
+        stp x10, x11, [sp, #0x10]
+
         bl      mul_int_string
+
+        ldp x20, x21, [sp, #0x60]
+        ldp x18, x19, [sp, #0x50]
+        ldp x16, x17, [sp, #0x40]
+        ldp x12, x13, [sp, #0x20]
+        ldp x10, x11, [sp, #0x10]
+        ldp x22, x23, [sp], #0x70
 amis:
 	cmp	counter, number
 	beq	factorial_last
 	mov	ilen, x1
 	mov	x2, iptr
 bcopy:
+        stp x6, x7, [sp, #-0x20]!
+        stp x4, x5, [sp, #0x10]
+
 	bl	copybytes
+
+        ldp x4, x5, [sp, #0x10]
+        ldp x6, x7, [sp], #0x20
 acopy:
 	add	counter, counter, 1
 	b	factorial_start
@@ -78,5 +105,6 @@ factorial_end:
 #        ldp x6, x7, [sp, #0x20]
 #        ldp x4, x5, [sp, #0x10]
 #        ldp fp, lr, [sp], #0x40
-#
+
+        ldp fp, lr, [sp], #0x10
 	ret
