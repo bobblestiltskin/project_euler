@@ -1,30 +1,36 @@
 .equ	word,4
 
-number		.req r4
-primeflag	.req r5
-numprimes	.req r6
-primes_ptr	.req r7
+number		.req x4
+primeflag	.req x5
+numprimes	.req x6
+primes_ptr	.req x7
+tmp		.req x8
 
 .macro num_is_prime a
 _start\@:
 	mov	number, \a
-	mov	r0, number
-	mov	r1, primes_ptr
-	mov	r2, numprimes
+	mov	x0, number
+	mov	x1, primes_ptr
+	mov	x2, numprimes
 	bl	prime_vector
-	mov	primeflag, r0
-	teq	r0, 1
-	streq	number, [primes_ptr, numprimes, lsl 2]
-	addeq	numprimes, numprimes, 1
-
-	mov	r2, primeflag
-	mov	r1, number
-	ldr	r0, =primestring
+	mov	primeflag, x0
+	cmp	x0, 1
+	b.ne	notprime\@
+	mov	tmp, 8
+	mul	tmp, numprimes, tmp
+	str	number, [primes_ptr, tmp]
+#	str	number, [primes_ptr, numprimes, lsl 2]
+	add	numprimes, numprimes, 1
+notprime\@:
+	mov	x2, primeflag
+	mov	x1, number
+	ldr	x0, =primestring
 	bl	printf
 .endm
 
 .section .bss
-.lcomm primes_vector, 80
+#.lcomm primes_vector, 80
+.lcomm primes_vector, 160
 
 .section .rodata
 	.align	2
