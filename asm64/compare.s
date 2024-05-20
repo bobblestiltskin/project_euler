@@ -13,45 +13,49 @@
 
 .text
 
-minlen	.req r4
-val1	.req r5
-val2	.req r6
-count	.req r7
+minlen	.req x4
+val1	.req w5
+val2	.req w6
+count	.req x7
 
 	.global	compare
 	.type	compare, %function
 compare:
-#        stmfd   sp!, {r4-r8, lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
-	mov	minlen, r1
-	cmp	minlen, r3
-	movgt	minlen, r3
+	mov	minlen, x1
+	cmp	minlen, x3
+	b.le	no_set_min_len
+	mov	minlen, x3
+no_set_min_len:
 	mov	count, 0
 loopstart:
-	ldrb	val1, [r0, count]
-	ldrb	val2, [r2, count]
+	ldrb	val1, [x0, count]
+	ldrb	val2, [x2, count]
 	cmp	val1, val2
-	movlt	r0, -1
-	movgt	r0, 1
+	b.eq    eq_val_1
+	b.gt	gt_val_1
+	mov	x0, -1
+	b	eq_val_1
+gt_val_1:
+	mov	x0, 1
+eq_val_1:
 	bne	loopend
 	add	count, count,1
 	cmp	count, minlen
 	bne	loopstart
-	cmp	r1, r3
-	moveq	r0, 0
-	movlt	r0, -1
-	movgt	r0, 1
+	cmp	x1, x3
+	b.gt	gt_x
+	b.lt	lt_x
+	mov	x0, 0
+	b	loopend
+lt_x:
+	mov	x0, -1
+	b	loopend
+gt_x:
+	mov	x0, 1
 loopend:
-#        ldmfd   sp!, {r4-r8, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
-
+        ldp fp, lr, [sp], #0x10
 	ret
 

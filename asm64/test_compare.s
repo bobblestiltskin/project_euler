@@ -1,18 +1,18 @@
 #.equ compare2,815518
 
-number		.req r4
+number		.req x4
 
 .macro compare_strings a b c d
-	ldr	r0, =\a
-	mov	r1, \b
-	ldr	r2, =\c
-	mov	r3, \d
+	ldr	x0, =\a
+	mov	x1, \b
+	ldr	x2, =\c
+	mov	x3, \d
 	bl	compare
 
-	ldr	r1, =\a
-	ldr	r2, =\c
-	mov	r3, r0
-	ldr	r0, =comparestring
+	ldr	x1, =\a
+	ldr	x2, =\c
+	mov	x3, x0
+	ldr	x0, =comparestring
 	bl	printf
 .endm
 
