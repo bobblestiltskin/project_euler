@@ -63,13 +63,13 @@ next_term:
         mov fp, sp
 
 	tbnz    x0, #0, odd /* check 0th bit of current - set to 1 for odd numbers - so we jump to odd */
-	add	x0, xzr, x0, lsr 1	/* leave bit 0 in carry */
+	add	x0, xzr, x0, lsr 1	/* halve x0; leave bit 0 in carry */
 	b	next_term_last
 odd:
 	adds	x2, x0, x0
 	adds	x2, x2, x0
 	adds	x2, x2, 1
-	mov	x0, x2		/* r1 is 3n+1 - any overflow to r0 */
+	mov	x0, x2		/* x0 is 3n+1 */
 next_term_last:
         ldp fp, lr, [sp], #0x10
 	ret
