@@ -51,6 +51,7 @@
 .equ	scalar87,87
 .equ	scalar100,100
 .equ	scalar101,101
+.equ	scalar321,321
 .equ	scalar1000,1000
 .equ	scalar1001,1001
 
@@ -81,6 +82,7 @@ main:
 	ldr	x0, =instring
 	bl	printf
 
+	multiplystring scalar321
 	multiplystring scalar0
 	multiplystring scalar1
 	multiplystring scalar3
@@ -95,6 +97,7 @@ main:
 	multiplystring scalar87
 	multiplystring scalar100
 	multiplystring scalar101
+	multiplystring scalar321
 	multiplystring scalar1000
 	multiplystring scalar1001
 
