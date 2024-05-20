@@ -1,22 +1,22 @@
 .macro dofac s
-	mov	r3, 1
-	ldr	r0, =input
-	strb	r3, [r0]
-	ldr	r0, =\s
-	ldr	r1, =input
-	ldr	r2, =output
+	mov	w3, 1
+	ldr	x0, =input
+	strb	w3, [x0]
+	ldr	x0, =\s
+	ldr	x1, =input
+	ldr	x2, =output
 	bl	factorial
 
-	ldr	r2, =print_vector
+	ldr	x2, =print_vector
 	bl	printbytes
 
-	ldr	r2, =print_vector
-	ldr	r1, =\s
-	ldr	r0, =outstring
+	ldr	x2, =print_vector
+	ldr	x1, =\s
+	ldr	x0, =outstring
 	bl	printf
 
-	ldr	r0, =output
-	ldr	r1, =oLENGTH
+	ldr	x0, =output
+	ldr	x1, =oLENGTH
 	bl	clearbytes
 .endm
 
