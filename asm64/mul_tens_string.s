@@ -30,6 +30,8 @@ mul_tens_string:
 	mov	iptr, x0
 	mov	ilength, x1
 	mov	numtens, x2
+#	mov	len, numtens
+#	add	len, len, ilength
 	mov	optr, x3
 
 	mov	x0, iptr
