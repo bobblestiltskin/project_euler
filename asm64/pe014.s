@@ -30,8 +30,10 @@ loopstart:
 	mov	j, i
 inner:
 	cmp	j, 1
-	beq	inc_counter
+	b.eq	inc_counter
+	mov	x0, j
 	bl	next_term
+	mov	j, x0
 	add	counter, counter, 1
 	b	inner
 inc_counter:
@@ -43,7 +45,7 @@ inc_counter:
 nexti:
 	adds	i, i, 1
 	cmp 	i, limit
-	blt	loopstart
+	b.lt	loopstart
 	
 printme:
 	mov	x1, maxi
@@ -57,15 +59,10 @@ printme:
         .global next_term
         .type   next_term, %function
 next_term:
-#        stmfd   sp!, {lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
-	ands	x2, x1, 1
-	bne	odd
+	tbnz    x0, #0, odd /* check 0th bit of current - set to 1 for odd numbers - so we jump to odd */
 	add	x0, xzr, x0, lsr 1	/* leave bit 0 in carry */
 	b	next_term_last
 odd:
@@ -73,12 +70,6 @@ odd:
 	adds	x2, x2, x0
 	adds	x2, x2, 1
 	mov	x0, x2		/* r1 is 3n+1 - any overflow to r0 */
-
 next_term_last:
-#        ldmfd   sp!, {pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
-
+        ldp fp, lr, [sp], #0x10
 	ret
