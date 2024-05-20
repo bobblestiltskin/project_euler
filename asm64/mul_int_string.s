@@ -32,6 +32,7 @@ digit		.req x18
 rptr		.req x19
 rlength		.req x20
 wtmp		.req w21
+rolling_sum_init	.req w22
 
 .global mul_int_string
 .type mul_int_string, %function
@@ -47,8 +48,10 @@ mul_int_string:
 	ldr	rptr, =rolling_sum
 	mov	ilength, x1
 	mov	olength, x1
+	mov	rlength, x1
 	mov	number, x2
 	mov	optr, x3
+	mov	rolling_sum_init, #0
 
 	cmp	number, 10
 	b.lt	single_digit
@@ -67,6 +70,9 @@ loopstart:
 
 	mov	number, x0
 	mov	digit, x1
+
+	cmp	digit, #0
+	b.eq	increment_numtens
 
 	mov	x0, iptr
 	mov	x1, ilength
@@ -88,11 +94,59 @@ loopstart:
 	mov	tptr, x0
 	mov	tlength, x1
 
-	cmp	numtens, #0
-	b.ne	havetens
+	cmp	rolling_sum_init, #0
+	b.ne	have_rolling_sum
+	mov	rolling_sum_init, #1
 
 # first digit processed. copy the current data to the rolling sum
 
+	cmp	numtens, #0
+	b.eq	no_tens
+
+# multiply current by 10 by adding zeroes to the end and extending
+
+        mov     x0, tptr
+        mov     x1, tlength
+        mov     x2, numtens
+        mov     x3, rptr
+
+        stp x18, x19, [sp, #-0x50]!
+        stp x10, x11, [sp, #0x10]
+        stp x12, x13, [sp, #0x20]
+        stp x14, x15, [sp, #0x30]
+        stp x16, x17, [sp, #0x40]
+
+        bl      mul_tens_string
+
+	mov	optr, x0
+	mov	olength, x1
+	mov	tptr, x0
+	mov	tlength, x1
+	mov	rptr, x0
+	mov	rlength, x1
+
+        ldp x16, x17, [sp, #0x40]
+        ldp x14, x15, [sp, #0x30]
+        ldp x12, x13, [sp, #0x20]
+        ldp x10, x11, [sp, #0x10]
+        ldp x18, x19, [sp], #0x50
+
+	mov	x0, rptr
+	mov	x1, rlength
+	mov	x2, optr
+
+        stp x6, x7, [sp, #-0x20]!
+        stp x4, x5, [sp, #0x10]
+
+	bl	copybytes
+
+        ldp x4, x5, [sp, #0x10]
+        ldp x6, x7, [sp], #0x20
+
+	mov	olength, x1
+
+	b	increment_numtens
+no_tens:
 	mov	x0, tptr
 	mov	x1, tlength
 	mov	x2, rptr
@@ -106,8 +160,9 @@ loopstart:
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
 
+
 	b	increment_numtens
-havetens:
+have_rolling_sum:
 # already have output data so add the new data to the current data
 
 # multiply current by 10 by adding zeroes to the end and extending
@@ -125,19 +180,17 @@ havetens:
 
         bl      mul_tens_string
 
-	mov	optr, x0
-	mov	olength, x1
-
         ldp x16, x17, [sp, #0x40]
         ldp x14, x15, [sp, #0x30]
         ldp x12, x13, [sp, #0x20]
         ldp x10, x11, [sp, #0x10]
         ldp x18, x19, [sp], #0x50
 
+	mov	optr, x0
+	mov	olength, x1
+
 	mov	x0, optr
 	add	tlength, olength, 1
-#	add	olength, olength, numtens
-#	mov	tlength, olength
 	mov	x1, olength
 	mov	x2, tptr
 
@@ -149,8 +202,8 @@ havetens:
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
 
-	mov	x0, tptr
-	mov	x1, tlength
+#	mov	x0, tptr
+#	mov	x1, tlength
 ba:
 
 # add the current data to the rolling sum
@@ -198,8 +251,6 @@ increment_numtens:
 loopend:
 	mov	x0, optr
 	mov	x1, olength
-#	mov	x0, rptr
-#	mov	x1, rlength
 
 	b	mis_end
 single_digit:
