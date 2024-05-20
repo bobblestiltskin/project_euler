@@ -188,9 +188,10 @@ have_rolling_sum:
 
 	mov	optr, x0
 	mov	olength, x1
+	mov	tlength, x1
 
 	mov	x0, optr
-	add	tlength, olength, 1
+#	add	tlength, olength, 1
 	mov	x1, olength
 	mov	x2, tptr
 

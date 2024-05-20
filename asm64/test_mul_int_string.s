@@ -54,6 +54,8 @@
 .equ	scalar321,321
 .equ	scalar1000,1000
 .equ	scalar1001,1001
+.equ	scalar10000,10000
+.equ	scalar10001,10001
 
 .section .data
 .align	2
@@ -82,7 +84,6 @@ main:
 	ldr	x0, =instring
 	bl	printf
 
-	multiplystring scalar321
 	multiplystring scalar0
 	multiplystring scalar1
 	multiplystring scalar3
@@ -100,6 +101,8 @@ main:
 	multiplystring scalar321
 	multiplystring scalar1000
 	multiplystring scalar1001
+	multiplystring scalar10000
+	multiplystring scalar10001
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
