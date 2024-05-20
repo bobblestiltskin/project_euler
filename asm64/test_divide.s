@@ -5,22 +5,23 @@
 .equ num9,7
 
 .macro remainder num
-	ldr	r1, =\num
-	ldr	r0, =numstring
+	ldr	x1, =\num
+	mov	x2, 7
+	ldr	x0, =numstring
 	bl	printf
 
-	ldr	r0, =\num
-	mov	r1, 7
+	ldr	x0, =\num
+	mov	x1, 7
 	bl	divide
-	mov	r2, r0
-	ldr	r0, =remainderstring
+	mov	x2, x0
+	ldr	x0, =remainderstring
 	bl	printf
 .endm
 
 .section .rodata
 	.align	2
 numstring:
-	.asciz "num is %d\n"
+	.asciz "num is %d, dividing by %d\n"
 remainderstring:
 	.asciz "remainder is %d and dividend is %d\n"
 
