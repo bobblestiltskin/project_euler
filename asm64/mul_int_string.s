@@ -120,8 +120,8 @@ loopstart:
 
 	mov	optr, x0
 	mov	olength, x1
-	mov	tptr, x0
-	mov	tlength, x1
+#	mov	tptr, x0
+#	mov	tlength, x1
 	mov	rptr, x0
 	mov	rlength, x1
 
@@ -185,13 +185,13 @@ have_rolling_sum:
         ldp x10, x11, [sp, #0x10]
         ldp x18, x19, [sp], #0x50
 
-#	mov	optr, x0
-	mov	tptr, x0
+	mov	optr, x0
+#	mov	tptr, x0
 	mov	olength, x1
-	mov	tlength, x1
+#	mov	tlength, x1
 
-	mov	x0, optr
-	add	tlength, olength, 1
+#	mov	x0, optr
+#	add	tlength, olength, 1
 	mov	x1, olength
 	mov	x2, tptr
 
@@ -203,7 +203,7 @@ have_rolling_sum:
         ldp x4, x5, [sp, #0x10]
         ldp x6, x7, [sp], #0x20
 
-	mov	tptr, x0
+#	mov	tptr, x0
 	mov	tlength, x1
 ba:
 

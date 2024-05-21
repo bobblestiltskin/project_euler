@@ -35,8 +35,9 @@
 	bl	clearbytes
 .endm
 
-#.equ	iLENGTH,3
-.equ	iLENGTH,6
+.equ	iLENGTH,3
+#.equ	iLENGTH,4
+#.equ	iLENGTH,6
 #.equ	iLENGTH,10
 .equ	ipLENGTH,iLENGTH+1
 .equ	oLENGTH,iLENGTH+2
@@ -61,6 +62,8 @@
 .equ	scalar87,87
 .equ	scalar100,100
 .equ	scalar101,101
+.equ	scalar111,111
+.equ	scalar121,121
 .equ	scalar300,300
 .equ	scalar321,321
 .equ	scalar1000,1000
@@ -71,14 +74,16 @@
 .section .data
 .align	2
 input:
-#.byte 1, 2, 3
+.byte 1, 2, 3
 #.byte 4, 3, 2, 7
-.byte 3, 6, 2, 8, 8, 0
+#.byte 1, 2, 3, 4
+#.byte 1, 2, 3, 4, 5, 6
+#.byte 3, 6, 2, 8, 8, 0
 #.byte 1, 2, 3, 4, 5, 6, 7, 8, 9, 1
 #.byte 6, 2, 2, 7, 0, 2, 0, 8, 0, 0
 .section .rodata
-instring:
-.asciz "input string is 362880\n"
+#instring:
+#.asciz "input string is 362880\n"
 #.asciz "input string is 123\n"
 #.asciz "input string is 1234567891\n"
 #.asciz "input string is 6227020800\n"
@@ -94,9 +99,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	ldr	x0, =instring
-	bl	printf
-
+	multiplystring scalar111
 	multiplystring scalar321
 	multiplystring scalar0
 	multiplystring scalar1
@@ -117,6 +120,8 @@ main:
 	multiplystring scalar87
 	multiplystring scalar100
 	multiplystring scalar101
+	multiplystring scalar111
+	multiplystring scalar121
 	multiplystring scalar300
 	multiplystring scalar321
 	multiplystring scalar1000
