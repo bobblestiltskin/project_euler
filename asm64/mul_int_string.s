@@ -6,9 +6,12 @@
 .lcomm tmp_vector,MAXLEN
 .lcomm rolling_sum,MAXLEN
 
-# this subroutine multiplies the byte array at x0 with length x1 by x2 
+# this subroutine multiplies the byte array at x0 with length x1 by the value x2
 # and stores to x0 with output length in x1
 # the output vector is passed as x3.
+#
+# the byte arrays stores integers of arbitrary length
+# e.g. the integer 123456 is stored in 6 successive bytes digit by digit
 #
 # inputs
 #   x0 - pointer to input vector
@@ -108,7 +111,6 @@ loopstart:
         mov     x0, tptr
         mov     x1, tlength
         mov     x2, numtens
-#        mov     x3, rptr
 
         stp x18, x19, [sp, #-0x50]!
         stp x10, x11, [sp, #0x10]
@@ -117,11 +119,6 @@ loopstart:
         stp x16, x17, [sp, #0x40]
 
         bl      mul_tens_string
-
-#	mov	optr, x0
-#	mov	olength, x1
-#	mov	rptr, x0
-#	mov	rlength, x1
 
         ldp x16, x17, [sp, #0x40]
         ldp x14, x15, [sp, #0x30]
@@ -186,38 +183,7 @@ have_rolling_sum:
 
 	mov	tptr, x0
 	mov	tlength, x1
-
-#	mov	optr, x0
-#	mov	olength, x1
-#	mov	x1, olength
-#	mov	x2, tptr
-
-#        stp x6, x7, [sp, #-0x20]!
-#        stp x4, x5, [sp, #0x10]
-
-#	bl	copybytes
-
-#        ldp x4, x5, [sp, #0x10]
-#        ldp x6, x7, [sp], #0x20
-
-#	mov	tlength, x1
-
-#        mov     x0, optr
-#        mov     x1, olength
-
-#        stp x10, x11, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-
-#        bl      clearbytes
-
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp x10, x11, [sp], #0x40
 ba:
-
 # add the current data to the rolling sum
 	mov	x0, tptr
 	mov	x1, tlength
@@ -241,13 +207,10 @@ ba:
 
 	mov	optr, x0
 	mov	olength, x1
-
 # update the rolling sum
-
 	mov	x0, optr
 	mov	x1, olength
 	mov	x2, rptr
-#	mov	rlength, olength
 
         stp x6, x7, [sp, #-0x20]!
         stp x4, x5, [sp, #0x10]

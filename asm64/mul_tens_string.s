@@ -35,18 +35,11 @@ mul_tens_string:
 
 	add	len, ilength, numtens
 	mov	ptr, x0
-#copybytesloopstart:
-#	ldrb	w2, [x0], 1
-#	strb	w2, [x3], 1
-#	subs	x1, x1, 1
-#	b.ne	copybytesloopstart
-#
+	mov	w2, #0
 cbl_start:
 	cmp	numtens, #0
 	b.eq	cbl_end
-	mov	w2, #0
 	strb	w2, [optr], 1
-#	add	len, len, 1
 	subs	numtens, numtens, #1
 
 	b	cbl_start

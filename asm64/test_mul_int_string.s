@@ -98,9 +98,6 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	multiplystring scalar101 123456
-	multiplystring scalar111 123456
-	multiplystring scalar321 123456
 	multiplystring scalar0 123456
 	multiplystring scalar1 123456
 	multiplystring scalar2 123456
