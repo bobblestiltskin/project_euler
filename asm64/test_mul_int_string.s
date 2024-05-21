@@ -73,6 +73,7 @@
 .equ	scalar1001,1001
 .equ	scalar10000,10000
 .equ	scalar10001,10001
+.equ	scalar10101,10101
 
 .section .data
 .align	2
@@ -125,6 +126,7 @@ main:
 	multiplystring scalar1001 123456
 	multiplystring scalar10000 123456
 	multiplystring scalar10001 123456
+	multiplystring scalar10101 123456
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */

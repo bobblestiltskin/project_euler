@@ -72,7 +72,7 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	dofac scalar3
+	dofac scalar11
 	dofac scalar1
 	dofac scalar2
 	dofac scalar3

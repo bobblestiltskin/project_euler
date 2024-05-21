@@ -118,8 +118,6 @@ mds_loopstart:
 
 	strb	w1, [optr], -1
 	mov	carryb, w0
-#orr x0, x0, x0, lsr #32
-#	orr	carry, x0, x0, lsr #32
 
 	subs	offset, offset, 1
 	beq	mds_last
@@ -135,11 +133,5 @@ store_byte:
 	mov	x0, optr
 	add	x1, tmp, 1
 mds_end:
-#        ldp x10, x11, [sp, #0x40]
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp fp, lr, [sp], #0x50
-
         ldp 	fp, lr, [sp], #0x10
 	ret
