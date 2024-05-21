@@ -1,3 +1,27 @@
+.macro save_regs_on_stack
+        stp x20, x21, [sp, #-0x90]!
+        stp x18, x19, [sp, #0x10]
+        stp x16, x17, [sp, #0x20]
+        stp x14, x15, [sp, #0x30]
+        stp x12, x13, [sp, #0x40]
+        stp x10, x11, [sp, #0x50]
+        stp x8, x9,   [sp, #0x60]
+        stp x6, x7,   [sp, #0x70]
+        stp x4, x5,   [sp, #0x80]
+.endm
+
+.macro restore_regs_from_stack
+        ldp x4, x5,   [sp, #0x80]
+        ldp x6, x7,   [sp, #0x70]
+        ldp x8, x9,   [sp, #0x60]
+        ldp x10, x11, [sp, #0x50]
+        ldp x12, x13, [sp, #0x40]
+        ldp x14, x15, [sp, #0x30]
+        ldp x16, x17, [sp, #0x20]
+        ldp x18, x19, [sp, #0x10]
+        ldp x20, x21, [sp], #0x90
+.endm
+
 .equ datum_size, 1
 #.equ MAXLEN,192
 .equ MAXLEN,384
@@ -35,7 +59,7 @@ digit		.req x18
 rptr		.req x19
 rlength		.req x20
 wtmp		.req w21
-rolling_sum_init	.req w22
+rs_init	.req w22
 
 .global mul_int_string
 .type mul_int_string, %function
@@ -58,18 +82,22 @@ mul_int_string:
 	cmp	number, 10
 	b.lt	single_digit
 
-	mov	rolling_sum_init, #0
+	mov	rs_init, #0
 	mov	numtens, #0
 loopstart:
 	mov 	x0, number
 
-        stp x6, x7, [sp, #-0x20]!
-        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #-0x20]!
+#        stp x4, x5, [sp, #0x10]
+
+	save_regs_on_stack
 
 	bl	divide_by_10_remainder
 
-        ldp x4, x5, [sp, #0x10]
-        ldp x6, x7, [sp], #0x20
+	restore_regs_from_stack
+
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x6, x7, [sp], #0x20
 
 	mov	number, x0
 	mov	digit, x1
@@ -82,24 +110,28 @@ loopstart:
 	mov	x2, digit
 	mov	x3, tptr
 
-        stp x10, x11, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+#        stp x10, x11, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
+
+	save_regs_on_stack
 
 	bl	mul_digit_string
 
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp x10, x11, [sp], #0x40
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x10, x11, [sp], #0x40
+
+	restore_regs_from_stack
 
 	mov	tptr, x0
 	mov	tlength, x1
 
-	cmp	rolling_sum_init, #0
+	cmp	rs_init, #0
 	b.ne	have_rolling_sum
-	mov	rolling_sum_init, #1
+	mov	rs_init, #1
 
 # first digit processed. copy the current data to the rolling sum
 
@@ -112,19 +144,23 @@ loopstart:
         mov     x1, tlength
         mov     x2, numtens
 
-        stp x18, x19, [sp, #-0x50]!
-        stp x10, x11, [sp, #0x10]
-        stp x12, x13, [sp, #0x20]
-        stp x14, x15, [sp, #0x30]
-        stp x16, x17, [sp, #0x40]
+#        stp x18, x19, [sp, #-0x50]!
+#        stp x10, x11, [sp, #0x10]
+#        stp x12, x13, [sp, #0x20]
+#        stp x14, x15, [sp, #0x30]
+#        stp x16, x17, [sp, #0x40]
+
+	save_regs_on_stack
 
         bl      mul_tens_string
 
-        ldp x16, x17, [sp, #0x40]
-        ldp x14, x15, [sp, #0x30]
-        ldp x12, x13, [sp, #0x20]
-        ldp x10, x11, [sp, #0x10]
-        ldp x18, x19, [sp], #0x50
+#        ldp x16, x17, [sp, #0x40]
+#        ldp x14, x15, [sp, #0x30]
+#        ldp x12, x13, [sp, #0x20]
+#        ldp x10, x11, [sp, #0x10]
+#        ldp x18, x19, [sp], #0x50
+
+	restore_regs_from_stack
 
 	mov	tlength, x1
 
@@ -132,13 +168,17 @@ loopstart:
 	mov	x1, tlength
 	mov	x2, optr
 
-        stp x6, x7, [sp, #-0x20]!
-        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #-0x20]!
+#        stp x4, x5, [sp, #0x10]
+
+	save_regs_on_stack
 
 	bl	copybytes
 
-        ldp x4, x5, [sp, #0x10]
-        ldp x6, x7, [sp], #0x20
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x6, x7, [sp], #0x20
+
+	restore_regs_from_stack
 
 	mov	olength, x1
 
@@ -149,13 +189,17 @@ no_tens:
 	mov	x2, rptr
 	mov	rlength, tlength
 
-        stp x6, x7, [sp, #-0x20]!
-        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #-0x20]!
+#        stp x4, x5, [sp, #0x10]
+
+	save_regs_on_stack
 
 	bl	copybytes
 
-        ldp x4, x5, [sp, #0x10]
-        ldp x6, x7, [sp], #0x20
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x6, x7, [sp], #0x20
+
+	restore_regs_from_stack
 
 	b	increment_numtens
 have_rolling_sum:
@@ -167,19 +211,23 @@ have_rolling_sum:
         mov     x1, tlength
         mov     x2, numtens
 
-        stp x18, x19, [sp, #-0x50]!
-        stp x10, x11, [sp, #0x10]
-        stp x12, x13, [sp, #0x20]
-        stp x14, x15, [sp, #0x30]
-        stp x16, x17, [sp, #0x40]
+#        stp x18, x19, [sp, #-0x50]!
+#        stp x10, x11, [sp, #0x10]
+#        stp x12, x13, [sp, #0x20]
+#        stp x14, x15, [sp, #0x30]
+#        stp x16, x17, [sp, #0x40]
+
+	save_regs_on_stack
 
         bl      mul_tens_string
 
-        ldp x16, x17, [sp, #0x40]
-        ldp x14, x15, [sp, #0x30]
-        ldp x12, x13, [sp, #0x20]
-        ldp x10, x11, [sp, #0x10]
-        ldp x18, x19, [sp], #0x50
+#        ldp x16, x17, [sp, #0x40]
+#        ldp x14, x15, [sp, #0x30]
+#        ldp x12, x13, [sp, #0x20]
+#        ldp x10, x11, [sp, #0x10]
+#        ldp x18, x19, [sp], #0x50
+
+	restore_regs_from_stack
 
 	mov	tptr, x0
 	mov	tlength, x1
@@ -191,19 +239,23 @@ ba:
 	mov	x3, rlength
 	sub	x4, optr, numtens
 
-        stp x20, x21, [sp, #-0x50]!
-        stp x12, x13, [sp, #0x10]
-        stp x14, x15, [sp, #0x20]
-        stp x16, x17, [sp, #0x30]
-        stp x18, x19, [sp, #0x40]
+#        stp x20, x21, [sp, #-0x50]!
+#        stp x12, x13, [sp, #0x10]
+#        stp x14, x15, [sp, #0x20]
+#        stp x16, x17, [sp, #0x30]
+#        stp x18, x19, [sp, #0x40]
+
+	save_regs_on_stack
 
 	bl	add_digit_strings
 
-        ldp x18, x19, [sp, #0x40]
-        ldp x16, x17, [sp, #0x30]
-        ldp x14, x15, [sp, #0x20]
-        ldp x12, x13, [sp, #0x10]
-        ldp x20, x21, [sp], #0x50
+#        ldp x18, x19, [sp, #0x40]
+#        ldp x16, x17, [sp, #0x30]
+#        ldp x14, x15, [sp, #0x20]
+#        ldp x12, x13, [sp, #0x10]
+#        ldp x20, x21, [sp], #0x50
+
+	restore_regs_from_stack
 
 	mov	optr, x0
 	mov	olength, x1
@@ -212,13 +264,17 @@ ba:
 	mov	x1, olength
 	mov	x2, rptr
 
-        stp x6, x7, [sp, #-0x20]!
-        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #-0x20]!
+#        stp x4, x5, [sp, #0x10]
+
+	save_regs_on_stack
 
 	bl	copybytes
 
-        ldp x4, x5, [sp, #0x10]
-        ldp x6, x7, [sp], #0x20
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x6, x7, [sp], #0x20
+
+	restore_regs_from_stack
 
 	mov	rptr, x0
 	mov	rlength, x1
@@ -232,17 +288,21 @@ loopend:
 
 	b	mis_end
 single_digit:
-        stp x10, x11, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+#        stp x10, x11, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
+
+	save_regs_on_stack
 
 	bl	mul_digit_string
 
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp x10, x11, [sp], #0x40
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x10, x11, [sp], #0x40
+
+	restore_regs_from_stack
 mis_end:
         ldp fp, lr, [sp], #0x10
 	ret
