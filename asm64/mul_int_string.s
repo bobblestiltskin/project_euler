@@ -108,7 +108,7 @@ loopstart:
         mov     x0, tptr
         mov     x1, tlength
         mov     x2, numtens
-        mov     x3, rptr
+#        mov     x3, rptr
 
         stp x18, x19, [sp, #-0x50]!
         stp x10, x11, [sp, #0x10]
@@ -118,12 +118,10 @@ loopstart:
 
         bl      mul_tens_string
 
-	mov	optr, x0
-	mov	olength, x1
-#	mov	tptr, x0
-#	mov	tlength, x1
-	mov	rptr, x0
-	mov	rlength, x1
+#	mov	optr, x0
+#	mov	olength, x1
+#	mov	rptr, x0
+#	mov	rlength, x1
 
         ldp x16, x17, [sp, #0x40]
         ldp x14, x15, [sp, #0x30]
@@ -131,8 +129,10 @@ loopstart:
         ldp x10, x11, [sp, #0x10]
         ldp x18, x19, [sp], #0x50
 
-	mov	x0, rptr
-	mov	x1, rlength
+	mov	tlength, x1
+
+	mov	x0, tptr
+	mov	x1, tlength
 	mov	x2, optr
 
         stp x6, x7, [sp, #-0x20]!
@@ -169,7 +169,6 @@ have_rolling_sum:
         mov     x0, tptr
         mov     x1, tlength
         mov     x2, numtens
-        mov     x3, optr
 
         stp x18, x19, [sp, #-0x50]!
         stp x10, x11, [sp, #0x10]
@@ -185,34 +184,46 @@ have_rolling_sum:
         ldp x10, x11, [sp, #0x10]
         ldp x18, x19, [sp], #0x50
 
-	mov	optr, x0
-#	mov	tptr, x0
-	mov	olength, x1
+	mov	tptr, x0
+	mov	tlength, x1
+
+#	mov	optr, x0
+#	mov	olength, x1
+#	mov	x1, olength
+#	mov	x2, tptr
+
+#        stp x6, x7, [sp, #-0x20]!
+#        stp x4, x5, [sp, #0x10]
+
+#	bl	copybytes
+
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x6, x7, [sp], #0x20
+
 #	mov	tlength, x1
 
-#	mov	x0, optr
-#	add	tlength, olength, 1
-	mov	x1, olength
-	mov	x2, tptr
+#        mov     x0, optr
+#        mov     x1, olength
 
-        stp x6, x7, [sp, #-0x20]!
-        stp x4, x5, [sp, #0x10]
+#        stp x10, x11, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
 
-	bl	copybytes
+#        bl      clearbytes
 
-        ldp x4, x5, [sp, #0x10]
-        ldp x6, x7, [sp], #0x20
-
-#	mov	tptr, x0
-	mov	tlength, x1
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp x10, x11, [sp], #0x40
 ba:
 
 # add the current data to the rolling sum
-	mov	x0, rptr
-	mov	x1, rlength
-	mov	x2, tptr
-	mov	x3, tlength
-	mov	x4, optr
+	mov	x0, tptr
+	mov	x1, tlength
+	mov	x2, rptr
+	mov	x3, rlength
+	sub	x4, optr, numtens
 
         stp x20, x21, [sp, #-0x50]!
         stp x12, x13, [sp, #0x10]
@@ -231,12 +242,12 @@ ba:
 	mov	optr, x0
 	mov	olength, x1
 
-# move the output data to the rolling sum
+# update the rolling sum
 
 	mov	x0, optr
 	mov	x1, olength
 	mov	x2, rptr
-	mov	rlength, olength
+#	mov	rlength, olength
 
         stp x6, x7, [sp, #-0x20]!
         stp x4, x5, [sp, #0x10]

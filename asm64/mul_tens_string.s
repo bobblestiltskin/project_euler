@@ -5,6 +5,7 @@
 #   x0 - pointer to input vector
 #   x1 - length of input vector
 #   x2 - number of zeroes to append
+#   x3 - pointer to output vector
 #
 # outputs
 #   x0 - pointer to output vector
@@ -30,30 +31,24 @@ mul_tens_string:
 	mov	iptr, x0
 	mov	ilength, x1
 	mov	numtens, x2
-#	mov	len, numtens
-#	add	len, len, ilength
-	mov	optr, x3
+	add	optr, x0, x1
 
-	mov	x0, iptr
-	mov	x1, ilength
-	mov	x2, optr
-
-	mov	len, x1
-	mov	ptr, x2
-copybytesloopstart:
-	ldrb	w3, [x0], 1
-	strb	w3, [x2], 1
-	subs	x1, x1, 1
-	b.ne	copybytesloopstart
-
+	add	len, ilength, numtens
+	mov	ptr, x0
+#copybytesloopstart:
+#	ldrb	w2, [x0], 1
+#	strb	w2, [x3], 1
+#	subs	x1, x1, 1
+#	b.ne	copybytesloopstart
+#
 cbl_start:
 	cmp	numtens, #0
 	b.eq	cbl_end
-	mov	w3, #0
-	strb	w3, [x2], 1
-	add	len, len, 1
+	mov	w2, #0
+	strb	w2, [optr], 1
+#	add	len, len, 1
 	subs	numtens, numtens, #1
-	
+
 	b	cbl_start
 cbl_end:
 	mov	x0, ptr

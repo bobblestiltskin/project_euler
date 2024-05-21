@@ -1,4 +1,4 @@
-.macro multiplystring num
+.macro multiplystring num start
 	ldr	x0, =input
 	ldr	x1, =iLENGTH
 	ldr	x2, =\num
@@ -25,8 +25,11 @@
 	ldr	x2, =print_vector
 	bl	printbytes
 
+	ldr	x2, =\start
+	ldr     x4, =\num
+	mul	x4, x2, x4
 	ldr	x1, =\num
-	ldr	x2, =print_vector
+	ldr	x3, =print_vector
 	ldr	x0, =outstring
 	bl	printf
 
@@ -35,9 +38,9 @@
 	bl	clearbytes
 .endm
 
-.equ	iLENGTH,3
+#.equ	iLENGTH,3
 #.equ	iLENGTH,4
-#.equ	iLENGTH,6
+.equ	iLENGTH,6
 #.equ	iLENGTH,10
 .equ	ipLENGTH,iLENGTH+1
 .equ	oLENGTH,iLENGTH+2
@@ -74,21 +77,17 @@
 .section .data
 .align	2
 input:
-.byte 1, 2, 3
+#.byte 1, 2, 3
 #.byte 4, 3, 2, 7
 #.byte 1, 2, 3, 4
-#.byte 1, 2, 3, 4, 5, 6
+.byte 1, 2, 3, 4, 5, 6
+#byte 6, 5, 4, 3, 2, 1
 #.byte 3, 6, 2, 8, 8, 0
 #.byte 1, 2, 3, 4, 5, 6, 7, 8, 9, 1
 #.byte 6, 2, 2, 7, 0, 2, 0, 8, 0, 0
 .section .rodata
-#instring:
-#.asciz "input string is 362880\n"
-#.asciz "input string is 123\n"
-#.asciz "input string is 1234567891\n"
-#.asciz "input string is 6227020800\n"
 outstring:
-.asciz "scalar is %d and output string is %s\n"
+.asciz "scalar is %d and base is %d, output string is %s - should be %d\n"
 
 .section bss
 .lcomm print_vector,ipLENGTH
@@ -99,35 +98,36 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	multiplystring scalar111
-	multiplystring scalar321
-	multiplystring scalar0
-	multiplystring scalar1
-	multiplystring scalar2
-	multiplystring scalar3
-	multiplystring scalar7
-	multiplystring scalar10
-	multiplystring scalar11
-	multiplystring scalar12
-	multiplystring scalar14
-	multiplystring scalar20
-	multiplystring scalar21
-	multiplystring scalar22
-	multiplystring scalar23
-	multiplystring scalar30
-	multiplystring scalar31
-	multiplystring scalar32
-	multiplystring scalar87
-	multiplystring scalar100
-	multiplystring scalar101
-	multiplystring scalar111
-	multiplystring scalar121
-	multiplystring scalar300
-	multiplystring scalar321
-	multiplystring scalar1000
-	multiplystring scalar1001
-	multiplystring scalar10000
-	multiplystring scalar10001
+	multiplystring scalar101 123456
+	multiplystring scalar111 123456
+	multiplystring scalar321 123456
+	multiplystring scalar0 123456
+	multiplystring scalar1 123456
+	multiplystring scalar2 123456
+	multiplystring scalar3 123456
+	multiplystring scalar7 123456
+	multiplystring scalar10 123456
+	multiplystring scalar11 123456
+	multiplystring scalar12 123456
+	multiplystring scalar14 123456
+	multiplystring scalar20 123456
+	multiplystring scalar21 123456
+	multiplystring scalar22 123456
+	multiplystring scalar23 123456
+	multiplystring scalar30 123456
+	multiplystring scalar31 123456
+	multiplystring scalar32 123456
+	multiplystring scalar87 123456
+	multiplystring scalar100 123456
+	multiplystring scalar101 123456
+	multiplystring scalar111 123456
+	multiplystring scalar121 123456
+	multiplystring scalar300 123456
+	multiplystring scalar321 123456
+	multiplystring scalar1000 123456
+	multiplystring scalar1001 123456
+	multiplystring scalar10000 123456
+	multiplystring scalar10001 123456
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
