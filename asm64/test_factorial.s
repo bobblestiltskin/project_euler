@@ -23,8 +23,8 @@
 .equ	iLENGTH,1
 #.equ	ipLENGTH,200
 #.equ	oLENGTH,200
-.equ	ipLENGTH,400
-.equ	oLENGTH,400
+.equ	ipLENGTH,4000
+.equ	oLENGTH,4000
 
 .equ	scalar1,1
 .equ	scalar2,2
@@ -54,6 +54,7 @@
 .equ	scalar80,80
 .equ	scalar90,90
 .equ	scalar100,100
+.equ	scalar1000,1000
 
 .section .rodata
 instring:
@@ -101,6 +102,7 @@ main:
 	dofac scalar80
 	dofac scalar90
 	dofac scalar100
+	dofac scalar1000
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
