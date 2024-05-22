@@ -1,7 +1,32 @@
 # this computes projecteuler.net problem 021
 
+.equ	WORDSIZE, 8
+.equ	SIZEB, 80000
 .equ	SIZE, 10000
-.equ	SIZEB, 40000
+
+.macro save_regs_on_stack
+        stp x20, x21, [sp, #-0x90]!
+        stp x18, x19, [sp, #0x10]
+        stp x16, x17, [sp, #0x20]
+        stp x14, x15, [sp, #0x30]
+        stp x12, x13, [sp, #0x40]
+        stp x10, x11, [sp, #0x50]
+        stp x8, x9,   [sp, #0x60]
+        stp x6, x7,   [sp, #0x70]
+        stp x4, x5,   [sp, #0x80]
+.endm
+
+.macro restore_regs_from_stack
+        ldp x4, x5,   [sp, #0x80]
+        ldp x6, x7,   [sp, #0x70]
+        ldp x8, x9,   [sp, #0x60]
+        ldp x10, x11, [sp, #0x50]
+        ldp x12, x13, [sp, #0x40]
+        ldp x14, x15, [sp, #0x30]
+        ldp x16, x17, [sp, #0x20]
+        ldp x18, x19, [sp, #0x10]
+        ldp x20, x21, [sp], #0x90
+.endm
 
 .align 4
 
@@ -11,7 +36,7 @@ sum		.req x5
 tmp		.req x5
 icount		.req x6
 total		.req x7
-tmp4		.req x8
+tmp8		.req x8
 
 .section .bss
 .lcomm array,SIZEB
@@ -32,37 +57,41 @@ main:
 	ldr	aptr, =array
 array_loop:
 	mov	x0, icount
+	save_regs_on_stack
 	bl	sum_factors
-	str	x0, [aptr], 4
+	restore_regs_from_stack
+	str	x0, [aptr], WORDSIZE
 	add	icount, icount, 1
 	ldr	tmp, =SIZE
 	cmp	icount, tmp
-	blt	array_loop
+	b.lt	array_loop
 
 	ldr 	aptr, =array
 	mov	tmp, 0
 	ldr	icount, =SIZE
 	mov	total, 0
 ploop:
-	add	tmp4, tmp, tmp
-	add	tmp4, tmp4, tmp4 /* multiply tmp by 4 */
-	ldr	x2, [aptr, tmp4]
+	add	tmp8, tmp, tmp
+	add	tmp8, tmp8, tmp8 /* multiply tmp by 4 */
+	add	tmp8, tmp8, tmp8 /* multiply x2 by 8 */
+	ldr	x2, [aptr, tmp8]
 #	ldr	x2, [aptr, tmp, lsl 2]
 	cmp	x2, icount
 	b.ge	pnext
 	cmp	tmp, x2
 	b.eq	pnext
-	add	tmp4, x2, x2
-	add	tmp4, tmp4, tmp4 /* multiply x2 by 4 */
+	add	tmp8, x2, x2
+	add	tmp8, tmp8, tmp8 /* multiply x2 by 4 */
+	add	tmp8, tmp8, tmp8 /* multiply x2 by 8 */
 #	ldr	x3, [aptr, x2, lsl 2]
-	ldr	x3, [aptr, tmp4]
+	ldr	x3, [aptr, tmp8]
 	cmp	tmp, x3
 	b.ne	pnext
 	add	total, total, tmp
 pnext:
 	add	tmp, tmp, 1
 	cmp	tmp, icount
-	bne	ploop
+	b.ne	ploop
 printme:
         mov     x1, total
         ldr     x0, =resstring  /* store address of start of string to r0 */
