@@ -3,21 +3,49 @@
 # - see http://en.wikipedia.org/wiki/Factorial_number_system
 # - and http://en.wikipedia.org/wiki/Permutation
 
+.macro save_regs_on_stack
+        stp x20, x21, [sp, #-0x90]!
+        stp x18, x19, [sp, #0x10]
+        stp x16, x17, [sp, #0x20]
+        stp x14, x15, [sp, #0x30]
+        stp x12, x13, [sp, #0x40]
+        stp x10, x11, [sp, #0x50]
+        stp x8, x9,   [sp, #0x60]
+        stp x6, x7,   [sp, #0x70]
+        stp x4, x5,   [sp, #0x80]
+.endm
+
+.macro restore_regs_from_stack
+        ldp x4, x5,   [sp, #0x80]
+        ldp x6, x7,   [sp, #0x70]
+        ldp x8, x9,   [sp, #0x60]
+        ldp x10, x11, [sp, #0x50]
+        ldp x12, x13, [sp, #0x40]
+        ldp x14, x15, [sp, #0x30]
+        ldp x16, x17, [sp, #0x20]
+        ldp x18, x19, [sp, #0x10]
+        ldp x20, x21, [sp], #0x90
+.endm
+
 .macro check_digit a
-	ldr	r0, =vector
-	mov	r1, VSIZE
-	mov	r2, \a
+	ldr	x0, =vector
+	mov	x1, VSIZE
+	mov	x2, \a
+	save_regs_on_stack
 	bl	contains
-	teq	r0, 1
+	restore_regs_from_stack
+	cmp	x0, 1
 	bne	mloop
 .endm
 
 .macro copy_vector a b
-	ldr	r0, =\a
-	add	r0, r0, 1
-	mov	r1, VSIZE
-	ldr	r2, =\b
+	ldr	x0, =\a
+	add	x0, x0, 1
+	mov	x1, VSIZE
+	ldr	x2, =\b
+	save_regs_on_stack
 	bl	copybytes
+	restore_regs_from_stack
 .endm
 
 # this macro lifted from test_add_digit_strings.s 
@@ -26,31 +54,32 @@
 
 .macro add_strings a al b bl c
 #        stmfd   sp!, {r4}       /* stash r4 on the stack - we destroy it in add_digit_strings */
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+#        stp fp, lr, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
 
-        ldr     r0, =\c
-#        stmfd   sp!, {r0}       /* this is the fifth parameter for the subroutine */
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
+#        stp fp, lr, [sp, #-0x10]!
+#        mov fp, sp
 
-        ldr     r0, =\a
-        ldr     r1, =\al
-        ldr     r2, =\b
-        ldr     r3, =\bl
+        ldr     x0, =\c
+        ldr     x0, =\a
+        ldr     x1, =\al
+        ldr     x2, =\b
+        ldr     x3, =\bl
+
+	save_regs_on_stack
         bl      add_digit_strings
-        add     sp, sp, 4       /* revert sp to before (1) */
+	restore_regs_from_stack
+
+#        add     sp, sp, 4       /* revert sp to before (1) */
 #        ldmfd   sp!, {r4}      /* and get stashed r4 */
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp fp, lr, [sp], #0x40
+
+#        ldp fp, lr, [sp], #0x10
 .endm
 
 .equ	datum_size, 2
@@ -59,7 +88,7 @@
 
 .align 4
 
-icount		.req r4
+icount		.req x4
 
 .section .data
 .align  2
@@ -81,11 +110,13 @@ outstring:
 .global main
 .type   main, %function
 main:
-        #stmfd   sp!, {r4, lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+#        #stmfd   sp!, {r4, lr}
+#        stp fp, lr, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
+
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 	ldr	icount, =SIZE
@@ -105,21 +136,22 @@ mloop:
 	subs	icount, icount, 1
 	bne	mloop
 printme:
-	ldr	r0, =vector
-	mov	r1, 10
-        ldr     r2, =print_vector
+	ldr	x0, =vector
+	mov	x1, 10
+        ldr     x2, =print_vector
         bl      printbytes
 
-        ldr     r1, =print_vector
-        ldr     r0, =outstring
+        ldr     x1, =print_vector
+        ldr     x0, =outstring
         bl      printf
 
-	mov	r0, 0
 #        ldmfd   sp!, {r4, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp fp, lr, [sp], #0x40
+
+        ldp fp, lr, [sp], #0x10
 
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
@@ -131,24 +163,32 @@ printme:
 .type   contains, %function
 contains:
 #        stmfd   sp!, {r4, lr}
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+#        stp fp, lr, [sp, #-0x40]!
+#        stp x4, x5, [sp, #0x10]
+#        stp x6, x7, [sp, #0x20]
+#        stp x8, x9, [sp, #0x30]
+#        mov fp, sp
+
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
-	mov	r4, r0
-	mov	r0, 0
+	mov	x4, x0
+	mov	x0, 0
 contains_start:
-	ldrb	r3, [r4], 1
-	cmp	r3, r2
-	moveq	r0, 1
-	beq	contains_end
-	subs	r1, r1, 1
+	ldrb	w3, [x4], 1
+	cmp	w3, w2
+	b.ne	decrement_size
+	mov	x0, 1
+	b	contains_end
+decrement_size:
+	subs	x1, x1, 1
 	bne	contains_start
 contains_end:	
 #        ldmfd   sp!, {r4, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+#        ldp x8, x9, [sp, #0x30]
+#        ldp x6, x7, [sp, #0x20]
+#        ldp x4, x5, [sp, #0x10]
+#        ldp fp, lr, [sp], #0x40
+
+        ldp fp, lr, [sp], #0x10
+	ret
