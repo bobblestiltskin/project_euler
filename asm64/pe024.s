@@ -53,33 +53,15 @@
 # the fifth parameter must be passed on the stack
 
 .macro add_strings a al b bl c
-#        stmfd   sp!, {r4}       /* stash r4 on the stack - we destroy it in add_digit_strings */
-#        stp fp, lr, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-
-#        stp fp, lr, [sp, #-0x10]!
-#        mov fp, sp
-
-        ldr     x0, =\c
         ldr     x0, =\a
         ldr     x1, =\al
         ldr     x2, =\b
         ldr     x3, =\bl
+        ldr     x4, =\c
 
 	save_regs_on_stack
         bl      add_digit_strings
 	restore_regs_from_stack
-
-#        add     sp, sp, 4       /* revert sp to before (1) */
-#        ldmfd   sp!, {r4}      /* and get stashed r4 */
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp fp, lr, [sp], #0x40
-
-#        ldp fp, lr, [sp], #0x10
 .endm
 
 .equ	datum_size, 2
@@ -88,7 +70,7 @@
 
 .align 4
 
-icount		.req x4
+icount		.req x19
 
 .section .data
 .align  2
@@ -110,12 +92,6 @@ outstring:
 .global main
 .type   main, %function
 main:
-#        #stmfd   sp!, {r4, lr}
-#        stp fp, lr, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-
         stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
@@ -145,12 +121,6 @@ printme:
         ldr     x0, =outstring
         bl      printf
 
-#        ldmfd   sp!, {r4, pc}
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp fp, lr, [sp], #0x40
-
         ldp fp, lr, [sp], #0x10
 
 	mov	x0, #0		/* exit code to 0 */
@@ -162,13 +132,6 @@ printme:
 .global contains
 .type   contains, %function
 contains:
-#        stmfd   sp!, {r4, lr}
-#        stp fp, lr, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-#        mov fp, sp
-
         stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
@@ -184,11 +147,6 @@ decrement_size:
 	subs	x1, x1, 1
 	bne	contains_start
 contains_end:	
-#        ldmfd   sp!, {r4, pc}
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp fp, lr, [sp], #0x40
 
         ldp fp, lr, [sp], #0x10
 	ret
