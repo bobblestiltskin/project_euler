@@ -78,11 +78,10 @@ main:
 	ldr	x0, =res_string
 	bl	printf
 
-        ldp fp, lr, [sp], #0x10
 
 	mov	x0, #0		/* exit code to 0 */
-	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-        svc	#0		/* then invoke the syscall from linux */
+        ldp	fp, lr, [sp], #0x10
+	ret
 
 # init_sorted initialises the sorted list to i
 .type   init_sorted, %function

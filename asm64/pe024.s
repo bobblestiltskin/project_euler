@@ -87,11 +87,9 @@ printme:
         ldr     x0, =outstring
         bl      printf
 
-        ldp fp, lr, [sp], #0x10
-
 	mov	x0, #0		/* exit code to 0 */
-	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-        svc	#0		/* then invoke the syscall from linux */
+        ldp	fp, lr, [sp], #0x10
+	ret
 
 # contains takes a pointer to a byte vector in r0, and a size in r1 and a scalar in r2
 # it returns 1 in r0 if the vector contains the scalar and 0 otherwise

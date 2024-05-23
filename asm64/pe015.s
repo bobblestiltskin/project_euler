@@ -69,6 +69,8 @@ llustring:
         .global main
         .type   main, %function
 main:
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
         stp fp, lr, [sp, #-0x40]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
@@ -114,14 +116,13 @@ mnumerator:
         ldp fp, lr, [sp], #0x40
 
 	mov	x0, #0		/* exit code to 0 */
-	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-        svc	#0		/* then invoke the syscall from linux */
+	ldp     fp, lr, [sp], #0x10
+	ret
 
         .align  2
         .global needs_factor
         .type   needs_factor, %function
 needs_factor:
-#        stmfd   sp!, {lr}
         stp fp, lr, [sp, #-0x40]!
         stp x4, x5, [sp, #0x10]
         stp x6, x7, [sp, #0x20]
@@ -141,7 +142,6 @@ next_byte:
 ret1:
 	mov	x0, 1
 leave:
-#        ldmfd   sp!, {pc}
         ldp x8, x9, [sp, #0x30]
         ldp x6, x7, [sp, #0x20]
         ldp x4, x5, [sp, #0x10]

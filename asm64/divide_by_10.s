@@ -19,9 +19,11 @@ tmp_div    .req x7
 .global	divide_by_10_remainder
 .type	divide_by_10_remainder, %function
 divide_by_10_remainder:
-        stp fp, lr, [sp, #-0x10]!
+        stp fp, lr, [sp, #-0x30]!
+        stp x4, x5, [sp, #0x10]
+        stp x6, x7, [sp, #0x20]
         mov fp, sp
-
+ 
 	cmp	x0, 10
 	blt	rsmall
 
@@ -38,6 +40,7 @@ rsmall:
 	mov	x1, x0
 	mov	x0, 0
 rlast:
-
-        ldp fp, lr, [sp], #0x10
+	ldp x6, x7, [sp, #0x20]
+	ldp x4, x5, [sp, #0x10]
+	ldp fp, lr, [sp], #0x30
 	ret

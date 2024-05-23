@@ -81,6 +81,8 @@ bigga\@:
         .global main
         .type   main, %function
 main:
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
 	mov	icount, icolumns
 iloop:
 	mov	jcount, icolumns
@@ -114,5 +116,5 @@ printme:
         bl      printf
 
 	mov	x0, #0		/* exit code to 0 */
-	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-        svc	#0		/* then invoke the syscall from linux */
+	ldp     fp, lr, [sp], #0x10
+	ret

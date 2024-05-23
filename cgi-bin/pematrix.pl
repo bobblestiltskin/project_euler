@@ -19,6 +19,11 @@ my $languages = [
     extension => 's'
   },
   {
+    language_name => 'asm64',
+    display => 'ARM 64-bit asm',
+    extension => 's'
+  },
+  {
     language_name => 'c',
     display => 'C',
     extension => 'c'

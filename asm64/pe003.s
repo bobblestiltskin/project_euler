@@ -23,6 +23,9 @@ resstring:
         .global main
         .type main, %function
 main:
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
+
         mov maxprime, 0
         mov count, 1
         movz running, numlo /* jiggery-pokery to load a 64 bit constant or 2^40 as here specifically */
@@ -45,6 +48,6 @@ printme:
         ldr x0, =resstring     /* store address of start of string to x0 */
         bl printf
 
-	mov	x0, #0		/* exit code to 0 */
-	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-        svc	#0		/* then invoke the syscall from linux */
+	ldp     fp, lr, [sp], #0x10
+        mov     x0, #0          /* exit code to 0 */
+	ret

@@ -17,6 +17,8 @@ string:
 	.global	main
 	.type	main, %function
 main:
+	stp	fp, lr, [sp, #-0x10]!
+	mov	fp, sp
 	ldr	max5,   =max5start
 	ldr	max3,   =max3start
 	ldr	number, =max3start    /* start at 1000 - 1 ; numbers < 1000 */
@@ -51,6 +53,6 @@ last:
 	ldr	x0, =string	/* store address of start of string to x0 */
 	bl	printf
 
+	ldp	fp, lr, [sp], #0x10
 	mov	x0, #0		/* exit code to 0 */
-	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-        svc	#0		/* then invoke the syscall from linux */
+	ret
