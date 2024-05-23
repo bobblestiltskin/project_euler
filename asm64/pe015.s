@@ -71,11 +71,6 @@ llustring:
 main:
 	stp     fp, lr, [sp, #-0x10]!
 	mov     fp, sp
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
-        mov fp, sp
 
 	factor2	denominator numerator
 nloop:
@@ -109,12 +104,6 @@ mnumerator:
         ldr     x0, =llustring  /* store address of start of string to r0 */
         bl      printf
 
-#        ldmfd   sp!, {r4-r10, pc}
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
-
 	mov	x0, #0		/* exit code to 0 */
 	ldp     fp, lr, [sp], #0x10
 	ret
@@ -123,10 +112,7 @@ mnumerator:
         .global needs_factor
         .type   needs_factor, %function
 needs_factor:
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 	ldr	x1, =start_offset
@@ -142,9 +128,6 @@ next_byte:
 ret1:
 	mov	x0, 1
 leave:
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+        ldp fp, lr, [sp], #0x10
 
         ret

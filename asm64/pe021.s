@@ -75,7 +75,6 @@ ploop:
 	add	tmp8, tmp8, tmp8 /* multiply tmp by 4 */
 	add	tmp8, tmp8, tmp8 /* multiply x2 by 8 */
 	ldr	x2, [aptr, tmp8]
-#	ldr	x2, [aptr, tmp, lsl 2]
 	cmp	x2, icount
 	b.ge	pnext
 	cmp	tmp, x2
@@ -83,7 +82,6 @@ ploop:
 	add	tmp8, x2, x2
 	add	tmp8, tmp8, tmp8 /* multiply x2 by 4 */
 	add	tmp8, tmp8, tmp8 /* multiply x2 by 8 */
-#	ldr	x3, [aptr, x2, lsl 2]
 	ldr	x3, [aptr, tmp8]
 	cmp	tmp, x3
 	b.ne	pnext
@@ -96,7 +94,6 @@ printme:
         mov     x1, total
         ldr     x0, =resstring  /* store address of start of string to r0 */
         bl      printf
-
 
 	mov	x0, #0		/* exit code to 0 */
         ldp	fp, lr, [sp], #0x10

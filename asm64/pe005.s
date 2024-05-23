@@ -95,8 +95,6 @@ printme:
 isprime20:
 	stp     fp, lr, [sp, #-0x10]!
 	mov     fp, sp
-#        stp fp, lr, [sp]
-#        mov fp, sp
 
 	mov	x1, x0
 	ands	x2, x1, 1
@@ -117,7 +115,5 @@ test15:
 	bne	last
 	mov	x0, 0
 last:
-#        ldp fp, lr, [sp]
-
 	ldp     fp, lr, [sp], #0x10
         ret

@@ -156,7 +156,6 @@ bubblestart:
 bubbleloop:
 	ldrh	w6, [sorted_ptr], 2
 	ldr	start_ptr, =namestart
-#	add	start_ptr, start_ptr, x6, lsl 1
 	add	start_ptr, start_ptr, w6, uxtw
 	add	start_ptr, start_ptr, w6, uxtw
 	ldr	size_ptr, =namesize
@@ -170,7 +169,6 @@ bubbleloop:
 	ldrh	w6, [sorted_ptr]
 	uxtw	x6, w6
 	ldr	start_ptr, =namestart
-#	add	start_ptr, start_ptr, x6, lsl 1
 	add	start_ptr, start_ptr, w6, uxtw
 	add	start_ptr, start_ptr, w6, uxtw
 	ldr	size_ptr, =namesize
@@ -238,7 +236,6 @@ cs_start:
 	ldrh	w6, [sorted_ptr], 2
 	uxtw	x6, w6
 	ldr	start_ptr, =namestart
-#	add	start_ptr, start_ptr, x6, lsl 1
 	add	start_ptr, start_ptr, x6
 	add	start_ptr, start_ptr, x6
 	ldr	size_ptr, =namesize
