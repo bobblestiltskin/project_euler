@@ -39,13 +39,13 @@ loop:
         mov     x2, numprimes
         bl      prime_vector
         cmp     x0, 1
-        bne     nexti
+        b.ne     nexti
 
         str     number, [primes_ptr, #8]!
         add     numprimes, numprimes, 1
 
 	subs	count, count, 1
-	beq	printme
+	b.eq	printme
 nexti:
 	add	number, number, 2
 	b	loop

@@ -83,7 +83,7 @@ inner_start:
 
 	mul     tmp, tmp, x3
 	subs	icounter, icounter, 1
-	bne	inner_start
+	b.ne	inner_start
 	cmp	maxv, tmp
 	b.gt	maxv_bigger
 	mov	maxv, tmp
@@ -92,7 +92,7 @@ maxv_bigger:
 	ldr	addoff, =address_offset
 	sub	address, address, addoff
 	subs	ocounter, ocounter, 1
-	bne	outer_start
+	b.ne	outer_start
 
 printme:
 	mov     x1, maxv

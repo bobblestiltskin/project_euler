@@ -31,7 +31,7 @@ jstart:
 	mov	x1, jcount
 	bl	divide
 	cmp	x1, 0
-	beq	factor
+	b.eq	factor
 	b	nextj
 factor:
 	add	icount, icount, 1
@@ -39,7 +39,7 @@ nextj:
 	add	jcount, jcount, 1
 	mul	tmp, jcount, jcount
 	cmp	num, tmp
-	bgt	jstart
+	b.gt	jstart
 	mov	x0, icount
 
         ldp x6, x7, [sp, #0x20]
@@ -59,7 +59,7 @@ main:
 	mov	jcount, 1
 loop:
 	cmp	num, #last
-	bge	printme
+	b.ge	printme
 	add	icount, icount, jcount
 	mov	x0, icount
 	bl	get_num_divisors

@@ -40,7 +40,7 @@ jloop:
 	bl	is_palindromic
 
 	cmp	x0, #1
-	bne	next
+	b.ne	next
 	cmp	product, maxp
 	b.le	next
 	mov	maxp, product
@@ -54,12 +54,12 @@ jloop:
 next:
 	subs	j, j, 1
 	cmp	j, minj
-	bgt	jloop
+	b.gt	jloop
 
 	subs	i, i, 1
 	mov	maxj, i
 	cmp	i, mini
-	bgt	iloop
+	b.gt	iloop
 
 last:
 	mov	x1, maxp

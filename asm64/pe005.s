@@ -40,13 +40,13 @@ loop:
 	mov	x0, number
 	bl	isprime20
 	cmp	x0, 1
-	bne	nexti
+	b.ne	nexti
 	
 	cmp	try_product, 1
-	bne	no_product
+	b.ne	no_product
 	mul	tmp, number, number
 	cmp	tmp, limit
-	ble	prod_start
+	b.le	prod_start
 	mov	try_product, 0
 	b	no_product
 prod_start:
@@ -54,7 +54,7 @@ prod_start:
 	mov	last, tmp
 prod_loop:
 	cmp	tmp, limit
-	bgt	last_mul
+	b.gt	last_mul
 	mov	last, tmp
 	mul	tmp, tmp, number
 	b	prod_loop
@@ -62,11 +62,11 @@ last_mul:
 	mul	total, total, last
 no_product:
 	cmp	try_product, 0
-	bne	nexti
+	b.ne	nexti
 	mul	total, total, number
 nexti:
 	cmp	number, limit
-	beq	printme
+	b.eq	printme
 	add	number, number, 1
 	b	loop
 	
@@ -98,21 +98,21 @@ isprime20:
 
 	mov	x1, x0
 	ands	x2, x1, 1
-	bne	odd
+	b.ne	odd
 	mov	x0, 0
 	cmp	x1, 2 	/* 2 is the only prime even r1 */
-	bne	last
+	b.ne	last
 	mov	x0, 1
 	b	last
 odd:
 	mov	x0, 1
 	cmp	x1, 9
-	bne	test15
+	b.ne	test15
 	mov	x0, 0
 	b	last
 test15:
 	cmp	x1, 15
-	bne	last
+	b.ne	last
 	mov	x0, 0
 last:
 	ldp     fp, lr, [sp], #0x10

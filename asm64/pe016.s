@@ -47,7 +47,7 @@ next:
 	bl	copybytes
 
 	subs	x4, x4, 1
-	bne	next
+	b.ne	next
 
 	ldr	x0, =output
 	ldr	x1, =iLENGTH
@@ -71,7 +71,7 @@ printloop:
 	add	w3, w3, 48
 	strb	w3, [x2], 1
 	subs	x1, x1, 1
-	bne	printloop
+	b.ne	printloop
 
 	mov	w3, 0
 	strb	w3, [x2], 1
@@ -88,7 +88,7 @@ copyloop:
 	ldrb	w3, [x0], 1
 	strb	w3, [x2], 1
 	subs	x1, x1, 1
-	bne	copyloop
+	b.ne	copyloop
 
         ldp fp, lr, [sp], #0x10
         ret
@@ -101,10 +101,9 @@ sum_output:
         mov     x2, 0
 sumloop:
         ldrb    w3, [x0], 1
-	sxtw	x3, w3
-        add     x2, x2, x3
+        add     x2, x2, x3, uxtw
         subs    x1, x1, 1
-        bne     sumloop
+        b.ne     sumloop
 
         mov     x0, x2
 

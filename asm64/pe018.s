@@ -22,7 +22,7 @@ cell		.req x8
 	add	iptr, iptr, x1
 	sub	iptr, iptr, 1
 	ldrb	tmpw, [iptr]
-	sxtw	tmp, tmpw
+	uxtw	tmp, tmpw
 
 	ldr	jptr, =buffer
 	add	jptr, jptr, tmp, lsl #logwidth
@@ -91,9 +91,9 @@ iloop:
 jloop:
 	update_element icount jcount
 	subs	jcount, jcount, 1
-	bne	jloop
+	b.ne	jloop
 	subs	icount, icount, 1
-	bne	iloop
+	b.ne	iloop
 printme:
         mov     x1, cell
         ldr     x0, =resstring  /* store address of start of string to w0 */

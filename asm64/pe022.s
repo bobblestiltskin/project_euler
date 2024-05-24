@@ -118,9 +118,9 @@ iloop:
 	ldrb	w0, [names_ptr], 1
 	add	wcount, wcount, 1
 	cmp	w0, 0			/* use .asciz for string so it is null-terminated */
-	beq	iloopend
+	b.eq	iloopend
 	cmp	w0, #comma
-	bne	iloop
+	b.ne	iloop
 
 	strh	wnstart, [start_ptr], 2
 	sub	wnsize, wcount, wnstart
@@ -248,7 +248,7 @@ cs_start:
 	mul	x6, x6, count
 	add	x4, x4, x6
 	cmp	count, x10
-	blt	cs_start
+	b.lt	cs_start
 
 	mov	x0, x4
 

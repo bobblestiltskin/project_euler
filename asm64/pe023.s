@@ -123,7 +123,7 @@ ilast:
 no_total_update:
 	add	w0, w0, 1
 	cmp	w0, wlast
-	bne	ploop
+	b.ne	ploop
 printme:
         mov     w1, wtotal
         ldr     x0, =resstring  /* store address of start of string to x0 */
@@ -146,12 +146,12 @@ sum_factors:
 sf_loop:
 	mul	w0, wsfcount, wsfcount
 	cmp	w0, wnumber
-	bgt	sf_end
+	b.gt	sf_end
 	mov	w0, wnumber
 	mov	w1, wsfcount
 	bl	divide
 	cmp	w1, 0
-	bne	sf_next
+	b.ne	sf_next
 	add	wsum, wsum, w0
 	cmp	w0, wsfcount
 	b.eq	sf_next

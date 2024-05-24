@@ -31,10 +31,9 @@ main:
 	mov	x2, 0
 lstart:
 	ldrb	w3, [x0], 1
-	sxtw	x3, w3
-	add	x2, x2, x3
+	add	x2, x2, w3, uxtw
 	subs	x1, x1, 1
-	bne	lstart
+	b.ne	lstart
 	
 	mov	x1, x2
 	ldr	x0, =sumstring

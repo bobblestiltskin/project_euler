@@ -26,7 +26,7 @@ main:
 	mov	sum, 0
 loop:
 	cmp	number, max3
-	bne	test5
+	b.ne	test5
 
 # matched a multiple of 3 - decrement max3, add to sum and set matched to 1
 	mov	matched, 1
@@ -35,7 +35,7 @@ loop:
 
 test5:
 	cmp	number, max5
-	bne	last
+	b.ne	last
 
 # matched a multiple of 5 - decrement max5, add to sum and set matched to 1
 	subs	max5, max5, 5
@@ -47,7 +47,7 @@ last:
 # decrement number and reset matched and loop
 	mov	matched, 0
 	subs	number, number, 1
-	bne	loop
+	b.ne	loop
 
 	mov	x1, sum		
 	ldr	x0, =string	/* store address of start of string to x0 */

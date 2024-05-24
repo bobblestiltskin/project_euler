@@ -9,7 +9,7 @@
 	mov	x2, \a
 	bl	contains
 	cmp	x0, 1
-	bne	mloop
+	b.ne	mloop
 .endm
 
 .macro copy_vector a b
@@ -76,7 +76,7 @@ mloop:
 	check_digit 8
 	check_digit 9
 	subs	icount, icount, 1
-	bne	mloop
+	b.ne	mloop
 printme:
 	ldr	x0, =vector
 	mov	x1, 10
@@ -109,7 +109,7 @@ contains_start:
 	b	contains_end
 decrement_size:
 	subs	x1, x1, 1
-	bne	contains_start
+	b.ne	contains_start
 contains_end:	
 
         ldp fp, lr, [sp], #0x10

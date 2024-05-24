@@ -8,35 +8,34 @@ inext\@:
 	ldr	i_ptr, =\d
 	add	i_ptr, i_ptr, i
 	ldrb	dtmp, [i_ptr], -1
-        sxtw	dtmp_32, dtmp
 	ldr	j, =start_offset
 jnext\@:
 	cmp	dtmp, 1
-	beq	nexti\@
+	b.eq	nexti\@
 	ldr	j_ptr, =\n
 	add	j_ptr, j_ptr, j
 	ldrb	ntmp, [j_ptr], -1
         sxtw	ntmp_32, ntmp
 	
 	cmp	ntmp, dtmp	/* if numerator < denominator use next numerator element */
-	blt	nextj\@
-	mov	tmp, 0
+	b.lt	nextj\@
+	mov	tmpw, 0
 	mov	w0, 0
 mod_start\@:
 	add	w0, w0, 1
-	add	tmp, tmp, dtmp_32
-	cmp	ntmp_32, tmp
-	bgt	mod_start\@
-	blt	nextj\@
+	add	tmpw, tmpw, dtmp
+	cmp	ntmp, tmpw
+	b.gt	mod_start\@
+	b.lt	nextj\@
 	strb	w0, [j_ptr, 1]
 	mov	dtmp, 1
 	strb	dtmp, [i_ptr, 1]
 nextj\@:
 	subs	j, j, 1
-	bgt	jnext\@
+	b.gt	jnext\@
 nexti\@:
 	subs	i, i, 1
-	bgt	inext\@
+	b.gt	inext\@
 .endm
  
 .equ num, 20
@@ -50,6 +49,7 @@ res		.req x6
 res_hi		.req x6
 res_lo		.req x7
 tmp		.req x8
+tmpw		.req w8
 dtmp		.req w9
 ntmp		.req w10
 dtmp_32		.req x11
@@ -77,12 +77,12 @@ nloop:
 	ldr	x0, =numerator
 	bl	needs_factor
 	cmp	x0, 0
-	beq	printme
+	b.eq	printme
 	factor2	numerator denominator
 	ldr	x0, =denominator
 	bl	needs_factor
 	cmp	x0, 0
-	beq	printme
+	b.eq	printme
 	factor2	denominator numerator
 	b	nloop
 
@@ -98,7 +98,7 @@ mnumerator:
 	mov	x3, 0
         mul	x0, x0, x2
 	subs	j, j, 1
-	bge	mnumerator
+	b.ge	mnumerator
 	
         mov     x1, x0
         ldr     x0, =llustring  /* store address of start of string to r0 */
@@ -120,9 +120,9 @@ needs_factor:
 next_byte:
 	ldrb	w3, [x2], -1
 	cmp	w3, 1
-	bne	ret1
+	b.ne	ret1
 	subs	x1, x1, 1
-	bne	next_byte
+	b.ne	next_byte
 	mov	x0, 0
 	b	leave
 ret1:

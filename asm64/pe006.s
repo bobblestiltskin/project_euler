@@ -26,7 +26,7 @@ loop:
 	add	sqsum, sqsum, tmp
 # decrement number and loop or exit
 	subs	number, number, 1
-	beq	end_loop
+	b.eq	end_loop
 	b	loop
 end_loop:
 	ldr	number, =limit

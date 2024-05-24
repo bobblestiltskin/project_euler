@@ -69,7 +69,7 @@ kloop\@:
         sxtw    tmp, byte
 	mul	pointv, pointv, tmp
 	subs	kcount, kcount, 1
-	bne	kloop\@
+	b.ne	kloop\@
         cmp	maxv, pointv	/* set maxv to max of maxv and pointv */
         b.gt	bigga\@
 	mov	maxv, pointv
@@ -106,10 +106,10 @@ jloop:
 	direction north_west
 
 	subs	jcount, jcount, 1
-	bne	jloop
+	b.ne	jloop
 
 	subs	icount, icount, 1
-	bne	iloop
+	b.ne	iloop
 printme:
         mov     x1, maxv
         ldr     x0, =resstring  /* store address of start of string to x0 */

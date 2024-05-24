@@ -149,14 +149,13 @@ col_loop:
 	sub	row1, row1, 1
 	mov	data_ptr, row1
 	subs	col_num, col_num, 1
-	blt	printme
+	b.lt	printme
 	
 row_loop:
 	ldrb	tbyte, [data_ptr], col_offset
-	sxtw	byte_tmp, tbyte
-	add	col_sum, col_sum, byte_tmp
+	add	col_sum, col_sum, tbyte, uxtw
 	subs	row_num, row_num, 1
-	bne	row_loop
+	b.ne	row_loop
 
 	mov	x0, col_num
 	bl	get_3_result
@@ -184,7 +183,7 @@ next_digit:
         ldp fp, lr, [sp], #0x20
 
 	subs	row1, row1, 1
-	bne	next_digit
+	b.ne	next_digit
 last:
         ldr     x0, =nlstring
         bl      printf

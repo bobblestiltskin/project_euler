@@ -38,14 +38,14 @@ main:
         mov     number, 3
 loop:
 	cmp	number, limit
-	bge	printme
+	b.ge	printme
 
 	mov	x0, number
 	ldr	x1, =primes_vector
 	mov	x2, numprimes
 	bl	prime_vector
 	cmp	x0, 1
-	bne	nexti
+	b.ne	nexti
         str     number, [primes_ptr, #8]!
         add	numprimes, numprimes, 1
 	add	sum, sum, number
