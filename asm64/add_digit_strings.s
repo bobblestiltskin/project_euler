@@ -11,7 +11,6 @@ scell		.req x15
 lcellw		.req w16
 lcell		.req x16
 carryw		.req w17
-carry		.req x17
 counter		.req x18
 tmp		.req x19
 length		.req x20
@@ -92,7 +91,7 @@ sstart:
 	ldrb	lcellw, [lptr], -1
 	add	lcellw, lcellw, scellw
 	add	lcellw, lcellw, carryw
-	mov	carry, 0
+	mov	carryw, 0
 	cmp	lcellw, 10
 	b.lt	no_set_carry
 	mov	carryw, 1
@@ -116,7 +115,7 @@ lstart:
 no_carry_update:
 	strb	lcellw, [optr], -1
 	subs	counter, counter, 1
-	bne	lstart
+	b.ne	lstart
 
 asstl_last:
 	cmp	carryw, 1
@@ -124,8 +123,7 @@ asstl_last:
 	strb	carryw, [optr], -1
 no_carry_store:
 	add	x0, optr, 1
-	sxtw	carry, carryw
-	add	x1, length, carry
+	add	x1, length, carryw, uxtw
 
         ldp fp, lr, [sp], #0x10
 	ret

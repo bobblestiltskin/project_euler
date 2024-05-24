@@ -26,7 +26,7 @@ divide:
         mov fp, sp
 
 	cmp	number, divisor
-	blt	rsmall
+	b.lt	rsmall
 
         udiv tmp_div, number, divisor
         mul  tmp_mul, tmp_div, divisor

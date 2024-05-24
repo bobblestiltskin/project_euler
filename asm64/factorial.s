@@ -89,7 +89,7 @@ bmis:
 	restore_regs_from_stack
 amis:
 	cmp	counter, number
-	beq	factorial_last
+	b.eq	factorial_last
 	mov	ilen, x1
 	mov	x2, iptr
 bcopy:

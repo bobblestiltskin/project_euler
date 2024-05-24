@@ -25,7 +25,7 @@ divide_by_10_remainder:
         mov fp, sp
  
 	cmp	x0, 10
-	blt	rsmall
+	b.lt	rsmall
 
         movz tmp_ten, ten
         udiv tmp_div, x0, tmp_ten

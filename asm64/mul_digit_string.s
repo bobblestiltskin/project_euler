@@ -120,7 +120,7 @@ mds_loopstart:
 	mov	carryb, w0
 
 	subs	offset, offset, 1
-	beq	mds_last
+	b.eq	mds_last
 	b	mds_loopstart
 mds_last:
 	cmp	carryb, 0

@@ -41,10 +41,10 @@ loopstart:
 gt_val_1:
 	mov	x0, 1
 eq_val_1:
-	bne	loopend
+	b.ne	loopend
 	add	count, count,1
 	cmp	count, minlen
-	bne	loopstart
+	b.ne	loopstart
 	cmp	x1, x3
 	b.gt	gt_x
 	b.lt	lt_x

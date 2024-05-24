@@ -14,7 +14,7 @@ printbytes_loopstart:
 	add	x3, x3, 48
 	strb	w3, [x2], 1
 	subs	x1, x1, 1
-	bne	printbytes_loopstart
+	b.ne	printbytes_loopstart
 
 	mov	x3, 0
 	strb	w3, [x2], 1

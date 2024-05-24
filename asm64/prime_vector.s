@@ -48,7 +48,7 @@ squared_smaller:
 	b	last
 not_prime:
 	subs	vsize, vsize, 1
-	bgt	nexti
+	b.gt	nexti
 	mov	x0, 1
 last:
         ldp x8, x9, [sp, #0x30]

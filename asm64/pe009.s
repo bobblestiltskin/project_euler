@@ -24,31 +24,31 @@ main:
 	ldr	icount, =limit
 istart:
 	subs	jcount, icount, 1
-	beq	nexti
+	b.eq	nexti
 jstart:
 	subs	kcount, jcount, 1
-	beq	nextj
+	b.eq	nextj
 	add	tmp, icount, jcount
 kstart:
 	add	tmp, tmp, kcount
 	cmp	tmp, #limit
-	bne	nextk
+	b.ne	nextk
 	mul	jksum, kcount, kcount
 	mul	tmp, jcount, jcount
 	add	jksum, jksum, tmp
 	mul	tmp, icount, icount
 	cmp	jksum, tmp
-	beq	printme
+	b.eq	printme
 nextk:
 	add	tmp, icount, jcount
 	subs	kcount, kcount, 1
-	bne	kstart
+	b.ne	kstart
 nextj:
 	subs	jcount, jcount, 1
-	bne	jstart
+	b.ne	jstart
 nexti:
 	subs	icount, icount, 1
-	bne	istart
+	b.ne	istart
 printme:
 	mul	tmp, icount, jcount
 	mul	tmp, tmp, kcount

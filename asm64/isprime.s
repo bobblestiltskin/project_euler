@@ -23,19 +23,19 @@ isprime:
 
 	mov	number, x0
 	ands	tmp, number, 1
-	bne	odd
+	b.ne	odd
 	mov	x0, 0
 	cmp	number, 2 	/* 2 is the only prime even number */
-	bne	last
+	b.ne	last
 	mov	x0, 1
 	b	last
 odd:
 	mov	divisor, 3
 	cmp 	number, 8
-	bgt	big
+	b.gt	big
 	mov	x0, 1
 	cmp	number, 1	/* 1 is the only odd number < 8 not prime */
-	bne	last
+	b.ne	last
 	mov	x0, 0
 	b	last
 big:
@@ -47,7 +47,7 @@ big:
 	add	divisor, divisor, 2
 	mul	tmp, divisor, divisor
 	subs	tmp, tmp, number
-	ble	big
+	b.le	big
 	mov	x0, 1
 	b	last
 factor:
