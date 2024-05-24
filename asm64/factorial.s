@@ -53,14 +53,10 @@ factorial:
 	mov	x0, x1
 	mov	x1, 1
 
-#        stp x6, x7, [sp, #-0x20]!
-#        stp x4, x5, [sp, #0x10]
 	save_regs_on_stack
 
         bl      copybytes
 
-#        ldp x4, x5, [sp, #0x10]
-#        ldp x6, x7, [sp], #0x20
 	restore_regs_from_stack
 
 	b	factorial_end
@@ -70,25 +66,14 @@ factorial_ok:
 	mov	optr, x2
 	mov	ilen, 1
 	mov	counter, 2
-#	mov	x0, optr
 factorial_start:
 	mov	x0, optr
 	mov	x1, ilen
 	add	x1, x1, 1
 bclear:
-#        stp x10, x11, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-
 	save_regs_on_stack
 
         bl      clearbytes
-
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp x10, x11, [sp], #0x40
 
 	restore_regs_from_stack
 aclear:
@@ -99,22 +84,7 @@ aclear:
 bmis:
 	save_regs_on_stack
 
-#        stp x22, x23, [sp, #-0x70]!
-#        stp x20, x21, [sp, #0x60]
-#        stp x18, x19, [sp, #0x50]
-#        stp x16, x17, [sp, #0x40]
-#        stp x14, x15, [sp, #0x30]
-#        stp x12, x13, [sp, #0x20]
-#        stp x10, x11, [sp, #0x10]
-
         bl      mul_int_string
-
-#        ldp x20, x21, [sp, #0x60]
-#        ldp x18, x19, [sp, #0x50]
-#        ldp x16, x17, [sp, #0x40]
-#        ldp x12, x13, [sp, #0x20]
-#        ldp x10, x11, [sp, #0x10]
-#        ldp x22, x23, [sp], #0x70
 
 	restore_regs_from_stack
 amis:
@@ -123,15 +93,9 @@ amis:
 	mov	ilen, x1
 	mov	x2, iptr
 bcopy:
-#        stp x6, x7, [sp, #-0x20]!
-#        stp x4, x5, [sp, #0x10]
-
 	save_regs_on_stack
 
 	bl	copybytes
-
-#        ldp x4, x5, [sp, #0x10]
-#        ldp x6, x7, [sp], #0x20
 
 	restore_regs_from_stack
 acopy:
@@ -143,19 +107,9 @@ factorial_last:
 	mov	x0, iptr
 	mov	x1, ilen
 
-#        stp x10, x11, [sp, #-0x40]!
-#        stp x4, x5, [sp, #0x10]
-#        stp x6, x7, [sp, #0x20]
-#        stp x8, x9, [sp, #0x30]
-
 	save_regs_on_stack
 
         bl      clearbytes
-
-#        ldp x8, x9, [sp, #0x30]
-#        ldp x6, x7, [sp, #0x20]
-#        ldp x4, x5, [sp, #0x10]
-#        ldp x10, x11, [sp], #0x40
 
 	restore_regs_from_stack
 
