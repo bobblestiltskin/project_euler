@@ -1,7 +1,7 @@
 # this computes projecteuler.net problem 010
 
-.equ    word,4
-.equ    logword,2
+.equ    word,8
+.equ    logword,3
 
 .equ	limit,2000000
 .equ	numprimes8,1191464
@@ -46,7 +46,8 @@ loop:
 	bl	prime_vector
 	cmp	x0, 1
 	b.ne	nexti
-        str     number, [primes_ptr, #8]!
+        str     number, [primes_ptr, word]!
+#	str	number, [primes_ptr, numprimes, lsl =logword]
         add	numprimes, numprimes, 1
 	add	sum, sum, number
 nexti:
