@@ -10,11 +10,27 @@
 # outputs
 #   x0 - prime boolean
 
-number		.req x4
-vptr		.req x5
-tmp		.req x6
-squared		.req x7
-vsize		.req x8
+.macro callee_save_regs_on_stack
+        stp x27, x28, [sp, #-0x50]!
+        stp x25, x26, [sp, #0x10]
+        stp x23, x24, [sp, #0x20]
+        stp x21, x22, [sp, #0x30]
+        stp x19, x20, [sp, #0x40]
+.endm
+
+.macro callee_restore_regs_from_stack
+        ldp x19, x20, [sp, #0x40]
+        ldp x21, x22, [sp, #0x30]
+        ldp x23, x24, [sp, #0x20]
+        ldp x25, x26, [sp, #0x10]
+        ldp x27, x28, [sp], #0x50
+.endm
+
+number		.req x19
+vptr		.req x20
+tmp		.req x21
+squared		.req x22
+vsize		.req x23
 
 .global prime_vector
 .type prime_vector, %function
@@ -22,10 +38,9 @@ vsize		.req x8
 .align	2
 
 prime_vector:
-        stp fp, lr, [sp, #-0x40]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        stp x8, x9, [sp, #0x30]
+	callee_save_regs_on_stack
+
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 	mov	number, x0
@@ -51,9 +66,9 @@ not_prime:
 	b.gt	nexti
 	mov	x0, 1
 last:
-        ldp x8, x9, [sp, #0x30]
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
+
+        ldp fp, lr, [sp], #0x10
+
+	callee_restore_regs_from_stack
 
         ret

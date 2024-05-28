@@ -1,36 +1,58 @@
-.equ	word,4
+.equ	word,8
+.equ	logword,3
+.equ	numprimes8,1191464
 
-number		.req x4
-primeflag	.req x5
-numprimes	.req x6
-primes_ptr	.req x7
-tmp		.req x8
+number		.req x12
+primeflag	.req x13
+numprimes	.req x14
+primes_ptr	.req x15
+tmp		.req x16
+
+.macro caller_save_regs_on_stack
+        stp x17, x18, [sp, #-0x50]!
+        stp x15, x16, [sp, #0x10]
+        stp x13, x14, [sp, #0x20]
+        stp x11, x12, [sp, #0x30]
+        stp  x9, x10, [sp, #0x40]
+.endm
+
+.macro caller_restore_regs_from_stack
+        ldp x9, x10, [sp, #0x40]
+        ldp x11, x12, [sp, #0x30]
+        ldp x13, x14, [sp, #0x20]
+        ldp x15, x16, [sp, #0x10]
+        ldp x17, x18, [sp], #0x50
+.endm
 
 .macro num_is_prime a
 _start\@:
+
+	caller_save_regs_on_stack
+
 	mov	number, \a
 	mov	x0, number
 	mov	x1, primes_ptr
 	mov	x2, numprimes
+
 	bl	prime_vector
 	mov	primeflag, x0
+
 	cmp	x0, 1
 	b.ne	notprime\@
-	mov	tmp, 8
-	mul	tmp, numprimes, tmp
-	str	number, [primes_ptr, tmp]
-#	str	number, [primes_ptr, numprimes, lsl 2]
+	str	number, [primes_ptr, numprimes, lsl logword]
 	add	numprimes, numprimes, 1
 notprime\@:
 	mov	x2, primeflag
 	mov	x1, number
 	ldr	x0, =primestring
 	bl	printf
+
+	caller_restore_regs_from_stack
 .endm
 
 .section .bss
+.lcomm primes_vector, numprimes8
 #.lcomm primes_vector, 80
-.lcomm primes_vector, 160
 
 .section .rodata
 	.align	2
@@ -47,6 +69,7 @@ main:
 	mov	number, 2
 	str	number, [primes_ptr]
 
+	num_is_prime 4
 	num_is_prime 3
 	num_is_prime 4
 	num_is_prime 5
@@ -63,9 +86,7 @@ main:
 	num_is_prime 25
 	num_is_prime 27
 	num_is_prime 29
-
 last:
 	mov	x0, #0		/* exit code to 0 */
 	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
         svc	#0		/* then invoke the syscall from linux */
-
