@@ -156,8 +156,7 @@ bubblestart:
 bubbleloop:
 	ldrh	w6, [sorted_ptr], 2
 	ldr	start_ptr, =namestart
-	add	start_ptr, start_ptr, w6, uxtw
-	add	start_ptr, start_ptr, w6, uxtw
+	add	start_ptr, start_ptr, w6, uxtw #1
 	ldr	size_ptr, =namesize
 	add	size_ptr, size_ptr, w6, uxtw
 
@@ -169,10 +168,9 @@ bubbleloop:
 	ldrh	w6, [sorted_ptr]
 	uxtw	x6, w6
 	ldr	start_ptr, =namestart
-	add	start_ptr, start_ptr, w6, uxtw
-	add	start_ptr, start_ptr, w6, uxtw
+	add	start_ptr, start_ptr, w6, uxtw #1
 	ldr	size_ptr, =namesize
-	add	size_ptr, size_ptr, x6
+	add	size_ptr, size_ptr, w6, uxtw
 
 	ldrh	w2, [start_ptr]
 	uxtw	x2, w2
@@ -234,12 +232,10 @@ compute_score:
 	ldr	x10, =NAMES
 cs_start:
 	ldrh	w6, [sorted_ptr], 2
-	uxtw	x6, w6
 	ldr	start_ptr, =namestart
-	add	start_ptr, start_ptr, x6
-	add	start_ptr, start_ptr, x6
+	add	start_ptr, start_ptr, w6, uxtw #1
 	ldr	size_ptr, =namesize
-	add	size_ptr, size_ptr, x6
+	add	size_ptr, size_ptr, w6, uxtw
 	ldrh	w0, [start_ptr]
 	ldrb	w1, [size_ptr]
 	bl	sumname
