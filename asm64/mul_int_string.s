@@ -23,8 +23,7 @@
 .endm
 
 .equ datum_size, 1
-#.equ MAXLEN,192
-.equ MAXLEN,384
+.equ MAXLEN,10000
 
 .section bss
 .lcomm tmp_vector,MAXLEN
