@@ -1,6 +1,7 @@
 # this computes projecteuler.net problem 021
 
 .equ	WORDSIZE, 8
+.equ	LOGWORDSIZE, 3
 .equ	SIZEB, 80000
 .equ	SIZE, 10000
 
@@ -71,18 +72,12 @@ array_loop:
 	ldr	icount, =SIZE
 	mov	total, 0
 ploop:
-	add	tmp8, tmp, tmp
-	add	tmp8, tmp8, tmp8 /* multiply tmp by 4 */
-	add	tmp8, tmp8, tmp8 /* multiply x2 by 8 */
-	ldr	x2, [aptr, tmp8]
+	ldr	x2, [aptr, tmp, lsl LOGWORDSIZE]
 	cmp	x2, icount
 	b.ge	pnext
 	cmp	tmp, x2
 	b.eq	pnext
-	add	tmp8, x2, x2
-	add	tmp8, tmp8, tmp8 /* multiply x2 by 4 */
-	add	tmp8, tmp8, tmp8 /* multiply x2 by 8 */
-	ldr	x3, [aptr, tmp8]
+	ldr	x3, [aptr, x2, lsl LOGWORDSIZE]
 	cmp	tmp, x3
 	b.ne	pnext
 	add	total, total, tmp
