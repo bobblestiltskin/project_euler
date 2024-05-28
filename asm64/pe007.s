@@ -39,7 +39,7 @@ loop:
         mov     x2, numprimes
         bl      prime_vector
         cmp     x0, 1
-        b.ne     nexti
+        b.ne	nexti
 
         str     number, [primes_ptr, #8]!
         add     numprimes, numprimes, 1
