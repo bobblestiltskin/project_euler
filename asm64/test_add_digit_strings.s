@@ -1,3 +1,5 @@
+.include "regs.s"
+
 .equ	sLENGTH,4
 .equ	lLENGTH,5
 .equ	ipLENGTH,lLENGTH+1
@@ -23,11 +25,7 @@
 	ldr	x0, =instring
 	bl	printf
 
-        stp x20, x21, [sp, #-0x50]!
-        stp x12, x13, [sp, #0x10]
-        stp x14, x15, [sp, #0x20]
-        stp x16, x17, [sp, #0x30]
-        stp x18, x19, [sp, #0x40]
+	caller_save_regs_on_stack
 
 	ldr	x0, =\a
 	ldr	x1, =\al
@@ -36,11 +34,7 @@
 	ldr	x4, =\c
 	bl	add_digit_strings
 
-        ldp x18, x19, [sp, #0x40]
-        ldp x16, x17, [sp, #0x30]
-        ldp x14, x15, [sp, #0x20]
-        ldp x12, x13, [sp, #0x10]
-        ldp x20, x21, [sp], #0x50
+	caller_restore_regs_from_stack
 
 	ldr	x2, =print_vector
 	bl	printbytes

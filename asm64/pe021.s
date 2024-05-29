@@ -5,39 +5,16 @@
 .equ	SIZEB, 80000
 .equ	SIZE, 10000
 
-.macro save_regs_on_stack
-        stp x20, x21, [sp, #-0x90]!
-        stp x18, x19, [sp, #0x10]
-        stp x16, x17, [sp, #0x20]
-        stp x14, x15, [sp, #0x30]
-        stp x12, x13, [sp, #0x40]
-        stp x10, x11, [sp, #0x50]
-        stp x8, x9,   [sp, #0x60]
-        stp x6, x7,   [sp, #0x70]
-        stp x4, x5,   [sp, #0x80]
-.endm
-
-.macro restore_regs_from_stack
-        ldp x4, x5,   [sp, #0x80]
-        ldp x6, x7,   [sp, #0x70]
-        ldp x8, x9,   [sp, #0x60]
-        ldp x10, x11, [sp, #0x50]
-        ldp x12, x13, [sp, #0x40]
-        ldp x14, x15, [sp, #0x30]
-        ldp x16, x17, [sp, #0x20]
-        ldp x18, x19, [sp, #0x10]
-        ldp x20, x21, [sp], #0x90
-.endm
+.include "regs.s"
 
 .align 4
 
-aptr		.req x4
-number		.req x4
-sum		.req x5
-tmp		.req x5
-icount		.req x6
-total		.req x7
-tmp8		.req x8
+aptr		.req x9
+number		.req x9
+sum		.req x10
+tmp		.req x10
+icount		.req x11
+total		.req x12
 
 .section .bss
 .lcomm array,SIZEB
@@ -58,9 +35,11 @@ main:
 	ldr	aptr, =array
 array_loop:
 	mov	x0, icount
-	save_regs_on_stack
+
+	caller_save_regs_on_stack
 	bl	sum_factors
-	restore_regs_from_stack
+	caller_restore_regs_from_stack
+
 	str	x0, [aptr], WORDSIZE
 	add	icount, icount, 1
 	ldr	tmp, =SIZE

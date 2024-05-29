@@ -10,7 +10,7 @@
 # outputs
 #   x0 - prime boolean
 
-.include "./regs.s"
+.include "regs.s"
 
 number		.req x19
 vptr		.req x20
@@ -25,7 +25,6 @@ vsize		.req x23
 
 prime_vector:
 	callee_save_regs_on_stack
-
         stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
@@ -54,7 +53,6 @@ not_prime:
 last:
 
         ldp fp, lr, [sp], #0x10
-
 	callee_restore_regs_from_stack
 
         ret

@@ -13,14 +13,17 @@
 
 .text
 
-minlen	.req x4
-val1	.req w5
-val2	.req w6
-count	.req x7
+.include "regs.s"
+
+minlen	.req x19
+val1	.req w20
+val2	.req w21
+count	.req x22
 
 	.global	compare
 	.type	compare, %function
 compare:
+	callee_save_regs_on_stack
         stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
@@ -57,5 +60,6 @@ gt_x:
 	mov	x0, 1
 loopend:
         ldp fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret
 

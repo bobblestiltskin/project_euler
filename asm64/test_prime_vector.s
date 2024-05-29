@@ -8,7 +8,7 @@ numprimes	.req x14
 primes_ptr	.req x15
 tmp		.req x16
 
-.include "./regs.s"
+.include "regs.s"
 
 .macro num_is_prime a
 _start\@:

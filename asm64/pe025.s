@@ -1,29 +1,5 @@
 # this computes projecteuler.net problem 025
 
-.macro save_regs_on_stack
-        stp x20, x21, [sp, #-0x90]!
-        stp x18, x19, [sp, #0x10]
-        stp x16, x17, [sp, #0x20]
-        stp x14, x15, [sp, #0x30]
-        stp x12, x13, [sp, #0x40]
-        stp x10, x11, [sp, #0x50]
-        stp x8, x9,   [sp, #0x60]
-        stp x6, x7,   [sp, #0x70]
-        stp x4, x5,   [sp, #0x80]
-.endm
-
-.macro restore_regs_from_stack
-        ldp x4, x5,   [sp, #0x80]
-        ldp x6, x7,   [sp, #0x70]
-        ldp x8, x9,   [sp, #0x60]
-        ldp x10, x11, [sp, #0x50]
-        ldp x12, x13, [sp, #0x40]
-        ldp x14, x15, [sp, #0x30]
-        ldp x16, x17, [sp, #0x20]
-        ldp x18, x19, [sp, #0x10]
-        ldp x20, x21, [sp], #0x90
-.endm
-
 .macro copy_vector a b
 	ldr	x0, =\a
 	add	x0, x0, 1
@@ -39,9 +15,7 @@
         ldr     x3, =\bl
         ldr     x4, =\c
 
-	save_regs_on_stack
         bl      add_digit_strings
-	restore_regs_from_stack
 .endm
 
 .macro add_and_test ivector ovector

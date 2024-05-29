@@ -2,18 +2,20 @@
 
 .equ datum_size, 1
 
+.include "regs.s"
+
 .text
-optr		.req x12
-sptr		.req x13
-lptr		.req x14
-scellw		.req w15
-scell		.req x15
-lcellw		.req w16
-lcell		.req x16
-carryw		.req w17
-counter		.req x18
-tmp		.req x19
-length		.req x20
+optr		.req x19
+sptr		.req x20
+lptr		.req x21
+scellw		.req w22
+scell		.req x22
+lcellw		.req w23
+lcell		.req x23
+carryw		.req w24
+counter		.req x25
+tmp		.req x26
+length		.req x27
 
 # this subroutine adds the byte array at x0, length x1
 # to the byte array at x2, length x3. The data is output 
@@ -71,6 +73,7 @@ no_swap:
 .global add_strings_short_to_long
 .type add_strings_short_to_long, %function
 add_strings_short_to_long:
+	callee_save_regs_on_stack
         stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
@@ -126,4 +129,5 @@ no_carry_store:
 	add	x1, length, carryw, uxtw
 
         ldp fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret

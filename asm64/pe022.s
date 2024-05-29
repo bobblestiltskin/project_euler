@@ -9,44 +9,21 @@
 .equ	SIZE, 46448
 #from wc -c ../names.txt
 
-.macro save_regs_on_stack
-        stp x20, x21, [sp, #-0x90]!
-        stp x18, x19, [sp, #0x10]
-        stp x16, x17, [sp, #0x20]
-        stp x14, x15, [sp, #0x30]
-        stp x12, x13, [sp, #0x40]
-        stp x10, x11, [sp, #0x50]
-        stp x8, x9,   [sp, #0x60]
-        stp x6, x7,   [sp, #0x70]
-        stp x4, x5,   [sp, #0x80]
-.endm
-
-.macro restore_regs_from_stack
-        ldp x4, x5,   [sp, #0x80]
-        ldp x6, x7,   [sp, #0x70]
-        ldp x8, x9,   [sp, #0x60]
-        ldp x10, x11, [sp, #0x50]
-        ldp x12, x13, [sp, #0x40]
-        ldp x14, x15, [sp, #0x30]
-        ldp x16, x17, [sp, #0x20]
-        ldp x18, x19, [sp, #0x10]
-        ldp x20, x21, [sp], #0x90
-.endm
-
 .align 4
 
-names_ptr	.req x4
-wcount		.req w5
-count		.req x5
-wnstart		.req w6
-nstart		.req x6
-tmp		.req x7
-wnsize		.req w7
-nsize		.req x7
-sorted_ptr	.req x7
-start_ptr	.req x8
-size_ptr	.req x9
-swapped		.req x10
+names_ptr	.req x9
+wcount		.req w10
+count		.req x10
+wnstart		.req w11
+nstart		.req x11
+tmp		.req x12
+wnsize		.req w12
+nsize		.req x12
+sorted_ptr	.req x12
+start_ptr	.req x13
+size_ptr	.req x14
+swapped		.req x15
+numnames	.req x16
 
 .section .bss
 .lcomm namestart,NAMES<<1	/* need 16 bit ints (half words) to handle 5163 */
@@ -177,13 +154,7 @@ bubbleloop:
 	add	x2, x2, names_ptr
 	ldrb	w3, [size_ptr]
 	uxtw	x3, w3
-
-	save_regs_on_stack
-
 	bl	compare
-
-	restore_regs_from_stack
-
 	cmp	x0, 1
 	b.ne 	decrement_count
 	ldrh	w0, [sorted_ptr, -2]
@@ -229,7 +200,7 @@ compute_score:
 	mov 	x4, 0
 	mov	count, 0
 	ldr	sorted_ptr, =sorted
-	ldr	x10, =NAMES
+	ldr	numnames, =NAMES
 cs_start:
 	ldrh	w6, [sorted_ptr], 2
 	ldr	start_ptr, =namestart
@@ -243,7 +214,7 @@ cs_start:
 	add	count, count, 1
 	mul	x6, x6, count
 	add	x4, x4, x6
-	cmp	count, x10
+	cmp	count, numnames
 	b.lt	cs_start
 
 	mov	x0, x4
