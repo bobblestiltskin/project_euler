@@ -8,10 +8,12 @@
 #   x0 - the dividend
 #   x1 - the remainder
 
-tmp_ten    .req x4
-remainder  .req x5
-tmp_mul    .req x6
-tmp_div    .req x7
+.include "regs.s"
+
+tmp_ten    .req x19
+remainder  .req x20
+tmp_mul    .req x21
+tmp_div    .req x22
 
 .equ ten, 10
 .text
@@ -19,9 +21,8 @@ tmp_div    .req x7
 .global	divide_by_10_remainder
 .type	divide_by_10_remainder, %function
 divide_by_10_remainder:
-        stp fp, lr, [sp, #-0x30]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
+	callee_save_regs_on_stack
+        stp fp, lr, [sp, #-0x10]!
         mov fp, sp
  
 	cmp	x0, 10
@@ -40,7 +41,6 @@ rsmall:
 	mov	x1, x0
 	mov	x0, 0
 rlast:
-	ldp x6, x7, [sp, #0x20]
-	ldp x4, x5, [sp, #0x10]
-	ldp fp, lr, [sp], #0x30
+	ldp fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret

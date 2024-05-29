@@ -1,9 +1,11 @@
 # copybytes takes input pointer in x0, input length in x1 and writes to x2
-ptr	.req x4
-len	.req x5
+.include "regs.s"
+ptr	.req x19
+len	.req x20
 .global copybytes
 .type	copybytes, %function
 copybytes:
+	callee_save_regs_on_stack
         stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
@@ -19,4 +21,5 @@ copybytesloopstart:
 	mov	x1, len
 
         ldp fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret

@@ -32,7 +32,7 @@ pe021: pe021.s divide.s
 pe020: pe020.s factorial.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s mul_tens_string.s
 pe019: pe019.s divide.s
 pe016: pe016.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s
-pe013: pe013.s wdivide_by_10.s divide_by_10.s
+pe013: pe013.s divide_by_10.s
 pe012: pe012.s divide.s
 pe010: pe010.s prime_vector.s divide.s
 pe007: pe007.s prime_vector.s divide.s

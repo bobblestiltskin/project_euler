@@ -10,10 +10,12 @@
 #   x0 - pointer to output vector
 #   x1 - length of output vector
 
-iptr		.req x4
-optr		.req x5
-numtens		.req x6
-ilength		.req x7
+.include "regs.s"
+
+iptr		.req x19
+optr		.req x20
+numtens		.req x21
+ilength		.req x22
 
 .global mul_tens_string
 .type mul_tens_string, %function
@@ -21,6 +23,7 @@ ilength		.req x7
 .align	2
 
 mul_tens_string:
+	callee_save_regs_on_stack
         stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
@@ -43,4 +46,5 @@ cbl_end:
 	mov	x1, ilength
 
         ldp 	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret

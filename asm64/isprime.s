@@ -6,9 +6,11 @@
 # outputs
 #   r0 - prime boolean
 
-number		.req x4
-divisor		.req x5
-tmp		.req x6
+.include "regs.s"
+
+number		.req x19
+divisor		.req x20
+tmp		.req x21
 
 .global isprime
 .type isprime, %function
@@ -16,9 +18,8 @@ tmp		.req x6
 .align	2
 
 isprime:
-	stp fp, lr, [sp, #-0x30]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
+	callee_save_regs_on_stack
+	stp fp, lr, [sp, #-0x10]!
         mov fp, sp
 
 	mov	number, x0
@@ -53,8 +54,6 @@ big:
 factor:
 	mov	x0, 0
 last:
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x30
-
+        ldp fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret

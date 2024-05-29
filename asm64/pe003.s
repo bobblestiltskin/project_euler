@@ -2,9 +2,7 @@
 
 /* 600851475143 is 8BE589EAC7 in hex */
 
-.equ numhi,0x8b
-.equ nummid,0xe589
-.equ numlo,0xeac7
+.equ num,0x8BE589EAC7
 
 tmp_div    .req x0
 tmp_mul    .req x1
@@ -28,9 +26,7 @@ main:
 
         mov maxprime, 0
         mov count, 1
-        movz running, numlo /* jiggery-pokery to load a 64 bit constant or 2^40 as here specifically */
-        movk running, nummid, lsl #16
-        movk running, numhi, lsl #32
+	ldr running, =num
 loop:
         add count, count, 2           /* start at 3 and increment by 2 */
 loop1:
