@@ -15,7 +15,6 @@ jnext\@:
 	ldr	j_ptr, =\n
 	add	j_ptr, j_ptr, j
 	ldrb	ntmp, [j_ptr], -1
-        sxtw	ntmp_32, ntmp
 	
 	cmp	ntmp, dtmp	/* if numerator < denominator use next numerator element */
 	b.lt	nextj\@
@@ -46,14 +45,10 @@ j		.req x5
 i_ptr		.req x6
 j_ptr		.req x7
 res		.req x6
-res_hi		.req x6
-res_lo		.req x7
 tmp		.req x8
 tmpw		.req w8
 dtmp		.req w9
 ntmp		.req w10
-dtmp_32		.req x11
-ntmp_32 	.req x12
 
 .section .data
 numerator:
@@ -94,7 +89,7 @@ printme:
 	mov	x1, 0
 mnumerator:
 	ldrb	ntmp, [j_ptr], -1
-	sxtw	x2, ntmp
+	uxtw	x2, ntmp
 	mov	x3, 0
         mul	x0, x0, x2
 	subs	j, j, 1

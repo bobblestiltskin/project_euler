@@ -198,18 +198,18 @@ get_3_result:
 	ldr	data_ptr, =result
 	add	data_ptr, data_ptr, x0
 	ldrb	tbyte, [data_ptr], 1
-	sxtw	byte_tmp, tbyte
+	uxtw	byte_tmp, tbyte
 	mov	const, hundred
 	mul	byte_tmp, byte_tmp, const
 	mov	tmp, byte_tmp
 	ldrb	tbyte, [data_ptr], 1
-	sxtw	byte_tmp, tbyte
+	uxtw	byte_tmp, tbyte
 	mov	const, ten
 	mul	byte_tmp, byte_tmp, const
 	add	tmp, tmp, byte_tmp
 	ldrb	tbyte, [data_ptr], 1
-	sxtw	byte_tmp, tbyte
-	add	tmp, tmp, byte_tmp
+#	uxtw	byte_tmp, tbyte
+	add	tmp, tmp, tbyte, uxtw
 	mov	x0, tmp
 
 	ret

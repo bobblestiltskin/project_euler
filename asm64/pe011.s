@@ -66,7 +66,7 @@ byte		.req w10
 	mov	pointv, point_set
 kloop\@:
 	ldrb	byte, [data_ptr], \a
-        sxtw    tmp, byte
+        uxtw    tmp, byte
 	mul	pointv, pointv, tmp
 	subs	kcount, kcount, 1
 	b.ne	kloop\@

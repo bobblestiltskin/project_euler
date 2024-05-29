@@ -79,7 +79,7 @@ outer_start:
 	mov	tmp, #1
 inner_start:
 	ldrb	thisbyte, [address], 1
-	sxtw	x3, thisbyte
+	uxtw	x3, thisbyte
 
 	mul     tmp, tmp, x3
 	subs	icounter, icounter, 1

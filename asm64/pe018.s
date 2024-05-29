@@ -11,10 +11,9 @@ tmpw		.req w1
 tmp		.req x1
 icount		.req x4
 jcount		.req x5
-maxc		.req x6
+maxcw		.req w6
 jptr		.req x7
 cellw		.req w8
-cell		.req x8
 
 .macro get_element i, j
 	ldr	iptr, =last
@@ -30,7 +29,6 @@ cell		.req x8
 	add	jptr, jptr, tmp, lsl #logwidth
 	sub	jptr, jptr, width
 	ldrh	cellw, [jptr]
-	sxtw	cell, cellw
 .endm
 
 .macro update_element i, j
@@ -40,15 +38,15 @@ cell		.req x8
 	add	x3, x3, 1
 	get_element x2 x3
 	sub	x3, x3, 1
-	mov	maxc, cell
+	mov	maxcw, cellw
 	get_element x2 x3
-	cmp	maxc, cell
+	cmp	maxcw, cellw
 	b.ge	maxc_bigger
-	mov	maxc, cell
+	mov	maxcw, cellw
 maxc_bigger:
 	sub	x2, x2, 1
 	get_element x2 x3
-	add	cell, cell, maxc
+	add	cellw, cellw, maxcw
 	strh	cellw, [jptr]
 .endm
 
@@ -95,7 +93,7 @@ jloop:
 	subs	icount, icount, 1
 	b.ne	iloop
 printme:
-        mov     x1, cell
+        mov     w1, cellw
         ldr     x0, =resstring  /* store address of start of string to w0 */
         bl      printf
 
