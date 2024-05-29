@@ -58,8 +58,8 @@ outstring:
 .global main
 .type   main, %function
 main:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	ldr	icount, =SIZE
 mloop:
@@ -96,8 +96,8 @@ printme:
 .global contains
 .type   contains, %function
 contains:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	x4, x0
 	mov	x0, 0
@@ -112,5 +112,5 @@ decrement_size:
 	b.ne	contains_start
 contains_end:	
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret

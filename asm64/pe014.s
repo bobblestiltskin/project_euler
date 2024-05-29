@@ -61,8 +61,8 @@ printme:
         .global next_term
         .type   next_term, %function
 next_term:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	tbnz    x0, #0, odd /* check 0th bit of current - set to 1 for odd numbers - so we jump to odd */
 	add	x0, xzr, x0, lsr 1	/* halve x0; leave bit 0 in carry */
@@ -73,5 +73,5 @@ odd:
 	adds	x2, x2, 1
 	mov	x0, x2		/* x0 is 3n+1 */
 next_term_last:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret

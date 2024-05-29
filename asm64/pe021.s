@@ -28,8 +28,8 @@ resstring:
 .global main
 .type   main, %function
 main:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	icount, 0
 	ldr	aptr, =array
@@ -76,8 +76,8 @@ printme:
 .global sum_factors
 .type   sum_factors, %function
 sum_factors:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	number, x0
 	mov	sum, 1
@@ -99,5 +99,5 @@ sf_next:
 sf_end:	
 	mov	x0, sum
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret

@@ -6,8 +6,8 @@ len	.req x20
 .type	copybytes, %function
 copybytes:
 	callee_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	len, x1
 	mov	ptr, x2
@@ -20,6 +20,6 @@ copybytesloopstart:
 	mov	x0, ptr
 	mov	x1, len
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	callee_restore_regs_from_stack
 	ret

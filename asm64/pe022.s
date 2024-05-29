@@ -43,8 +43,8 @@ names:
 .global main
 .type   main, %function
 main:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	bl	init_sorted
 	bl	parse_names
@@ -63,8 +63,8 @@ main:
 # init_sorted initialises the sorted list to i
 .type   init_sorted, %function
 init_sorted:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	ldr	sorted_ptr, =sorted
 	mov	wcount, 0
@@ -76,14 +76,14 @@ siloop:
 	cmp	count, x3
 	b.ne	siloop
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret
 
 # parse_names parses the name string and populates namestart and namesize lists
 .type   parse_names, %function
 parse_names:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	ldr	names_ptr, =names
 	ldr	start_ptr, =namestart
@@ -114,15 +114,15 @@ iloopend:
 	sub	wnsize, wcount, wnstart
 	strb	wnsize, [size_ptr]
 ilast:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret
 
 # vectored_bubblesort uses the indirection vector, sorted, and sorts the names by manipulating the contents of the vector
 # we could use a different sorting algortithm, this is the simplest to implement but it is inefficient
 .type   vectored_bubblesort, %function
 vectored_bubblesort:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	swapped, 0
 bubblestart:
@@ -169,14 +169,14 @@ decrement_count:
 	mov	swapped, 0
 	b.eq	bubblestart
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret
 
 # sumname takes start in r0, size in r1 and returns the sum of letters-ASCII in r0
 .type   sumname, %function
 sumname:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	ldr	x2, =names
 	add	x2, x2, x0
@@ -188,14 +188,14 @@ nextsumchar:
 	subs	x1, x1, 1
 	b.ne	nextsumchar
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret
 
 # compute_score computes the score from the sorted vector and returns it in r0
 .type   compute_score, %function
 compute_score:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov 	x4, 0
 	mov	count, 0
@@ -219,5 +219,5 @@ cs_start:
 
 	mov	x0, x4
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret

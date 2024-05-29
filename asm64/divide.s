@@ -22,8 +22,8 @@ tmp_div    .req x21
 .type	divide, %function
 divide:
 	callee_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	cmp	number, divisor
 	b.lt	rsmall
@@ -40,6 +40,6 @@ rsmall:
 	mov	x1, x0
 	mov	x0, 0
 rlast:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	callee_restore_regs_from_stack
 	ret

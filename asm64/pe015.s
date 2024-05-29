@@ -107,8 +107,8 @@ mnumerator:
         .global needs_factor
         .type   needs_factor, %function
 needs_factor:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	ldr	x1, =start_offset
 	add	x2, x0, x1
@@ -123,6 +123,6 @@ next_byte:
 ret1:
 	mov	x0, 1
 leave:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 
         ret

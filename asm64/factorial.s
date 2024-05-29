@@ -23,8 +23,8 @@ optr	.req x14
 	.global	factorial
 	.type	factorial, %function
 factorial:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	cmp	x0, 1
 	b.gt	factorial_ok
@@ -74,5 +74,5 @@ factorial_last:
 	mov	x1, tmp
 	mov	x0, counter
 factorial_end:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret

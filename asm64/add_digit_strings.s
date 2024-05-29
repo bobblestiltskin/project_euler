@@ -38,8 +38,8 @@ length		.req x27
 .global add_digit_strings
 .type add_digit_strings, %function
 add_digit_strings:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	cmp	x3, x1
 	b.ge	no_swap
@@ -53,7 +53,7 @@ add_digit_strings:
 no_swap:
 	bl	add_strings_short_to_long
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret
 
 # this subroutine adds the short byte array at x0, length x1
@@ -74,8 +74,8 @@ no_swap:
 .type add_strings_short_to_long, %function
 add_strings_short_to_long:
 	callee_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	length, x3
 	mov	sptr, x0
@@ -128,6 +128,6 @@ no_carry_store:
 	add	x0, optr, 1
 	add	x1, length, carryw, uxtw
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	callee_restore_regs_from_stack
 	ret

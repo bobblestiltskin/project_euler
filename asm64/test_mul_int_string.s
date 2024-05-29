@@ -4,23 +4,7 @@
 	ldr	x2, =\num
 	ldr	x3, =output
 
-        stp x22, x23, [sp, #-0x70]!
-        stp x10, x11, [sp, #0x10]
-        stp x12, x13, [sp, #0x20]
-        stp x14, x15, [sp, #0x30]
-        stp x16, x17, [sp, #0x40]
-        stp x18, x19, [sp, #0x50]
-        stp x20, x21, [sp, #0x60]
-
 	bl	mul_int_string
-
-        ldp x20, x21, [sp, #0x60]
-        ldp x18, x19, [sp, #0x50]
-        ldp x16, x17, [sp, #0x40]
-        ldp x14, x15, [sp, #0x30]
-        ldp x12, x13, [sp, #0x20]
-        ldp x10, x11, [sp, #0x10]
-        ldp x22, x23, [sp], #0x70
 
 	ldr	x2, =print_vector
 	bl	printbytes

@@ -47,7 +47,6 @@ loop:
 	cmp	x0, 1
 	b.ne	nexti
         str     number, [primes_ptr, word]!
-#	str	number, [primes_ptr, numprimes, lsl =logword]
         add	numprimes, numprimes, 1
 	add	sum, sum, number
 nexti:

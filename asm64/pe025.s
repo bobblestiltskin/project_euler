@@ -55,8 +55,8 @@ resstring:
 .global main
 .type   main, %function
 main:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	icount, 2
 mloop:

@@ -4,8 +4,8 @@
 .type	printbytes, %function
 
 printbytes:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 printbytes_loopstart:
 	ldrb	w3, [x0], 1
@@ -17,6 +17,5 @@ printbytes_loopstart:
 	mov	x3, 0
 	strb	w3, [x2], 1
 
-        ldp fp, lr, [sp], #0x10
-
+        ldp	fp, lr, [sp], #0x10
 	ret

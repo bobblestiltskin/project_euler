@@ -1,5 +1,7 @@
 # this computes projecteuler.net problem 013
 
+.include "regs.s"
+
 .equ ten, 10
 .equ hundred, 100
 .equ col_nums,50
@@ -9,15 +11,15 @@
 
 .align 4
 
-const		.req x10
-tbyte		.req w11
-tmp		.req x12
-col_num		.req x13
-row_num		.req x14
-data_ptr	.req x15
-row1		.req x16
-byte_tmp        .req x17
-col_sum		.req x18
+const		.req x19
+tbyte		.req w20
+tmp		.req x21
+col_num		.req x22
+row_num		.req x23
+data_ptr	.req x24
+row1		.req x25
+byte_tmp        .req x26
+col_sum		.req x27
 
 .section .bss
    .lcomm result, 52
@@ -174,13 +176,7 @@ printme:
 next_digit:
         ldrb	w1, [data_ptr], 1
         ldr     x0, =numstring
-
-        stp fp, lr, [sp, #-0x20]!
-        stp x15, x16, [sp, #0x10] /* printf wipes out data_ptr and row1 */
-        mov fp, sp
         bl      printf
-        ldp x15, x16, [sp, #0x10]
-        ldp fp, lr, [sp], #0x20
 
 	subs	row1, row1, 1
 	b.ne	next_digit
@@ -195,6 +191,10 @@ last:
         .global get_3_result
         .type   get_3_result, %function
 get_3_result:
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
 	ldr	data_ptr, =result
 	add	data_ptr, data_ptr, x0
 	ldrb	tbyte, [data_ptr], 1
@@ -208,20 +208,19 @@ get_3_result:
 	mul	byte_tmp, byte_tmp, const
 	add	tmp, tmp, byte_tmp
 	ldrb	tbyte, [data_ptr], 1
-#	uxtw	byte_tmp, tbyte
 	add	tmp, tmp, tbyte, uxtw
 	mov	x0, tmp
 
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret
 
         .global put_3_result
         .type   put_3_result, %function
 put_3_result:
-        stp fp, lr, [sp, #-0x40]!
-        stp x13, x14, [sp, #0x10]
-        stp x15, x16, [sp, #0x20]
-        stp x17, x18, [sp, #0x30]
-        mov fp, sp
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	ldr	data_ptr, =result
 	add	data_ptr, data_ptr, x1
@@ -234,9 +233,6 @@ put_3_result:
 	strb	w1, [data_ptr], #-1
 	strb	w0, [data_ptr]
 
-        ldp x17, x18, [sp, #0x30]
-        ldp x15, x16, [sp, #0x20]
-        ldp x13, x14, [sp, #0x10]
-        ldp fp, lr, [sp], #0x40
-
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret

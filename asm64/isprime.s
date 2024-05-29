@@ -19,8 +19,8 @@ tmp		.req x21
 
 isprime:
 	callee_save_regs_on_stack
-	stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+	stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	number, x0
 	ands	tmp, number, 1
@@ -54,6 +54,6 @@ big:
 factor:
 	mov	x0, 0
 last:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	callee_restore_regs_from_stack
 	ret

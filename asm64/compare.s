@@ -24,8 +24,8 @@ count	.req x22
 	.type	compare, %function
 compare:
 	callee_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	minlen, x1
 	cmp	minlen, x3
@@ -59,7 +59,7 @@ lt_x:
 gt_x:
 	mov	x0, 1
 loopend:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	callee_restore_regs_from_stack
 	ret
 

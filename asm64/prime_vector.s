@@ -25,8 +25,8 @@ vsize		.req x23
 
 prime_vector:
 	callee_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	number, x0
 	mov	vptr, x1
@@ -52,7 +52,7 @@ not_prime:
 	mov	x0, 1
 last:
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	callee_restore_regs_from_stack
 
         ret

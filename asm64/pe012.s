@@ -1,5 +1,7 @@
 # this computes projecteuler.net problem 012
 
+.include "regs.s"
+
 .align 2
 
 .section .rodata
@@ -8,20 +10,19 @@ resstring:
 
 .equ    last, 250
 
-icount		.req x4
-jcount		.req x5
-tmp		.req x6
-num		.req x7
+icount		.req x19
+jcount		.req x20
+tmp		.req x21
+num		.req x22
 
 .text
         .align  2
         .global get_num_divisors
         .type   get_num_divisors, %function
 get_num_divisors:
-        stp fp, lr, [sp, #-0x30]!
-        stp x4, x5, [sp, #0x10]
-        stp x6, x7, [sp, #0x20]
-        mov fp, sp
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	num, x0
 	mov	icount, 0
@@ -42,10 +43,8 @@ nextj:
 	b.gt	jstart
 	mov	x0, icount
 
-        ldp x6, x7, [sp, #0x20]
-        ldp x4, x5, [sp, #0x10]
-        ldp fp, lr, [sp], #0x30
-
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
 	ret
 
         .align  2

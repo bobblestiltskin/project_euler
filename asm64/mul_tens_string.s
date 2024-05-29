@@ -24,8 +24,8 @@ ilength		.req x22
 
 mul_tens_string:
 	callee_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	iptr, x0
 	mov	ilength, x1

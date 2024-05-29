@@ -21,8 +21,8 @@ digit6		.req x24
 .align	2
 is_palindromic:
 	callee_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	bl	divide_by_10_remainder
 	mov	digit1, x1
@@ -54,7 +54,7 @@ is_palindromic:
 no:
         mov 	x0, 0
 is_palindromic_end:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	callee_restore_regs_from_stack
 
 	ret

@@ -31,8 +31,8 @@ resstring:
 .global main
 .type   main, %function
 main:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 # store the abundant numbers to the vector array and set the elements corresponding 
 # to the sum of the factors in the bit vector abundantbit
@@ -115,8 +115,8 @@ printme:
 .global sum_factors
 .type   sum_factors, %function
 sum_factors:
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	wnumber, w0
 	mov	wsum, 1
@@ -140,5 +140,5 @@ sf_next:
 sf_end:	
 	mov	w0, wsum
 
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	ret

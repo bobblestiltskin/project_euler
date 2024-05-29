@@ -45,8 +45,8 @@ rs_init		.req w22
 
 mul_int_string:
 	caller_save_regs_on_stack
-        stp fp, lr, [sp, #-0x10]!
-        mov fp, sp
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
 	mov	iptr, x0
 	ldr	tptr, =tmp_vector
@@ -157,6 +157,6 @@ loopend:
 single_digit:
 	bl	mul_digit_string
 mis_end:
-        ldp fp, lr, [sp], #0x10
+        ldp	fp, lr, [sp], #0x10
 	caller_restore_regs_from_stack
 	ret
