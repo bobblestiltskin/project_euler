@@ -3,10 +3,11 @@ CC      := /usr/bin/gcc
 LD      := /usr/bin/ld
 
 ASOPTS  := -gstabs
-CCOPTS  := -g -fPIC
+CCOPTS  := -g
 
-#all: pe test
-all: test pe
+#all: pe
+all: pe test
+#all: test pe
 
 pe: $(patsubst %.s,%,$(wildcard pe0*.s))
 test: $(patsubst %.s,%,$(wildcard test*.s))
@@ -41,4 +42,4 @@ pe004: pe004.s ispalindromic.s divide_by_10.s
 	$(CC) $(CCOPTS) -o $@ $^ $(CLIBS)
 
 clean:
-	/bin/rm -f pe0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string test_factorial test_compare test_prime_vector test_long_divide test_divide test_long_multiply
+	/bin/rm -f pe0[012]? *.o test_isprime test_divide_by_10 test_ispalindromic test_mul_digit_string test_add_digit_strings test_mul_int_string test_factorial test_compare test_prime_vector test_long_divide test_divide test_long_multiply test_multiply_by_10
