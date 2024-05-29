@@ -10,21 +10,7 @@
 # outputs
 #   x0 - prime boolean
 
-.macro callee_save_regs_on_stack
-        stp x27, x28, [sp, #-0x50]!
-        stp x25, x26, [sp, #0x10]
-        stp x23, x24, [sp, #0x20]
-        stp x21, x22, [sp, #0x30]
-        stp x19, x20, [sp, #0x40]
-.endm
-
-.macro callee_restore_regs_from_stack
-        ldp x19, x20, [sp, #0x40]
-        ldp x21, x22, [sp, #0x30]
-        ldp x23, x24, [sp, #0x20]
-        ldp x25, x26, [sp, #0x10]
-        ldp x27, x28, [sp], #0x50
-.endm
+.include "./regs.s"
 
 number		.req x19
 vptr		.req x20

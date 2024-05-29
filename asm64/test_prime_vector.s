@@ -8,45 +8,32 @@ numprimes	.req x14
 primes_ptr	.req x15
 tmp		.req x16
 
-.macro caller_save_regs_on_stack
-        stp x17, x18, [sp, #-0x50]!
-        stp x15, x16, [sp, #0x10]
-        stp x13, x14, [sp, #0x20]
-        stp x11, x12, [sp, #0x30]
-        stp  x9, x10, [sp, #0x40]
-.endm
-
-.macro caller_restore_regs_from_stack
-        ldp x9, x10, [sp, #0x40]
-        ldp x11, x12, [sp, #0x30]
-        ldp x13, x14, [sp, #0x20]
-        ldp x15, x16, [sp, #0x10]
-        ldp x17, x18, [sp], #0x50
-.endm
+.include "./regs.s"
 
 .macro num_is_prime a
 _start\@:
-
-	caller_save_regs_on_stack
-
 	mov	number, \a
 	mov	x0, number
-	mov	x1, primes_ptr
+	ldr	x1, =primes_vector
 	mov	x2, numprimes
 
+	caller_save_regs_on_stack
 	bl	prime_vector
+	caller_restore_regs_from_stack
+
 	mov	primeflag, x0
 
 	cmp	x0, 1
 	b.ne	notprime\@
-	str	number, [primes_ptr, numprimes, lsl logword]
+	str	number, [primes_ptr, word]!
 	add	numprimes, numprimes, 1
 notprime\@:
 	mov	x2, primeflag
 	mov	x1, number
 	ldr	x0, =primestring
-	bl	printf
 
+	caller_save_regs_on_stack
+	bl	printf
 	caller_restore_regs_from_stack
 .endm
 
@@ -69,7 +56,6 @@ main:
 	mov	number, 2
 	str	number, [primes_ptr]
 
-	num_is_prime 4
 	num_is_prime 3
 	num_is_prime 4
 	num_is_prime 5
