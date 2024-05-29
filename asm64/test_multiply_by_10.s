@@ -2,7 +2,6 @@
         ldr     x0, =input
         ldr     x1, =iLENGTH
         ldr     x2, =\num
-#        ldr     x3, =output
 
         stp x18, x19, [sp, #-0x50]!
         stp x10, x11, [sp, #0x10]

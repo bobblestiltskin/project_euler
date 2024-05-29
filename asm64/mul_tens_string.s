@@ -5,7 +5,6 @@
 #   x0 - pointer to input vector
 #   x1 - length of input vector
 #   x2 - number of zeroes to append
-#   x3 - pointer to output vector
 #
 # outputs
 #   x0 - pointer to output vector
@@ -13,11 +12,8 @@
 
 iptr		.req x4
 optr		.req x5
-len		.req x6
-tmp		.req x7
-ptr		.req x8
-numtens		.req x9
-ilength		.req x11
+numtens		.req x6
+ilength		.req x7
 
 .global mul_tens_string
 .type mul_tens_string, %function
@@ -32,9 +28,8 @@ mul_tens_string:
 	mov	ilength, x1
 	mov	numtens, x2
 	add	optr, x0, x1
+	add	ilength, ilength, numtens
 
-	add	len, ilength, numtens
-	mov	ptr, x0
 	mov	w2, #0
 cbl_start:
 	cmp	numtens, #0
@@ -44,8 +39,8 @@ cbl_start:
 
 	b	cbl_start
 cbl_end:
-	mov	x0, ptr
-	mov	x1, len
+	mov	x0, iptr
+	mov	x1, ilength
 
         ldp 	fp, lr, [sp], #0x10
 	ret
