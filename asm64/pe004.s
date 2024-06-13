@@ -1,16 +1,16 @@
-.syntax unified
+# this computes projecteuler.net problem 004
 
 .equ max3,999
 .equ min3,100
 .equ maxdigits,6
 
-i	.req r4
-j	.req r5
-product	.req r6
-maxp	.req r7
-mini	.req r8
-minj	.req r9
-maxj	.req r10
+i	.req x14
+j	.req x15
+product	.req x16
+maxp	.req x17
+mini	.req x18
+minj	.req x19
+maxj	.req x20
 
 .section .rodata
 	.align	2
@@ -22,46 +22,50 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
-	stmfd	sp!, {r4-r10, lr}
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
+
         ldr	i, =max3
 	ldr	mini, =min3
 	ldr	maxj, =max3
 	ldr	minj, =min3
+        mov	maxp, xzr
 iloop:
 	mov	j, maxj
 jloop:
 	mul	product, i, j
 
-	mov	r0, product
+	mov	x0, product
+
 	bl	is_palindromic
-	cmp	r0, #1
-	bne	next
+
+	cmp	x0, #1
+	b.ne	next
 	cmp	product, maxp
-	ble	next
+	b.le	next
 	mov	maxp, product
-	mov	r0, product
-	bl	divide_by_10 @ divides r0 by 10 
-	bl	divide_by_10 @ so 3 consecutive calls
-	bl	divide_by_10 @ will divide by 1000
-	mov	minj, r0
-	mov	minj, r0
+	mov	x0, product
+	bl	divide_by_10_remainder /* divides x0 by 10 */
+	bl	divide_by_10_remainder /* so 3 consecutive calls */
+	bl	divide_by_10_remainder /* will divide by 1000 */
+	mov	minj, x0
+	mov	minj, x0
 
 next:
 	subs	j, j, 1
 	cmp	j, minj
-	bgt	jloop
+	b.gt	jloop
 
 	subs	i, i, 1
 	mov	maxj, i
 	cmp	i, mini
-	bgt	iloop
+	b.gt	iloop
 
 last:
-	mov	r1, maxp		
-	ldr	r0, =sumstring	@ store address of start of string to r0
+	mov	x1, maxp
+	ldr	x0, =sumstring	/* store address of start of string to x0 */
 	bl	printf
 
-	mov	r0, 0
-	ldmfd	sp!, {r4-r10, pc}
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret

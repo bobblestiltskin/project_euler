@@ -1,3 +1,4 @@
+# this computes projecteuler.net problem 001
 .equ max3start,999
 .equ max5start,995
 
@@ -16,18 +17,8 @@ string:
 	.global	main
 	.type	main, %function
 main:
-#	stmfd	sp!, {x4-88, lr}
-        stp fp, lr, [sp, #-0x90]!
-        stp x19, x20, [sp, #0x10]
-        stp x21, x22, [sp, #0x20]
-        stp x23, x24, [sp, #0x30]
-        stp x25, x26, [sp, #0x40]
-        stp x27, x28, [sp, #0x50]
-        stp x4, x5, [sp, #0x60]
-        stp x6, x7, [sp, #0x70]
-        stp x8, x9, [sp, #0x80]
-        mov fp, sp
-
+	stp	fp, lr, [sp, #-0x10]!
+	mov	fp, sp
 	ldr	max5,   =max5start
 	ldr	max3,   =max3start
 	ldr	number, =max3start    /* start at 1000 - 1 ; numbers < 1000 */
@@ -35,7 +26,7 @@ main:
 	mov	sum, 0
 loop:
 	cmp	number, max3
-	bne	test5
+	b.ne	test5
 
 # matched a multiple of 3 - decrement max3, add to sum and set matched to 1
 	mov	matched, 1
@@ -44,7 +35,7 @@ loop:
 
 test5:
 	cmp	number, max5
-	bne	last
+	b.ne	last
 
 # matched a multiple of 5 - decrement max5, add to sum and set matched to 1
 	subs	max5, max5, 5
@@ -56,25 +47,12 @@ last:
 # decrement number and reset matched and loop
 	mov	matched, 0
 	subs	number, number, 1
-	bne	loop
+	b.ne	loop
 
 	mov	x1, sum		
 	ldr	x0, =string	/* store address of start of string to x0 */
 	bl	printf
 
-	mov	x0, 0
-#	ldmfd	sp!, {r4-r8, pc}
-        ldp x8, x9, [sp, #0x80]
-        ldp x6, x7, [sp, #0x70]
-        ldp x4, x5, [sp, #0x60]
-        ldp x27, x28, [sp, #0x50]
-        ldp x25, x26, [sp, #0x40]
-        ldp x23, x24, [sp, #0x30]
-        ldp x21, x22, [sp, #0x20]
-        ldp x19, x20, [sp, #0x10]
-        ldp fp, lr, [sp], #0x90
-
+	ldp	fp, lr, [sp], #0x10
 	mov	x0, #0		/* exit code to 0 */
-	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
-        svc	#0		/* then invoke the syscall from linux */
-
+	ret

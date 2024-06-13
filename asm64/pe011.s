@@ -1,4 +1,4 @@
-.syntax unified
+# this computes projecteuler.net problem 011
 
 .align 2
 
@@ -50,26 +50,30 @@ resstring:
 .equ	north_west, -ocolumns-1
 .equ	point_set, 1
 
-tmp		.req r2
-pointv		.req r3
-data_ptr	.req r4
-icount		.req r5
-jcount		.req r6
-kcount		.req r7
-maxv		.req r8
-dpstore		.req r9
+tmp		.req x2
+pointv		.req x3
+data_ptr	.req x4
+icount		.req x5
+jcount		.req x6
+kcount		.req x7
+maxv		.req x8
+dpstore		.req x9
+byte		.req w10
 
 .macro direction a
 	mov	data_ptr, dpstore
 	mov	kcount, points
 	mov	pointv, point_set
 kloop\@:
-	ldrb	tmp, [data_ptr], \a
+	ldrb	byte, [data_ptr], \a
+        uxtw    tmp, byte
 	mul	pointv, pointv, tmp
 	subs	kcount, kcount, 1
-	bne	kloop\@
-        cmp     maxv, pointv
-        movlt   maxv, pointv	@ set maxv to max of maxv and pointv
+	b.ne	kloop\@
+        cmp	maxv, pointv	/* set maxv to max of maxv and pointv */
+        b.gt	bigga\@
+	mov	maxv, pointv
+bigga\@:
 .endm
 
 .text
@@ -77,7 +81,8 @@ kloop\@:
         .global main
         .type   main, %function
 main:
-        stmfd   sp!, {r4-r9, lr}
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
 	mov	icount, icolumns
 iloop:
 	mov	jcount, icolumns
@@ -89,7 +94,7 @@ jloop:
 	add	tmp, tmp, jcount
 	add	tmp, tmp, offset
 	ldr	data_ptr, =buffer
-	add	dpstore, data_ptr, tmp	@ data[i][j]
+	add	dpstore, data_ptr, tmp	/* data[i][j] */
 
 	direction north
 	direction north_east
@@ -101,16 +106,15 @@ jloop:
 	direction north_west
 
 	subs	jcount, jcount, 1
-	bne	jloop
+	b.ne	jloop
 
 	subs	icount, icount, 1
-	bne	iloop
+	b.ne	iloop
 printme:
-        mov     r1, maxv
-        ldr     r0, =resstring  @ store address of start of string to r0
+        mov     x1, maxv
+        ldr     x0, =resstring  /* store address of start of string to x0 */
         bl      printf
 
-	mov	r0, 0
-        ldmfd   sp!, {r4-r9, pc}
-        mov     r7, 1		@ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret

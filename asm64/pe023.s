@@ -1,23 +1,25 @@
-.syntax unified
+# this computes projecteuler.net problem 023
 
 .equ	datum_size, 2
 .equ	SIZE, 28123
 
 .align 4
 
-aptr		.req r4
-sfcount		.req r4
-sum		.req r5
-bptr		.req r5
-number		.req r6
-total		.req r7
-last		.req r8
-addi		.req r9
-icount		.req r9
-tmp		.req r10
+.include "regs.s"
+
+aptr		.req x9
+wsfcount	.req w9
+wsum		.req w10
+bptr		.req x10
+wnumber		.req w11
+wtotal		.req w12
+wlast		.req w13
+addi		.req x14
+wicount		.req w14
+wtmp		.req w15
 
 .section .bss
-.lcomm array,SIZE<<1	@ use 16-bit ints for the list
+.lcomm array,SIZE<<1	/* use 16-bit ints for the list */
 .lcomm bitarray,SIZE
 
 .section .rodata
@@ -29,96 +31,114 @@ resstring:
 .global main
 .type   main, %function
 main:
-        stmfd   sp!, {r4-r10, lr}
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
 # store the abundant numbers to the vector array and set the elements corresponding 
 # to the sum of the factors in the bit vector abundantbit
-	mov	icount, 1
-	mov	number, 0
+
+	mov	wicount, 1
+	mov	wnumber, 0
 	ldr	aptr, =array
 	ldr	bptr, =bitarray
-	ldr	last, =SIZE
+	ldr	wlast, =SIZE
 array_loop:
-	mov	r0, icount
+	mov	w0, wicount
+
+	caller_save_regs_on_stack
 	bl	sum_factors
+	caller_restore_regs_from_stack
 
-	cmp	icount, r0
-	bge	array_next
-	strhlt	icount, [aptr], #datum_size
-	addlt	number, number, 1
-	cmp	r0, last
-	movlt	r1, 1
-	strblt	r1, [bptr, icount]
+	cmp	w0, wicount
+	b.le	array_next
+	strh	wicount, [aptr], #datum_size
+	add	wnumber, wnumber, 1
+	cmp	w0, wlast
+	b.ge	array_next
+	mov	w1, 1
+	strb	w1, [bptr, wicount, uxtw]
 array_next:
-	add	icount, icount, 1
-	cmp	icount, last
-	blt	array_loop
+	add	wicount, wicount, 1
+	cmp	wicount, wlast
+	b.lt	array_loop
 
-	mov	total, 0
+	mov	wtotal, 0
 # add all of the integers until we reach the first abundant number
 	ldr 	aptr, =array
-	ldrh	tmp, [aptr]
+	ldrh	wtmp, [aptr]
+
 sloop:
-	subs	tmp, tmp, 1
-	add	total, total, tmp
-	bne	sloop
+	subs	wtmp, wtmp, 1
+	add	wtotal, wtotal, wtmp, uxtw
+	b.ne	sloop
+
 
 	ldr	aptr, =array
-	ldrh	r0, [aptr]	@ r0 is the index of the outer loop
+	ldrh	w0, [aptr]	/* w0 is the index of the outer loop */
 ploop:
 	ldr	aptr, =array
 	ldr	bptr, =bitarray
         mov	addi, 1
-	mov	r3, 0		@ r3 is the index of the inner loop
+	mov	w3, 0		/* w3 is the index of the inner loop */
 iloop:
-	ldrh	tmp, [aptr], #datum_size
-	cmp	r0, tmp
-	blt	ilast
-	sub	r1, r0, tmp
-	ldrb	r2, [bptr, r1]
-	teq	r2, 1
-	moveq	addi, 0
-	beq	ilast
-	add	r3, r3, 1
-	cmp	number, r3
-	bne	iloop
+	ldrh	wtmp, [aptr], #datum_size
+	cmp	w0, wtmp
+	b.lt	ilast
+	sub	w1, w0, wtmp
+	ldrb	w2, [bptr, w1, uxtw]
+	cmp	w2, 1
+	b.ne    increment_inner_index
+	mov	addi, 0
+	b	ilast
+increment_inner_index:
+	add	w3, w3, 1
+	cmp	wnumber, w3
+	b.ne	iloop
 ilast:
-	teq	addi, 1
-	addeq	total, total, r0
-	add	r0, r0, 1
-	cmp	r0, last
-	bne	ploop
+	cmp	addi, 1
+	b.ne	no_total_update
+	add	wtotal, wtotal, w0
+no_total_update:
+	add	w0, w0, 1
+	cmp	w0, wlast
+	b.ne	ploop
 printme:
-        mov     r1, total
-        ldr     r0, =resstring  @ store address of start of string to r0
+        mov     w1, wtotal
+        ldr     x0, =resstring  /* store address of start of string to x0 */
         bl      printf
 
-	mov	r0, 0
-        ldmfd   sp!, {r4-r10, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+
+	mov	x0, #0		/* exit code to 0 */
+        ldp	fp, lr, [sp], #0x10
+	ret
 
 .global sum_factors
 .type   sum_factors, %function
 sum_factors:
-        stmfd   sp!, {r4-r6, lr}
-	mov	number, r0
-	mov	sum, 1
-	mov	sfcount, 2
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	mov	wnumber, w0
+	mov	wsum, 1
+	mov	wsfcount, 2
 sf_loop:
-	mul	r0, sfcount, sfcount
-	cmp	r0, number
-	bgt	sf_end
-	mov	r0, number
-	mov	r1, sfcount
+	mul	w0, wsfcount, wsfcount
+	cmp	w0, wnumber
+	b.gt	sf_end
+	mov	w0, wnumber
+	mov	w1, wsfcount
 	bl	divide
-	teq	r1, 0
-	bne	sf_next
-	add	sum, sum, r0
-	cmp	r0, sfcount
-	addne	sum, sum, sfcount
+	cmp	w1, 0
+	b.ne	sf_next
+	add	wsum, wsum, w0
+	cmp	w0, wsfcount
+	b.eq	sf_next
+	add	wsum, wsum, wsfcount
 sf_next:
-	add	sfcount, sfcount, 1
+	add	wsfcount, wsfcount, 1
 	b	sf_loop
 sf_end:	
-	mov	r0, sum
-        ldmfd   sp!, {r4-r6, pc}
+	mov	w0, wsum
+
+        ldp	fp, lr, [sp], #0x10
+	ret

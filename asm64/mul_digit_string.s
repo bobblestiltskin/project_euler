@@ -1,25 +1,28 @@
-.syntax unified
-
-# this subroutine multiplies the byte array at r0, length r1 by the digit r2 
-# and stores to r0 with output length in r1
+# this subroutine multiplies the byte array at x0, length x1 by the digit x2 
+# and stores to x0 with output length in x1
 #
 # inputs
-#   r0 - pointer to input vector
-#   r1 - length of input vector
-#   r2 - multiplicand
-#   r3 - pointer to output vector
+#   x0 - pointer to input vector
+#   x1 - length of input vector
+#   x2 - multiplicand
+#   x3 - pointer to output vector
 #
 # outputs
-#   r0 - pointer to output vector
-#   r1 - length of output vector
+#   x0 - pointer to output vector
+#   x1 - length of output vector
 
-iptr		.req r4
-optr		.req r5
-offset		.req r6
-tmp		.req r7
-carry		.req r8
-multiplier	.req r9
-cell		.req r10
+.include "regs.s"
+
+iptr		.req x19
+optr		.req x20
+offset		.req x21
+tmp		.req x22
+carryb		.req w23
+carry		.req x23
+multiplier	.req x24
+cellb		.req w25
+cell		.req x25
+ilength		.req x26
 
 .global mul_digit_string
 .type mul_digit_string, %function
@@ -27,61 +30,78 @@ cell		.req r10
 .align	2
 
 mul_digit_string:
-	stmfd	sp!, {r4-r10, lr}
-	teq	r2, 0
-	bne	mds_one
-	moveq	r0, r3
-	moveq	tmp, r3
-	moveq	r1, 1
-	bleq	clearbytes
-	mov	r0, tmp
-	moveq	r1, 1
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	mov	iptr, x0
+	mov	ilength, x1
+	mov	multiplier, x2
+	mov	optr, x3
+
+	cmp	multiplier, 0
+	b.ne	mds_one
+	mov	cellb, 0
+	mov	optr, x3
+	strb	cellb, [x3], 1
+	mov	x0, optr
+	mov	x1, 1
 	b	mds_end
 mds_one:
-	teq	r2, 1
-	bne	mds_start
-	moveq	r2, r3
-	moveq	tmp, r0
-	moveq	cell, r1
-	bleq	copybytes
-	mov	r0, tmp
-	mov	r1, cell
+	cmp	multiplier, 1
+	b.ne	mds_start
+	mov	x0, iptr
+	mov	x1, ilength
+	mov	x2, optr
+	bl	copybytes
+
+	mov	x0, optr
+	mov	x1, ilength
 	b	mds_end
 mds_start:
-	mov	carry, r0
-	mov	tmp, r1
-	mov	offset, r3
-	mov	r0, r3
-	add	r1, r1, 1
+	mov	carry, x0
+	mov	tmp, x1
+	mov	offset, x3
+	mov	x0, x3
+	add	x1, x1, 1
 	bl	clearbytes
-	mov	r0, carry
-	mov	r1, tmp
-	mov	r3, offset
 
-	mov	carry, 0
-	mov	multiplier, r2
-	mov	offset, r1
+	mov	x0, carry
+	mov	x1, tmp
+	mov	x3, offset
+
+	mov	carryb, 0
+	mov	multiplier, x2
+	mov	offset, x1
 	sub	offset, offset, 1
-	add	iptr, r0, offset
-	add	optr, r3, offset
+	add	iptr, x0, offset
+	add	optr, x3, offset
 	add	offset, offset, 1
-	mov	tmp, r1
+	mov	tmp, x1
 mds_loopstart:
-	ldrb	cell, [iptr], -1
-	mul	r0, cell, multiplier
-	add	r0, r0, carry
+	ldrb	cellb, [iptr], -1
+	uxtw	cell, cellb
+	mul	x0, cell, multiplier
+	add	x0, x0, carryb, uxtw
 	bl	divide_by_10_remainder
-	strb	r1, [optr], -1
-	mov	carry, r0
+
+	strb	w1, [optr], -1
+	mov	carryb, w0
+
 	subs	offset, offset, 1
-	beq	mds_last
+	b.eq	mds_last
 	b	mds_loopstart
 mds_last:
-	cmp	carry, 0
-	addeq	r0, optr, 1
-	moveq	r1, tmp
-	strbne	carry, [optr]
-	movne	r0, optr
-	addne	r1, tmp, 1
+	cmp	carryb, 0
+	b.ne 	store_byte
+	add	x0, optr, 1
+	mov	x1, tmp
+	b	mds_end
+store_byte:
+	strb	carryb, [optr]
+	mov	x0, optr
+	add	x1, tmp, 1
 mds_end:
-	ldmfd	sp!, {r4-r10, pc}
+        ldp 	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
+	ret

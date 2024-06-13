@@ -1,16 +1,20 @@
-.syntax unified
+# this computes projecteuler.net problem 021
 
+.equ	WORDSIZE, 8
+.equ	LOGWORDSIZE, 3
+.equ	SIZEB, 80000
 .equ	SIZE, 10000
-.equ	SIZEB, 40000
+
+.include "regs.s"
 
 .align 4
 
-aptr		.req r4
-number		.req r4
-sum		.req r5
-tmp		.req r5
-icount		.req r6
-total		.req r7
+aptr		.req x9
+number		.req x9
+sum		.req x10
+tmp		.req x10
+icount		.req x11
+total		.req x12
 
 .section .bss
 .lcomm array,SIZEB
@@ -24,67 +28,76 @@ resstring:
 .global main
 .type   main, %function
 main:
-        stmfd   sp!, {r4-r8, lr}
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
 	mov	icount, 0
 	ldr	aptr, =array
 array_loop:
-	mov	r0, icount
+	mov	x0, icount
+
+	caller_save_regs_on_stack
 	bl	sum_factors
-	str	r0, [aptr], 4
+	caller_restore_regs_from_stack
+
+	str	x0, [aptr], WORDSIZE
 	add	icount, icount, 1
 	ldr	tmp, =SIZE
 	cmp	icount, tmp
-	blt	array_loop
+	b.lt	array_loop
 
 	ldr 	aptr, =array
 	mov	tmp, 0
 	ldr	icount, =SIZE
 	mov	total, 0
 ploop:
-	ldr	r2, [aptr, tmp, lsl 2]
-	cmp	r2, icount
-	bge	pnext
-	teq	tmp, r2
-	beq	pnext
-	ldr	r3, [aptr, r2, lsl 2]
-	teq	tmp, r3
-	bne	pnext
+	ldr	x2, [aptr, tmp, lsl LOGWORDSIZE]
+	cmp	x2, icount
+	b.ge	pnext
+	cmp	tmp, x2
+	b.eq	pnext
+	ldr	x3, [aptr, x2, lsl LOGWORDSIZE]
+	cmp	tmp, x3
+	b.ne	pnext
 	add	total, total, tmp
 pnext:
 	add	tmp, tmp, 1
 	cmp	tmp, icount
-	bne	ploop
+	b.ne	ploop
 printme:
-        mov     r1, total
-        ldr     r0, =resstring  @ store address of start of string to r0
+        mov     x1, total
+        ldr     x0, =resstring  /* store address of start of string to r0 */
         bl      printf
 
-	mov	r0, 0
-        ldmfd   sp!, {r4-r8, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+        ldp	fp, lr, [sp], #0x10
+	ret
 
 .global sum_factors
 .type   sum_factors, %function
 sum_factors:
-        stmfd   sp!, {r4-r6, lr}
-	mov	number, r0
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	mov	number, x0
 	mov	sum, 1
 	mov	icount, 2
 sf_loop:
-	mul	r0, icount, icount
-	cmp	r0, number
-	bgt	sf_end
-	mov	r0, number
-	mov	r1, icount
+	mul	x0, icount, icount
+	cmp	x0, number
+	b.gt	sf_end
+	mov	x0, number
+	mov	x1, icount
 	bl	divide
-	teq	r1, 0
-	bne	sf_next
-	add	sum, sum, r0
+	cmp	x1, 0
+	b.ne	sf_next
+	add	sum, sum, x0
 	add	sum, sum, icount
 sf_next:
 	add	icount, icount, 1
 	b	sf_loop
 sf_end:	
-	mov	r0, sum
-        ldmfd   sp!, {r4-r6, pc}
+	mov	x0, sum
+
+        ldp	fp, lr, [sp], #0x10
+	ret

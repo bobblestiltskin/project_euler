@@ -4,25 +4,24 @@
 .equ num8,78
 .equ num9,7
 
-.syntax unified
-
 .macro remainder num
-	ldr	r1, =\num
-	ldr	r0, =numstring
+	ldr	x1, =\num
+	mov	x2, 7
+	ldr	x0, =numstring
 	bl	printf
 
-	ldr	r0, =\num
-	mov	r1, 7
+	ldr	x0, =\num
+	mov	x1, 7
 	bl	divide
-	mov	r2, r0
-	ldr	r0, =remainderstring
+	mov	x2, x0
+	ldr	x0, =remainderstring
 	bl	printf
 .endm
 
 .section .rodata
 	.align	2
 numstring:
-	.asciz "num is %d\n"
+	.asciz "num is %d, dividing by %d\n"
 remainderstring:
 	.asciz "remainder is %d and dividend is %d\n"
 
@@ -37,6 +36,6 @@ main:
 	remainder  num8
 	remainder  num9
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */

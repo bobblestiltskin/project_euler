@@ -20,6 +20,7 @@ our (@ISA, @EXPORT_OK);
 our $extensions = {
   ada           => 'adb',
   asm32         => 's',
+  asm64         => 's',
   c             => 'c',
   'c++'         => 'cpp',
   erlang        => 'erl',

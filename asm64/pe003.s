@@ -1,59 +1,49 @@
-.syntax unified
+# this computes projecteuler.net problem 003
 
-@ 600851475143 is 8BE589EAC7 in hex
+/* 600851475143 is 8BE589EAC7 in hex */
 
-.equ numhi,139        @ 0x8b
-.equ numlo,3851020999 @ 0xe589eac7
+.equ num,0x8BE589EAC7
 
-num_hi  .req r4
-num_lo  .req r5
-maxdiv  .req r6
-n       .req r7
+tmp_div    .req x0
+tmp_mul    .req x1
+
+running    .req x4
+remainder  .req x5
+maxprime   .req x6
+count      .req x7
 
 .section .rodata
- .align 2
+        .align 2
 resstring:
- .asciz "%d\n"
+        .asciz "%d\n"
 .text
- .align 2
- .global main
- .type main, %function
+        .align 2
+        .global main
+        .type main, %function
 main:
- stmfd sp!, {r4-r7, lr}
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
 
- mov maxdiv, 0
- mov n, 1
- ldr num_lo, =numlo
- ldr num_hi, =numhi
+        mov maxprime, 0
+        mov count, 1
+	ldr running, =num
 loop:
- add n, n, 2           @ start at 3 and increment by 2
+        add count, count, 2           /* start at 3 and increment by 2 */
 loop1:
- mov r0, num_lo
- mov r1, num_hi
- mov r2, n
- mov r3, 0
- bl  long_divide
- teq r2, 0
- bne loop
- teq r3, 0
- bne loop
- mov num_lo, r0         @ only get here when we have no remainder
- mov num_hi, r1         @ save the divisor as the new number
- mov r0, n
- bl isprime
- teq r0, 1
- bne loop               @ increment n if n is non-prime
- cmp maxdiv, n
- movlt maxdiv, n        @ save n as the largest divisor if it is larger
- teq num_lo, 1          @ we know it has prime factors
- beq printme
- b loop1
+        udiv tmp_div, running, count /* this divide is done to find the remainder */
+        mul  tmp_mul, tmp_div, count
+        sub remainder, running, tmp_mul
+        cmp remainder, 0
+        b.ne loop
+        mov maxprime, count
+        udiv running, running, count
+        cmp running, 1
+        b.ne loop
 printme:
- mov r1, maxdiv
- ldr r0, =resstring     @ store address of start of string to r0
- bl printf
+        mov x1, maxprime
+        ldr x0, =resstring     /* store address of start of string to x0 */
+        bl printf
 
- mov r0, 0
- ldmfd sp!, {r4-r7, pc}
- mov r7, 1              @ set r7 to 1 - the syscall for exit
- swi 0                  @ then invoke the syscall from linux
+	ldp     fp, lr, [sp], #0x10
+        mov     x0, #0          /* exit code to 0 */
+	ret

@@ -1,14 +1,14 @@
-.syntax unified
+# this computes projecteuler.net problem 009
 
 .equ    limit,1000
 
 .align 4
 
-icount	.req r4
-jcount	.req r5
-kcount	.req r6
-tmp	.req r8
-jksum	.req r9
+icount	.req x4
+jcount	.req x5
+kcount	.req x6
+tmp	.req x8
+jksum	.req x9
 
 .section .rodata
         .align  2
@@ -19,44 +19,43 @@ resstring:
         .global main
         .type   main, %function
 main:
-        stmfd   sp!, {r4-r9, lr}
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
 	ldr	icount, =limit
 istart:
 	subs	jcount, icount, 1
-	beq	nexti
+	b.eq	nexti
 jstart:
 	subs	kcount, jcount, 1
-	beq	nextj
+	b.eq	nextj
 	add	tmp, icount, jcount
 kstart:
 	add	tmp, tmp, kcount
 	cmp	tmp, #limit
-	bne	nextk
+	b.ne	nextk
 	mul	jksum, kcount, kcount
 	mul	tmp, jcount, jcount
 	add	jksum, jksum, tmp
 	mul	tmp, icount, icount
 	cmp	jksum, tmp
-	beq	printme
+	b.eq	printme
 nextk:
 	add	tmp, icount, jcount
 	subs	kcount, kcount, 1
-	bne	kstart
+	b.ne	kstart
 nextj:
 	subs	jcount, jcount, 1
-	bne	jstart
+	b.ne	jstart
 nexti:
 	subs	icount, icount, 1
-	bne	istart
+	b.ne	istart
 printme:
 	mul	tmp, icount, jcount
 	mul	tmp, tmp, kcount
-        mov     r1, tmp
-        ldr     r0, =resstring  @ store address of start of string to r0
+        mov     x1, tmp
+        ldr     x0, =resstring  /* store address of start of string to x0 */
         bl      printf
 
-	mov	r0, 0
-        ldmfd   sp!, {r4-r9, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
-
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret

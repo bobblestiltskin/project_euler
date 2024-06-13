@@ -2,11 +2,16 @@
 mkdir -p ../output
 declare -a compiled
 compiled=(ada c c++ erlang go haskell java ocaml)
-if grep --quiet -E "ARMv[1-9]" /proc/cpuinfo
+#if grep --quiet -E "ARMv[1-9]" /proc/cpuinfo
+ARCH=$(lscpu | grep ^Architecture | awk '{print $2}')
+#echo $ARCH
+if [ $ARCH = "aarch64" ]
+then
+  compiled=(asm64 ${compiled[@]})
+elif [ $ARCH = "armv7l" ]
 then
   compiled=(asm32 ${compiled[@]})
 fi
-echo compiled is $compiled
 for lang in ${compiled[@]}
 do
   echo lang is $lang

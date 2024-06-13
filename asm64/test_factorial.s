@@ -1,30 +1,28 @@
-.syntax unified
-
 .macro dofac s
-	mov	r3, 1
-	ldr	r0, =input
-	strb	r3, [r0]
-	ldr	r0, =\s
-	ldr	r1, =input
-	ldr	r2, =output
+	mov	w3, 1
+	ldr	x0, =input
+	strb	w3, [x0]
+	ldr	x0, =\s
+	ldr	x1, =input
+	ldr	x2, =output
 	bl	factorial
 
-	ldr	r2, =print_vector
+	ldr	x2, =print_vector
 	bl	printbytes
 
-	ldr	r2, =print_vector
-	ldr	r1, =\s
-	ldr	r0, =outstring
+	ldr	x2, =print_vector
+	ldr	x1, =\s
+	ldr	x0, =outstring
 	bl	printf
 
-	ldr	r0, =output
-	ldr	r1, =oLENGTH
+	ldr	x0, =output
+	ldr	x1, =oLENGTH
 	bl	clearbytes
 .endm
 
 .equ	iLENGTH,1
-.equ	ipLENGTH,200
-.equ	oLENGTH,200
+.equ	ipLENGTH,20000
+.equ	oLENGTH,20000
 
 .equ	scalar1,1
 .equ	scalar2,2
@@ -54,6 +52,7 @@
 .equ	scalar80,80
 .equ	scalar90,90
 .equ	scalar100,100
+.equ	scalar1000,1000
 
 .section .rodata
 instring:
@@ -100,7 +99,8 @@ main:
 	dofac scalar80
 	dofac scalar90
 	dofac scalar100
+	dofac scalar1000
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */

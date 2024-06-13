@@ -1,5 +1,3 @@
-.syntax unified
-
 # this subroutine returns 1 if the passed number is prime; 0 if not
 
 # inputs
@@ -8,9 +6,11 @@
 # outputs
 #   r0 - prime boolean
 
-number		.req r4
-divisor		.req r5
-tmp		.req r6
+.include "regs.s"
+
+number		.req x19
+divisor		.req x20
+tmp		.req x21
 
 .global isprime
 .type isprime, %function
@@ -18,37 +18,42 @@ tmp		.req r6
 .align	2
 
 isprime:
-	stmfd	sp!, {r4-r6, lr}
-	mov	number, r0
+	callee_save_regs_on_stack
+	stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	mov	number, x0
 	ands	tmp, number, 1
-	bne	odd
-	mov	r0, 0
-	cmp	number, 2 	@ 2 is the only prime even number
-	bne	last
-	mov	r0, 1
+	b.ne	odd
+	mov	x0, 0
+	cmp	number, 2 	/* 2 is the only prime even number */
+	b.ne	last
+	mov	x0, 1
 	b	last
 odd:
 	mov	divisor, 3
 	cmp 	number, 8
-	bgt	big
-	mov	r0, 1
-	cmp	number, 1	@ 1 is the only odd number < 8 not prime
-	bne	last
-	mov	r0, 0
+	b.gt	big
+	mov	x0, 1
+	cmp	number, 1	/* 1 is the only odd number < 8 not prime */
+	b.ne	last
+	mov	x0, 0
 	b	last
 big:
-	mov	r0, number
-	mov	r1, divisor
+	mov	x0, number
+	mov	x1, divisor
 	bl	divide
-	teq	r1, 0
-	beq	factor
+	cmp	x1, 0
+	b.eq	factor
 	add	divisor, divisor, 2
 	mul	tmp, divisor, divisor
 	subs	tmp, tmp, number
-	ble	big
-	mov	r0, 1
+	b.le	big
+	mov	x0, 1
 	b	last
 factor:
-	mov	r0, 0
+	mov	x0, 0
 last:
-	ldmfd	sp!, {r4-r6, pc}
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
+	ret

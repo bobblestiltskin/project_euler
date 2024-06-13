@@ -1,20 +1,18 @@
-.syntax unified
-
 #.equ compare2,815518
 
-number		.req r4
+number		.req x4
 
 .macro compare_strings a b c d
-	ldr	r0, =\a
-	mov	r1, \b
-	ldr	r2, =\c
-	mov	r3, \d
+	ldr	x0, =\a
+	mov	x1, \b
+	ldr	x2, =\c
+	mov	x3, \d
 	bl	compare
 
-	ldr	r1, =\a
-	ldr	r2, =\c
-	mov	r3, r0
-	ldr	r0, =comparestring
+	ldr	x1, =\a
+	ldr	x2, =\c
+	mov	x3, x0
+	ldr	x0, =comparestring
 	bl	printf
 .endm
 
@@ -56,6 +54,7 @@ main:
 	compare_strings lisa 4 linda 5
 	compare_strings linda 5 lisa 4 
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
+

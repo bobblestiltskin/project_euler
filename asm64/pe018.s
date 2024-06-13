@@ -1,4 +1,4 @@
-.syntax unified
+# this computes projecteuler.net problem 018
 
 .equ	maxij, 14
 .equ	width, 2
@@ -6,44 +6,48 @@
 
 .align 4
 
-iptr		.req r0
-tmp		.req r1
-icount		.req r4
-jcount		.req r5
-maxc		.req r6
-jptr		.req r7
-cell		.req r8
+iptr		.req x0
+tmpw		.req w1
+tmp		.req x1
+icount		.req x4
+jcount		.req x5
+maxcw		.req w6
+jptr		.req x7
+cellw		.req w8
 
 .macro get_element i, j
 	ldr	iptr, =last
-	mov	r1, \i
-	add	iptr, iptr, r1
+	mov	x1, \i
+	add	iptr, iptr, x1
 	sub	iptr, iptr, 1
-	ldrb	tmp, [iptr]
+	ldrb	tmpw, [iptr]
+	uxtw	tmp, tmpw
 
 	ldr	jptr, =buffer
-	add	jptr, jptr, tmp, asl logwidth
+	add	jptr, jptr, tmp, lsl #logwidth
 	mov	tmp, \j
-	add	jptr, jptr, tmp, asl logwidth
+	add	jptr, jptr, tmp, lsl #logwidth
 	sub	jptr, jptr, width
-	ldrh	cell, [jptr]
+	ldrh	cellw, [jptr]
 .endm
 
 .macro update_element i, j
-	mov	r2, \i
-	add	r2, r2, 1
-	mov	r3, \j
-	add	r3, r3, 1
-	get_element r2 r3
-	sub	r3, r3, 1
-	mov	maxc, cell
-	get_element r2 r3
-	cmp	maxc, cell
-	movlt	maxc, cell
-	sub	r2, r2, 1
-	get_element r2 r3
-	add	cell, cell, maxc
-	strh	cell, [jptr]
+	mov	x2, \i
+	add	x2, x2, 1
+	mov	x3, \j
+	add	x3, x3, 1
+	get_element x2 x3
+	sub	x3, x3, 1
+	mov	maxcw, cellw
+	get_element x2 x3
+	cmp	maxcw, cellw
+	b.ge	maxc_bigger
+	mov	maxcw, cellw
+maxc_bigger:
+	sub	x2, x2, 1
+	get_element x2 x3
+	add	cellw, cellw, maxcw
+	strh	cellw, [jptr]
 .endm
 
 .section .data
@@ -77,24 +81,22 @@ resstring:
 .global main
 .type   main, %function
 main:
-        stmfd   sp!, {r4-r8, lr}
-
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
 	ldr	icount, =maxij
 iloop:
 	mov	jcount, icount
 jloop:
 	update_element icount jcount
 	subs	jcount, jcount, 1
-	bne	jloop
+	b.ne	jloop
 	subs	icount, icount, 1
-	bne	iloop
+	b.ne	iloop
 printme:
-        mov     r1, cell
-        ldr     r0, =resstring  @ store address of start of string to r0
+        mov     w1, cellw
+        ldr     x0, =resstring  /* store address of start of string to w0 */
         bl      printf
 
-	mov	r0, 0
-        ldmfd   sp!, {r4-r8, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
-
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret

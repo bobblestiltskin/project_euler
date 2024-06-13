@@ -1,13 +1,13 @@
-.syntax unified
+# this computes projecteuler.net problem 002
 
 .equ maxfib,4000000
 
-previous	.req r4
-current		.req r5
-next		.req r6
-sum		.req r7
-max		.req r8
-tmp		.req r9
+previous	.req x4
+current		.req x5
+next		.req x6
+sum		.req x7
+max		.req x8
+tmp		.req x9
 
 .section .rodata
 	.align	2
@@ -19,7 +19,9 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
-	stmfd	sp!, {r4-r9, lr}
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
+
 	ldr	max,   =maxfib
 	mov	previous, 1 
 	mov	current, 1
@@ -27,23 +29,21 @@ main:
 
 loop:
 	cmp	current, max
-	bgt	last
+	b.gt	last
 
 	add	next, current, previous
-
-	movs	tmp, current, lsr 1 @ set carry flag from lsr - for the odd-valued terms
-	addcc	sum, sum, current   @ these are even-valued fibonacci (when cc is true)
-
+        tbnz    current, #0, odd /* check 0th bit of current - set to 1 for odd numbers - so we jump to odd */
+	add	sum, sum, current   /* these are even-valued fibonacci */
+odd:
 	mov	previous, current
 	mov	current, next
 	b	loop
 
 last:
-	mov	r1, sum		
-	ldr	r0, =sumstring	@ store address of start of string to r0
+	mov	x1, sum
+	ldr	x0, =sumstring	/* store address of start of string to x0 */
 	bl	printf
 
-	mov	r0, 0
-	ldmfd	sp!, {r4-r9, pc}
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	ldp     fp, lr, [sp], #0x10
+        mov     x0, #0          /* exit code to 0 */
+	ret

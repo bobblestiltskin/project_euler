@@ -1,23 +1,19 @@
-.syntax unified
+# this computes projecteuler.net problem 008
 
 .equ    limit,10000
 .equ	outer, 988
 .equ	inner, 13 
-.equ	address_offset, 12 @inner - 1
+.equ	address_offset, 12 /* inner - 1 */
 
 .align 4
 
-address         .req r4
-thisbyte	.req r5
-icounter	.req r6
-ocounter	.req r7
-maxv_lo		.req r8
-maxv_hi		.req r9
-tmp_lo		.req r10
-tmp_hi		.req r11
-carry		.req r12
-addoff		.req r12
-tmp		.req r0
+address         .req x4
+thisbyte	.req w5
+icounter	.req x6
+ocounter	.req x7
+maxv		.req x8
+tmp		.req x9
+addoff		.req x10
 
 .section .data
 buffer:
@@ -73,38 +69,36 @@ llustring:
         .global main
         .type   main, %function
 main:
-        stmfd   sp!, {r4-r12, lr}
-	mov	maxv_lo, #0
-	mov	maxv_hi, #0
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
+	mov	maxv, #0
 	ldr	address, =buffer
 	ldr	ocounter, =outer
 outer_start:
 	ldr	icounter, =inner
-	mov	tmp_lo, #1
-	mov	tmp_hi, #0
+	mov	tmp, #1
 inner_start:
 	ldrb	thisbyte, [address], 1
-	umull	tmp_lo, carry, tmp_lo, thisbyte @ multiply 64 bit tmp 
-	mla	tmp_hi, tmp_hi, thisbyte, carry @ by thisbyte
+	uxtw	x3, thisbyte
+
+	mul     tmp, tmp, x3
 	subs	icounter, icounter, 1
-	bne	inner_start
-	cmp	maxv_lo, tmp_lo			@ compare 2 64 bit numbers
-	sbcs	tmp, maxv_hi, tmp_hi		@ low then high halves
-	movlt	maxv_lo, tmp_lo
-	movlt	maxv_hi, tmp_hi
+	b.ne	inner_start
+	cmp	maxv, tmp
+	b.gt	maxv_bigger
+	mov	maxv, tmp
+
+maxv_bigger:
 	ldr	addoff, =address_offset
 	sub	address, address, addoff
 	subs	ocounter, ocounter, 1
-	bne	outer_start
+	b.ne	outer_start
 
 printme:
-	mov     r2, maxv_lo
-	mov     r3, maxv_hi
-        ldr     r0, =llustring  @ store address of start of string to r0
+	mov     x1, maxv
+        ldr     x0, =llustring  /* store address of start of string to x0 */
         bl      printf
 
-	mov	r0, 0
-        ldmfd   sp!, {r4-r12, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
-
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret

@@ -1,35 +1,36 @@
-.syntax unified 
-
-# see usage in test_add_digit_strings.s - it requires
-# the fifth parameter to be passed on the stack
+# see usage in test_add_digit_strings.s
 
 .equ datum_size, 1
 
-.text
-optr		.req r4
-sptr		.req r5
-lptr		.req r6
-scell		.req r7
-lcell		.req r8
-carry		.req r9
-ltmp		.req r9
-counter		.req r10
-ptmp		.req r10
+.include "regs.s"
 
-# this subroutine adds the byte array at r0, length r1
-# to the byte array at r2, length r3. The data is output 
-# to the pointer passed as r4.
+.text
+optr		.req x19
+sptr		.req x20
+lptr		.req x21
+scellw		.req w22
+scell		.req x22
+lcellw		.req w23
+lcell		.req x23
+carryw		.req w24
+counter		.req x25
+tmp		.req x26
+length		.req x27
+
+# this subroutine adds the byte array at x0, length x1
+# to the byte array at x2, length x3. The data is output 
+# to the pointer passed as x4.
 #
 # inputs
-#   r0 - pointer to input1 vector
-#   r1 - length of input1 vector
-#   r2 - pointer to input2 vector
-#   r3 - length of input2 vector
-#   r4 - pointer to output vector
+#   x0 - pointer to input1 vector
+#   x1 - length of input1 vector
+#   x2 - pointer to input2 vector
+#   x3 - length of input2 vector
+#   x4 - pointer to output vector
 #
 # outputs
-#   r0 - pointer to output vector
-#   r1 - length of output vector
+#   x0 - pointer to output vector
+#   x1 - length of output vector
 
 .text
 .align	2
@@ -37,79 +38,96 @@ ptmp		.req r10
 .global add_digit_strings
 .type add_digit_strings, %function
 add_digit_strings:
-        stmfd   sp!, {r9-r10, lr}
-	cmp	r3, r1
-	movlt	ptmp, r0
-	movlt	r0, r2
-	movlt	r2, ptmp
-	movlt	ltmp, r1
-	movlt	r1, r3
-	movlt	r3, ltmp
-	bl	add_strings_short_to_long
-        ldmfd   sp!, {r9-r10, pc}
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
 
-# this subroutine adds the short byte array at r0, length r1
-# to the byte array at r2, length r3.
+	cmp	x3, x1
+	b.ge	no_swap
+
+	mov	x5, x0
+	mov	x0, x2
+	mov	x2, x5
+	mov	x5, x1
+	mov	x1, x3
+	mov	x3, x5
+no_swap:
+	bl	add_strings_short_to_long
+
+        ldp	fp, lr, [sp], #0x10
+	ret
+
+# this subroutine adds the short byte array at x0, length x1
+# to the byte array at x2, length x3.
 #
 # inputs
-#   r0 - pointer to short vector
-#   r1 - length of short vector
-#   r2 - pointer to long vector
-#   r3 - length of long vector
-#   r4 - pointer to output vector
+#   x0 - pointer to short vector
+#   x1 - length of short vector
+#   x2 - pointer to long vector
+#   x3 - length of long vector
+#   x4 - pointer to output vector
 #
 # outputs
-#   r0 - pointer to output vector
-#   r1 - length of output vector
+#   x0 - pointer to output vector
+#   x1 - length of output vector
 
 .global add_strings_short_to_long
 .type add_strings_short_to_long, %function
 add_strings_short_to_long:
-        stmfd   sp!, {r5-r10, lr} @ 7 longs
-	ldr	optr, [sp, #40]
-	mov	sptr, r0
-	add	sptr, sptr, r1
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	mov	length, x3
+	mov	sptr, x0
+	add	sptr, sptr, x1
 	sub	sptr, sptr, 1
 
-	mov	lptr, r2
-	add	lptr, lptr, r3
+	mov	lptr, x2
+	add	lptr, lptr, x3
 	sub	lptr, lptr, 1
-	
-	add	optr, optr, r3
+	add	optr, x4, x3
 
-	mov	carry, 0
-	mov	counter, r1
+	mov	carryw, 0
+	mov	counter, x1
 sstart:
-	ldrb	scell, [sptr], -1
-	ldrb	lcell, [lptr], -1
-	add	lcell, lcell, scell
-	add	lcell, lcell, carry
-	mov	carry, 0
-	cmp	lcell, 10
-	movge	carry, 1
-	subge	lcell, lcell, 10
-	strb	lcell, [optr], -1
+	ldrb	scellw, [sptr], -1
+	ldrb	lcellw, [lptr], -1
+	add	lcellw, lcellw, scellw
+	add	lcellw, lcellw, carryw
+	mov	carryw, 0
+	cmp	lcellw, 10
+	b.lt	no_set_carry
+	mov	carryw, 1
+	sub	lcellw, lcellw, 10
+no_set_carry:
+	strb	lcellw, [optr], #-1
 	subs	counter, counter, 1
-	bne	sstart
+	b.ne	sstart
 	
-	mov	counter, r3
-	subs	counter, counter, r1
-	beq	asstl_last
+	mov	counter, x3
+	subs	counter, counter, x1
+	b.eq	asstl_last
 lstart:
-	ldrb	lcell, [lptr], -1
-	add	lcell, lcell, carry
-	mov	carry, 0
+	ldrb	lcellw, [lptr], -1
+	add	lcellw, lcellw, carryw
+	mov	carryw, 0
 	cmp	lcell, 10
-	movge	carry, 1
-	subge	lcell, lcell, 10
-	strb	lcell, [optr], -1
+	b.lt	no_carry_update
+	mov	carryw, 1
+	sub	lcellw, lcellw, 10
+no_carry_update:
+	strb	lcellw, [optr], -1
 	subs	counter, counter, 1
-	bne	lstart
+	b.ne	lstart
 
 asstl_last:
-	cmp	carry, 1
-	strbeq	carry, [optr], -1
+	cmp	carryw, 1
+	b.ne	no_carry_store
+	strb	carryw, [optr], -1
+no_carry_store:
+	add	x0, optr, 1
+	add	x1, length, carryw, uxtw
 
-	add	r0, optr, 1
-	add	r1, r3, carry
-        ldmfd   sp!, {r5-r10, pc}
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
+	ret

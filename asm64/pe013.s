@@ -1,22 +1,25 @@
-.syntax unified
+# this computes projecteuler.net problem 013
+
+.include "regs.s"
 
 .equ ten, 10
 .equ hundred, 100
 .equ col_nums,50
 .equ row_nums,100
 .equ col_offset,50
-@ maximum sum of any column is 900 - if all elements were 9
+/* maximum sum of any column is 900 - if all elements were 9 */
 
 .align 4
 
-const		.req r1
-byte		.req r2
-col_num		.req r4
-row_num		.req r5
-row1		.req r6
-data_ptr	.req r8
-col_sum		.req r9
-tmp		.req r10
+const		.req x19
+tbyte		.req w20
+tmp		.req x21
+col_num		.req x22
+row_num		.req x23
+data_ptr	.req x24
+row1		.req x25
+byte_tmp        .req x26
+col_sum		.req x27
 
 .section .bss
    .lcomm result, 52
@@ -135,8 +138,8 @@ nlstring:
         .global main
         .type   main, %function
 main:
-        stmfd   sp!, {r4-r10, lr}
-
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
 	ldr	col_num, =col_nums
 loopstart:
 	ldr	row1, =buffer
@@ -148,21 +151,21 @@ col_loop:
 	sub	row1, row1, 1
 	mov	data_ptr, row1
 	subs	col_num, col_num, 1
-	blt	printme
+	b.lt	printme
 	
 row_loop:
-	ldrb	byte, [data_ptr], col_offset
-	add	col_sum, col_sum, byte
+	ldrb	tbyte, [data_ptr], col_offset
+	add	col_sum, col_sum, tbyte, uxtw
 	subs	row_num, row_num, 1
-	bne	row_loop
+	b.ne	row_loop
 
-	mov	r0, col_num
+	mov	x0, col_num
 	bl	get_3_result
 
-	mov	tmp, r0
+	mov	tmp, x0
 	add	col_sum, col_sum, tmp
-	mov	r0, col_sum
-	mov	r1, col_num
+	mov	x0, col_sum
+	mov	x1, col_num
 	bl	put_3_result
 
 	b	col_loop
@@ -171,50 +174,65 @@ printme:
 	ldr	data_ptr, =result
 
 next_digit:
-        ldrb	r1, [data_ptr], 1
-        ldr     r0, =numstring
+        ldrb	w1, [data_ptr], 1
+        ldr     x0, =numstring
         bl      printf
+
 	subs	row1, row1, 1
-	bne	next_digit
+	b.ne	next_digit
 last:
-        ldr     r0, =nlstring
+        ldr     x0, =nlstring
         bl      printf
-        mov     r0, 0
-        ldmfd   sp!, {r4-r10, pc}
-        mov     r7, 1           @ set r7 to 1 - the syscall for exit
-        swi     0               @ then invoke the syscall from linux
+
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret
 
         .global get_3_result
         .type   get_3_result, %function
 get_3_result:
-        stmfd   sp!, {data_ptr, tmp, lr}
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
 	ldr	data_ptr, =result
-	add	data_ptr, data_ptr, r0
-	ldrb	byte, [data_ptr], 1
+	add	data_ptr, data_ptr, x0
+	ldrb	tbyte, [data_ptr], 1
+	uxtw	byte_tmp, tbyte
 	mov	const, hundred
-	mul	byte, byte, const
-	mov	tmp, byte
-	ldrb	byte, [data_ptr], 1
+	mul	byte_tmp, byte_tmp, const
+	mov	tmp, byte_tmp
+	ldrb	tbyte, [data_ptr], 1
+	uxtw	byte_tmp, tbyte
 	mov	const, ten
-	mul	byte, byte, const
-	add	tmp, tmp, byte
-	ldrb	byte, [data_ptr], 1
-	add	tmp, tmp, byte
-	mov	r0, tmp
-        ldmfd   sp!, {data_ptr, tmp, pc}
+	mul	byte_tmp, byte_tmp, const
+	add	tmp, tmp, byte_tmp
+	ldrb	tbyte, [data_ptr], 1
+	add	tmp, tmp, tbyte, uxtw
+	mov	x0, tmp
+
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
+	ret
 
         .global put_3_result
         .type   put_3_result, %function
 put_3_result:
-        stmfd   sp!, {data_ptr, lr}
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
 	ldr	data_ptr, =result
-	add	data_ptr, data_ptr, r1
+	add	data_ptr, data_ptr, x1
 	add	data_ptr, data_ptr, 2
 
 	bl	divide_by_10_remainder
 
-	strb	r1, [data_ptr], -1
+	strb	w1, [data_ptr], #-1
 	bl	divide_by_10_remainder
-	strb	r1, [data_ptr], -1
-	strb	r0, [data_ptr]
-        ldmfd   sp!, {data_ptr, pc}
+	strb	w1, [data_ptr], #-1
+	strb	w0, [data_ptr]
+
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
+	ret

@@ -1,11 +1,11 @@
-.syntax unified
+# this computes projecteuler.net problem 006
 
 .equ limit,100
 
-number	.req r4
-sumsq	.req r5
-sqsum	.req r6
-tmp	.req r7
+number	.req x4
+sumsq	.req x5
+sqsum	.req x6
+tmp	.req x7
 
 .section .rodata
 	.align	2
@@ -16,7 +16,8 @@ string:
 	.global	main
 	.type	main, %function
 main:
-	stmfd	sp!, {r4-r7, lr}
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
 	mov	sqsum, 0
 	mov	sumsq, 0
 	ldr	number, =limit
@@ -25,7 +26,7 @@ loop:
 	add	sqsum, sqsum, tmp
 # decrement number and loop or exit
 	subs	number, number, 1
-	beq	end_loop
+	b.eq	end_loop
 	b	loop
 end_loop:
 	ldr	number, =limit
@@ -36,11 +37,10 @@ end_loop:
 	mul	sumsq, sumsq, sumsq
 last:
 	sub	tmp, sumsq, sqsum 
-	mov	r1, tmp
-	ldr	r0, =string	@ store address of start of string to r0
+	mov	x1, tmp
+	ldr	x0, =string	/* store address of start of string to x0 */
 	bl	printf
 
-	mov	r0, 0
-	ldmfd	sp!, {r4-r7, pc}
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret

@@ -1,57 +1,60 @@
-.syntax unified
+# this computes projecteuler.net problem 007
 
 .equ	limit,10000
-.equ	limit4,40000
+.equ	limit8,80000
 
 .align 4
 
-number		.req r4
-count		.req r5
-numprimes	.req r6
-primes_ptr	.req r7
+number		.req x20
+count		.req x21
+numprimes	.req x22
+primes_ptr	.req x23
+new_ptr		.req x24
 
 .section .bss
-.lcomm primes_vector,limit4
+.lcomm primes_vector,limit8
 
 .section .rodata
 	.align	2
 resstring:
 	.asciz "%d\n"
+
 .text
 	.align	2
 	.global	main
 	.type	main, %function
 main:
-	stmfd	sp!, {r4-r7, lr}
-
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
         ldr     primes_ptr, =primes_vector
         mov     numprimes, 1
         mov     number, 2
         str     number, [primes_ptr]
 
 	ldr	count, =limit
-	mov	number, 3	@ 2 is the first prime
+	mov	number, 3	/* 2 is the first prime */
 loop:
-        mov     r0, number
-        ldr     r1, =primes_vector
-        mov     r2, numprimes
+        mov     x0, number
+        ldr     x1, =primes_vector
+        mov     x2, numprimes
         bl      prime_vector
-        teq     r0, 1
-        bne     nexti
-        str     number, [primes_ptr, numprimes, lsl 2]
+        cmp     x0, 1
+        b.ne	nexti
+
+        str     number, [primes_ptr, #8]!
         add     numprimes, numprimes, 1
+
 	subs	count, count, 1
-	beq	printme
+	b.eq	printme
 nexti:
 	add	number, number, 2
 	b	loop
 	
 printme:
-	mov	r1, number
-	ldr	r0, =resstring	@ store address of start of string to r0
+	mov	x1, number
+	ldr	x0, =resstring	/* store address of start of string to x0 */
 	bl	printf
 
-	mov	r0, 0
-	ldmfd	sp!, {r4-r7, pc}
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret

@@ -1,18 +1,17 @@
-.syntax unified
-
 .macro multiplystring num
-	ldr	r0, =input
-	ldr	r1, =iLENGTH
-	ldr	r2, =\num
-	ldr	r3, =output
+	ldr	x0, =input
+	ldr	x1, =iLENGTH
+	ldr	x2, =\num
+	ldr	x3, =output
+
 	bl	mul_digit_string
 
-	ldr	r2, =print_vector
+	ldr	x2, =print_vector
 	bl	printbytes
 
-	ldr	r1, =\num
-	ldr	r2, =print_vector
-	ldr	r0, =outstring
+	ldr	x1, =\num
+	ldr	x2, =print_vector
+	ldr	x0, =outstring
 	bl	printf
 .endm
 
@@ -26,8 +25,6 @@
 .equ	scalar2,2
 .equ	scalar3,3
 .equ	scalar8,8
-
-number	.req r4
 
 .section .rodata
 .align	2
@@ -47,21 +44,21 @@ outstring:
 	.global	main
 	.type	main, %function
 main:
-	ldr	r0, =input
-	ldr	r1, =iLENGTH
-	ldr	r2, =print_vector
+	ldr	x0, =input
+	ldr	x1, =iLENGTH
+	ldr	x2, =print_vector
 	bl	printbytes
 
-	ldr	r1, =print_vector
-	ldr	r0, =instring
+	ldr	x1, =print_vector
+	ldr	x0, =instring
 	bl	printf
 
-	multiplystring scalar3
 	multiplystring scalar0
 	multiplystring scalar1
-	multiplystring scalar8
 	multiplystring scalar2
+	multiplystring scalar3
+	multiplystring scalar8
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */

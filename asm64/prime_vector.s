@@ -1,21 +1,22 @@
-.syntax unified
-.equ	word, 4
+.equ	word, 8
 
 # this subroutine returns 1 if the passed number is prime; 0 if not
 #
 # inputs
-#   r0 - integer to test
-#   r1 - pointer to vector of prime integers smaller than r0
-#   r2 - length of vector passed in r1
+#   x0 - integer to test
+#   x1 - pointer to vector of prime integers smaller than r0
+#   x2 - length of vector passed in r1
 #
 # outputs
-#   r0 - prime boolean
+#   x0 - prime boolean
 
-number		.req r4
-vptr		.req r5
-tmp		.req r6
-squared		.req r7
-vsize		.req r8
+.include "regs.s"
+
+number		.req x19
+vptr		.req x20
+tmp		.req x21
+squared		.req x22
+vsize		.req x23
 
 .global prime_vector
 .type prime_vector, %function
@@ -23,24 +24,35 @@ vsize		.req r8
 .align	2
 
 prime_vector:
-	stmfd	sp!, {r4-r8, lr}
-	mov	number, r0
-	mov	vptr, r1
-	mov	vsize, r2
+	callee_save_regs_on_stack
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	mov	number, x0
+	mov	vptr, x1
+	mov	vsize, x2
 nexti:
 	ldr	tmp, [vptr], word
 	mul	squared, tmp, tmp
 	cmp	squared, number
-	movgt	r0, 1
-	bgt	last
-	mov	r0, number
-	mov	r1, tmp
+        b.le	squared_smaller
+	mov	x0, 1
+	b	last
+squared_smaller:
+	mov	x0, number
+	mov	x1, tmp
 	bl	divide
-	teq	r1, 0
-	moveq	r0, 0
-	beq	last
+	cmp	x1, 0
+        b.ne    not_prime
+	mov	x0, xzr
+	b	last
+not_prime:
 	subs	vsize, vsize, 1
-	bgt	nexti
-	mov	r0, 1
+	b.gt	nexti
+	mov	x0, 1
 last:
-	ldmfd	sp!, {r4-r8, pc}
+
+        ldp	fp, lr, [sp], #0x10
+	callee_restore_regs_from_stack
+
+        ret

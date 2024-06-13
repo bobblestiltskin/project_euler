@@ -4,29 +4,27 @@
 .equ num8,78
 .equ num9,7
 
-.syntax unified
-
 .macro dividend num
-	ldr	r1, =\num
-	ldr	r0, =numstring
+	ldr	x1, =\num
+	ldr	x0, =numstring
 	bl	printf
 
-	ldr	r0, =\num
-	bl	divide_by_10
-	mov	r1, r0
-	ldr	r0, =dividendstring
+	ldr	x0, =\num
+	bl	divide_by_10_remainder
+	mov	x1, x0
+	ldr	x0, =dividendstring
 	bl	printf
 .endm
 
 .macro remainder num
-	ldr	r1, =\num
-	ldr	r0, =numstring
+	ldr	x1, =\num
+	ldr	x0, =numstring
 	bl	printf
 
-	ldr	r0, =\num
+	ldr	x0, =\num
 	bl	divide_by_10_remainder
-	mov	r2, r0
-	ldr	r0, =remainderstring
+	mov	x2, x0
+	ldr	x0, =remainderstring
 	bl	printf
 .endm
 
@@ -50,12 +48,13 @@ main:
 	remainder  num8
 	remainder  num9
 
-	dividend  num0
-	dividend  num7
-	dividend  num3
-	dividend  num8
-	dividend  num9
+#	dividend  num0
+#	dividend  num7
+#	dividend  num3
+#	dividend  num8
+#	dividend  num9
 
-	mov	r0, 0
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	mov     w8, #93		/* set w8 to 93 - the syscall for exit */
+        svc	#0		/* then invoke the syscall from linux */
+

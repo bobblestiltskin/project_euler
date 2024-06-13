@@ -1,4 +1,4 @@
-.syntax unified
+# this computes projecteuler.net problem 020
 
 .equ	LENGTH,200
 .equ	scalar100,100
@@ -6,7 +6,6 @@
 .section .rodata
 sumstring:
 .asciz "%d\n"
-
 
 .section bss
 .align	2
@@ -18,28 +17,28 @@ sumstring:
 	.global	main
 	.type	main, %function
 main:
-        stmfd   sp!, {r4, lr}
-	mov	r3, 1
-	ldr	r0, =input
-	strb	r3, [r0]
+	stp     fp, lr, [sp, #-0x10]!
+	mov     fp, sp
+	mov	w3, 1
+	ldr	x0, =input
+	strb	w3, [x0]
 
-	ldr	r0, =scalar100
-	ldr	r1, =input
-	ldr	r2, =output
+	ldr	x0, =scalar100
+	ldr	x1, =input
+	ldr	x2, =output
 	bl	factorial
 
-	mov	r2, 0
+	mov	x2, 0
 lstart:
-	ldrb	r3, [r0], 1
-	add	r2, r2, r3
-	subs	r1, r1, 1
-	bne	lstart
+	ldrb	w3, [x0], 1
+	add	x2, x2, w3, uxtw
+	subs	x1, x1, 1
+	b.ne	lstart
 	
-	mov	r1, r2
-	ldr	r0, =sumstring
+	mov	x1, x2
+	ldr	x0, =sumstring
 	bl	printf
 	
-	mov	r0, 0
-        ldmfd   sp!, {r4, pc}
-	mov	r7, 1		@ set r7 to 1 - the syscall for exit
-	swi	0		@ then invoke the syscall from linux
+	mov	x0, #0		/* exit code to 0 */
+	ldp     fp, lr, [sp], #0x10
+	ret
