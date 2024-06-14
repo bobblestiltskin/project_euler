@@ -6,11 +6,10 @@ function isprimelist
 # returns 0 if prime , 1 if non-prime
   TEST=$1
   PRIMES=$2
-  SQROOT=$(echo "scale=0; sqrt($TEST)" | bc)
 
   for PRIME in ${PRIMES[@]}
   do
-    if [ $PRIME -gt $SQROOT ]
+    if [ $(($PRIME * $PRIME)) -gt $TEST ]
     then
       return 0
     fi
