@@ -138,22 +138,18 @@ bubbleloop:
 	add	size_ptr, size_ptr, w6, uxtw
 
 	ldrh	w0, [start_ptr]
-	uxtw	x0, w0
-	add	x0, x0, names_ptr
+	add	x0, names_ptr, w0, uxtw	
 	ldrb	w1, [size_ptr]
 
 	ldrh	w6, [sorted_ptr]
-	uxtw	x6, w6
 	ldr	start_ptr, =namestart
 	add	start_ptr, start_ptr, w6, uxtw #1
 	ldr	size_ptr, =namesize
 	add	size_ptr, size_ptr, w6, uxtw
 
 	ldrh	w2, [start_ptr]
-	uxtw	x2, w2
-	add	x2, x2, names_ptr
+	add	x2, names_ptr, w2, uxtw	
 	ldrb	w3, [size_ptr]
-	uxtw	x3, w3
 	bl	compare
 	cmp	x0, 1
 	b.ne 	decrement_count
