@@ -1,5 +1,5 @@
 #!/bin/bash
-# computes project euler problem 007 in bash
+# computes project euler problem 010 in bash
 function isprimelist
 {
 # first parameter is test, second parameter is a list of known primes
@@ -19,16 +19,19 @@ function isprimelist
     fi
   done
 }
-NUMPRIMES=10000
+MAXPRIME=2000000
 declare -a PRIMES=(2 3)
 TEST=5
-while [ ${#PRIMES[@]} -le $NUMPRIMES ]
+SUM=0
+while [ ${PRIMES[-1]} -le $MAXPRIME ]
 do
   isprimelist $TEST $PRIMES
   if [ $? = 0 ]
   then
     PRIMES+=($TEST)
+    SUM=$(($SUM + $TEST))
+    echo $TEST
   fi
   TEST=$(($TEST + 2))
 done
-echo ${PRIMES[$NUMPRIMES]}
+echo $SUM
