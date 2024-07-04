@@ -1,15 +1,18 @@
 # compare implements the same functionality as the forth word of the
 # same name.
 
-# Compare the string specified by c-addr1 (r0) and u1 (r1) to the string 
-# specified by c-addr2 (r2) and u2 (r3) . The strings are compared, beginning
-# at the given addresses, character by character up to the length of the 
-# shorter string, or until a difference is found. If both strings are the same
-# up to the length of the shorter string, then the longer string is greater 
-# than the shorter string. n is -1 if the string specified by c-addr1 and u1 
-# is less than the string specified by c-addr2 and u2. n is zero if the 
-# strings are equal. n is 1 if the string specified by c-addr1 and u1 is 
-# greater than the string specified by c-addr2 and u2.
+# Compare the string specified by c-addr1 (x0) and u1 (x1) to the string
+# specified by c-addr2 (x2) and u2 (x3).
+
+# The strings are compared, beginning at the given addresses, character by
+# character up to the length of the shorter string, or until a difference is found.
+
+# If both strings are the same up to the length of the shorter string, then
+# the longer string is greater than the shorter string.
+
+# return value, x0, is 0 if the strings are equal.
+# return value, x0, is -1 if the string specified by c-addr1 and u1 is less than the string specified by c-addr2 and u2.
+# return value, x0, is 1 if the string specified by c-addr1 and u1 is greater than the string specified by c-addr2 and u2.
 
 .text
 
