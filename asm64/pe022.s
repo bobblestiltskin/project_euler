@@ -1,9 +1,11 @@
 # this computes projecteuler.net problem 022
 
+.equ	dquote, 34
 .equ	comma, 44
 .equ	ASCII, 64
+.equ    halfword, 2
 
-.equ	NAMES, 5163 
+.equ	NAMES, 5163
 # from perl -ne '$count = $_ =~ tr/,/,/; print $count,"\n"' ../names.txt
 
 .equ	SIZE, 46448
@@ -24,6 +26,9 @@ start_ptr	.req x13
 size_ptr	.req x14
 swapped		.req x15
 numnames	.req x16
+count_ptr	.req x17
+count_names_ptr .req x18
+lcount		.req w19
 
 .section .bss
 .lcomm namestart,NAMES<<1	/* need 16 bit ints (half words) to handle 5163 */
@@ -31,6 +36,13 @@ numnames	.req x16
 .lcomm sorted,NAMES<<1
 .lcomm printname,63
 # actually namesize is superfluous; we know the the size of i is from istart to (i+1)start-3? (3 from 2 " and 1 ,)
+.lcomm countnames,SIZE
+# countnames is a pre-cursor to writing a qsort - it is of form
+# 04 M A R Y 08 P A T R I C I A 05 L I N D A
+# which is probably better for partitioning than the original string
+.lcomm less,SIZE
+.lcomm equal,SIZE
+.lcomm greater,SIZE
 
 .section .rodata
 res_string:
@@ -88,16 +100,30 @@ parse_names:
 	ldr	names_ptr, =names
 	ldr	start_ptr, =namestart
 	ldr	size_ptr, =namesize
+	ldr	count_ptr, =countnames
+	ldr	count_names_ptr, =countnames
 	mov	wcount, 0
+	mov	lcount, 0
 	mov	wnstart, 1
 	ldr	x3, =SIZE
+	add	count_names_ptr, count_names_ptr, 1
 iloop:
 	ldrb	w0, [names_ptr], 1
 	add	wcount, wcount, 1
 	cmp	w0, 0			/* use .asciz for string so it is null-terminated */
 	b.eq	iloopend
 	cmp	w0, #comma
-	b.ne	iloop
+	b.eq	commab
+	cmp	w0, #dquote
+	b.eq	iloop
+	strb	w0, [count_names_ptr], 1
+	add	lcount, lcount, 1
+	b	iloop
+commab:
+	strb	lcount, [count_ptr]
+	mov	lcount, 0
+	mov	count_ptr, count_names_ptr
+	add	count_names_ptr, count_names_ptr, 1
 
 	strh	wnstart, [start_ptr], 2
 	sub	wnsize, wcount, wnstart
@@ -217,3 +243,54 @@ cs_start:
 
         ldp	fp, lr, [sp], #0x10
 	ret
+
+# vectored_qsort uses the indirection vector, sorted, and sorts the names by manipulating the contents of the vector
+# we could use a different sorting algortithm, this is the simplest to implement but it is inefficient
+#.type   vectored_qsort, %function
+#vectored_qsort:
+#        stp	fp, lr, [sp, #-0x10]!
+#        mov	fp, sp
+#
+#	mov	swapped, 0
+#qstart:
+#	ldr	names_ptr, =names
+#	ldr	sorted_ptr, =sorted
+#	ldr	count, =NAMES
+#	sub	count, count, 1
+#qloop:
+#	ldrh	w6, [sorted_ptr], 2
+#	ldr	start_ptr, =namestart
+#	add	start_ptr, start_ptr, w6, uxtw #1
+#	ldr	size_ptr, =namesize
+#	add	size_ptr, size_ptr, w6, uxtw
+#
+#	ldrh	w0, [start_ptr]
+#	add	x0, names_ptr, w0, uxtw
+#	ldrb	w1, [size_ptr]
+#
+#	ldrh	w6, [sorted_ptr]
+#	ldr	start_ptr, =namestart
+#	add	start_ptr, start_ptr, w6, uxtw #1
+#	ldr	size_ptr, =namesize
+#	add	size_ptr, size_ptr, w6, uxtw
+#
+#	ldrh	w2, [start_ptr]
+#	add	x2, names_ptr, w2, uxtw
+#	ldrb	w3, [size_ptr]
+#	bl	compare
+#	cmp	x0, 1
+#	b.ne 	qdecrement_count
+#	ldrh	w0, [sorted_ptr, -2]
+#	ldrh	w1, [sorted_ptr]
+#	strh	w1, [sorted_ptr, -2]
+#	strh	w0, [sorted_ptr]
+#	mov	swapped, 1
+#qdecrement_count:
+#	subs	count, count, 1
+#	b.ne	qloop
+#	cmp	swapped, 1
+#	mov	swapped, 0
+#	b.eq	qstart
+#
+#        ldp	fp, lr, [sp], #0x10
+#	ret
