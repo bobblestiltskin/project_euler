@@ -34,8 +34,10 @@ cha		.req w16
 less_ptr	.req x21
 equal_ptr	.req x22
 greater_ptr	.req x23
-x2safe		.req x22
-x3safe		.req x23
+size_safe	.req w24
+x2safe		.req x25
+x3safe		.req x26
+pivot_ptr	.req x14
 
 .section .bss
 .lcomm namestart,NAMES<<1	/* need 16 bit ints (half words) to handle 5163 */
@@ -148,6 +150,7 @@ iloopend:
 	sub	wnsize, wcount, wnstart
 	strb	wnsize, [size_ptr]
 ilast:
+	strb	wzr, [count_names_ptr]
         ldp	fp, lr, [sp], #0x10
 	ret
 
@@ -205,7 +208,7 @@ decrement_count:
 # getname takes list ptr in x0
 # reads count from head of list pointed at by pointer
 # and then reads that many bytes which are written to the x2 ptr
-# the length is in w3
+# the length is returned in w3
 
 .type   getname, %function
 getname:
@@ -214,7 +217,10 @@ getname:
 
 	ldrb	wnsize, [x0], 1
 	mov	w3, wnsize
+	mov	size_safe, wnsize
+# stash current x2 ptr since we want it before we start to move it
 	mov	x1, x2
+	strb	wnsize, [x2], 1
 nextgetchar:
 	cmp	wnsize, 0
 	b.le	get_out
@@ -226,11 +232,12 @@ nextgetchar:
 	b	nextgetchar
 get_out:
 	mov	x2, x1
+	mov	wnsize, size_safe
 
         ldp	fp, lr, [sp], #0x10
 	ret
 
-# addname takes list ptr in x0, read_only pointer in x2
+# addname takes list ptr in x0, read_only pointer in x1
 # reads count from head of list pointed at by read only pointer
 # and then reads that many bytes
 # and writes all to the x0 list_ptr
@@ -239,14 +246,14 @@ addname:
         stp	fp, lr, [sp, #-0x10]!
         mov	fp, sp
 
-	ldrb	wnsize, [x2, 1]
-	strb	wnsize, [x0, 1]
+	ldrb	wnsize, [x1], 1
+	strb	wnsize, [x0], 1
 nextaddchar:
 	cmp	wnsize, 0
 	b.le	add_out
 
-	ldrb	cha, [x2, 1]
-	strb	cha, [x0, 1]
+	ldrb	cha, [x1], 1
+	strb	cha, [x0], 1
 	subs	wnsize, wnsize, 1
 
 	b	nextaddchar
@@ -324,8 +331,8 @@ vqsort:
 
 qstart:
 	ldr	names_ptr, =countnames
-#	ldrb	wnsize, [names_ptr], 1
 	ldrb	wnsize, [names_ptr]
+	mov	size_safe, wnsize
 
 	cmp	wnsize, 0
 	b.eq	qsort_exit
@@ -335,41 +342,39 @@ qstart:
 	ldr	greater_ptr, =greater
 
 	mov	x0, names_ptr
-#	ldr	x0, =countnames
-	mov	w1, wnsize
-	ldr	x2, =printname
 qloop:
-	bl	getname
-# sets x2 and x3
-	mov	x2safe, x2
-	mov	x3safe, x3
-
+	mov	x1, names_ptr
 	bl	compare
-# compares x0 len x1 with x2 len x3
+
+# compares x0 with x1 [len is first byte] - returns 0, -1 or 1
+
 	b.eq	add_to_equals
 	b.lt	add_to_less_than
 
-	mov	x2,	x2safe
-	mov	x3,	x3safe
 	mov	x0,	greater_ptr
+	mov	x1,	names_ptr
 	bl	addname
 
 	b	loopend
+
 add_to_less_than:
-	mov	x2,	x2safe
-	mov	x3,	x3safe
 	mov	x0,	less_ptr
+	mov	x1,	names_ptr
 	bl	addname
 
 	b	loopend
+
 add_to_equals:
-	mov	x2,	x2safe
-	mov	x3,	x3safe
 	mov	x0,	equal_ptr
+	mov	x1,	names_ptr
 	bl	addname
+
 loopend:
-	sub	x1, x1, 1
-	b.gt	qloop
+	ldrb	wnsize, [names_ptr]
+	add	wnsize, wnsize, 1
+	add	names_ptr, names_ptr, wnsize, uxtw
+
+	b	qloop
 qsort_exit:
         ldp	fp, lr, [sp], #0x10
 	ret
