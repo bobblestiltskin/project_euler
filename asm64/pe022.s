@@ -29,6 +29,13 @@ numnames	.req x16
 count_ptr	.req x17
 count_names_ptr .req x18
 lcount		.req w19
+list_ptr        .req x20
+cha		.req w16
+less_ptr	.req x21
+equal_ptr	.req x22
+greater_ptr	.req x23
+x2safe		.req x22
+x3safe		.req x23
 
 .section .bss
 .lcomm namestart,NAMES<<1	/* need 16 bit ints (half words) to handle 5163 */
@@ -60,8 +67,9 @@ main:
 
 	bl	init_sorted
 	bl	parse_names
-	bl	vectored_bubblesort
-	bl	compute_score
+#	bl	vectored_bubblesort
+#	bl	compute_score
+	bl	vqsort
 
 	mov	x1, x0
 	ldr	x0, =res_string
@@ -194,6 +202,58 @@ decrement_count:
         ldp	fp, lr, [sp], #0x10
 	ret
 
+# getname takes list ptr in x0
+# reads count from head of list pointed at by pointer
+# and then reads that many bytes which are written to the x2 ptr
+# the length is in w3
+
+.type   getname, %function
+getname:
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	ldrb	wnsize, [x0], 1
+	mov	w3, wnsize
+	mov	x1, x2
+nextgetchar:
+	cmp	wnsize, 0
+	b.le	get_out
+
+	ldrb	cha, [x0], 1
+	strb	cha, [x2], 1
+	subs	wnsize, wnsize, 1
+
+	b	nextgetchar
+get_out:
+	mov	x2, x1
+
+        ldp	fp, lr, [sp], #0x10
+	ret
+
+# addname takes list ptr in x0, read_only pointer in x2
+# reads count from head of list pointed at by read only pointer
+# and then reads that many bytes
+# and writes all to the x0 list_ptr
+.type   addname, %function
+addname:
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+	ldrb	wnsize, [x2, 1]
+	strb	wnsize, [x0, 1]
+nextaddchar:
+	cmp	wnsize, 0
+	b.le	add_out
+
+	ldrb	cha, [x2, 1]
+	strb	cha, [x0, 1]
+	subs	wnsize, wnsize, 1
+
+	b	nextaddchar
+add_out:
+        ldp	fp, lr, [sp], #0x10
+	ret
+
 # sumname takes start in r0, size in r1 and returns the sum of letters-ASCII in r0
 .type   sumname, %function
 sumname:
@@ -244,53 +304,72 @@ cs_start:
         ldp	fp, lr, [sp], #0x10
 	ret
 
-# vectored_qsort uses the indirection vector, sorted, and sorts the names by manipulating the contents of the vector
-# we could use a different sorting algortithm, this is the simplest to implement but it is inefficient
-#.type   vectored_qsort, %function
-#vectored_qsort:
-#        stp	fp, lr, [sp, #-0x10]!
-#        mov	fp, sp
-#
-#	mov	swapped, 0
-#qstart:
-#	ldr	names_ptr, =names
-#	ldr	sorted_ptr, =sorted
-#	ldr	count, =NAMES
-#	sub	count, count, 1
-#qloop:
-#	ldrh	w6, [sorted_ptr], 2
-#	ldr	start_ptr, =namestart
-#	add	start_ptr, start_ptr, w6, uxtw #1
-#	ldr	size_ptr, =namesize
-#	add	size_ptr, size_ptr, w6, uxtw
-#
-#	ldrh	w0, [start_ptr]
-#	add	x0, names_ptr, w0, uxtw
-#	ldrb	w1, [size_ptr]
-#
-#	ldrh	w6, [sorted_ptr]
-#	ldr	start_ptr, =namestart
-#	add	start_ptr, start_ptr, w6, uxtw #1
-#	ldr	size_ptr, =namesize
-#	add	size_ptr, size_ptr, w6, uxtw
-#
-#	ldrh	w2, [start_ptr]
-#	add	x2, names_ptr, w2, uxtw
-#	ldrb	w3, [size_ptr]
-#	bl	compare
-#	cmp	x0, 1
-#	b.ne 	qdecrement_count
-#	ldrh	w0, [sorted_ptr, -2]
-#	ldrh	w1, [sorted_ptr]
-#	strh	w1, [sorted_ptr, -2]
-#	strh	w0, [sorted_ptr]
-#	mov	swapped, 1
-#qdecrement_count:
-#	subs	count, count, 1
-#	b.ne	qloop
-#	cmp	swapped, 1
-#	mov	swapped, 0
-#	b.eq	qstart
-#
-#        ldp	fp, lr, [sp], #0x10
-#	ret
+# vqsort uses the countnames vector
+.type   vqsort, %function
+vqsort:
+        stp	fp, lr, [sp, #-0x10]!
+        mov	fp, sp
+
+# function quicksort(array)
+#     less, equal, greater := three empty arrays
+#     if length(array) > 1
+#         pivot := select any element of array
+#         for each x in array
+#             if x < pivot then add x to less
+#             if x = pivot then add x to equal
+#             if x > pivot then add x to greater
+#         quicksort(less)
+#         quicksort(greater)
+#         array := concatenate(less, equal, greater)
+
+qstart:
+	ldr	names_ptr, =countnames
+#	ldrb	wnsize, [names_ptr], 1
+	ldrb	wnsize, [names_ptr]
+
+	cmp	wnsize, 0
+	b.eq	qsort_exit
+
+	ldr	less_ptr, =less
+	ldr	equal_ptr, =equal
+	ldr	greater_ptr, =greater
+
+	mov	x0, names_ptr
+#	ldr	x0, =countnames
+	mov	w1, wnsize
+	ldr	x2, =printname
+qloop:
+	bl	getname
+# sets x2 and x3
+	mov	x2safe, x2
+	mov	x3safe, x3
+
+	bl	compare
+# compares x0 len x1 with x2 len x3
+	b.eq	add_to_equals
+	b.lt	add_to_less_than
+
+	mov	x2,	x2safe
+	mov	x3,	x3safe
+	mov	x0,	greater_ptr
+	bl	addname
+
+	b	loopend
+add_to_less_than:
+	mov	x2,	x2safe
+	mov	x3,	x3safe
+	mov	x0,	less_ptr
+	bl	addname
+
+	b	loopend
+add_to_equals:
+	mov	x2,	x2safe
+	mov	x3,	x3safe
+	mov	x0,	equal_ptr
+	bl	addname
+loopend:
+	sub	x1, x1, 1
+	b.gt	qloop
+qsort_exit:
+        ldp	fp, lr, [sp], #0x10
+	ret
