@@ -13,6 +13,8 @@
 
 .align 4
 
+cha		.req w5
+wtmp		.req w6
 names_ptr	.req x9
 wcount		.req w10
 count		.req x10
@@ -30,7 +32,6 @@ count_ptr	.req x17
 count_names_ptr .req x18
 lcount		.req w19
 list_ptr        .req x20
-cha		.req w16
 less_ptr	.req x21
 equal_ptr	.req x22
 greater_ptr	.req x23
@@ -246,15 +247,15 @@ addname:
         stp	fp, lr, [sp, #-0x10]!
         mov	fp, sp
 
-	ldrb	wnsize, [x1], 1
-	strb	wnsize, [x0], 1
+	ldrb	wtmp, [x1], 1
+	strb	wtmp, [x0], 1
 nextaddchar:
-	cmp	wnsize, 0
+	cmp	wtmp, 0
 	b.le	add_out
 
 	ldrb	cha, [x1], 1
 	strb	cha, [x0], 1
-	subs	wnsize, wnsize, 1
+	subs	wtmp, wtmp, 1
 
 	b	nextaddchar
 add_out:
@@ -341,19 +342,27 @@ qstart:
 	ldr	equal_ptr, =equal
 	ldr	greater_ptr, =greater
 
-	mov	x0, names_ptr
 qloop:
+	mov	pivot_ptr, names_ptr
+qiloop:
+	mov	x0, pivot_ptr
 	mov	x1, names_ptr
+
 	bl	compare
 
-# compares x0 with x1 [len is first byte] - returns 0, -1 or 1
+# compares x0 with x1 [len is first byte] - returns 0 if equal
+#                                         - -1 if pivot is less than name
+#                                         - 1  if pivot is greater than name
 
+	cmp	x0, #0
 	b.eq	add_to_equals
-	b.lt	add_to_less_than
+# logic inverted - compare was here first
+	b.gt	add_to_less_than
 
 	mov	x0,	greater_ptr
 	mov	x1,	names_ptr
 	bl	addname
+	mov	greater_ptr, x0
 
 	b	loopend
 
@@ -361,6 +370,7 @@ add_to_less_than:
 	mov	x0,	less_ptr
 	mov	x1,	names_ptr
 	bl	addname
+	mov	less_ptr, x0
 
 	b	loopend
 
@@ -368,13 +378,17 @@ add_to_equals:
 	mov	x0,	equal_ptr
 	mov	x1,	names_ptr
 	bl	addname
+	mov	equal_ptr, x0
 
 loopend:
-	ldrb	wnsize, [names_ptr]
-	add	wnsize, wnsize, 1
-	add	names_ptr, names_ptr, wnsize, uxtw
+	mov	names_ptr, x1
 
-	b	qloop
+	ldrb	wnsize, [names_ptr]
+
+	cmp	wnsize, 0
+	b.eq	qsort_exit
+
+	b	qiloop
 qsort_exit:
         ldp	fp, lr, [sp], #0x10
 	ret
