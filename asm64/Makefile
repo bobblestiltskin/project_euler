@@ -27,6 +27,7 @@ test_multiply_by_10: test_multiply_by_10.s mul_tens_string.s copybytes.s clearby
 pe025: pe025.s add_digit_strings.s copybytes.s regs.s
 pe024: pe024.s add_digit_strings.s printbytes.s copybytes.s regs.s
 pe023: pe023.s divide.s regs.s
+#pe022: pe022.s comparecn.s regs.s
 pe022: pe022.s compare.s regs.s
 pe021: pe021.s divide.s regs.s
 pe020: pe020.s factorial.s mul_int_string.s add_digit_strings.s mul_digit_string.s divide_by_10.s copybytes.s clearbytes.s printbytes.s mul_tens_string.s regs.s
