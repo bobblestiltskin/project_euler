@@ -77,12 +77,9 @@ public class pe011 {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
+
     int amax = 0;
-
-// of course the matrix is stored upside down in memory cf with normal mathematical representation
-// so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell
-
-    for (int i = 22; i > 2; i--) {
+    for (int i = 3; i < 23; i++) {
       for (int j = 3; j < 23; j++) {
         int point = compute_point(a, i, j);
         if (point > amax) {
