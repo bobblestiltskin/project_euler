@@ -46,36 +46,30 @@ for my $i (0 .. 2) {
 }
 
 my $max = 0;
-my ($imax, $jmax, $type, @list);
-# of course the matrix is stored upside down in memory cf with normal mathematical representation
-# so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell
-for (my $i=22; $i > 2; $i--) {
+my ($imax, $jmax, @list);
+for (my $i=3; $i < 23; $i++) {
   for (my $j=3; $j < 23; $j++) {
-    my ($point, $direction, @tmp_list) = compute_point($a, $i, $j);
+    my ($point, @tmp_list) = compute_point($a, $i, $j);
     if ($point > $max) {
       $max = $point;
-      $type = $direction;
       $imax = 23 - $i;
       $jmax = $j - 2;
       @list = @tmp_list;
     }
   }
 }
-#print "MAX is $max and ROW is $imax COLUMN is $jmax TYPE is $type and list is ",join(", ", @list),"\n";
 print $max,"\n";
 
 sub compute_point {
   my ($a, $i, $j) = @_;
 
   my $max = 0;
-  my $direction;
   my @list;
 
 # north
   my $n = $a->[$i]->[$j] * $a->[$i-1]->[$j] * $a->[$i-2]->[$j] * $a->[$i-3]->[$j];
   if ($n > $max) {
     $max = $n;
-    $direction = "north";
     @list = ($a->[$i]->[$j], $a->[$i-1]->[$j], $a->[$i-2]->[$j], $a->[$i-3]->[$j]);
   }    
 
@@ -83,7 +77,6 @@ sub compute_point {
   my $ne = $a->[$i]->[$j] * $a->[$i-1]->[$j+1] * $a->[$i-2]->[$j+2] * $a->[$i-3]->[$j+3]; 
   if ($ne > $max) {
     $max = $ne;
-    $direction = "northeast";
     @list = ($a->[$i]->[$j], $a->[$i-1]->[$j+1], $a->[$i-2]->[$j+2], $a->[$i-3]->[$j+3]);
   }    
 
@@ -91,7 +84,6 @@ sub compute_point {
   my $e = $a->[$i]->[$j] * $a->[$i]->[$j+1] * $a->[$i]->[$j+2] * $a->[$i]->[$j+3]; 
   if ($e > $max) {
     $max = $e;
-    $direction = "east";
     @list = ($a->[$i]->[$j], $a->[$i]->[$j+1], $a->[$i]->[$j+2], $a->[$i]->[$j+3]);
   }    
 
@@ -99,7 +91,6 @@ sub compute_point {
   my $se = $a->[$i]->[$j] * $a->[$i+1]->[$j+1] * $a->[$i+2]->[$j+2] * $a->[$i+3]->[$j+3]; 
   if ($se > $max) {
     $max = $se;
-    $direction = "southeast";
     @list = ($a->[$i]->[$j], $a->[$i+1]->[$j+1], $a->[$i+2]->[$j+2], $a->[$i+3]->[$j+3]);
   }    
 
@@ -107,7 +98,6 @@ sub compute_point {
   my $s = $a->[$i]->[$j] * $a->[$i+1]->[$j] * $a->[$i+2]->[$j] * $a->[$i+3]->[$j]; 
   if ($s > $max) {
     $max = $s;
-    $direction = "south";
     @list = ($a->[$i]->[$j], $a->[$i+1]->[$j], $a->[$i+2]->[$j], $a->[$i+3]->[$j]); 
   }    
 
@@ -115,7 +105,6 @@ sub compute_point {
   my $sw = $a->[$i]->[$j] * $a->[$i+1]->[$j-1] * $a->[$i+2]->[$j-2] * $a->[$i+3]->[$j-3]; 
   if ($sw > $max) {
     $max = $sw;
-    $direction = "southwest";
     @list = ($a->[$i]->[$j], $a->[$i+1]->[$j-1], $a->[$i+2]->[$j-2], $a->[$i+3]->[$j-3]);
   }    
 
@@ -123,7 +112,6 @@ sub compute_point {
   my $w = $a->[$i]->[$j] * $a->[$i]->[$j-1] * $a->[$i]->[$j-2] * $a->[$i]->[$j-3]; 
   if ($w > $max) {
     $max = $w;
-    $direction = "west";
     @list = ($a->[$i]->[$j], $a->[$i]->[$j-1], $a->[$i]->[$j-2], $a->[$i]->[$j-3]);
   }    
 
@@ -131,9 +119,8 @@ sub compute_point {
   my $nw = $a->[$i]->[$j] * $a->[$i-1]->[$j-1] * $a->[$i-2]->[$j-2] * $a->[$i-3]->[$j-3]; 
   if ($nw > $max) {
     $max = $nw;
-    $direction = "northwest";
     @list = ($a->[$i]->[$j], $a->[$i-1]->[$j-1], $a->[$i-2]->[$j-2], $a->[$i-3]->[$j-3]);
   }    
 
-  return ($max, $direction, @list);
+  return ($max, @list);
 }
