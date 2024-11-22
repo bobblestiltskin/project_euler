@@ -68,12 +68,11 @@ local a = {
   }
 
 local maxa = 0
+local start = 4
+local stop = 23
 
--- of course the matrix is stored upside down in memory cf with normal mathematical representation
--- so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell
-
-for i = 23, 4, -1 do
-  for j = 4, 23 do
+for i = start, stop do
+  for j = start, stop do
     local point = compute_point(a, i, j)
     
     if point > maxa then
