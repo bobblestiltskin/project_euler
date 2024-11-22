@@ -92,7 +92,7 @@ function pe011(): number {
   }
   
   let max = 0
-  for (let i = 22; i > 2; --i) {
+  for (let i = 3; i < 23; ++i) {
     for (let j = 3; j < 23; ++j) {
       let point = compute_point(table, i, j)
       if (point > max)
