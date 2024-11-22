@@ -1,14 +1,12 @@
 // This is a solution for http://projecteuler.net/problem=11
 
 #include <cstdio>
-#include <string>
 #include <vector>
 
-int compute_point(const std::vector< std::vector<int> > &, const int,
-                  const int, std::string &);
+int compute_point(const std::vector< std::vector<int> > &, const int, const int);
 
 int main() {
-  const int ASIZE = 26;  // allow 3 around each edge
+  const int ASIZE = 26;  // allow 3 zeroes around each edge
 
   const int array[ASIZE][ASIZE] = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // NOLINT
@@ -44,19 +42,11 @@ int main() {
     a[i].assign(array[i], array[i] + ASIZE);
 
   int max = 0;
-  std::string type;
-/*
-of course the matrix is stored upside down in memory cf with normal
-mathematical representation so we decrement our row counter and
-increment the column counter so then our 1,1 is the lower-left cell
-*/
-  for (unsigned int i = a.size() - 4; i > 2; --i) {
+  for (unsigned int i = 3; i < a.size() - 3; ++i) {
     for (unsigned int j = 3; j < a.front().size() - 3; ++j) {
-      std::string ttype;
-      int point = compute_point(a, i, j, ttype);
+      int point = compute_point(a, i, j);
       if (point > max) {
         max = point;
-        type = ttype;
       }
     }
   }
@@ -65,8 +55,7 @@ increment the column counter so then our 1,1 is the lower-left cell
   return 0;
 }
 
-int compute_point(const std::vector< std::vector<int> > & a, const int i,
-    const int j, std::string & type) {
+int compute_point(const std::vector< std::vector<int> > & a, const int i, const int j) {
   int n;
   int max = 0;
 
@@ -75,7 +64,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i - 2).at(j) * a.at(i - 3).at(j);
   if (n > max) {
     max = n;
-    type = "north";
   }
 
 /* northeast */
@@ -83,7 +71,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i - 2).at(j + 2) * a.at(i - 3).at(j + 3);
   if (n > max) {
     max = n;
-    type = "northeast";
   }
 
 /* east */
@@ -91,7 +78,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i).at(j + 2) * a.at(i).at(j + 3);
   if (n > max) {
     max = n;
-    type = "east";
   }
 
 /* southeast */
@@ -99,7 +85,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i + 2).at(j + 2) * a.at(i + 3).at(j + 3);
   if (n > max) {
     max = n;
-    type = "southeast";
   }
 
 /* south */
@@ -107,7 +92,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i + 2).at(j) * a.at(i + 3).at(j);
   if (n > max) {
     max = n;
-    type = "south";
   }
 
 /* southwest */
@@ -115,7 +99,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i + 2).at(j - 2) * a.at(i + 3).at(j - 3);
   if (n > max) {
     max = n;
-    type = "southwest";
   }
 
 /* west */
@@ -123,7 +106,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i).at(j - 2) * a.at(i).at(j - 3);
   if (n > max) {
     max = n;
-    type = "west";
   }
 
 /* northwest */
@@ -131,7 +113,6 @@ int compute_point(const std::vector< std::vector<int> > & a, const int i,
       * a.at(i - 2).at(j - 2) * a.at(i - 3).at(j - 3);
   if (n > max) {
     max = n;
-    type = "northwest";
   }
 
   return max;
