@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <string.h>
 
 #define MSIZE 26 /* Size of our padded matrix */
-#define TSIZE 10 /* Size of our string */
+#define START 3
+#define STOP 23
 
-int compute_point(int *, int, int, char *);
+int compute_point(int *, int, int);
 
 int main()
 {
@@ -30,27 +30,21 @@ int main()
                       {20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 4, 36, 16},
                       {20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54},
                       {1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48}};
+
+  /* create the padded matrix, a */
   int *a = (int *) calloc(MSIZE*MSIZE, sizeof(int));
-  int i, j;
-  for (i = 0; i < 20; ++i) {
-    for (j = 0; j < 20; ++j) {
+  for (int i = 0; i < 20; ++i) {
+    for (int j = 0; j < 20; ++j) {
       *(a + (MSIZE * (i + 3)) + j + 3) = orig[i][j];
     }
   }
 
   int max = 0;
-  char type[TSIZE];
-/*
-of course the matrix is stored upside down in memory cf with normal mathematical representation
-so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell
-*/
-  for (i = 22; i > 2; --i) {
-    for (j = 3; j < 23; ++j) {
-      char ttype[TSIZE];
-      int point = compute_point(a, i, j, ttype);
+  for (int i = START; i < STOP; ++i) {
+    for (int j = START; j < STOP; ++j) {
+      int point = compute_point(a, i, j);
       if (point > max) {
         max = point;
-        strncpy(type, ttype, TSIZE);
       }
     }
   }
@@ -60,65 +54,58 @@ so we decrement our row counter and increment the column counter so then our 1,1
   return(0);
 }
 
-int compute_point (int *a, int i, int j, char *type)
+int compute_point (int *a, int i, int j)
 {
   int n;
   int max = 0;
+  int start_cell = *(a + (MSIZE * i) + j);
 
 /* north */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * (i - 1)) + j) * *(a + (MSIZE * (i - 2)) + j) *  *(a + (MSIZE * (i - 3)) + j);
+  n = start_cell * *(a + (MSIZE * (i - 1)) + j) * *(a + (MSIZE * (i - 2)) + j) *  *(a + (MSIZE * (i - 3)) + j);
   if (n > max) {
     max = n;
-    strncpy(type, "north", TSIZE);
   }    
 
 /* northeast */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * (i - 1)) + j + 1) * *(a + (MSIZE * (i - 2)) + j + 2) *  *(a + (MSIZE * (i - 3)) + j + 3);
+  n = start_cell * *(a + (MSIZE * (i - 1)) + (j + 1)) * *(a + (MSIZE * (i - 2)) + (j + 2)) *  *(a + (MSIZE * (i - 3)) + (j + 3));
   if (n > max) {
     max = n;
-    strncpy(type, "northeast", TSIZE);
   }    
 
 /* east */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * i) + j + 1) * *(a + (MSIZE * i) + j + 2) *  *(a + (MSIZE * i) + j + 3);
+  n = start_cell * *(a + (MSIZE * i) + (j + 1)) * *(a + (MSIZE * i) + (j + 2)) *  *(a + (MSIZE * i) + (j + 3));
   if (n > max) {
     max = n;
-    strncpy(type, "east", TSIZE);
   }    
 
 /* southeast */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * (i + 1)) + j + 1) * *(a + (MSIZE * (i + 2)) + j + 2) *  *(a + (MSIZE * (i + 3)) + j + 3);
+  n = start_cell * *(a + (MSIZE * (i + 1)) + (j + 1)) * *(a + (MSIZE * (i + 2)) + (j + 2)) *  *(a + (MSIZE * (i + 3)) + (j + 3));
   if (n > max) {
     max = n;
-   strncpy(type, "southeast", TSIZE);
   }    
 
 /* south */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * (i + 1)) + j) * *(a + (MSIZE * (i + 2)) + j) *  *(a + (MSIZE * (i + 3)) + j);
+  n = start_cell * *(a + (MSIZE * (i + 1)) + j) * *(a + (MSIZE * (i + 2)) + j) *  *(a + (MSIZE * (i + 3)) + j);
   if (n > max) {
     max = n;
-    strncpy(type, "south", TSIZE);
   }    
 
 /* southwest */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * (i + 1)) + j - 1) * *(a + (MSIZE * (i + 2)) + j - 2) *  *(a + (MSIZE * (i + 3)) + j - 3);
+  n = start_cell * *(a + (MSIZE * (i + 1)) + (j - 1)) * *(a + (MSIZE * (i + 2)) + (j - 2)) *  *(a + (MSIZE * (i + 3)) + (j - 3));
   if (n > max) {
     max = n;
-    strncpy(type, "southwest", TSIZE);
   }    
 
 /* west */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * i) + j - 1) * *(a + (MSIZE * i) + j - 2) *  *(a + (MSIZE * i) + j - 3);
+  n = start_cell * *(a + (MSIZE * i) + (j - 1)) * *(a + (MSIZE * i) + (j - 2)) *  *(a + (MSIZE * i) + (j - 3));
   if (n > max) {
     max = n;
-    strncpy(type, "west", TSIZE);
   }    
 
 /* northwest */
-  n = *(a + (MSIZE * i) + j) * *(a + (MSIZE * (i - 1)) + j - 1) * *(a + (MSIZE * (i - 2)) + j - 2) *  *(a + (MSIZE * (i - 3)) + j - 3);
+  n = start_cell * *(a + (MSIZE * (i - 1)) + (j - 1)) * *(a + (MSIZE * (i - 2)) + (j - 2)) *  *(a + (MSIZE * (i - 3)) + (j - 3));
   if (n > max) {
     max = n;
-    strncpy(type, "northwest", TSIZE);
   }    
 
   return max;
