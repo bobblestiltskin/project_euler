@@ -42,9 +42,7 @@ for (0 .. 2) {
 
 my $max = 0;
 my ($imax, $jmax, $type, @list);
-# of course the matrix is stored upside down in memory cf with normal mathematical representation
-# so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell
-loop (my $i=22; $i > 2; $i--) {
+loop (my $i=3; $i < 23; $i++) {
   loop (my $j=3; $j < 23; $j++) {
     my ($point, $direction, @tmp_list) = compute_point(@a, $i, $j);
     if ($point > $max) {
