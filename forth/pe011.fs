@@ -1,6 +1,8 @@
 #! /usr/bin/gforth
 
 26 constant columns
+3 constant start
+23 constant stop
 
 create data
 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c,
@@ -127,8 +129,8 @@ create data
 ;
 
 : pe011
- 0 23 3 do  
-   23 3 do 
+ 0 stop start do
+   stop start do
      i j get_start_element dup
      north leave_max 
      north_east leave_max 
