@@ -46,15 +46,11 @@ for my $i (0 .. 2) {
 }
 
 my $max = 0;
-my ($imax, $jmax, @list);
 for (my $i=3; $i < 23; $i++) {
   for (my $j=3; $j < 23; $j++) {
-    my ($point, @tmp_list) = compute_point($a, $i, $j);
+    my $point = compute_point($a, $i, $j);
     if ($point > $max) {
       $max = $point;
-      $imax = 23 - $i;
-      $jmax = $j - 2;
-      @list = @tmp_list;
     }
   }
 }
@@ -64,63 +60,54 @@ sub compute_point {
   my ($a, $i, $j) = @_;
 
   my $max = 0;
-  my @list;
 
 # north
   my $n = $a->[$i]->[$j] * $a->[$i-1]->[$j] * $a->[$i-2]->[$j] * $a->[$i-3]->[$j];
   if ($n > $max) {
     $max = $n;
-    @list = ($a->[$i]->[$j], $a->[$i-1]->[$j], $a->[$i-2]->[$j], $a->[$i-3]->[$j]);
   }    
 
 # northeast
   my $ne = $a->[$i]->[$j] * $a->[$i-1]->[$j+1] * $a->[$i-2]->[$j+2] * $a->[$i-3]->[$j+3]; 
   if ($ne > $max) {
     $max = $ne;
-    @list = ($a->[$i]->[$j], $a->[$i-1]->[$j+1], $a->[$i-2]->[$j+2], $a->[$i-3]->[$j+3]);
   }    
 
 # east
   my $e = $a->[$i]->[$j] * $a->[$i]->[$j+1] * $a->[$i]->[$j+2] * $a->[$i]->[$j+3]; 
   if ($e > $max) {
     $max = $e;
-    @list = ($a->[$i]->[$j], $a->[$i]->[$j+1], $a->[$i]->[$j+2], $a->[$i]->[$j+3]);
   }    
 
 # southeast
   my $se = $a->[$i]->[$j] * $a->[$i+1]->[$j+1] * $a->[$i+2]->[$j+2] * $a->[$i+3]->[$j+3]; 
   if ($se > $max) {
     $max = $se;
-    @list = ($a->[$i]->[$j], $a->[$i+1]->[$j+1], $a->[$i+2]->[$j+2], $a->[$i+3]->[$j+3]);
   }    
 
 # south
   my $s = $a->[$i]->[$j] * $a->[$i+1]->[$j] * $a->[$i+2]->[$j] * $a->[$i+3]->[$j]; 
   if ($s > $max) {
     $max = $s;
-    @list = ($a->[$i]->[$j], $a->[$i+1]->[$j], $a->[$i+2]->[$j], $a->[$i+3]->[$j]); 
   }    
 
 # southwest
   my $sw = $a->[$i]->[$j] * $a->[$i+1]->[$j-1] * $a->[$i+2]->[$j-2] * $a->[$i+3]->[$j-3]; 
   if ($sw > $max) {
     $max = $sw;
-    @list = ($a->[$i]->[$j], $a->[$i+1]->[$j-1], $a->[$i+2]->[$j-2], $a->[$i+3]->[$j-3]);
   }    
 
 # west
   my $w = $a->[$i]->[$j] * $a->[$i]->[$j-1] * $a->[$i]->[$j-2] * $a->[$i]->[$j-3]; 
   if ($w > $max) {
     $max = $w;
-    @list = ($a->[$i]->[$j], $a->[$i]->[$j-1], $a->[$i]->[$j-2], $a->[$i]->[$j-3]);
   }    
 
 # northwest
   my $nw = $a->[$i]->[$j] * $a->[$i-1]->[$j-1] * $a->[$i-2]->[$j-2] * $a->[$i-3]->[$j-3]; 
   if ($nw > $max) {
     $max = $nw;
-    @list = ($a->[$i]->[$j], $a->[$i-1]->[$j-1], $a->[$i-2]->[$j-2], $a->[$i-3]->[$j-3]);
   }    
 
-  return ($max, @list);
+  return $max;
 }
