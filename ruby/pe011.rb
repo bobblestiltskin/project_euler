@@ -2,65 +2,56 @@
 
 def compute_point(a, i, j)
   amax = 0
-  direction = ""
 
 # north 
   n = a[i][j] * a[i - 1][j] * a[i - 2][j] * a[i - 3][j]
   if (n > amax)
     amax = n;
-    direction = "north"
   end
 
 ## northeast
   n = a[i][j] * a[i - 1][j + 1] * a[i - 2][j + 2] * a[i - 3][j + 3]
   if (n > amax)
     amax = n;
-    direction = "northeast"
   end
 
 # east
   n = a[i][j] * a[i][j + 1] * a[i][j + 2] * a[i][j + 3]
   if (n > amax)
     amax = n;
-    direction = "east"
   end
 
 # southeast
   n = a[i][j] * a[i + 1][j + 1] * a[i + 2][j + 2] * a[i + 3][j + 3]
   if (n > amax)
     amax = n;
-    direction = "southeast"
   end
 
 # south
   n = a[i][j] * a[i + 1][j] * a[i + 2][j] * a[i + 3][j]
   if (n > amax)
     amax = n;
-    direction = "south"
   end
 
 # southwest
   n = a[i][j] * a[i + 1][j - 1] * a[i + 2][j - 2] * a[i + 3][j - 3]
   if (n > amax)
     amax = n;
-    direction = "southwest"
   end
 
 # west
   n = a[i][j] * a[i][j - 1] * a[i][j - 2] * a[i][j - 3]
   if (n > amax)
     amax = n;
-    direction = "west"
   end
 
 # northwest
   n = a[i][j] * a[i - 1][j - 1] * a[i - 2][j - 2] * a[i - 3][j - 3]
   if (n > amax)
     amax = n;
-    direction = "northwest"
   end
 
-  return amax, direction
+  return amax
 
 end
 
@@ -95,12 +86,9 @@ a = Array[
 
 amax = 0
 
-# of course the matrix is stored upside down in memory cf with normal mathematical representation
-# so we decrement our row counter and increment the column counter so then our 1,1 is the lower-left cell
-
-(22).step(2,-1) do |i|
+(3 ... 23).each do |i|
   (3 ... 23).each do |j|
-    (point, tdirection) = compute_point(a, i, j)
+    point = compute_point(a, i, j)
     
     if (point > amax)
       amax = point
