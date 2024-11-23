@@ -89,7 +89,6 @@ function compute_point() {
     max=$t
   fi
   echo $max
-  return $max
 }
 # construct a matrix 26 by 26 with 3 zeroes surrounding the given matrix
 a=(
