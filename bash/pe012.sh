@@ -1,5 +1,7 @@
 #/usr/bin/bash
 # computes project euler problem 012 in bash
+# we know that half of the divisors are before the square root
+# so we halve the problem size
 function get_num_divisors() {
   num=$1
   counter=0
