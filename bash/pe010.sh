@@ -20,7 +20,6 @@ function isprimelist
   done
 }
 MAXPRIME=2000000
-#MAXPRIME=20
 declare -a PRIMES=(2 3)
 SUM=5
 TEST=5
@@ -31,10 +30,8 @@ do
   then
     PRIMES+=($TEST)
     SUM=$(($SUM + $TEST))
-#    echo "TEST is $TEST, SUM is $SUM"
   fi
   TEST=$(($TEST + 2))
 done
-echo "LAST PRIME is ${PRIMES[-1]}, TEST is $TEST, SUM is $SUM"
 SUM=$(($SUM - ${PRIMES[-1]}))
 echo $SUM
