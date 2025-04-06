@@ -18,11 +18,8 @@ function isprimelist
   TEST=$1
   PRIMES=$2
 
-#  echo 'isprimelist with test of',$TEST
-
   for PRIME in ${PRIMES[@]}
   do
-#    echo 'isprimelist with prime of',$PRIME
     SQUARE=$(($PRIME * $PRIME))
     if [ $SQUARE -gt $TEST ]
     then
@@ -34,29 +31,26 @@ function isprimelist
     fi
   done
 }
-#MAXPRIME=20
-#MAXPRIME=200
 MAXPRIME=2000000
 declare -a PRIMES=(2 3)
 SUM=5
 TEST=5
 while [ ${PRIMES[-1]} -le $MAXPRIME ]
 do
-#  echo 'test is ' hi,$TEST,' lastprime is ',${PRIMES[-1]}
   isprimelist $TEST $PRIMES
   if [ $? = 0 ]
   then
     PRIMES+=($TEST)
     SUM=$(($SUM + $TEST))
   fi
-  NTEST=$(($TEST + 2))
-  isprimelist $NTEST $PRIMES
+  TEST=$(($TEST + 2))
+  isprimelist $TEST $PRIMES
   if [ $? = 0 ]
   then
-    PRIMES+=($NTEST)
-    SUM=$(($SUM + $NTEST))
+    PRIMES+=($TEST)
+    SUM=$(($SUM + $TEST))
   fi
-  TEST=$(($TEST + 6))
+  TEST=$(($TEST + 4))
 done
 SUM=$(($SUM - ${PRIMES[-1]}))
 echo $SUM
