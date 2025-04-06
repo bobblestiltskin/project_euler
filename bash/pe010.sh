@@ -48,14 +48,13 @@ do
   then
     PRIMES+=($TEST)
     SUM=$(($SUM + $TEST))
-  else
-    NTEST=$(($TEST + 2))
-    isprimelist $NTEST $PRIMES
-    if [ $? = 0 ]
-    then
-      PRIMES+=($NTEST)
-      SUM=$(($SUM + $NTEST))
-    fi
+  fi
+  NTEST=$(($TEST + 2))
+  isprimelist $NTEST $PRIMES
+  if [ $? = 0 ]
+  then
+    PRIMES+=($NTEST)
+    SUM=$(($SUM + $NTEST))
   fi
   TEST=$(($TEST + 6))
 done
