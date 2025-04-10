@@ -44,11 +44,14 @@ do
     SUM=$(($SUM + $TEST))
   fi
   TEST=$(($TEST + 2))
-  isprimelist $TEST $PRIMES
-  if [ $? = 0 ]
+  if [ ${PRIMES[-1]} -le $MAXPRIME ]
   then
-    PRIMES+=($TEST)
-    SUM=$(($SUM + $TEST))
+    isprimelist $TEST $PRIMES
+    if [ $? = 0 ]
+    then
+      PRIMES+=($TEST)
+      SUM=$(($SUM + $TEST))
+    fi
   fi
   TEST=$(($TEST + 4))
 done
