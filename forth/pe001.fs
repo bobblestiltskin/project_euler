@@ -7,8 +7,6 @@
 
 : add-number ( sum n -- sum n )
 dup rot + swap ;
-( dup ." before " .S cr rot swap + swap ." after " .S cr ; )
-( dup ." would add " .S cr ; )
 
 : test-number ( n -- )
 dup mod5 if add-number else 
