@@ -6,7 +6,7 @@ function next_term(){
   then
      echo $(($num >> 1))
   else
-     echo $(($num + $num + $num +1))
+     echo $(($num + $num + $num + 1))
   fi
 }
 
@@ -19,13 +19,15 @@ for i in $(seq $START $LAST)
 {
   COUNTER=0
   j=$i
+
   while [ $j != 1 ];
   do
     j=$(next_term $j)
     COUNTER=$(($COUNTER+1))
   done
+
   COUNTER=$(($COUNTER+1))
-  echo $i $COUNTER $MAX
+
   if [ $COUNTER -gt $MAX ]
   then
     MAX=$COUNTER
