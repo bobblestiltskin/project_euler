@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 function next_term(){
   num=$1
 

@@ -1,4 +1,4 @@
-#/usr/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 011 in bash
 function compute_point() {
   i=$1

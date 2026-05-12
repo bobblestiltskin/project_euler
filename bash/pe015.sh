@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 MAX=20
 LAST=19
 
