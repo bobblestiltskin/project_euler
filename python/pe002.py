@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
 
-def main():
-  """ this computes projecteuler.net problem 002 """
+""" this computes projecteuler.net problem 002 """
 
-  limit = 4000000
-  total = 0
-  previous = 1
-  current = 1
-  while (current < limit):
-    next = current + previous
-    if ((current % 2) == 0):
-      total += current 
-    previous = current
-    current = next
+import sys
 
-  print(total)
-  return 0
+LIMIT = 4000000
+TOTAL = 0
+PREVIOUS = 1
+CURRENT = 1
+while CURRENT < LIMIT:
+    NEXT = CURRENT + PREVIOUS
+    if (CURRENT % 2) == 0:
+        TOTAL += CURRENT
+    PREVIOUS = CURRENT
+    CURRENT = NEXT
 
-if __name__ == "__main__":
-    main()
+print(TOTAL)
+sys.exit(0)

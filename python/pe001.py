@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 
-def main():
-  """ this computes projecteuler.net problem 001 """
+""" this computes projecteuler.net problem 001 """
 
-  imax = 1000
-  total = 0
+import sys
 
-  for i in range(imax):
+IMAX = 1000
+TOTAL = 0
+
+for i in range(IMAX):
     if (((i % 3) == 0) or ((i % 5) == 0)):
-      total += i 
+        TOTAL += i
 
-  print(total)
-  return 0
-
-if __name__ == "__main__":
-    main()
+print(TOTAL)
+sys.exit(0)
