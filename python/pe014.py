@@ -4,6 +4,7 @@
 
 import sys
 
+
 def next_term(num):
 
     if (num % 2):

@@ -10,24 +10,24 @@ limit = 20
 numerator = []
 denominator = []
 for i in range(limit):
-        denominator.append(i + 1)
-        numerator.append(i + limit + 1)
+    denominator.append(i + 1)
+    numerator.append(i + limit + 1)
 
 #  walk through lists and cast away multiples to reduce size of numbers from
 #  factorials - this is incomplete factoring but sufficient for this problem
 #  we could factor both completely if we wanted...
 
 for i in (denominator):
-        for j in (numerator):
-            if ((i != 1) and ((j % i) == 0)):
-                j = j / i
-                i = 1
+    for j in (numerator):
+        if ((i != 1) and ((j % i) == 0)):
+            j = j / i
+            i = 1
 
 num = 1
 denom = 1
 for i in range(limit):
-        num *= numerator[i]
-        denom *= denominator[i]
+    num *= numerator[i]
+    denom *= denominator[i]
 
 print(num // denom)
 

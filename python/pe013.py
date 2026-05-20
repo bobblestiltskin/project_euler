@@ -111,10 +111,10 @@ result_num = 0
 j = 0  # start column
 string = ""
 while True:
-# sum all columns
+    # sum all columns
     tmp_result = 0
     for i in range(len(nums)):
-            tmp_result += int(nums[i][j])
+        tmp_result += int(nums[i][j])
 # update global count with the sum of this column
     result_num *= 10
     result_num += tmp_result
@@ -123,7 +123,7 @@ while True:
     if ((len(tmp_string) < 10) or (string[0:10] != tmp_string[0:10])):
         string = tmp_string
     else:
-# fall out of loop when the first 10 characters are same
+        # fall out of loop when the first 10 characters are same
         break
 # add another column
     j += 1

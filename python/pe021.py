@@ -5,6 +5,7 @@
 import sys
 from math import sqrt
 
+
 def sum_factors(number):
     total = 1
     for i in range(2, int(sqrt(number))):
@@ -12,6 +13,7 @@ def sum_factors(number):
             total += (i + (number // i))
 
     return total
+
 
 SIZE = 10000
 spd = []

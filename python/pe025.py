@@ -4,6 +4,7 @@
 
 import sys
 
+
 def fib(n, vector):
     """ this computes the fibonacci number of the passed number """
     if n < 2:

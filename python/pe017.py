@@ -9,15 +9,15 @@ hcount = 7  # "hundred"
 handcount = 10  # "hundred and "
 
 units = [
-     "one",
-     "two",
-     "three",
-     "four",
-     "five",
-     "six",
-     "seven",
-     "eight",
-     "nine"]
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine"]
 
 tens = ["ten", "eleven", "twelve", "thirteen",
         "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
@@ -41,17 +41,17 @@ tens = ["ten", "eleven", "twelve", "thirteen",
 count = 0
 
 for i in range(len(units)):
-        count += len(units[i])
+    count += len(units[i])
 
 for i in range(len(tens)):
-        count += len(tens[i])
+    count += len(tens[i])
 
 for i in range(len(units)):
-        count += len(units[i]) + hcount
-        for j in range(len(units)):
-            count += len(units[i]) + handcount + len(units[j])
-        for j in range(len(tens)):
-            count += len(units[i]) + handcount + len(tens[j])
+    count += len(units[i]) + hcount
+    for j in range(len(units)):
+        count += len(units[i]) + handcount + len(units[j])
+    for j in range(len(tens)):
+        count += len(units[i]) + handcount + len(tens[j])
 
 count += len(onek) - 1  # contains a space
 print(count)
