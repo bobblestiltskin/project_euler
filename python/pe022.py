@@ -1,34 +1,32 @@
 #!/usr/bin/env python3
 
-def main():
-  """ this computes projecteuler.net problem 022 """
+""" this computes projecteuler.net problem 022 """
 
-  f = open('../names.txt', 'r')
-  name_string = f.read()
+import sys
 
-  names = []
-  start = 1
-  for i in range(len(name_string) - 3):
-    if (name_string[i] == '"'):
-      if (name_string[i+1] == ','):
-        if (name_string[i+2] == '"'):
-          name = name_string[start:i]
-          names.append(name)
-          start = i + 3
+f = open('../names.txt', 'r')
+name_string = f.read()
 
-  name = name_string[start:len(name_string) - 1]
-  names.append(name)
-  names.sort()
+names = []
+start = 1
+for i in range(len(name_string) - 3):
+        if (name_string[i] == '"'):
+            if (name_string[i + 1] == ','):
+                if (name_string[i + 2] == '"'):
+                    name = name_string[start:i]
+                    names.append(name)
+                    start = i + 3
 
-  total = 0
-  for i in range(len(names)):
-    letters = 0
-    for j in range(len(names[i])):
-      letters += ord(names[i][j]) - 64
-    total += letters * (i+1)
+name = name_string[start:len(name_string) - 1]
+names.append(name)
+names.sort()
 
-  print(total)
-  return 0
+total = 0
+for i in range(len(names)):
+        letters = 0
+        for j in range(len(names[i])):
+            letters += ord(names[i][j]) - 64
+        total += letters * (i + 1)
 
-if __name__ == "__main__":
-    main()
+print(total)
+sys.exit(0)

@@ -13,7 +13,7 @@ while NUMBER != 1:
         MAX_PRIME = i
         NUMBER = NUMBER / i
     else:
-        i+= 2
+        i += 2
 
 print(MAX_PRIME)
 

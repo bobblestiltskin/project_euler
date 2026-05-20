@@ -1,30 +1,31 @@
 #!/usr/bin/env python3
+
+""" this computes projecteuler.net problem 12 """
+
+import sys
 from math import sqrt
 
-def main():
-  """ this computes projecteuler.net problem 12 """
 
-  last = 250
-  num = 0
-  i = 0
-  j = 1
+def get_num_divisors(num):
+    counter = 0
+    running = 1
+    while (running <= sqrt(num)):
+        if (not (num % running)):
+            counter += 1
+        running += 1
+    return counter
 
-  while (num < last):
+
+last = 250
+num = 0
+i = 0
+j = 1
+
+while (num < last):
     i = i + j
     num = get_num_divisors(i)
     j += 1
 
-  print(i)
-  return 0
+print(i)
 
-def get_num_divisors(num):
-  counter = 0
-  running = 1
-  while (running <= sqrt(num)):
-    if (not (num % running)):
-      counter += 1
-    running += 1
-  return counter
-
-if __name__ == "__main__":
-    main()
+sys.exit(0)

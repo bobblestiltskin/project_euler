@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 
-def main():
-  """ this computes projecteuler.net problem 016 """
+""" this computes projecteuler.net problem 016 """
 
-  limit = 1000
-  num = 2 ** limit
+import sys
 
-  ssum = 0
-  string = str(num)
-  for i in range(0, len(string)):
-    ssum += int(string[i])
-  print(ssum)
+LIMIT = 1000
+NUM = 2 ** LIMIT
 
-  return 0
+SSUM = 0
+STRING = str(NUM)
+for _, char in enumerate(STRING):
+    SSUM += int(char)
+print(SSUM)
 
-if __name__ == "__main__":
-    main()
+sys.exit(0)

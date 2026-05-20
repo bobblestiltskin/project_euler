@@ -4,15 +4,17 @@
 
 import sys
 
+
 def is_palindromic(digits):
     """This function returns 1 for palindromic input"""
     slen = len(digits)
 
     for k in range(slen):
-        if digits[k] != digits[slen-(k+1)]:
+        if digits[k] != digits[slen - (k + 1)]:
             return 0
 
     return 1
+
 
 MAX3 = 999
 MIN3 = 100

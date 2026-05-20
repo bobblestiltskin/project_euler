@@ -4,6 +4,7 @@
 
 import sys
 
+
 def isprime(num):
     """is_prime returns true or 1 if num is prime,
                         false or 0, if not"""
@@ -20,7 +21,8 @@ def isprime(num):
         return 1
     return num == 2
 
-MAX=20
+
+MAX = 20
 i = 2
 TRY_PRODUCT = 1
 TOTAL = 1

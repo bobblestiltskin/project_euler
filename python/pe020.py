@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
 
-def main():
-  """ this computes projecteuler.net problem 020 """
-  
-  last = 100
-  factorial = 1
-  for i in range(last):
-    factorial *= i+1
+""" this computes projecteuler.net problem 020 """
 
-  fstring = str(factorial)
-  flen = len(fstring) 
-        
-  fsum = 0
-  for i in range(flen): 
-    fsum += int(fstring[i])
+import sys
 
-  print(fsum)
+last = 100
+factorial = 1
+for i in range(last):
+        factorial *= i + 1
 
-if __name__ == "__main__":
-    main()
+fstring = str(factorial)
+flen = len(fstring)
+
+fsum = 0
+for i in range(flen):
+        fsum += int(fstring[i])
+
+print(fsum)
+sys.exit(0)

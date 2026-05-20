@@ -1,34 +1,34 @@
 #!/usr/bin/env python3
 
-def main():
-  """ this computes projecteuler.net problem 014 """
+""" this computes projecteuler.net problem 014 """
 
-  last = 1000000
-  maxv = 0
-  maxi = 0
+import sys
 
-  for i in range(last >> 1, last):
+def next_term(num):
+
+    if (num % 2):
+        retval = num + num + num + 1
+    else:
+        retval = num >> 1
+    return retval
+
+
+last = 1000000
+maxv = 0
+maxi = 0
+
+for i in range(last >> 1, last):
     counter = 0
     j = i
     while (j != 1):
-      j = next_term(j)
-      counter += 1
+        j = next_term(j)
+        counter += 1
     counter += 1
 
     if (counter > maxv):
-      maxv = counter
-      maxi = i
-  print(maxi)
+        maxv = counter
+        maxi = i
 
-  return 0
-  
-def next_term(num):
+print(maxi)
 
-  if (num % 2):
-    retval = num + num + num + 1
-  else: 
-    retval = num >> 1
-  return retval
-
-if __name__ == "__main__":
-    main()
+sys.exit(0)

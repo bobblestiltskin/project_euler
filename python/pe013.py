@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
-def main():
-  """ this computes projecteuler.net problem 013 """
+""" this computes projecteuler.net problem 013 """
 
-  nums = [
+import sys
+
+nums = [
     "37107287533902102798797998220837590246510135740250",
     "46376937677490009712648124896970078050417018260538",
     "74324986199524741059474233309513058123726617309629",
@@ -104,32 +105,29 @@ def main():
     "72107838435069186155435662884062257473692284509516",
     "20849603980134001723930671666823555245252804609722",
     "53503534226472524250874054075591789781264330331690",
-  ]
+]
 
-  result_num = 0
-  j = 0 # start column
-  string = ""
-  while 1:
-# sum all columns 
+result_num = 0
+j = 0  # start column
+string = ""
+while True:
+# sum all columns
     tmp_result = 0
     for i in range(len(nums)):
-      tmp_result += int(nums[i][j])
+            tmp_result += int(nums[i][j])
 # update global count with the sum of this column
     result_num *= 10
     result_num += tmp_result
     tmp_string = str(result_num)
 # compare first ten characters of this number to that last computed
     if ((len(tmp_string) < 10) or (string[0:10] != tmp_string[0:10])):
-      string = tmp_string
+        string = tmp_string
     else:
 # fall out of loop when the first 10 characters are same
-      break
+        break
 # add another column
     j += 1
 
-  print(string[0:10])
+print(string[0:10])
 
-  return 0
-
-if __name__ == "__main__":
-    main()
+sys.exit(0)
