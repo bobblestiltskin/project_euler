@@ -1006,14 +1006,13 @@ n = [
     5,
     0]
 
-count = 13
+COUNT = 13
 smax = 0
-for i in range(len(n) - (count - 1)):
+for i in range(len(n) - (COUNT - 1)):
     ssum = 1
-    for j in range(count):
+    for j in range(COUNT):
         ssum *= n[i + j]
-    if (ssum > smax):
-        smax = ssum
+    smax = max(smax, ssum)
 
 print(smax)
 

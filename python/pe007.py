@@ -3,25 +3,15 @@
 """ this computes projecteuler.net problem 007 """
 
 import sys
-from math import sqrt
+from common import is_prime
 
 
-def is_prime(test, primes):
-    root = sqrt(test)
-
-    for i in primes:
-        if (i > root):
-            return 1
-        if ((test % i) == 0):
-            return 0
-
-
-primenum = 10001
+PRIMENUM = 10001
 primes = [2, 3]
 
 test = primes[-1] + 2
-while (len(primes) < primenum):
-    if (is_prime(test, primes)):
+while len(primes) < PRIMENUM:
+    if is_prime(test, primes):
         primes.append(test)
     test += 2
 
