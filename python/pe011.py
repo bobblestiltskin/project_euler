@@ -6,47 +6,41 @@ import sys
 
 
 def compute_point(a, i, j):
+    '''this function computes the maximum product of four adjacent'''
+    '''elements in all 8 directions of a point in the matrix'''
     amax = 0
 
 # north
     n = a[i][j] * a[i - 1][j] * a[i - 2][j] * a[i - 3][j]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
 # northeast
     n = a[i][j] * a[i - 1][j + 1] * a[i - 2][j + 2] * a[i - 3][j + 3]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
 # east
     n = a[i][j] * a[i][j + 1] * a[i][j + 2] * a[i][j + 3]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
 # southeast
     n = a[i][j] * a[i + 1][j + 1] * a[i + 2][j + 2] * a[i + 3][j + 3]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
 # south
     n = a[i][j] * a[i + 1][j] * a[i + 2][j] * a[i + 3][j]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
 # southwest
     n = a[i][j] * a[i + 1][j - 1] * a[i + 2][j - 2] * a[i + 3][j - 3]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
 # west
     n = a[i][j] * a[i][j - 1] * a[i][j - 2] * a[i][j - 3]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
 # northwest
     n = a[i][j] * a[i - 1][j - 1] * a[i - 2][j - 2] * a[i - 3][j - 3]
-    if (n > amax):
-        amax = n
+    amax = max(amax, n)
 
     return amax
 
@@ -113,8 +107,7 @@ for i in range(3, 23):
     for j in range(3, 23):
         point = compute_point(a, i, j)
 
-        if (point > amax):
-            amax = point
+        amax = max(amax, point)
 
 print(amax)
 

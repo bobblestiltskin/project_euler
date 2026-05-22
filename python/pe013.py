@@ -4,7 +4,7 @@
 
 import sys
 
-nums = [
+NUMS = [
     "37107287533902102798797998220837590246510135740250",
     "46376937677490009712648124896970078050417018260538",
     "74324986199524741059474233309513058123726617309629",
@@ -113,14 +113,14 @@ string = ""
 while True:
     # sum all columns
     tmp_result = 0
-    for i in range(len(nums)):
-        tmp_result += int(nums[i][j])
+    for num in NUMS:
+        tmp_result += int(num[j])
 # update global count with the sum of this column
     result_num *= 10
     result_num += tmp_result
     tmp_string = str(result_num)
 # compare first ten characters of this number to that last computed
-    if ((len(tmp_string) < 10) or (string[0:10] != tmp_string[0:10])):
+    if (len(tmp_string) < 10) or (string[0:10] != tmp_string[0:10]):
         string = tmp_string
     else:
         # fall out of loop when the first 10 characters are same
