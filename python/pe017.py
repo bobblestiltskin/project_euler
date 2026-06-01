@@ -4,9 +4,9 @@
 
 import sys
 
-onek = "one thousand"
-hcount = 7  # "hundred"
-handcount = 10  # "hundred and "
+ONEK = "one thousand"
+HCOUNT = 7  # "hundred"
+HANDCOUNT = 10  # "hundred and "
 
 units = [
     "one",
@@ -40,20 +40,21 @@ tens = ["ten", "eleven", "twelve", "thirteen",
 
 count = 0
 
-for i in range(len(units)):
-    count += len(units[i])
+for i in units:
+    count += len(i)
 
-for i in range(len(tens)):
-    count += len(tens[i])
+for i in tens:
+    count += len(i)
 
-for i in range(len(units)):
-    count += len(units[i]) + hcount
-    for j in range(len(units)):
-        count += len(units[i]) + handcount + len(units[j])
-    for j in range(len(tens)):
-        count += len(units[i]) + handcount + len(tens[j])
+for i in units:
+    leni = len(i)
+    count += leni + HCOUNT
+    for j in units:
+        count += leni + HANDCOUNT + len(j)
+    for j in tens:
+        count += leni + HANDCOUNT + len(j)
 
-count += len(onek) - 1  # contains a space
+count += len(ONEK) - 1  # contains a space
 print(count)
 
 sys.exit(0)

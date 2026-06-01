@@ -13,10 +13,10 @@ count = 0
 dow = 2  # start on tuesday 1901.1.1
 # 2000 is a leap year too!
 for i in range(25):
-    for j in range(len(cycle)):
-        if (dow == 0):
+    for j in cycle:
+        if dow == 0:
             count += 1
-        dow = (dow + cycle[j]) % 7
+        dow = (dow + j) % 7
 
 print(count)
 
