@@ -4,9 +4,9 @@
 
 import sys
 
-last = 100
+LAST = 100
 factorial = 1
-for i in range(last):
+for i in range(LAST):
     factorial *= i + 1
 
 fstring = str(factorial)
