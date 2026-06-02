@@ -13,11 +13,11 @@ def fib(n, vector):
         vector.append(vector[n - 2] + vector[n - 1])
 
 
-limit = 1000
+LIMIT = 1000
 i = 0
 vector = []
 fib(i, vector)
-while (len(str(vector[i])) < limit):
+while len(str(vector[i])) < LIMIT:
     i += 1
     fib(i, vector)
 

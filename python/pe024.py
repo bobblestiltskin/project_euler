@@ -19,47 +19,47 @@ import sys
 #  7! is 5040, so 6 sets are 30240. As before we count 6 sets from
 #  2700000000 (excluding 2 and 7) and get to 2780000000, leaving 2080 to find.
 
-start = 2780000000
-end = 9876543210
+START = 2780000000
+END = 9876543210
 
 count = 725760 + 241920 + 30240
-i = start - 1
-while (i <= end):
+i = START - 1
+while i <= END:
     i += 1
     digits = str(i).zfill(10)
 
-    if (digits.find("0") == -1):
+    if digits.find("0") == -1:
         continue
 
-    if (digits.find("1") == -1):
+    if digits.find("1") == -1:
         continue
 
-    if (digits.find("2") == -1):
+    if digits.find("2") == -1:
         continue
 
-    if (digits.find("3") == -1):
+    if digits.find("3") == -1:
         continue
 
-    if (digits.find("4") == -1):
+    if digits.find("4") == -1:
         continue
 
-    if (digits.find("5") == -1):
+    if digits.find("5") == -1:
         continue
 
-    if (digits.find("6") == -1):
+    if digits.find("6") == -1:
         continue
 
-    if (digits.find("7") == -1):
+    if digits.find("7") == -1:
         continue
 
-    if (digits.find("8") == -1):
+    if digits.find("8") == -1:
         continue
 
-    if (digits.find("9") == -1):
+    if digits.find("9") == -1:
         continue
 
     count += 1
-    if (count == 1000000):
+    if count == 1000000:
         break
 
 print(i)

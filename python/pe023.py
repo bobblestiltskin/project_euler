@@ -10,10 +10,10 @@ from math import sqrt
 def sum_factors(number):
     asum = 1
     for i in range(2, int(sqrt(number)) + 1):
-        if ((number % i) == 0):
+        if (number % i) == 0:
             divisor = number / i
             asum += i
-            if (i != divisor):
+            if i != divisor:
                 asum += divisor
     return asum
 
@@ -23,7 +23,7 @@ abundant = []
 adictionary = {}
 for i in range(1, MAX):
     fsum = sum_factors(i)
-    if (i < fsum):
+    if (i < fsum:
         abundant.append(i)
         adictionary[i] = fsum
 
@@ -33,13 +33,13 @@ for i in range(1, abundant[0]):
 for i in range(abundant[0], MAX):
     addi = 1
     for j in abundant:
-        if (j >= i):
+        if j >= i:
             break
         diff = i - j
         if diff in adictionary:
             addi = 0
             break
-    if (addi):
+    if addi:
         asum += i
 
 print(asum)
