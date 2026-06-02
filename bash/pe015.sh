@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# computes project euler problem 015 in bash
 
 MAX=20
 LAST=19

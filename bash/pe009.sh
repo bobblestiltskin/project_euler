@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 009 in bash
 STOP=1000
 for i in $(seq 1 $STOP)

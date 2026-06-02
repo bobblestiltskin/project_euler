@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 005 in bash
 function isprime
 {

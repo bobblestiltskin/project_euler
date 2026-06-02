@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 007 in bash
 function isprimelist
 {

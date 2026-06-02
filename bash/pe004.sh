@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 004 in bash
 function is_palindromic
 # passed a 6 digit string, returns 0 if it is palindromic

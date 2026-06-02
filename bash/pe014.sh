@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# computes project euler problem 014 in bash
 function next_term(){
   num=$1
 

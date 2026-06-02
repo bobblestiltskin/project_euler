@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 002 in bash
 MAX=4000000
 TOTAL=0

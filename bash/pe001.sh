@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 001 in bash
 LAST=999
 TOTAL=0

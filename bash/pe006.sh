@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 006 in bash
 SUMSQ=0
 for i in $(seq 1 100)

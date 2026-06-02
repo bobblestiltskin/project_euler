@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 # computes project euler problem 003 in bash
 NUMBER=600851475143
 MAX_PRIME=0
