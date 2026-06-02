@@ -5,11 +5,11 @@
 import sys
 
 IMAX = 1000
-TOTAL = 0
+total = 0
 
 for i in range(IMAX):
     if (i % 3) == 0 or (i % 5) == 0:
-        TOTAL += i
+        total += i
 
-print(TOTAL)
+print(total)
 sys.exit(0)

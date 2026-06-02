@@ -6,33 +6,33 @@ import sys
 
 
 def is_palindromic(digits):
-    """This function returns 1 for palindromic input"""
+    """This function returns True for palindromic input"""
     slen = len(digits)
 
     for k in range(slen):
         if digits[k] != digits[slen - (k + 1)]:
-            return 0
+            return False
 
-    return 1
+    return True
 
 
 MAX3 = 999
 MIN3 = 100
-MAXP = 0
 
-MINI = MIN3
-MINJ = MIN3
-MAXJ = MAX3
-for i in range(MAX3, MINI, -1):
-    for j in range(MAXJ, MINJ, -1):
-        PRODUCT = i * j
-        if is_palindromic(str(PRODUCT)):
-            if PRODUCT > MAXP:
-                MAXP = PRODUCT
-                MINJ = PRODUCT // 1000
-                MINI = PRODUCT // 1000
-    MAXJ = i
+maxp = 0
+mini = MIN3
+minj = MIN3
+maxj = MAX3
+for i in range(MAX3, mini, -1):
+    for j in range(maxj, minj, -1):
+        product = i * j
+        if is_palindromic(str(product)):
+            if product > maxp:
+                maxp = product
+                minj = product // 1000
+                mini = product // 1000
+    maxj = i
 
-print(MAXP)
+print(maxp)
 
 sys.exit(0)

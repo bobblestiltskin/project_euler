@@ -24,23 +24,23 @@ def isprime(num):
 
 MAX = 20
 i = 2
-TRY_PRODUCT = 1
-TOTAL = 1
+try_product = 1
+total = 1
 while i <= MAX:
     if isprime(i):
-        if TRY_PRODUCT:
+        if try_product:
             if (i * i) > MAX:
-                TRY_PRODUCT = 0
+                try_product = 0
             else:
-                TMP = i
-                LAST = TMP
-                while TMP <= MAX:
-                    LAST = TMP
-                    TMP *= i
-                TOTAL *= LAST
-        if TRY_PRODUCT == 0:
-            TOTAL *= i
+                tmp = i
+                last = tmp
+                while tmp <= MAX:
+                    last = tmp
+                    tmp *= i
+                total *= last
+        if try_product == 0:
+            total *= i
     i += 1
-print(TOTAL)
+print(total)
 
 sys.exit(0)
